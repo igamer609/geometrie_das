@@ -1,0 +1,191 @@
+[gd_scene load_steps=18 format=3 uid="uid://bgck0oehre0fd"]
+
+[ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_hsfy0"]
+[ext_resource type="Script" path="res://Scenes/Menus/MainMenu.gd" id="1_yix18"]
+[ext_resource type="Script" path="res://Scripts/General/ScrollBG.gd" id="2_jfxmx"]
+[ext_resource type="Shader" path="res://Scenes/shader/Background.gdshader" id="2_x4t86"]
+[ext_resource type="Texture2D" uid="uid://cxd3ekx4dqkyl" path="res://Assets/ground.png" id="3_wnfrj"]
+[ext_resource type="AudioStream" uid="uid://d22lbedgb1n7e" path="res://Assets/music/menu.mp3" id="4_sld1j"]
+[ext_resource type="Texture2D" uid="uid://cgoy16m7tp0ak" path="res://Assets/buttons/Button.png" id="6_hjx7h"]
+[ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="7_rs2qu"]
+[ext_resource type="Texture2D" uid="uid://bjiroqc7tuokb" path="res://Assets/other/Logo.png" id="7_xxn82"]
+[ext_resource type="Texture2D" uid="uid://bph8gqborxa4v" path="res://Assets/buttons/Icon_button.png" id="8_gh7ve"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rnkin"]
+shader = ExtResource("2_x4t86")
+shader_parameter/Shift_Hue = null
+
+[sub_resource type="Theme" id="Theme_xo01h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ble0c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxvfd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2hcpy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7mea"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px28w"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yix18")
+
+[node name="Background" type="ParallaxBackground" parent="."]
+script = ExtResource("2_jfxmx")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(2092.11, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+modulate = Color(1, 1, 0.952941, 1)
+material = SubResource("ShaderMaterial_rnkin")
+position = Vector2(590, 114)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_hsfy0")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(879.835, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer2"]
+texture_filter = 1
+position = Vector2(480, 1152)
+scale = Vector2(0.667708, 10.0333)
+texture = ExtResource("3_wnfrj")
+
+[node name="BG_player" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sld1j")
+volume_db = -15.0
+autoplay = true
+bus = &"Music"
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPlay" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -93.5
+offset_right = 93.5
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+
+[node name="TextureRect" type="TextureRect" parent="Center/MainPlay"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_hjx7h")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/MainPlay"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -52.962
+offset_right = 56.4
+offset_bottom = 60.038
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_rs2qu")
+
+[node name="Icons" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -63.0
+offset_right = -146.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+
+[node name="TextureRect" type="TextureRect" parent="Center/Icons"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_hjx7h")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/Icons"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 28.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_gh7ve")
+
+[node name="Control" type="Control" parent="Center"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -108.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Logo" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -370.0
+offset_right = 370.0
+offset_bottom = 185.0
+grow_horizontal = 2
+texture = ExtResource("7_xxn82")
+
+[connection signal="pressed" from="Center/MainPlay" to="." method="_levels_pressed"]
+[connection signal="pressed" from="Center/Icons" to="." method="_icon_button"]
