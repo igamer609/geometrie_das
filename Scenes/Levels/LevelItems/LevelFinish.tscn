@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b741ehrnqe0e3"]
+
+[ext_resource type="Texture2D" uid="uid://bk4p47iobsrht" path="res://Assets/other/finish.png" id="1_6fgqf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Finish" type="Sprite2D" parent="."]
+z_index = 5
+texture_filter = 1
+position = Vector2(128, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("1_6fgqf")

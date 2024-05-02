@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvrgkrb1o4e7j"]
+
+[ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1"]
+[ext_resource type="Shader" path="res://Scenes/shader/Background.gdshader" id="1_68muu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsxuu"]
+shader = ExtResource("1_68muu")
+shader_parameter/Shift_Hue = 0.0
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+
+[node name="BackgroundLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.45, 0.375)
+motion_mirroring = Vector2(2000.65, 1499.4)
+
+[node name="BGSprite" type="Sprite2D" parent="BackgroundLayer"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_nsxuu")
+scale = Vector2(2, 2)
+texture = ExtResource("1")

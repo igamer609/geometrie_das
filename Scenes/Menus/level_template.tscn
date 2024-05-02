@@ -1,0 +1,236 @@
+[gd_scene load_steps=10 format=3 uid="uid://70v10gk4dvig"]
+
+[ext_resource type="Texture2D" uid="uid://d1ciusy8i88tx" path="res://Assets/level/difficulty.png" id="1_uj4at"]
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_ljxiq"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="3_h7dvc"]
+[ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="4_e54ao"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu0fl"]
+atlas = ExtResource("1_uj4at")
+region = Rect2(0, 0, 31, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3g8t8"]
+bg_color = Color(0, 0, 0, 0.686275)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvr5b"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbhjt"]
+bg_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q2vj"]
+atlas = ExtResource("3_h7dvc")
+region = Rect2(0, 0, 32, 32)
+
+[node name="Level" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 175.0
+offset_top = 86.0
+offset_right = -167.0
+offset_bottom = -102.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Information" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -377.0
+offset_top = -183.0
+offset_right = 190.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.545098)
+
+[node name="Difficulty" type="TextureRect" parent="Information"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = -35.5
+offset_right = -125.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_iu0fl")
+
+[node name="Label" type="Label" parent="Information"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -32.5
+offset_right = 194.0
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("2_ljxiq")
+theme_override_font_sizes/font_size = 31
+text = "TestLevelName"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Progress" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -378.0
+offset_top = -7.0
+offset_right = 373.0
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.545098)
+
+[node name="NormalProgress" type="ProgressBar" parent="Progress"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -38.5
+offset_right = -14.0
+offset_bottom = -8.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ljxiq")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/background = SubResource("StyleBoxFlat_3g8t8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hvr5b")
+step = 1.0
+value = 90.0
+
+[node name="NormalLabel" type="Label" parent="Progress"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = -64.5
+offset_right = 64.5
+offset_bottom = -34.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = -615
+theme_override_fonts/font = ExtResource("2_ljxiq")
+theme_override_font_sizes/font_size = 26
+text = "Normal"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PracticeProgress" type="ProgressBar" parent="Progress"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = 26.5
+offset_right = -14.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_ljxiq")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/background = SubResource("StyleBoxFlat_3g8t8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dbhjt")
+step = 1.0
+
+[node name="PracticeLabel" type="Label" parent="Progress"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = 0.5
+offset_right = 64.5
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = -615
+theme_override_fonts/font = ExtResource("2_ljxiq")
+theme_override_font_sizes/font_size = 26
+text = "Practice"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Play" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 227.0
+offset_top = -167.0
+offset_right = 351.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_0q2vj")
+stretch_mode = 0
+
+[node name="Texture" type="TextureRect" parent="Play"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -30.5
+offset_right = 38.0
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_e54ao")

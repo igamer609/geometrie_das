@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://ei3jc8f61e8g"]
+
+[ext_resource type="AudioStream" uid="uid://d22lbedgb1n7e" path="res://Assets/music/menu.mp3" id="1_lepfm"]
+[ext_resource type="Script" path="res://MenuMusic.gd" id="2_yrnkp"]
+[ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="3_qf65p"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="4_mrcew"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_ssvr1"]
+
+[node name="MenuMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_lepfm")
+bus = &"Music"
+script = ExtResource("2_yrnkp")
+
+[node name="GameStart" type="CanvasLayer" parent="."]
+layer = 128
+visible = false
+
+[node name="BG" type="ColorRect" parent="GameStart"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.521569)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="GameStart"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.0
+offset_top = -193.5
+offset_right = 294.0
+offset_bottom = 193.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-19, -28)
+mouse_filter = 0
+texture = ExtResource("3_qf65p")
+patch_margin_left = 125
+patch_margin_top = 125
+patch_margin_right = 125
+patch_margin_bottom = 125
+
+[node name="Label" type="Label" parent="GameStart/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -248.0
+offset_top = -122.0
+offset_right = 235.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_mrcew")
+theme_override_font_sizes/font_size = 24
+text = "This game is a recreation of Geometry Dash in Godot 4.2.
+
+Everything except for the music and SFX used are made by me and my friends."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="GameStart/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 44.0
+offset_top = 3.0
+offset_right = 207.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_mrcew")
+theme_override_font_sizes/font_size = 28
+text = "-igamer609"
+horizontal_alignment = 1
+
+[node name="OK" type="Button" parent="GameStart/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = 56.0
+offset_right = 76.5
+offset_bottom = 107.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_ssvr1")
+theme_override_font_sizes/font_size = 26
+text = "OK"
+
+[connection signal="pressed" from="GameStart/NinePatchRect/OK" to="." method="_quit_announcement"]

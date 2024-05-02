@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxyxl1h3uv4kq"]
+
+[ext_resource type="Script" path="res://Scripts/General/GameProgress.gd" id="1_sm7sb"]
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_5q1mc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66ix2"]
+bg_color = Color(0, 0, 0, 0.556863)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofsk5"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="GameProgress" type="CanvasLayer"]
+layer = 6
+script = ExtResource("1_sm7sb")
+
+[node name="Bar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 17.63
+offset_right = 260.0
+offset_bottom = 47.63
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("2_5q1mc")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/background = SubResource("StyleBoxFlat_66ix2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ofsk5")
+step = 1.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 1
+bus = &"Music"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

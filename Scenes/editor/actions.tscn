@@ -1,0 +1,160 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3c30rvd0wfbc"]
+
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="1_hkqv4"]
+[ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="2_jgflu"]
+[ext_resource type="Script" path="res://Scenes/editor/ItemSelectButton.gd" id="3_gdv30"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w78n2"]
+bg_color = Color(0.0196078, 0.858824, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Actions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Viewport" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 464.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.529412)
+
+[node name="Tabs" type="VBoxContainer" parent="Viewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1008.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -75
+
+[node name="Build" type="Button" parent="Viewport/Tabs"]
+custom_minimum_size = Vector2(225, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("1_hkqv4")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
+toggle_mode = true
+text = "Build"
+
+[node name="Edit" type="Button" parent="Viewport/Tabs"]
+custom_minimum_size = Vector2(225, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("1_hkqv4")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
+toggle_mode = true
+text = "Edit"
+
+[node name="Delete" type="Button" parent="Viewport/Tabs"]
+custom_minimum_size = Vector2(225, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("1_hkqv4")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
+toggle_mode = true
+text = "Delete"
+
+[node name="GridContainer" type="GridContainer" parent="Viewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 288.0
+offset_top = 32.0
+offset_right = -256.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 10
+
+[node name="ItemButton" type="Button" parent="Viewport/GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("2_jgflu")
+toggle_mode = true
+script = ExtResource("3_gdv30")
+id = 1
+
+[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton2" type="Button" parent="Viewport/GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("2_jgflu")
+toggle_mode = true
+script = ExtResource("3_gdv30")
+id = 2
+
+[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton2"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton3" type="Button" parent="Viewport/GridContainer"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("2_jgflu")
+toggle_mode = true
+script = ExtResource("3_gdv30")
+id = 3
+
+[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton3"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2

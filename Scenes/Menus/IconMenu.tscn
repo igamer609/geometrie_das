@@ -1,0 +1,515 @@
+[gd_scene load_steps=33 format=3 uid="uid://ctm4f0gyo1rt0"]
+
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="1_5gw3d"]
+[ext_resource type="Script" path="res://Scripts/IconMenu.gd" id="1_ea3ny"]
+[ext_resource type="Texture2D" uid="uid://c3gmwaa5aedxh" path="res://Assets/player.png" id="2_vae00"]
+[ext_resource type="Texture2D" uid="uid://bqr7sqo4h73tb" path="res://Assets/ship.png" id="2_yb13t"]
+[ext_resource type="Script" path="res://Scripts/General/SelectIcon.gd" id="3_lnb1n"]
+[ext_resource type="Texture2D" uid="uid://br36bnl0j1uvc" path="res://Assets/other/mini_icons_white.png" id="5_0qh8t"]
+[ext_resource type="Texture2D" uid="uid://bqtnfkmias0dd" path="res://Assets/ball.png" id="6_odinw"]
+
+[sub_resource type="Gradient" id="Gradient_dobci"]
+colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_avu8y"]
+gradient = SubResource("Gradient_dobci")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ccc2"]
+atlas = ExtResource("1_5gw3d")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umc5e"]
+atlas = ExtResource("2_vae00")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksf3y"]
+atlas = ExtResource("2_vae00")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s5fc"]
+atlas = ExtResource("2_vae00")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5fr2"]
+atlas = ExtResource("2_vae00")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yto3b"]
+atlas = ExtResource("2_vae00")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k33ah"]
+atlas = ExtResource("2_yb13t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3483f"]
+atlas = ExtResource("2_yb13t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xes3"]
+atlas = ExtResource("6_odinw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtrnw"]
+atlas = ExtResource("6_odinw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5yae"]
+atlas = ExtResource("6_odinw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h2kfx"]
+load_path = "res://.godot/imported/ball.png-1953c7d658a9d52aab6b71a2f962f6ac.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyru4"]
+atlas = SubResource("CompressedTexture2D_h2kfx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ckbm"]
+atlas = ExtResource("1_5gw3d")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dvpa"]
+atlas = ExtResource("5_0qh8t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65beo"]
+atlas = ExtResource("5_0qh8t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj32s"]
+atlas = ExtResource("5_0qh8t")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8wrh"]
+atlas = ExtResource("2_vae00")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tts4o"]
+atlas = ExtResource("2_yb13t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm1fc"]
+atlas = ExtResource("6_odinw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_2pxaf"]
+events = [SubResource("InputEventKey_pa3jt")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt5nb"]
+atlas = ExtResource("1_5gw3d")
+region = Rect2(64, 0, 32, 32)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ea3ny")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gradient" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_avu8y")
+
+[node name="Corner" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 0
+offset_left = 162.0
+offset_right = 324.0
+offset_bottom = 162.0
+rotation = 1.5708
+texture = SubResource("AtlasTexture_5ccc2")
+
+[node name="Corner2" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 162.0
+offset_right = 162.0
+offset_bottom = 324.0
+grow_horizontal = 0
+rotation = 3.14159
+texture = SubResource("AtlasTexture_5ccc2")
+
+[node name="Corner3" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -162.0
+offset_right = 162.0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_5ccc2")
+
+[node name="Corner4" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -162.0
+offset_top = 1.0
+offset_bottom = 163.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 4.71239
+texture = SubResource("AtlasTexture_5ccc2")
+
+[node name="IconToolbox" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = 55.0
+offset_right = 281.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.52549)
+
+[node name="Cubes" type="GridContainer" parent="IconToolbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 51.0
+offset_top = 17.0
+offset_right = -57.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 30
+columns = 5
+
+[node name="Cube1" type="TextureButton" parent="IconToolbox/Cubes"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 0
+
+[node name="Cube2" type="TextureButton" parent="IconToolbox/Cubes"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ksf3y")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 0
+id = 1
+
+[node name="Cube3" type="TextureButton" parent="IconToolbox/Cubes"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_6s5fc")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 0
+id = 2
+
+[node name="Cube4" type="TextureButton" parent="IconToolbox/Cubes"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_e5fr2")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 0
+id = 3
+
+[node name="Cube5" type="TextureButton" parent="IconToolbox/Cubes"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_yto3b")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 0
+id = 4
+
+[node name="Ships" type="GridContainer" parent="IconToolbox"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.5
+offset_top = -29.5
+offset_right = 247.5
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 30
+columns = 5
+
+[node name="Ship1" type="TextureButton" parent="IconToolbox/Ships"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_k33ah")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 1
+
+[node name="Ship2" type="TextureButton" parent="IconToolbox/Ships"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_3483f")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 1
+id = 1
+
+[node name="Balls" type="GridContainer" parent="IconToolbox"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.5
+offset_top = -29.5
+offset_right = 247.5
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 30
+columns = 5
+
+[node name="Ball1" type="TextureButton" parent="IconToolbox/Balls"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_8xes3")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 2
+
+[node name="Ball2" type="TextureButton" parent="IconToolbox/Balls"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_dtrnw")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 2
+id = 1
+
+[node name="Ball3" type="TextureButton" parent="IconToolbox/Balls"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_p5yae")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 2
+id = 2
+
+[node name="Ball4" type="TextureButton" parent="IconToolbox/Balls"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_eyru4")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+type = 2
+id = 3
+
+[node name="TabContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -251.5
+offset_top = -35.0
+offset_right = 251.5
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CubeTab" type="TextureButton" parent="TabContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_7ckbm")
+stretch_mode = 0
+
+[node name="TextureButton" type="TextureRect" parent="TabContainer/CubeTab"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_4dvpa")
+
+[node name="ShipTab" type="TextureButton" parent="TabContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_7ckbm")
+stretch_mode = 0
+
+[node name="TextureButton" type="TextureRect" parent="TabContainer/ShipTab"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_65beo")
+
+[node name="BallTab" type="TextureButton" parent="TabContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_7ckbm")
+stretch_mode = 0
+
+[node name="TextureButton" type="TextureRect" parent="TabContainer/BallTab"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -20.5
+offset_right = 20.5
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jj32s")
+
+[node name="DisplayIcons" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -574.0
+offset_top = -264.0
+offset_right = 574.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CubeDisplay" type="TextureRect" parent="DisplayIcons"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 533.0
+offset_top = 105.0
+offset_right = 640.0
+offset_bottom = 212.0
+texture = SubResource("AtlasTexture_e8wrh")
+
+[node name="ShipDisplay" type="TextureRect" parent="DisplayIcons"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 533.0
+offset_top = 105.0
+offset_right = 640.0
+offset_bottom = 212.0
+texture = SubResource("AtlasTexture_tts4o")
+
+[node name="BallDisplay" type="TextureRect" parent="DisplayIcons"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 533.0
+offset_top = 105.0
+offset_right = 640.0
+offset_bottom = 212.0
+texture = SubResource("AtlasTexture_tm1fc")
+
+[node name="Exit" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 1
+offset_left = 18.0
+offset_top = 19.0
+offset_right = 121.0
+offset_bottom = 122.0
+shortcut = SubResource("Shortcut_2pxaf")
+texture_normal = SubResource("AtlasTexture_tt5nb")
+stretch_mode = 0
+flip_h = true
+
+[connection signal="pressed" from="TabContainer/CubeTab" to="." method="_cube_tab"]
+[connection signal="pressed" from="TabContainer/ShipTab" to="." method="_ship_tab"]
+[connection signal="pressed" from="TabContainer/BallTab" to="." method="_ball_tab"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit"]

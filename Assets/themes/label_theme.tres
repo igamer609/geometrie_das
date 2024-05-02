@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c2l0jaeq20de5"]
+
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="1_5kv7q"]
+
+[resource]
+/font_sizes/size = 61
+/fonts/font = ExtResource("1_5kv7q")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 14
+Label/font_sizes/font_size = 61
+Label/fonts/font = ExtResource("1_5kv7q")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfkbo56nphh1i"]
+
+[ext_resource type="PackedScene" uid="uid://bnojsoxagacoj" path="res://Scenes/Player.tscn" id="1_um1qs"]
+
+[node name="Player" type="Node2D"]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_um1qs")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(40, 0)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+
+[connection signal="changed_gamemode" from="CharacterBody2D" to="Camera2D" method="_on_player_change_gamemode"]

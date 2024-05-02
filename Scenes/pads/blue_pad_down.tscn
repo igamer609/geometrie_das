@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3ucus1aap11v"]
+
+[ext_resource type="Script" path="res://Scripts/General/JumpPad.gd" id="1_0imgw"]
+[ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_e2nbf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lyxv"]
+size = Vector2(10, 4.1)
+
+[sub_resource type="Curve" id="Curve_2bsbb"]
+_data = [Vector2(1, 0.593407), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_b4gmy"]
+_data = [Vector2(1, 0.505494), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_1gymh"]
+_data = [Vector2(1, 0.494505), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_joe5h"]
+width = 66
+curve_x = SubResource("Curve_2bsbb")
+curve_y = SubResource("Curve_b4gmy")
+curve_z = SubResource("Curve_1gymh")
+
+[sub_resource type="Curve" id="Curve_vqsao"]
+_data = [Vector2(0.755656, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.85222, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rx6cy"]
+curve = SubResource("Curve_vqsao")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vuqhk"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(7.315, 0, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_joe5h")
+gravity = Vector3(0, 79, 0)
+scale_max = 2.2
+scale_curve = SubResource("CurveTexture_rx6cy")
+color = Color(0.85098, 1, 0.996078, 0.419608)
+
+[node name="BluePad" type="Area2D" groups=["JumpPad"]]
+rotation = 3.14159
+script = ExtResource("1_0imgw")
+jump_type = 2
+
+[node name="BaseTilemap" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -2.38419e-07)
+scale = Vector2(1, 1.06667)
+texture = ExtResource("2_e2nbf")
+region_enabled = true
+region_rect = Rect2(36, 27, 16, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4.64932e-07, 6)
+shape = SubResource("RectangleShape2D_1lyxv")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, 7)
+amount = 11
+process_material = SubResource("ParticleProcessMaterial_vuqhk")
+lifetime = 0.9
+speed_scale = 2.0
+fixed_fps = 60

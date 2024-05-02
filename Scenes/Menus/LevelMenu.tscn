@@ -1,0 +1,159 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmwm74ihme4tf"]
+
+[ext_resource type="Script" path="res://Scenes/Menus/LevelMenu.gd" id="1_pejut"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="1_vqb1s"]
+
+[sub_resource type="Gradient" id="Gradient_mu4wv"]
+colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qfx3x"]
+gradient = SubResource("Gradient_mu4wv")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s256y"]
+atlas = ExtResource("1_vqb1s")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dohx5"]
+atlas = ExtResource("1_vqb1s")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_nhj7q"]
+events = [SubResource("InputEventKey_pa3jt")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf3m2"]
+atlas = ExtResource("1_vqb1s")
+region = Rect2(64, 0, 32, 32)
+
+[node name="Levels" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pejut")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gradient" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_qfx3x")
+
+[node name="Corner" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 0
+offset_left = 162.0
+offset_right = 324.0
+offset_bottom = 162.0
+rotation = 1.5708
+texture = SubResource("AtlasTexture_s256y")
+
+[node name="Corner2" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 162.0
+offset_right = 162.0
+offset_bottom = 324.0
+grow_horizontal = 0
+rotation = 3.14159
+texture = SubResource("AtlasTexture_s256y")
+
+[node name="Corner3" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -162.0
+offset_right = 162.0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_s256y")
+
+[node name="Corner4" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -162.0
+offset_top = 1.0
+offset_bottom = 163.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 4.71239
+texture = SubResource("AtlasTexture_s256y")
+
+[node name="ScrollLeft" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -62.0
+offset_right = 105.0
+offset_bottom = 63.0
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_dohx5")
+stretch_mode = 0
+flip_h = true
+
+[node name="ScrollRight" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -62.5
+offset_bottom = 62.5
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_dohx5")
+stretch_mode = 0
+
+[node name="Exit" type="TextureButton" parent="."]
+self_modulate = Color(1, 0.894118, 0.890196, 1)
+texture_filter = 1
+layout_mode = 1
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 114.0
+offset_bottom = 114.0
+shortcut = SubResource("Shortcut_nhj7q")
+texture_normal = SubResource("AtlasTexture_wf3m2")
+stretch_mode = 0
+flip_h = true
+
+[connection signal="pressed" from="ScrollLeft" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ScrollRight" to="." method="_on_scroll_right"]
+[connection signal="pressed" from="Exit" to="." method="exit"]

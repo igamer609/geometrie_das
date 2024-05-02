@@ -1,0 +1,772 @@
+[gd_scene load_steps=34 format=3 uid="uid://bkyo4lgnhak2y"]
+
+[ext_resource type="Texture2D" uid="uid://b2kw7xp5t2kvg" path="res://Scenes/editor/grid.png" id="1_0y7rc"]
+[ext_resource type="Script" path="res://Scripts/Editor.gd" id="1_id040"]
+[ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_ojbeb"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_vdfow"]
+[ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_x4tf7"]
+[ext_resource type="Script" path="res://Scenes/editor/ItemSelectButton.gd" id="7_t5tsa"]
+[ext_resource type="Texture2D" uid="uid://7kf52hbtokbe" path="res://Scenes/editor/move.png" id="7_uumli"]
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="8_u03d0"]
+[ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="9_5bivf"]
+[ext_resource type="Texture2D" uid="uid://bfg2s4cmrid53" path="res://Assets/buttons/button2.png" id="9_xovdc"]
+[ext_resource type="Texture2D" uid="uid://bw46xormqd664" path="res://Assets/buttons/delete_button.png" id="10_yj6o7"]
+[ext_resource type="Texture2D" uid="uid://cqkg76guhq3bl" path="res://Assets/buttons/pause.png" id="11_hkpmq"]
+[ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w78n2"]
+bg_color = Color(0.0196078, 0.858824, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjyem"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u66gc"]
+content_margin_left = 10.0
+content_margin_top = 20.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4ti0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kribn"]
+bg_color = Color(0.4, 0, 0.388235, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqiym"]
+bg_color = Color(0.960784, 0, 0.929412, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_204el"]
+bg_color = Color(0.17, 0, 0.164333, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_5y5ev"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 7
+Button/font_sizes/font_size = 22
+Button/fonts/font = ExtResource("8_u03d0")
+Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
+Button/styles/hover = SubResource("StyleBoxFlat_kribn")
+Button/styles/normal = SubResource("StyleBoxFlat_kqiym")
+Button/styles/pressed = SubResource("StyleBoxFlat_204el")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayx8r"]
+bg_color = Color(0, 0.12549, 0.4, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipg81"]
+bg_color = Color(0, 0.305882, 0.960784, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkkei"]
+bg_color = Color(0, 0.0538334, 0.17, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_4w7du"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 7
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("8_u03d0")
+Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
+Button/styles/hover = SubResource("StyleBoxFlat_ayx8r")
+Button/styles/normal = SubResource("StyleBoxFlat_ipg81")
+Button/styles/pressed = SubResource("StyleBoxFlat_kkkei")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dpax"]
+bg_color = Color(0, 0.4, 0.388235, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka5ne"]
+bg_color = Color(0, 0.96, 0.928, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hrof"]
+bg_color = Color(0, 0.17, 0.164333, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_ajxdj"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 7
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("8_u03d0")
+Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
+Button/styles/hover = SubResource("StyleBoxFlat_1dpax")
+Button/styles/normal = SubResource("StyleBoxFlat_ka5ne")
+Button/styles/pressed = SubResource("StyleBoxFlat_2hrof")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbcj4"]
+bg_color = Color(0.0823529, 0.396078, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1yyfo"]
+bg_color = Color(0.25098, 0.964706, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibjao"]
+bg_color = Color(0.0196078, 0.168627, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_3njmh"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 7
+Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("8_u03d0")
+Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
+Button/styles/hover = SubResource("StyleBoxFlat_dbcj4")
+Button/styles/normal = SubResource("StyleBoxFlat_1yyfo")
+Button/styles/pressed = SubResource("StyleBoxFlat_ibjao")
+
+[node name="Editor" type="Node2D"]
+script = ExtResource("1_id040")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.168627, 0.533333, 1, 1)
+motion_mirroring = Vector2(1000, 750)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("1_ojbeb")
+
+[node name="Grid" type="Node2D" parent="."]
+
+[node name="GridSprite" type="Sprite2D" parent="Grid"]
+modulate = Color(0.188235, 0.188235, 0.188235, 1)
+z_index = -5
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(-8, 8)
+scale = Vector2(0.5, -0.5)
+texture = ExtResource("1_0y7rc")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 6e+06, 20000)
+
+[node name="Line2D" type="Line2D" parent="Grid"]
+position = Vector2(-8, 2)
+points = PackedVector2Array(0, 94, 0, -9874)
+width = 2.0
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(128, -32)
+zoom = Vector2(3, 3)
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Editor_Object" type="Node2D" parent="."]
+
+[node name="UI_Layer" type="CanvasLayer" parent="Editor_Object"]
+layer = 2
+
+[node name="Actions" type="Control" parent="Editor_Object/UI_Layer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Viewport" type="ColorRect" parent="Editor_Object/UI_Layer/Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 464.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0901961, 0.0901961, 0.0901961, 0.811765)
+
+[node name="Tabs" type="VBoxContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1008.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -75
+
+[node name="Build" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Tabs"]
+custom_minimum_size = Vector2(225, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
+toggle_mode = true
+button_pressed = true
+text = "Build"
+
+[node name="Edit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Tabs"]
+custom_minimum_size = Vector2(225, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
+toggle_mode = true
+text = "Edit"
+
+[node name="Items" type="TabContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 288.0
+offset_top = -32.0
+offset_right = -192.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/side_margin = 15
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
+
+[node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+layout_mode = 2
+theme_override_constants/v_separation = 0
+columns = 10
+
+[node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 1
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 3
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton3"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+columns = 10
+
+[node name="ItemButton2" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 2
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes/ItemButton2"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 4
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes/ItemButton3"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Edit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 288.0
+offset_right = -192.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 112.0
+offset_top = 32.0
+offset_right = -624.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Up"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = -10.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_uumli")
+
+[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 112.0
+offset_top = 160.0
+offset_right = -624.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect2" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Down"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 12.0
+offset_right = -10.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_uumli")
+flip_v = true
+
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 160.0
+offset_right = -688.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Left"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = -10.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_uumli")
+
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 176.0
+offset_top = 160.0
+offset_right = -560.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect2" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 12.0
+offset_right = -10.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_uumli")
+flip_v = true
+
+[node name="ObjectActions" type="Control" parent="Editor_Object/UI_Layer/Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_top = 120.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ActionGrid" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/ObjectActions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="Copy" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_5y5ev")
+text = "Copy"
+
+[node name="Paste" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_4w7du")
+text = "Paste"
+
+[node name="Duplicate" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_ajxdj")
+text = "Copy+
+paste"
+
+[node name="Deselect" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme = SubResource("Theme_3njmh")
+text = "de
+select"
+
+[node name="TopBar" type="Control" parent="Editor_Object/UI_Layer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -622.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Delete" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+modulate = Color(0.741176, 0.741176, 0.741176, 1)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 26.0
+offset_right = 94.0
+offset_bottom = 96.0
+texture_normal = ExtResource("9_xovdc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Delete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = -13.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_yj6o7")
+
+[node name="Menu" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+self_modulate = Color(0.45098, 1, 0, 1)
+layout_mode = 0
+offset_left = 1157.0
+offset_top = 16.0
+offset_right = 1249.0
+offset_bottom = 108.0
+texture_normal = ExtResource("9_xovdc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 22.0
+offset_right = -21.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_hkpmq")
+
+[node name="Menu2" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+self_modulate = Color(0.45098, 1, 0, 1)
+layout_mode = 0
+offset_left = 1063.0
+offset_top = 21.0
+offset_right = 1145.0
+offset_bottom = 103.0
+texture_normal = ExtResource("9_xovdc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Menu2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = -15.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_oi36f")
+
+[node name="Ground" parent="Editor_Object" instance=ExtResource("9_5bivf")]
+
+[node name="Menu_Layer" type="CanvasLayer" parent="Editor_Object"]
+layer = 3
+
+[node name="EditorMenu" type="ColorRect" parent="Editor_Object/Menu_Layer"]
+visible = false
+z_index = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.815686)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Editor_Object/Menu_Layer/EditorMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.5
+offset_top = -231.5
+offset_right = 195.5
+offset_bottom = 231.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Resume" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 36
+text = "resume"
+
+[node name="Save" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 36
+text = "save"
+
+[node name="SaveAndPlay" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 36
+text = "save and play"
+
+[node name="SaveAndExit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 36
+text = "save and exit"
+
+[node name="Load" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 36
+text = "load"
+
+[node name="Exit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("5_vdfow")
+theme_override_font_sizes/font_size = 36
+text = "exit"
+
+[node name="ExitDialog" type="ConfirmationDialog" parent="Editor_Object/Menu_Layer/EditorMenu"]
+title = "Exit without saving"
+initial_position = 2
+size = Vector2i(449, 106)
+ok_button_text = "Yes"
+dialog_text = "Are you sure you want to exit the editor without saving?
+This will erase any changes made since the last save."
+
+[node name="Error" type="AcceptDialog" parent="Editor_Object/Menu_Layer"]
+title = "Error!"
+initial_position = 2
+size = Vector2i(580, 80)
+unresizable = true
+popup_window = true
+dialog_text = "Selected .gdaslvl file has an invalid format. Check for possible corruption."

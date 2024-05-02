@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://doffclckq21vl"]
+
+[ext_resource type="Script" path="res://Scripts/General/BgTrigger.gd" id="1_qfrks"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_7vy0s"]
+a = Vector2(0, 2000)
+b = Vector2(0, -2000)
+
+[node name="bg_trigger" type="Area2D"]
+script = ExtResource("1_qfrks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_7vy0s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

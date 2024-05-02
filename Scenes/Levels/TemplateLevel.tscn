@@ -1,0 +1,752 @@
+[gd_scene load_steps=45 format=3 uid="uid://cma8h3ddt0i6a"]
+
+[ext_resource type="Script" path="res://Scripts/General/Level.gd" id="1_yf7va"]
+[ext_resource type="PackedScene" uid="uid://bfkbo56nphh1i" path="res://Scenes/player_full.tscn" id="3_tq51e"]
+[ext_resource type="PackedScene" uid="uid://b741ehrnqe0e3" path="res://Scenes/Levels/LevelItems/LevelFinish.tscn" id="4_irpq7"]
+[ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="5_vb1ue"]
+[ext_resource type="Script" path="res://Scripts/General/PauseUI.gd" id="6_iw02n"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="7_xgy81"]
+[ext_resource type="Texture2D" uid="uid://bxera88yuskwv" path="res://Assets/buttons/menu_icon.png" id="8_y3fcr"]
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="9_v5nhe"]
+[ext_resource type="Texture2D" uid="uid://bsyh6saqughub" path="res://Assets/buttons/slider textures/slider_notch.png" id="10_2dj1h"]
+[ext_resource type="Texture2D" uid="uid://g5687ofk6b86" path="res://Assets/buttons/slider textures/notch_action.png" id="11_kjpov"]
+[ext_resource type="Texture2D" uid="uid://bwinen8ft4rtu" path="res://Assets/buttons/slider textures/slider_background.png" id="12_skbfn"]
+[ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="13_1d4n8"]
+[ext_resource type="Script" path="res://Scripts/General/SoundSlider.gd" id="14_07gf6"]
+[ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="15_kpvsc"]
+[ext_resource type="Script" path="res://Scripts/General/EndParticles2.gd" id="16_foyog"]
+[ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="17_p3r8p"]
+[ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="18_sgf4h"]
+[ext_resource type="Texture2D" uid="uid://cbrk0jtu1s2ip" path="res://Assets/other/level_complete.png" id="19_akev4"]
+[ext_resource type="Texture2D" uid="uid://dek6vb4ctnvw6" path="res://Assets/other/particles/circle.png" id="20_fq7st"]
+[ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="21_1gw2q"]
+[ext_resource type="PackedScene" uid="uid://doffclckq21vl" path="res://Scenes/Levels/LevelItems/bg_trigger.tscn" id="22_yqasf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6nsj"]
+bg_color = Color(0, 0, 0, 0.576471)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80ntc"]
+atlas = ExtResource("7_xgy81")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g00ub"]
+bg_color = Color(0, 0, 0, 0.556863)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fpk7"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bksmn"]
+bg_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1yoqp"]
+texture = ExtResource("12_skbfn")
+texture_margin_left = 25.0
+texture_margin_top = 24.0
+texture_margin_right = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t6hyu"]
+texture = ExtResource("13_1d4n8")
+texture_margin_left = 25.0
+texture_margin_top = 24.0
+texture_margin_bottom = 24.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="Curve" id="Curve_6ee17"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0769231, 1), 0.0, 0.0, 0, 0, Vector2(0.674208, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_omqxk"]
+curve = SubResource("Curve_6ee17")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f5t7b"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(36.35, 1, 1)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 17.13
+alpha_curve = SubResource("CurveTexture_omqxk")
+
+[sub_resource type="Curve" id="Curve_5qmfb"]
+_data = [Vector2(0, 0.924793), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_upd24"]
+width = 826
+curve = SubResource("Curve_5qmfb")
+
+[sub_resource type="Curve" id="Curve_0komb"]
+_data = [Vector2(0, 0), 0.0, -0.25, 0, 0, Vector2(1, 1), -0.458221, 0.441558, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_45fmw"]
+curve = SubResource("Curve_0komb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_teeq7"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(36.35, 1, 1)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_45fmw")
+alpha_curve = SubResource("CurveTexture_omqxk")
+
+[sub_resource type="Animation" id="Animation_ws4a1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EndParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndUI/NinePatchRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(199, 2000)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EndUI:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EndUI/LevelComplete:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EndParticles2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jtc8t"]
+resource_name = "end_anim"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EndParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndUI/NinePatchRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5, 2.5),
+"transitions": PackedFloat32Array(0.225313, 1),
+"update": 0,
+"values": [Vector2(199, 2000), Vector2(199, 51)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EndUI:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EndUI/LevelComplete:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 1.3, 1.7),
+"transitions": PackedFloat32Array(0.203063, 2, 1, 3.4822, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EndParticles2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3aw7d"]
+_data = {
+"RESET": SubResource("Animation_ws4a1"),
+"end_anim": SubResource("Animation_jtc8t")
+}
+
+[sub_resource type="Curve" id="Curve_ilaxf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.199095, 0.56044), 0.0, 0.0, 0, 0, Vector2(0.764706, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_k3lcr"]
+curve = SubResource("Curve_ilaxf")
+
+[sub_resource type="Curve" id="Curve_r4ghd"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.705882, 1.8022), 0.260204, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5v3uq"]
+curve = SubResource("Curve_r4ghd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nvx1k"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_5v3uq")
+alpha_curve = SubResource("CurveTexture_k3lcr")
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player_parent", "ceiling", "ground", "tilemap", "endpos", "pause_ui", "end_ui", "end_particles", "end_animation", "death_particle")]
+process_mode = 3
+script = ExtResource("1_yf7va")
+start_bg = Color(0, 0.270588, 0.882353, 1)
+player_parent = NodePath("Player")
+ceiling = NodePath("Universal/Ceiling")
+ground = NodePath("Universal/Ground")
+tilemap = NodePath("")
+endpos = NodePath("Universal/EndPosition")
+pause_ui = NodePath("Universal/PauseUI")
+end_ui = NodePath("Universal/EndAnimation/EndUI")
+end_particles = NodePath("Universal/EndAnimation/EndParticles")
+end_animation = NodePath("Universal/EndAnimation/EndAnimation")
+death_particle = NodePath("Universal/DeathEffect")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("3_tq51e")]
+process_mode = 1
+position = Vector2(0, -16)
+
+[node name="Universal" type="Node" parent="."]
+process_mode = 1
+
+[node name="EndPosition" type="Node2D" parent="Universal"]
+process_mode = 1
+position = Vector2(-592, -39.975)
+
+[node name="Node2D" parent="Universal/EndPosition" instance=ExtResource("4_irpq7")]
+
+[node name="Ground" parent="Universal" instance=ExtResource("5_vb1ue")]
+process_mode = 1
+position = Vector2(3500, 0)
+
+[node name="Ceiling" parent="Universal" instance=ExtResource("5_vb1ue")]
+process_mode = 1
+visible = false
+position = Vector2(1728, 271.9)
+rotation = 3.14159
+
+[node name="PauseUI" type="CanvasLayer" parent="Universal"]
+process_mode = 3
+layer = 8
+visible = false
+script = ExtResource("6_iw02n")
+
+[node name="Control" type="Control" parent="Universal/PauseUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Rect" type="Panel" parent="Universal/PauseUI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 85.0
+offset_top = 48.0
+offset_right = -85.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h6nsj")
+
+[node name="Exit" type="TextureButton" parent="Universal/PauseUI/Control/Rect"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -24.0
+offset_right = 76.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Exit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 29.0
+offset_top = 28.0
+offset_right = -27.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_y3fcr")
+
+[node name="LevelName" type="Label" parent="Universal/PauseUI/Control/Rect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -374.5
+offset_top = -232.0
+offset_right = 374.5
+offset_bottom = -185.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 55
+theme_override_constants/line_spacing = 25
+theme_override_fonts/font = ExtResource("9_v5nhe")
+theme_override_font_sizes/font_size = 60
+text = "Theory of Everything"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="Progress" type="ProgressBar" parent="Universal/PauseUI/Control/Rect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -346.0
+offset_top = -152.0
+offset_right = 347.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("9_v5nhe")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/background = SubResource("StyleBoxFlat_g00ub")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0fpk7")
+step = 1.0
+value = 34.0
+
+[node name="Practice" type="ProgressBar" parent="Universal/PauseUI/Control/Rect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -346.0
+offset_top = -88.0
+offset_right = 347.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("9_v5nhe")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/background = SubResource("StyleBoxFlat_g00ub")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bksmn")
+step = 1.0
+
+[node name="Control" type="Control" parent="Universal/PauseUI/Control/Rect"]
+layout_mode = 1
+anchor_top = 0.744
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.25601
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Music" type="HSlider" parent="Universal/PauseUI/Control/Rect/Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -112.0
+offset_right = -144.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.295, 1.295)
+theme_override_icons/grabber = ExtResource("10_2dj1h")
+theme_override_icons/grabber_highlight = ExtResource("11_kjpov")
+theme_override_styles/slider = SubResource("StyleBoxTexture_1yoqp")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_t6hyu")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_t6hyu")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("14_07gf6")
+bus_name = "Music"
+
+[node name="Label" type="Label" parent="Universal/PauseUI/Control/Rect/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -352.0
+offset_top = -144.0
+offset_right = -206.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("9_v5nhe")
+theme_override_font_sizes/font_size = 50
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFX" type="HSlider" parent="Universal/PauseUI/Control/Rect/Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -112.0
+offset_right = 336.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.295, 1.295)
+theme_override_icons/grabber = ExtResource("10_2dj1h")
+theme_override_icons/grabber_highlight = ExtResource("11_kjpov")
+theme_override_styles/slider = SubResource("StyleBoxTexture_1yoqp")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_t6hyu")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_t6hyu")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("14_07gf6")
+bus_name = "SFX"
+
+[node name="Label2" type="Label" parent="Universal/PauseUI/Control/Rect/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -144.0
+offset_right = 274.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("9_v5nhe")
+theme_override_font_sizes/font_size = 50
+text = "SFX
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndAnimation" type="Node2D" parent="Universal"]
+
+[node name="EndParticles" type="GPUParticles2D" parent="Universal/EndAnimation"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_f5t7b")
+texture = SubResource("CurveTexture_upd24")
+lifetime = 2.0
+one_shot = true
+
+[node name="EndParticles2" type="GPUParticles2D" parent="Universal/EndAnimation"]
+texture_filter = 1
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_teeq7")
+texture = ExtResource("15_kpvsc")
+one_shot = true
+script = ExtResource("16_foyog")
+
+[node name="EndUI" type="CanvasLayer" parent="Universal/EndAnimation"]
+layer = 7
+visible = false
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Universal/EndAnimation/EndUI"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 199.0
+offset_top = 2000.0
+offset_right = 1081.0
+offset_bottom = 2618.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("17_p3r8p")
+patch_margin_left = 125
+patch_margin_top = 125
+patch_margin_right = 125
+patch_margin_bottom = 125
+
+[node name="Exit" type="TextureButton" parent="Universal/EndAnimation/EndUI/NinePatchRect"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 183.0
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Exit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 21.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_y3fcr")
+
+[node name="Restart" type="TextureButton" parent="Universal/EndAnimation/EndUI/NinePatchRect"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = 24.0
+offset_right = -32.0
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Restart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = 30.0
+offset_right = -31.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_sgf4h")
+
+[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -349.5
+offset_top = -229.001
+offset_right = 349.5
+offset_bottom = -98.001
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("19_akev4")
+
+[node name="LevelComplete" type="TextureRect" parent="Universal/EndAnimation/EndUI"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = -72.0
+offset_right = 384.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(384, 72)
+texture = ExtResource("19_akev4")
+
+[node name="EndAnimation" type="AnimationPlayer" parent="Universal/EndAnimation"]
+libraries = {
+"": SubResource("AnimationLibrary_3aw7d")
+}
+
+[node name="DeathEffect" type="GPUParticles2D" parent="Universal"]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_nvx1k")
+texture = ExtResource("20_fq7st")
+lifetime = 0.4
+one_shot = true
+
+[node name="BG" type="ParallaxBackground" parent="Universal"]
+process_mode = 1
+offset = Vector2(0, -200)
+scale = Vector2(0.375, 0.375)
+transform = Transform2D(0.375, 0, 0, 0.375, 0, -200)
+scroll_offset = Vector2(300, 150)
+
+[node name="BGLayer" type="ParallaxLayer" parent="Universal/BG"]
+motion_scale = Vector2(0.45, 0.375)
+motion_mirroring = Vector2(2000, 1500)
+
+[node name="BGSprite" type="Sprite2D" parent="Universal/BG/BGLayer"]
+modulate = Color(0, 0.533333, 1, 1)
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("21_1gw2q")
+
+[node name="BG_triggers" type="Node" parent="."]
+
+[node name="bg_trigger" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(904, -288)
+color = Color(0.054902, 0, 0.529412, 1)
+fade_time = 2.0
+
+[node name="bg_trigger2" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(1640, -336)
+color = Color(0.815686, 0, 0.529412, 1)
+fade_time = 2.0
+
+[node name="bg_trigger10" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(2807, -336)
+fade_time = 5.0
+
+[node name="bg_trigger3" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(3320, -336)
+color = Color(0.901961, 0.721569, 0, 1)
+
+[node name="bg_trigger4" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(3336, -336)
+color = Color(0, 0.792157, 0, 1)
+fade_time = 4.0
+
+[node name="bg_trigger5" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(3864, -336)
+color = Color(0, 0.792157, 0.568627, 1)
+fade_time = 3.0
+
+[node name="bg_trigger6" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(4495, -336)
+color = Color(0, 0.792157, 0.568627, 1)
+fade_time = 2.5
+
+[node name="bg_trigger7" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(4808, -336)
+color = Color(0.980392, 0, 0.0823529, 1)
+
+[node name="bg_trigger8" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(5064, -336)
+color = Color(1, 0.4, 0, 1)
+fade_time = 0.5
+
+[node name="bg_trigger9" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+position = Vector2(5255, -336)
+color = Color(0.529412, 0, 0.65098, 1)
+fade_time = 0.5
+
+[connection signal="pressed" from="Universal/PauseUI/Control/Rect/Exit" to="." method="exit_level"]
+[connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Exit" to="." method="exit_level"]
+[connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Restart" to="." method="restart"]

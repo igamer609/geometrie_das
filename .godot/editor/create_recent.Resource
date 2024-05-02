@@ -1,0 +1,2 @@
+GD_Object
+Resource

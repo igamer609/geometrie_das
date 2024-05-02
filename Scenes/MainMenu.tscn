@@ -1,0 +1,985 @@
+[gd_scene load_steps=47 format=3 uid="uid://bgck0oehre0fd"]
+
+[ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_hsfy0"]
+[ext_resource type="Script" path="res://Scenes/Menus/MainMenu.gd" id="1_yix18"]
+[ext_resource type="Script" path="res://Scripts/General/ScrollBG.gd" id="2_jfxmx"]
+[ext_resource type="Texture2D" uid="uid://cxd3ekx4dqkyl" path="res://Assets/ground.png" id="3_wnfrj"]
+[ext_resource type="Texture2D" uid="uid://cgoy16m7tp0ak" path="res://Assets/buttons/Button.png" id="6_hjx7h"]
+[ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="7_rs2qu"]
+[ext_resource type="Texture2D" uid="uid://bjiroqc7tuokb" path="res://Assets/other/Logo.png" id="7_xxn82"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="8_8r4vh"]
+[ext_resource type="Texture2D" uid="uid://ddw4g60k3xduy" path="res://Assets/buttons/edit_tab.png" id="8_cjpdq"]
+[ext_resource type="Texture2D" uid="uid://bph8gqborxa4v" path="res://Assets/buttons/Icon_button.png" id="8_gh7ve"]
+[ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="9_fus76"]
+[ext_resource type="Texture2D" uid="uid://kimjg2avm5hx" path="res://Assets/buttons/music_btn.png" id="9_u7ykm"]
+[ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="11_52cdl"]
+[ext_resource type="Script" path="res://Scripts/General/MusicCredit.gd" id="12_xw00a"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="13_criex"]
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="14_h8ib8"]
+[ext_resource type="Texture2D" uid="uid://d0deeixq08h1t" path="res://Assets/buttons/img_button_3.png" id="15_qhnq8"]
+[ext_resource type="Texture2D" uid="uid://bsyh6saqughub" path="res://Assets/buttons/slider textures/slider_notch.png" id="17_qaagr"]
+[ext_resource type="Texture2D" uid="uid://g5687ofk6b86" path="res://Assets/buttons/slider textures/notch_action.png" id="18_ahu0q"]
+[ext_resource type="Texture2D" uid="uid://bwinen8ft4rtu" path="res://Assets/buttons/slider textures/slider_background.png" id="19_k7pqo"]
+[ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="20_wg7hj"]
+[ext_resource type="Script" path="res://Scripts/General/SoundSlider.gd" id="21_fdnfq"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="22_y2t2u"]
+
+[sub_resource type="Theme" id="Theme_xo01h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ble0c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxvfd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2hcpy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7mea"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px28w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wema"]
+atlas = ExtResource("8_8r4vh")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Theme" id="Theme_uk6lu"]
+/font_sizes/size = 61
+/fonts/font = ExtResource("14_h8ib8")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 7
+Label/font_sizes/font_size = 26
+Label/fonts/font = ExtResource("14_h8ib8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbrmw"]
+content_margin_top = 29.0
+texture = ExtResource("15_qhnq8")
+texture_margin_left = 55.0
+texture_margin_top = 55.0
+texture_margin_right = 50.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rko12"]
+content_margin_top = 29.0
+texture = ExtResource("15_qhnq8")
+texture_margin_left = 55.0
+texture_margin_top = 55.0
+texture_margin_right = 50.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwhu7"]
+content_margin_top = 29.0
+texture = ExtResource("15_qhnq8")
+texture_margin_left = 55.0
+texture_margin_top = 55.0
+texture_margin_right = 50.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
+
+[sub_resource type="Theme" id="Theme_1jcnl"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 14
+Button/font_sizes/font_size = 46
+Button/fonts/font = ExtResource("14_h8ib8")
+Button/styles/focus = SubResource("StyleBoxTexture_mbrmw")
+Button/styles/hover = SubResource("StyleBoxTexture_rko12")
+Button/styles/normal = SubResource("StyleBoxTexture_rko12")
+Button/styles/pressed = SubResource("StyleBoxTexture_dwhu7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i27x1"]
+content_margin_top = 29.0
+texture = ExtResource("15_qhnq8")
+texture_margin_left = 55.0
+texture_margin_top = 55.0
+texture_margin_right = 50.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkmvo"]
+texture = ExtResource("15_qhnq8")
+texture_margin_left = 55.0
+texture_margin_top = 55.0
+texture_margin_right = 50.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ipbg"]
+content_margin_top = 29.0
+texture = ExtResource("15_qhnq8")
+texture_margin_left = 55.0
+texture_margin_top = 55.0
+texture_margin_right = 50.0
+texture_margin_bottom = 25.0
+modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_omogt"]
+events = [SubResource("InputEventKey_pa3jt")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inigb"]
+atlas = ExtResource("8_8r4vh")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2sj0"]
+texture = ExtResource("19_k7pqo")
+texture_margin_left = 25.0
+texture_margin_top = 24.0
+texture_margin_right = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_de7xm"]
+texture = ExtResource("20_wg7hj")
+texture_margin_left = 25.0
+texture_margin_top = 24.0
+texture_margin_bottom = 24.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32ode"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgjxf"]
+bg_color = Color(0.607843, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7j8s"]
+bg_color = Color(0.278431, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yix18")
+
+[node name="Background" type="ParallaxBackground" parent="."]
+script = ExtResource("2_jfxmx")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(2000.91, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+modulate = Color(0, 0.698039, 1, 1)
+texture_filter = 1
+position = Vector2(590, 114)
+scale = Vector2(2, 2)
+texture = ExtResource("1_hsfy0")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(879.835, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer2"]
+texture_filter = 1
+position = Vector2(480, 1152)
+scale = Vector2(0.667708, 10.0333)
+texture = ExtResource("3_wnfrj")
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPlay" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -93.5
+offset_right = 93.5
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+
+[node name="TextureRect" type="TextureRect" parent="Center/MainPlay"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_hjx7h")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/MainPlay"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -52.962
+offset_right = 56.4
+offset_bottom = 60.038
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_rs2qu")
+
+[node name="Icons" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -63.0
+offset_right = -146.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+
+[node name="TextureRect" type="TextureRect" parent="Center/Icons"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_hjx7h")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/Icons"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 28.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_gh7ve")
+
+[node name="Edit" type="Button" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 151.0
+offset_top = -63.0
+offset_right = 281.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+
+[node name="TextureRect" type="TextureRect" parent="Center/Edit"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_hjx7h")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/Edit"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -33.5
+offset_right = 37.0
+offset_bottom = 39.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_cjpdq")
+expand_mode = 1
+
+[node name="Control" type="Control" parent="Center"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -138.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Settings" type="Button" parent="Center/Control/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_7wema")
+
+[node name="TextureRect" type="TextureRect" parent="Center/Control/HBoxContainer/Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_fus76")
+
+[node name="MusicCredit" type="Button" parent="Center/Control/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_7wema")
+
+[node name="TextureRect" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_u7ykm")
+
+[node name="Logo" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -370.0
+offset_right = 370.0
+offset_bottom = 185.0
+grow_horizontal = 2
+texture = ExtResource("7_xxn82")
+
+[node name="MusicCredits" type="CanvasLayer" parent="."]
+layer = 7
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="MusicCredits"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.509804)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MusicCredits"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -441.0
+offset_top = -309.0
+offset_right = 441.0
+offset_bottom = 309.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-19, -28)
+mouse_filter = 0
+texture = ExtResource("11_52cdl")
+patch_margin_left = 125
+patch_margin_top = 125
+patch_margin_right = 125
+patch_margin_bottom = 125
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MusicCredits/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 69.0
+offset_top = 70.0
+offset_right = -68.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MusicCredits/NinePatchRect/ScrollContainer"]
+custom_minimum_size = Vector2(0, 310)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+
+[node name="MenuMusic" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
+texture_filter = 2
+custom_minimum_size = Vector2(0, 76.22)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("12_xw00a")
+
+[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 364.0
+offset_bottom = 9.0
+grow_vertical = 2
+theme = ExtResource("13_criex")
+text = "Menu Music"
+
+[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 24.5
+offset_right = 364.0
+offset_bottom = 63.5
+grow_vertical = 2
+theme = SubResource("Theme_uk6lu")
+text = "by Force64 Music"
+
+[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -29.0
+offset_right = -34.0
+offset_bottom = 51.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_1jcnl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+text = "Open"
+metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
+
+[node name="GloriousMorning" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
+texture_filter = 2
+custom_minimum_size = Vector2(0, 76.22)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("12_xw00a")
+
+[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 364.0
+offset_bottom = 9.0
+grow_vertical = 2
+theme = ExtResource("13_criex")
+theme_override_font_sizes/font_size = 46
+text = "Glorious Morning"
+
+[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 24.5
+offset_right = 364.0
+offset_bottom = 63.5
+grow_vertical = 2
+theme = SubResource("Theme_uk6lu")
+text = "by Waterflame"
+
+[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -29.0
+offset_right = -34.0
+offset_bottom = 51.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_1jcnl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+text = "Open"
+metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
+
+[node name="yStep" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
+texture_filter = 2
+custom_minimum_size = Vector2(0, 76.22)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("12_xw00a")
+
+[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 364.0
+offset_bottom = 9.0
+grow_vertical = 2
+theme = ExtResource("13_criex")
+text = "yStep"
+
+[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 24.5
+offset_right = 364.0
+offset_bottom = 63.5
+grow_vertical = 2
+theme = SubResource("Theme_uk6lu")
+text = "by DJVI"
+
+[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -29.0
+offset_right = -34.0
+offset_bottom = 51.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_1jcnl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+text = "Open"
+metadata/MusicLink = "https://www.youtube.com/watch?v=KTQSxSYTGgE"
+
+[node name="Exit" type="TextureButton" parent="MusicCredits"]
+texture_filter = 1
+offset_left = 18.0
+offset_top = 19.0
+offset_right = 121.0
+offset_bottom = 122.0
+shortcut = SubResource("Shortcut_omogt")
+texture_normal = SubResource("AtlasTexture_inigb")
+stretch_mode = 0
+flip_h = true
+
+[node name="OptionSettings" type="CanvasLayer" parent="."]
+layer = 7
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="OptionSettings"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.509804)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="OptionSettings"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -390.0
+offset_top = -245.0
+offset_right = 390.0
+offset_bottom = 245.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-19, -28)
+mouse_filter = 0
+texture = ExtResource("11_52cdl")
+patch_margin_left = 125
+patch_margin_top = 125
+patch_margin_right = 125
+patch_margin_bottom = 125
+
+[node name="Volume" type="Control" parent="OptionSettings/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 193.0
+offset_top = 185.0
+offset_right = 21.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+size_flags_vertical = 3
+
+[node name="Music" type="HSlider" parent="OptionSettings/NinePatchRect/Volume"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -112.0
+offset_right = -144.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.295, 1.295)
+theme_override_icons/grabber = ExtResource("17_qaagr")
+theme_override_icons/grabber_highlight = ExtResource("18_ahu0q")
+theme_override_styles/slider = SubResource("StyleBoxTexture_y2sj0")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_de7xm")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_de7xm")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("21_fdnfq")
+bus_name = "Music"
+
+[node name="Label" type="Label" parent="OptionSettings/NinePatchRect/Volume"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -352.0
+offset_top = -144.0
+offset_right = -206.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("14_h8ib8")
+theme_override_font_sizes/font_size = 50
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFX" type="HSlider" parent="OptionSettings/NinePatchRect/Volume"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -112.0
+offset_right = 336.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.295, 1.295)
+theme_override_icons/grabber = ExtResource("17_qaagr")
+theme_override_icons/grabber_highlight = ExtResource("18_ahu0q")
+theme_override_styles/slider = SubResource("StyleBoxTexture_y2sj0")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_de7xm")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_de7xm")
+max_value = 1.0
+step = 0.001
+value = 1.0
+script = ExtResource("21_fdnfq")
+bus_name = "SFX"
+
+[node name="Label2" type="Label" parent="OptionSettings/NinePatchRect/Volume"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -144.0
+offset_right = 274.0
+offset_bottom = -112.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("14_h8ib8")
+theme_override_font_sizes/font_size = 50
+text = "SFX
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Credits" type="Control" parent="OptionSettings/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -381.0
+offset_top = 66.0
+offset_right = -74.0
+offset_bottom = 242.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="OptionSettings/NinePatchRect/Credits"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_criex")
+theme_override_font_sizes/font_size = 36
+text = "credits:"
+
+[node name="Label2" type="Label" parent="OptionSettings/NinePatchRect/Credits"]
+layout_mode = 0
+offset_top = 79.0
+offset_right = 176.0
+offset_bottom = 152.0
+theme = ExtResource("13_criex")
+theme_override_font_sizes/font_size = 24
+text = "Contributors:
+
+the8lolo
+thekirgo"
+
+[node name="Label3" type="Label" parent="OptionSettings/NinePatchRect/Credits"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 32.0
+offset_right = 154.0
+offset_bottom = 67.0
+theme = ExtResource("13_criex")
+theme_override_font_sizes/font_size = 28
+text = "igamer609"
+
+[node name="Control" type="Control" parent="OptionSettings/NinePatchRect"]
+anchors_preset = 0
+offset_left = 75.0
+offset_top = 81.0
+offset_right = 377.0
+offset_bottom = 296.0
+
+[node name="Button" type="Button" parent="OptionSettings/NinePatchRect/Control"]
+layout_mode = 0
+offset_right = 305.0
+offset_bottom = 42.0
+theme = ExtResource("22_y2t2u")
+theme_override_font_sizes/font_size = 31
+text = "Reset Progress"
+
+[node name="Exit" type="TextureButton" parent="OptionSettings"]
+texture_filter = 1
+offset_left = 18.0
+offset_top = 19.0
+offset_right = 121.0
+offset_bottom = 122.0
+shortcut = SubResource("Shortcut_omogt")
+texture_normal = SubResource("AtlasTexture_inigb")
+stretch_mode = 0
+flip_h = true
+
+[node name="ResetDialogue" type="CanvasLayer" parent="."]
+layer = 7
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ResetDialogue"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.509804)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ResetDialogue"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.0
+offset_top = -155.5
+offset_right = 294.0
+offset_bottom = 155.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-19, -28)
+mouse_filter = 0
+texture = ExtResource("11_52cdl")
+patch_margin_left = 125
+patch_margin_top = 125
+patch_margin_right = 125
+patch_margin_bottom = 125
+
+[node name="Label" type="Label" parent="ResetDialogue/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.5
+offset_top = -74.0
+offset_right = 151.5
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("13_criex")
+theme_override_font_sizes/font_size = 36
+text = "reset all saved
+progress?"
+horizontal_alignment = 1
+
+[node name="CancelReset" type="Button" parent="ResetDialogue/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = 23.0
+offset_right = -39.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("22_y2t2u")
+theme_override_font_sizes/font_size = 26
+text = "No"
+
+[node name="Reset" type="Button" parent="ResetDialogue/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 61.0
+offset_top = 23.5
+offset_right = 186.0
+offset_bottom = 74.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("22_y2t2u")
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_32ode")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sgjxf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_g7j8s")
+text = "Yes"
+
+[connection signal="pressed" from="Center/MainPlay" to="." method="_levels_pressed"]
+[connection signal="pressed" from="Center/Icons" to="." method="_icon_button"]
+[connection signal="pressed" from="Center/Edit" to="." method="_on_edit_pressed"]
+[connection signal="pressed" from="Center/Control/HBoxContainer/Settings" to="." method="_enter_settings"]
+[connection signal="pressed" from="Center/Control/HBoxContainer/MusicCredit" to="." method="_enter_music_credits"]
+[connection signal="pressed" from="MusicCredits/Exit" to="." method="_exit_music_credits"]
+[connection signal="pressed" from="OptionSettings/NinePatchRect/Control/Button" to="." method="open_reset"]
+[connection signal="pressed" from="OptionSettings/Exit" to="." method="_exit_settings"]
+[connection signal="pressed" from="ResetDialogue/NinePatchRect/CancelReset" to="." method="cancel_reset"]
+[connection signal="pressed" from="ResetDialogue/NinePatchRect/Reset" to="." method="reset_progress"]
