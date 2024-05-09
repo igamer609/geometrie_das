@@ -120,11 +120,10 @@ func load_level(objects):
 	delete_objects()
 	
 	for obj in objects:
-		print(obj.id)
 		load_obj(obj["id"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
 func load_level_from_info(lvl_info):
-	level_data = lvl_info
+	level_data = lvl_info["info"]
 	
 	if lvl_info.has("objects"):
 		load_level(lvl_info["objects"])
@@ -138,6 +137,7 @@ func initialise_top_bar():
 			button.pressed.connect(delete_objects)
 		if button.name == "Menu":
 			button.pressed.connect(change_menu_state)
+			print("open")
 
 func initialise_tabs():
 	var tab_group = ButtonGroup.new()
@@ -175,11 +175,12 @@ func change_menu_state():
 		menu_state = "opened"
 	elif menu_state == "opened":
 		$Editor_Object/Menu_Layer/EditorMenu.visible = false
-		menu_state == "closed"
+		menu_state = "closed"
 
 func save_and_exit():
-	await save_level()
+	save_level()
 	
+	MenuMusic.start_music()
 	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
 
 func exit():
@@ -187,6 +188,8 @@ func exit():
 	dialog.visible = true
 	
 	await dialog.confirmed
+	
+	MenuMusic.start_music()
 	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
 	
 
@@ -449,7 +452,7 @@ func check_actions():
 	else:
 		action_buttons[1].disabled = true
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("RotateLeft"):
 		rotate_objects(-1)
 	if Input.is_action_just_pressed("RotateRight"):

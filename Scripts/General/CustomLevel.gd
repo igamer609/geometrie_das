@@ -1,12 +1,27 @@
 extends Node2D
 
+signal loaded_level()
+
+var level_data = {
+	"info" : {
+		"name" : "Untitled",
+		"author" : "-",
+		"difficulty" : 0,
+		"version" : 1.1,
+		"song_id" : 1,
+		"bg_color" : Color("0045e1")
+		},
+	"objects" : []
+}
+
+@onready var obj_base = preload("res://Objects/object.tscn")
+
 @export var start_bg : Color
-@export var music_delay : float
 
 @export var player_parent : Node
 @export var ceiling : Node
 @export var ground : Node
-@export var tilemap : Node
+@export var level : Node
 @export var endpos : Node
 
 @export var pause_ui : Node
@@ -25,15 +40,63 @@ var rect_x = 0
 var first_attempt = true
 var follow_cam = false
 var level_ended = false
+var obtain_endpos = true
+
+func get_endpos():
+	var last_x = 0
+	
+	for obj in level.get_children():
+		
+		if obj.global_position.x > last_x:
+			last_x = obj.global_position.x
+	
+	rect_x = last_x
+	endpos.global_position.x = last_x + 348
+	
+	print(endpos.global_position.x)
+
+func load_level_data(level_info, restart = false):
+	level_data = level_info
+	
+	if restart:
+		first_attempt = false
+	
+	if level_data.has("info"):
+		if level_data.has("objects"):
+			for obj in level_data["objects"]:
+				load_object(obj["id"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
+		if level_data["info"].has("song_id"):
+			GameProgress.music_to_load = level_data["info"]["song_id"]
+		if level_data.has("bg_color"):
+			start_bg = level_data["info"]["bg_color"]
+	
+	emit_signal("loaded_level")
+
+func load_object(id, pos, rot, other):
+	var item = load("res://Objects/obj_ids/" + str(id) + ".tres")
+	
+	var object = obj_base.instantiate()
+	object.obj_res = item
+	
+	object.global_position = Vector2(pos.x + 8, pos.y)
+	
+	object.global_rotation = rot
+	
+	level.call_deferred("add_child", object)
 
 func _ready():
 	initiate()
 
 func initiate():
+	await loaded_level
+	
+	print(level_data["info"]["name"])
+	$Universal/PauseUI/Control/Rect/LevelName.text = level_data["info"]["name"]
+	
 	GameProgress.in_game = true
 	GameProgress.run_music = true
 	
-	GameProgress.play_lvl_music_from_id(music_delay)
+	GameProgress.play_lvl_music_from_id(0)
 	
 	for child in player_parent.get_children():
 		if child.is_in_group("Player"):
@@ -48,18 +111,11 @@ func initiate():
 	
 	ground.global_position = Vector2(40, 0)
 	
-	if player_cam:
+	if player_cam and first_attempt:
 		player_cam.global_position.x = player.global_position.x + 200
 		player_cam.global_position.y = player.global_position.y - 16
-	
-	if tilemap:
-		var rect = tilemap.get_used_rect()
-		
-		var x_size = rect.size.x
-		
-		rect_x = x_size * 16
-		
-		endpos.global_position.x = rect_x + 304
+	elif player_cam:
+		follow_cam = true
 	
 	change_background(start_bg, 0)
 	
@@ -74,16 +130,11 @@ func player_died():
 	
 	death_particle.global_position = player.global_position
 	death_particle.emitting = true
-	
-	GameProgress.check_progress((player.global_position.x / endpos.global_position.x) * 100)
 
 func player_respawn():
-	GameProgress.play_lvl_music_from_id(music_delay)
+	end_bg_tweens()
 	
-	for trigger in $BG_triggers.get_children():
-		trigger.enabled = true
-	
-	end_tweens()
+	GameProgress.play_lvl_music_from_id(0)
 	
 	change_background(start_bg, 0)
 	
@@ -150,6 +201,10 @@ func on_gamemode_change(portal, gamemode):
 			ceiling.global_position.y = ground.global_position.y - 112
 
 func _process(delta):
+	if obtain_endpos:
+		get_endpos()
+		obtain_endpos = false
+	
 	if first_attempt:
 		if player.global_position.x >= player_cam.global_position.x:
 			first_attempt = false
@@ -182,14 +237,12 @@ func _process(delta):
 
 func exit_level():
 	GameProgress.in_game = false
-	GameProgress.run_music = false
-	
 	GameProgress.music_to_load = 0
 	GameProgress.stop_lvl_music()
 	
 	MenuMusic.start_music()
 	
-	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
+	TransitionScene.change_scene("res://Scenes/Menus/LevelMenu.tscn")
 
 func end_level():
 	GameProgress.check_progress(100)
@@ -200,19 +253,21 @@ func end_level():
 	player_cam.position_smoothing_enabled = false
 
 func restart():
-	GameProgress.run_music = false
-	get_tree().reload_current_scene()
+	GameProgress.stop_lvl_music()
+	EditorTransition.load_game(level_data, true)
 
 func change_background(new_colour, fade_time):
 	
-	end_tweens()
+	end_bg_tweens()
 	
 	if fade_time > 0:
 		var tween = get_tree().create_tween()
+		tween.set_meta("trigger", "bg")
 		tween.tween_property($Universal/BG/BGLayer/BGSprite, "modulate", new_colour, fade_time)
 	else:
 		$Universal/BG/BGLayer/BGSprite.modulate = new_colour
 
-func end_tweens():
+func end_bg_tweens():
 	for tween in get_tree().get_processed_tweens():
-		tween.stop()
+		if tween.get_meta("trigger", "bg"):
+			tween.stop()

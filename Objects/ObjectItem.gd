@@ -4,7 +4,8 @@ signal selected(obj)
 
 @export var obj_res : GD_Object
 
-var vis_notif = false
+@onready var vis_notif = $VisibilityNotifier
+@onready var anim_player = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,4 +30,18 @@ func update():
 	else:
 		$Sprite.texture = obj_res.texture
 		$Collision.polygon = obj_res.collision_shape
+	
+	if not obj_res.is_solid:
+		set_collision_layer_value(1, false)
+		set_collision_layer_value(2, false)
+		set_collision_layer_value(3, true)
+	else:
+		set_collision_layer_value(1, false)
+		set_collision_layer_value(2, true)
+		set_collision_layer_value(3, false)
 
+func enable_transition():
+	visible = false
+	
+	vis_notif.screen_entered.connect(anim_player.play.bind("load1"))
+	vis_notif.screen_exited.connect(anim_player.play_backwards.bind("load1"))

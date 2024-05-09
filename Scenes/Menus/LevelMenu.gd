@@ -14,7 +14,7 @@ var main_levels = {
 		{
 			"Name" : "Glorious Morning",
 			"Scene" : "res://Scenes/Levels/GloriousMorning.tscn",
-			"MusicPath" : "res://Assets/music/Levels/Glorious Morning.mp3",
+			"MusicID" : 1,
 			"MusicOffset" : 0.5,
 			"Difficulty" : "easy",
 			"Progress" : 0,
@@ -24,7 +24,7 @@ var main_levels = {
 		{
 			"Name" : "yStep",
 			"Scene" : "res://Scenes/Levels/yStep.tscn",
-			"MusicPath" : "res://Assets/music/Levels/yStep.mp3",
+			"MusicID" : 2,
 			"MusicOffset" : 1,
 			"Difficulty" : "hard",
 			"Progress" : 0,
@@ -51,6 +51,8 @@ func _ready():
 	load_data()
 	
 	update_tab(GameProgress.current_level)
+	
+	print("hey")
 
 func update_progress(progress, practice, level):
 	main_levels[str(level)]["Progress"] = round(progress)
@@ -58,6 +60,8 @@ func update_progress(progress, practice, level):
 	
 
 func update_tab(index_change):
+	
+	print("help!")
 	
 	var new_tab_info = null
 	
@@ -132,7 +136,7 @@ func load_level(scene):
 	MenuMusic.stop_music()
 	
 	GameProgress.music_offset = main_levels[str(current_level)]["MusicOffset"]
-	GameProgress.music_to_load =  main_levels[str(current_level)]["MusicPath"]
+	GameProgress.music_to_load =  main_levels[str(current_level)]["MusicID"]
 	TransitionScene.change_scene(scene)
 
 func _on_scroll_right():

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GD_Object" load_steps=4 format=3 uid="uid://6mbpx2weh0tb"]
+
+[ext_resource type="Script" path="res://Objects/Obj.gd" id="1_r4j6o"]
+[ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_xvjgp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8l67w"]
+atlas = ExtResource("2_xvjgp")
+region = Rect2(32, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_r4j6o")
+id = 9
+is_scene = false
+texture = SubResource("AtlasTexture_8l67w")
+collision_shape = PackedVector2Array(8, -8, -8, -8, -8, 8, 8, 8)
+is_solid = true
+is_trigger = false

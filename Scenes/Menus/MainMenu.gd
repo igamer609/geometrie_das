@@ -1,6 +1,7 @@
 extends Control
 
-
+func _ready():
+	GameProgress.track_progress = true
 
 func _icon_button():
 	TransitionScene.change_scene("res://Scenes/Menus/IconMenu.tscn")

@@ -17,6 +17,7 @@ run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2")
 run/max_fps=60
 config/icon="res://logo/icon.png"
+config/version.release="1.1"
 
 [autoload]
 
@@ -96,7 +97,7 @@ Paste={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="World"
-2d_physics/layer_3="Spikes"
+2d_physics/layer_3="Decoration"
 
 [physics]
 

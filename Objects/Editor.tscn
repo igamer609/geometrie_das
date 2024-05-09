@@ -383,6 +383,167 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 5
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton4"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 6
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton5"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 7
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton6"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 8
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton7"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 9
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton8"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 10
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton9"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 11
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton10"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
 visible = false
 layout_mode = 2

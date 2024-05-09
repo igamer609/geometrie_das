@@ -273,6 +273,7 @@ alpha_curve = SubResource("CurveTexture_k3lcr")
 process_mode = 3
 script = ExtResource("1_p51vv")
 start_bg = Color(0, 0.270588, 0.882353, 1)
+music_delay = 0.05
 player_parent = NodePath("Player")
 ceiling = NodePath("Universal/Ceiling")
 ground = NodePath("Universal/Ground")
