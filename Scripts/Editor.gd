@@ -3,6 +3,7 @@ extends Node2D
 @export var current_id = 0
 @export var selected_objects = []
 @export var clipboard = []
+@export var swipe_obj_pos = []
 
 @onready var obj_base = preload("res://Objects/object.tscn")
 
@@ -20,7 +21,8 @@ extends Node2D
 @onready var action_buttons = [$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Copy, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Paste, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Duplicate, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Deselect, $Editor_Object/UI_Layer/TopBar/Delete]
 
 var edit_mode = "Build"
-var select_mode = "Multiple"
+var select_mode = "swipe"
+var swipe = false
 var menu_state = "closed"
 
 var level_data = {"name" : "", "author" : "", "difficulty" : 0, "version" : 1.1, "song_id" : 0}
@@ -84,7 +86,6 @@ func load_obj(id, pos, rot, other):
 	
 	object.selected.connect(select_object.bind(false))
 	level.add_child(object)
-	
 
 func load_level_file():
 	print("hello")
@@ -233,7 +234,7 @@ func select_item_id(new_id):
 		current_id = new_id
 		print("selected item " + str(current_id))
 
-func place_object():
+func place_object(return_obj = false):
 	var item = load("res://Objects/obj_ids/" + str(current_id) + ".tres")
 	
 	var object = obj_base.instantiate()
@@ -249,7 +250,8 @@ func place_object():
 	
 	select_object(object, true)
 	
-	save_level()
+	if return_obj:
+		return object
 
 func select_object(object, just_built, pasted = false):
 	if object not in selected_objects:

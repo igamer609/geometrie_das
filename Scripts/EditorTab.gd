@@ -66,11 +66,8 @@ func setup_difficulty_buttons():
 func change_level_difficulty(button):
 	var difficulty_id = int(str(button.name))
 	
-	print(level_data["info"]["difficulty"])
-	
 	level_data["info"]["difficulty"] = difficulty_id
 	difficulty_rect.texture.region = Rect2(Vector2(difficulty_id * 31, 0), Vector2(31, 32))
-	print(difficulty_id)
 
 func check_text(text):
 	var text_array = []
@@ -98,7 +95,6 @@ func change_level_name(lvl_name):
 		var checked_name = check_text(lvl_name)
 		
 		level_data["info"]["name"] = checked_name
-		print("new name: " + checked_name)
 		
 		if name_box.text != checked_name:
 			name_box.text = checked_name
@@ -109,7 +105,6 @@ func change_level_author(author):
 		var checked_author = check_text(author)
 		
 		level_data["info"]["author"] = checked_author
-		print("new author: " + checked_author)
 		
 		if author_box.text != checked_author:
 			author_box.text = checked_author
@@ -141,9 +136,10 @@ func setup_tab_buttons():
 			button.pressed.connect(reset_create_tab)
 		if button.name == "Load":
 			button.pressed.connect(load_level_from_file)
+		if button.name == "Saved":
+			button.pressed.connect(TransitionScene.change_scene.bind("res://Scenes/Menus/SavedTab.tscn"))
 
 func load_level_from_file():
-	print("hello")
 	
 	var file_dialogue = FileDialog.new()
 	file_dialogue.access = FileDialog.ACCESS_FILESYSTEM
@@ -190,8 +186,6 @@ func load_level_from_file():
 		dialog.popup_centered()
 
 func verify_data(data):
-	print(data)
-	
 	if data.has("info") and data.has("objects"):
 		
 		if data["info"]["version"] <= float(ProjectSettings.get_setting("application/config/version.release")):
@@ -207,16 +201,13 @@ func reset_load_tab():
 	
 	load_difficulty_rect.texture.region = Rect2(Vector2(level_data["info"]["difficulty"] * 31, 0), Vector2(31, 32))
 	
-	print(level_data["info"]["song_id"])
-	print(GameProgress.music_ids[1])
-	
 	music_label.text = GameProgress.music_ids[int(level_data["info"]["song_id"])][1]
 	
 	$LevelDisplay/Unloaded.visible = false
 	$LevelDisplay/Create.visible = false
 	$LevelDisplay/Load.visible = true
 	
-	if load_play_button.pressed.is_connected():
+	if load_play_button.is_connected("pressed", EditorTransition.load_game.bind(level_data)) and load_edit_button.is_connected("pressed", EditorTransition.load_editor.bind(level_data)):
 		load_play_button.pressed.disconnect(EditorTransition.load_game.bind(level_data))
 		load_edit_button.pressed.disconnect(EditorTransition.load_editor.bind(level_data))
 	

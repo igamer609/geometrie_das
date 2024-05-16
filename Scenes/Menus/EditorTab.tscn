@@ -16,11 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://cn76rk2qgurhq" path="res://Assets/buttons/editor tabs/featured.png" id="9_vxqr5"]
 [ext_resource type="Texture2D" uid="uid://dnryne7n8gqbf" path="res://Assets/buttons/editor tabs/load.png" id="10_j3i0s"]
 
-[sub_resource type="Gradient" id="Gradient_dobci"]
+[sub_resource type="Gradient" id="Gradient_i1gkn"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_avu8y"]
-gradient = SubResource("Gradient_dobci")
+gradient = SubResource("Gradient_i1gkn")
 fill_from = Vector2(0.5, 1)
 fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true

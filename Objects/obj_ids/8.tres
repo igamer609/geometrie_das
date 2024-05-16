@@ -3,15 +3,15 @@
 [ext_resource type="Script" path="res://Objects/Obj.gd" id="1_2dj36"]
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_yak3c"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jr5lh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s06rc"]
 atlas = ExtResource("2_yak3c")
-region = Rect2(48, 16, 16, 16)
+region = Rect2(16, 16, 16, 16)
 
 [resource]
 script = ExtResource("1_2dj36")
-id = 7
+id = 8
 is_scene = false
-texture = SubResource("AtlasTexture_jr5lh")
+texture = SubResource("AtlasTexture_s06rc")
 collision_shape = PackedVector2Array(8, -8, -8, -8, -8, 8, 8, 8)
 is_solid = true
 is_trigger = false

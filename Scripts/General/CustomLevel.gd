@@ -242,7 +242,7 @@ func exit_level():
 	
 	MenuMusic.start_music()
 	
-	TransitionScene.change_scene("res://Scenes/Menus/LevelMenu.tscn")
+	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
 
 func end_level():
 	GameProgress.check_progress(100)
