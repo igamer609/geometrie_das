@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bs0q1rfqhqk56"]
 
-[ext_resource type="Script" path="res://Objects/ObjectItem.gd" id="1_k2iyv"]
+[ext_resource type="Script" uid="uid://bjvd7wkynvf73" path="res://Objects/ObjectItem.gd" id="1_k2iyv"]
 
 [sub_resource type="Animation" id="Animation_2s3rd"]
 length = 0.001
@@ -83,8 +83,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5uwnx"]
 _data = {
-"RESET": SubResource("Animation_2s3rd"),
-"load1": SubResource("Animation_hq1qr")
+&"RESET": SubResource("Animation_2s3rd"),
+&"load1": SubResource("Animation_hq1qr")
 }
 
 [node name="Object" type="StaticBody2D"]

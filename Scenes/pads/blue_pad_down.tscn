@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b3ucus1aap11v"]
 
-[ext_resource type="Script" path="res://Scripts/General/JumpPad.gd" id="1_0imgw"]
+[ext_resource type="Script" uid="uid://b8k5mfx22apsw" path="res://Scripts/General/JumpPad.gd" id="1_0imgw"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_e2nbf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lyxv"]

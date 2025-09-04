@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cytkix20fnkey"]
 
-[ext_resource type="Script" path="res://Scripts/Transition.gd" id="1_igi5o"]
+[ext_resource type="Script" uid="uid://d4cql2u6ecerg" path="res://Scripts/Transition.gd" id="1_igi5o"]
 
 [sub_resource type="Animation" id="Animation_knkwe"]
 resource_name = "RESET"
@@ -36,8 +36,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dw8cy"]
 _data = {
-"RESET": SubResource("Animation_knkwe"),
-"fade": SubResource("Animation_r7gek")
+&"RESET": SubResource("Animation_knkwe"),
+&"fade": SubResource("Animation_r7gek")
 }
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -56,5 +56,5 @@ color = Color(0, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dw8cy")
+&"": SubResource("AnimationLibrary_dw8cy")
 }

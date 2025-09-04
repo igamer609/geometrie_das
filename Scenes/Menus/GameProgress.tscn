@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxyxl1h3uv4kq"]
 
-[ext_resource type="Script" path="res://Scripts/General/GameProgress.gd" id="1_sm7sb"]
+[ext_resource type="Script" uid="uid://cjvo87kr5vn5w" path="res://Scripts/General/GameProgress.gd" id="1_sm7sb"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_5q1mc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66ix2"]

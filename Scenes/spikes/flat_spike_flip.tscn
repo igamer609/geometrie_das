@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://chycrjh8crlqb"]
 
-[ext_resource type="Script" path="res://Scripts/DestroyPlayer.gd" id="1_8id6a"]
+[ext_resource type="Script" uid="uid://0yelgkayp6gm" path="res://Scripts/DestroyPlayer.gd" id="1_8id6a"]
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_w2swe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxpeg"]

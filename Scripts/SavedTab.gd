@@ -45,3 +45,7 @@ func add_level_template(level_data):
 
 func _ready():
 	find_levels()
+
+
+func _on_exit_pressed() -> void:
+	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")

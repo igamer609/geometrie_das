@@ -73,7 +73,7 @@ func load_level_data(level_info, restart = false):
 	emit_signal("loaded_level")
 
 func load_object(id, pos, rot, other):
-	var item = load("res://Objects/obj_ids/" + str(id) + ".tres")
+	var item = load("res://Objects/obj_ids/" + str(int(id)) + ".tres")
 	
 	var object = obj_base.instantiate()
 	object.obj_res = item

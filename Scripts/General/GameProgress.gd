@@ -24,6 +24,11 @@ var progress_to_update = false
 func _ready():
 	update_bar(0)
 
+func _process(delta: float) -> void:
+	if music_to_load == 0 and $AudioStreamPlayer.playing:
+		stop_lvl_music()
+		run_music = false
+
 func check_progress(new_progress):
 	if level_mode == "normal":
 		if new_progress > current_level_progress:

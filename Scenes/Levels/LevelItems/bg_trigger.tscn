@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://doffclckq21vl"]
 
-[ext_resource type="Script" path="res://Scripts/General/BgTrigger.gd" id="1_qfrks"]
+[ext_resource type="Script" uid="uid://nem2xjfsxn8l" path="res://Scripts/General/BgTrigger.gd" id="1_qfrks"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_7vy0s"]
 a = Vector2(0, 2000)

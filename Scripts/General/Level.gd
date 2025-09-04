@@ -185,11 +185,10 @@ func exit_level():
 	GameProgress.run_music = false
 	
 	GameProgress.music_to_load = 0
-	GameProgress.stop_lvl_music()
-	
+
 	MenuMusic.start_music()
 	
-	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
+	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")
 
 func end_level():
 	GameProgress.check_progress(100)

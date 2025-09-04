@@ -76,7 +76,7 @@ func save_level():
 	return true
 
 func load_obj(id, pos, rot, other):
-	var item = load("res://Objects/obj_ids/" + str(id) + ".tres")
+	var item = load("res://Objects/obj_ids/" + str(int(id)) + ".tres")
 	
 	var object = obj_base.instantiate()
 	object.obj_res = item

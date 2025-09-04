@@ -1,8 +1,8 @@
 [gd_scene load_steps=47 format=3 uid="uid://bgck0oehre0fd"]
 
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_hsfy0"]
-[ext_resource type="Script" path="res://Scenes/Menus/MainMenu.gd" id="1_yix18"]
-[ext_resource type="Script" path="res://Scripts/General/ScrollBG.gd" id="2_jfxmx"]
+[ext_resource type="Script" uid="uid://cy41q61xo81ol" path="res://Scenes/Menus/MainMenu.gd" id="1_yix18"]
+[ext_resource type="Script" uid="uid://cqcb7ra3ormy5" path="res://Scripts/General/ScrollBG.gd" id="2_jfxmx"]
 [ext_resource type="Texture2D" uid="uid://cxd3ekx4dqkyl" path="res://Assets/ground.png" id="3_wnfrj"]
 [ext_resource type="Texture2D" uid="uid://cgoy16m7tp0ak" path="res://Assets/buttons/Button.png" id="6_hjx7h"]
 [ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="7_rs2qu"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="9_fus76"]
 [ext_resource type="Texture2D" uid="uid://kimjg2avm5hx" path="res://Assets/buttons/music_btn.png" id="9_u7ykm"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="11_52cdl"]
-[ext_resource type="Script" path="res://Scripts/General/MusicCredit.gd" id="12_xw00a"]
+[ext_resource type="Script" uid="uid://2mkxf0etqxec" path="res://Scripts/General/MusicCredit.gd" id="12_xw00a"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="13_criex"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="14_h8ib8"]
 [ext_resource type="Texture2D" uid="uid://d0deeixq08h1t" path="res://Assets/buttons/img_button_3.png" id="15_qhnq8"]
@@ -21,20 +21,20 @@
 [ext_resource type="Texture2D" uid="uid://g5687ofk6b86" path="res://Assets/buttons/slider textures/notch_action.png" id="18_ahu0q"]
 [ext_resource type="Texture2D" uid="uid://bwinen8ft4rtu" path="res://Assets/buttons/slider textures/slider_background.png" id="19_k7pqo"]
 [ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="20_wg7hj"]
-[ext_resource type="Script" path="res://Scripts/General/SoundSlider.gd" id="21_fdnfq"]
+[ext_resource type="Script" uid="uid://crqxuhvgwmvno" path="res://Scripts/General/SoundSlider.gd" id="21_fdnfq"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="22_y2t2u"]
 
 [sub_resource type="Theme" id="Theme_xo01h"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ble0c"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px28w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7mea"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxvfd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2hcpy"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7mea"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px28w"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ble0c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7wema"]
 atlas = ExtResource("8_8r4vh")
@@ -85,14 +85,6 @@ Button/styles/hover = SubResource("StyleBoxTexture_rko12")
 Button/styles/normal = SubResource("StyleBoxTexture_rko12")
 Button/styles/pressed = SubResource("StyleBoxTexture_dwhu7")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i27x1"]
-content_margin_top = 29.0
-texture = ExtResource("15_qhnq8")
-texture_margin_left = 55.0
-texture_margin_top = 55.0
-texture_margin_right = 50.0
-texture_margin_bottom = 25.0
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkmvo"]
 texture = ExtResource("15_qhnq8")
 texture_margin_left = 55.0
@@ -108,6 +100,14 @@ texture_margin_top = 55.0
 texture_margin_right = 50.0
 texture_margin_bottom = 25.0
 modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i27x1"]
+content_margin_top = 29.0
+texture = ExtResource("15_qhnq8")
+texture_margin_left = 55.0
+texture_margin_top = 55.0
+texture_margin_right = 50.0
+texture_margin_bottom = 25.0
 
 [sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
 device = -1
@@ -133,18 +133,6 @@ texture_margin_top = 24.0
 texture_margin_bottom = 24.0
 axis_stretch_horizontal = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32ode"]
-bg_color = Color(1, 0, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgjxf"]
 bg_color = Color(0.607843, 0, 0, 1)
 border_width_left = 5
@@ -159,6 +147,18 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g7j8s"]
 bg_color = Color(0.278431, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32ode"]
+bg_color = Color(1, 0, 0, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -223,11 +223,11 @@ offset_bottom = 93.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xo01h")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
 
 [node name="TextureRect" type="TextureRect" parent="Center/MainPlay"]
 texture_filter = 1
@@ -271,11 +271,11 @@ offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xo01h")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
 
 [node name="TextureRect" type="TextureRect" parent="Center/Icons"]
 texture_filter = 1
@@ -317,11 +317,11 @@ offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xo01h")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
 
 [node name="TextureRect" type="TextureRect" parent="Center/Edit"]
 texture_filter = 1
@@ -376,11 +376,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_xo01h")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
 
 [node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/Settings"]
 layout_mode = 1
@@ -413,11 +413,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_xo01h")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
 
 [node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit"]
 layout_mode = 1
@@ -554,9 +554,9 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
 text = "Open"
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
@@ -607,9 +607,9 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
 text = "Open"
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
@@ -659,9 +659,9 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
 text = "Open"
 metadata/MusicLink = "https://www.youtube.com/watch?v=KTQSxSYTGgE"
 
@@ -968,9 +968,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("22_y2t2u")
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = SubResource("StyleBoxFlat_32ode")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sgjxf")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_g7j8s")
+theme_override_styles/normal = SubResource("StyleBoxFlat_32ode")
 text = "Yes"
 
 [connection signal="pressed" from="Center/MainPlay" to="." method="_levels_pressed"]

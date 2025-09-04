@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcfmiy1hmy3ey"]
 
-[ext_resource type="Script" path="res://Scripts/General/Obstacles/Sawblade.gd" id="1_fbf8a"]
+[ext_resource type="Script" uid="uid://c27a2wr34rxhc" path="res://Scripts/General/Obstacles/Sawblade.gd" id="1_fbf8a"]
 [ext_resource type="Texture2D" uid="uid://wsrw2wyea8ar" path="res://Assets/obstacles/sawblade.png" id="2_xv0s6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7iqr"]

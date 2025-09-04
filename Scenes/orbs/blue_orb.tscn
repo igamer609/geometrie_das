@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dj5rko0ln58jg"]
 
-[ext_resource type="Script" path="res://Scripts/Orb.gd" id="1_0gipf"]
+[ext_resource type="Script" uid="uid://cks1jjfj33xpy" path="res://Scripts/Orb.gd" id="1_0gipf"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_ndx0j"]
 [ext_resource type="Material" uid="uid://cvjsgjtr136d0" path="res://Scenes/orbs/orb_ring_process.tres" id="3_m06e4"]
 [ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="3_uxv1i"]
@@ -69,13 +69,13 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xomch"]
 _data = {
-"RESET": SubResource("Animation_dqb3o"),
-"activate": SubResource("Animation_uk81k"),
-"player_enter": SubResource("Animation_ngbws")
+&"RESET": SubResource("Animation_dqb3o"),
+&"activate": SubResource("Animation_uk81k"),
+&"player_enter": SubResource("Animation_ngbws")
 }
 
 [sub_resource type="Curve" id="Curve_qk13h"]
-max_value = 200.0
+_limits = [0.0, 200.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 172.727), -363.579, 0.0, 0, 0]
 point_count = 2
 
@@ -83,7 +83,7 @@ point_count = 2
 curve = SubResource("Curve_qk13h")
 
 [sub_resource type="Curve" id="Curve_nteay"]
-max_value = 3.0
+_limits = [0.0, 3.0, 0.0, 1.0]
 _data = [Vector2(0, 1.41818), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
 point_count = 2
 

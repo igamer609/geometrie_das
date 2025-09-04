@@ -1,10 +1,10 @@
 [gd_scene load_steps=33 format=3 uid="uid://ctm4f0gyo1rt0"]
 
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="1_5gw3d"]
-[ext_resource type="Script" path="res://Scripts/IconMenu.gd" id="1_ea3ny"]
+[ext_resource type="Script" uid="uid://36j7qynmvv45" path="res://Scripts/IconMenu.gd" id="1_ea3ny"]
 [ext_resource type="Texture2D" uid="uid://c3gmwaa5aedxh" path="res://Assets/player.png" id="2_vae00"]
 [ext_resource type="Texture2D" uid="uid://bqr7sqo4h73tb" path="res://Assets/ship.png" id="2_yb13t"]
-[ext_resource type="Script" path="res://Scripts/General/SelectIcon.gd" id="3_lnb1n"]
+[ext_resource type="Script" uid="uid://du8liw5rlyv2k" path="res://Scripts/General/SelectIcon.gd" id="3_lnb1n"]
 [ext_resource type="Texture2D" uid="uid://br36bnl0j1uvc" path="res://Assets/other/mini_icons_white.png" id="5_0qh8t"]
 [ext_resource type="Texture2D" uid="uid://bqtnfkmias0dd" path="res://Assets/ball.png" id="6_odinw"]
 

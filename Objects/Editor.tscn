@@ -1,11 +1,11 @@
 [gd_scene load_steps=34 format=3 uid="uid://bkyo4lgnhak2y"]
 
 [ext_resource type="Texture2D" uid="uid://b2kw7xp5t2kvg" path="res://Scenes/editor/grid.png" id="1_0y7rc"]
-[ext_resource type="Script" path="res://Scripts/Editor.gd" id="1_id040"]
+[ext_resource type="Script" uid="uid://dqn2hmigqedje" path="res://Scripts/Editor.gd" id="1_id040"]
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_ojbeb"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_vdfow"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_x4tf7"]
-[ext_resource type="Script" path="res://Scenes/editor/ItemSelectButton.gd" id="7_t5tsa"]
+[ext_resource type="Script" uid="uid://ch81n08otqnbs" path="res://Scenes/editor/ItemSelectButton.gd" id="7_t5tsa"]
 [ext_resource type="Texture2D" uid="uid://7kf52hbtokbe" path="res://Scenes/editor/move.png" id="7_uumli"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="8_u03d0"]
 [ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="9_5bivf"]
@@ -331,11 +331,13 @@ grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
+current_tab = 0
 
 [node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
+metadata/_tab_index = 0
 
 [node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
 custom_minimum_size = Vector2(70, 70)
@@ -549,6 +551,7 @@ visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
+metadata/_tab_index = 1
 
 [node name="ItemButton2" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes"]
 custom_minimum_size = Vector2(70, 70)

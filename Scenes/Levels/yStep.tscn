@@ -1,11 +1,11 @@
 [gd_scene load_steps=46 format=3 uid="uid://law3oijol76n"]
 
-[ext_resource type="Script" path="res://Scripts/General/Level.gd" id="1_hujsc"]
+[ext_resource type="Script" uid="uid://p0mul7ebjb51" path="res://Scripts/General/Level.gd" id="1_hujsc"]
 [ext_resource type="TileSet" uid="uid://cfh26e0o581fl" path="res://Assets/Base_Tileset.tres" id="2_3iabf"]
 [ext_resource type="PackedScene" uid="uid://bfkbo56nphh1i" path="res://Scenes/player_full.tscn" id="3_xf3bw"]
 [ext_resource type="PackedScene" uid="uid://b741ehrnqe0e3" path="res://Scenes/Levels/LevelItems/LevelFinish.tscn" id="4_nlmvi"]
 [ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="5_hku4t"]
-[ext_resource type="Script" path="res://Scripts/General/PauseUI.gd" id="6_63bob"]
+[ext_resource type="Script" uid="uid://g3mr0tubjrfc" path="res://Scripts/General/PauseUI.gd" id="6_63bob"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="7_d4uxv"]
 [ext_resource type="Texture2D" uid="uid://bxera88yuskwv" path="res://Assets/buttons/menu_icon.png" id="8_lqhom"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="9_11h8s"]
@@ -13,9 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://g5687ofk6b86" path="res://Assets/buttons/slider textures/notch_action.png" id="11_u4nr8"]
 [ext_resource type="Texture2D" uid="uid://bwinen8ft4rtu" path="res://Assets/buttons/slider textures/slider_background.png" id="12_hsaop"]
 [ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="13_p2ldd"]
-[ext_resource type="Script" path="res://Scripts/General/SoundSlider.gd" id="14_lmyef"]
+[ext_resource type="Script" uid="uid://crqxuhvgwmvno" path="res://Scripts/General/SoundSlider.gd" id="14_lmyef"]
 [ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="15_q88r8"]
-[ext_resource type="Script" path="res://Scripts/General/EndParticles2.gd" id="16_ug1q1"]
+[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndParticles2.gd" id="16_ug1q1"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="17_57tn2"]
 [ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="18_on61j"]
 [ext_resource type="Texture2D" uid="uid://cbrk0jtu1s2ip" path="res://Assets/other/level_complete.png" id="19_fnijo"]
@@ -244,8 +244,8 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3aw7d"]
 _data = {
-"RESET": SubResource("Animation_ws4a1"),
-"end_anim": SubResource("Animation_jtc8t")
+&"RESET": SubResource("Animation_ws4a1"),
+&"end_anim": SubResource("Animation_jtc8t")
 }
 
 [sub_resource type="Curve" id="Curve_ilaxf"]
@@ -256,7 +256,7 @@ point_count = 3
 curve = SubResource("Curve_ilaxf")
 
 [sub_resource type="Curve" id="Curve_r4ghd"]
-max_value = 2.0
+_limits = [0.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.705882, 1.8022), 0.260204, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
 point_count = 3
 

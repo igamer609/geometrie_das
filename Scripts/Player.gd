@@ -121,8 +121,8 @@ func _physics_process(delta):
 					if is_on_floor():
 						velocity.y = -jump_speed * gravity_multiplier
 			
-			if velocity.y > 500:
-				velocity.y = 500
+			if velocity.y > 700:
+				velocity.y = 700
 			elif velocity.y < -500:
 				velocity.y = -500
 		elif gamemode == "ship":
