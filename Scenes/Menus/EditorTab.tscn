@@ -53,19 +53,19 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("2_lrw8v")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rjg8l"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2y6gb"]
-texture = ExtResource("5_4vn04")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ndirt"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vq6k0"]
 texture = ExtResource("3_nkebe")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1bhs7"]
 texture = ExtResource("4_mng8q")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vq6k0"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ndirt"]
 texture = ExtResource("3_nkebe")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2y6gb"]
+texture = ExtResource("5_4vn04")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rjg8l"]
 
 [node name="EditTab" type="Control"]
 layout_mode = 3
@@ -510,11 +510,11 @@ offset_right = -994.0
 offset_bottom = -359.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
 theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
 text = "
 "
 text_overrun_behavior = 2
@@ -566,11 +566,11 @@ offset_right = -781.0
 offset_bottom = -359.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
 theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
 text = "
 "
 text_overrun_behavior = 2
@@ -622,11 +622,11 @@ offset_right = -994.0
 offset_bottom = -148.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
 theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
 text = "
 "
 text_overrun_behavior = 2
@@ -678,11 +678,11 @@ offset_right = -781.0
 offset_bottom = -148.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
 theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
 text = "
 "
 text_overrun_behavior = 2

@@ -8,6 +8,7 @@
 
 [node name="MenuMusic" type="AudioStreamPlayer"]
 stream = ExtResource("1_lepfm")
+volume_db = -15.0
 bus = &"Music"
 script = ExtResource("2_yrnkp")
 

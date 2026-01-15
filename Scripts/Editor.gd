@@ -3,13 +3,13 @@ extends Node2D
 @export var current_id = 0
 @export var selected_objects = []
 @export var clipboard = []
-@export var swipe_obj_pos = []
 
 @onready var obj_base = preload("res://Objects/object.tscn")
 
 @onready var camera = $Camera
 @onready var level = $Level
 @onready var ui = $Editor_Object/UI_Layer
+@onready var grid = $Grid/GridSprite
 
 @onready var editor_tabs = $Editor_Object/UI_Layer/Actions/Viewport/Tabs
 @onready var top_bar = $Editor_Object/UI_Layer/TopBar
@@ -20,17 +20,25 @@ extends Node2D
 @onready var action_grid = $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid
 @onready var action_buttons = [$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Copy, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Paste, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Duplicate, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Deselect, $Editor_Object/UI_Layer/TopBar/Delete]
 
+var last_uid : int = 0
+
+var history = UndoRedo.new()
+
+var last_click_pos : Vector2
+var select_index : int = 0
+
 var edit_mode = "Build"
-var select_mode = "swipe"
+var select_mode = "single"
 var swipe = false
 var menu_state = "closed"
 
-var level_data = {"name" : "", "author" : "", "difficulty" : 0, "version" : 1.1, "song_id" : 0}
+var level_data = {"name" : "", "author" : "", "difficulty" : 0, "version" : 1.1, "song_id" : 0, "last_uid" : 0}
 
 var selection_center = null
 
 const TEMPLATE_OBJ_DICT = {
-	"id" : 1,
+	"obj_id" : 1,
+	"uid" : 0,
 	"transform" : [],
 	"other" : {}
 }
@@ -51,51 +59,57 @@ func save_level():
 		"objects" : []
 	}
 
-	for obj in level.get_children():
+	save_data["objects"] = get_data_of_objects(level.get_children())
+	
+	if not DirAccess.dir_exists_absolute("user://saved_levels/"):
+		DirAccess.make_dir_absolute("user://saved_levels/")
+	
+	var save_file : FileAccess = FileAccess.open("user://saved_levels/" + save_data["info"]["name"] + ".gdaslvl", FileAccess.WRITE)
+	var save_string : String = JSON.stringify(save_data)
+	
+	var success : bool = save_file.store_line(save_string)
+	
+	return success
+
+func get_data_of_objects(objects : Array[Node]):
+	
+	var obj_data : Array[Dictionary] = []
+	
+	for obj in objects:
 		if obj.is_class("StaticBody2D"):
 			var obj_info = TEMPLATE_OBJ_DICT.duplicate()
 
-			obj_info.id = obj.obj_res.id
+			obj_info.obj_id = obj.obj_res.id
+			obj_info.uid = obj.uid
 			obj_info["transform"] = [var_to_str(obj.global_position), obj.global_rotation]
 
 			if obj.obj_res.is_trigger:
 				obj_info["other"]["trigger_info"] = obj.trigger.get_info()
 
-			save_data["objects"].append(obj_info)
+			obj_data.append(obj_info)
 	
-	print(save_data)
-	
-	if not DirAccess.dir_exists_absolute("user://saved_levels/"):
-		DirAccess.make_dir_absolute("user://saved_levels/")
-	
-	var save_file = FileAccess.open("user://saved_levels/" + save_data["info"]["name"] + ".gdaslvl", FileAccess.WRITE)
-	var save_string = JSON.stringify(save_data)
-	
-	save_file.store_line(save_string)
-	
-	return true
+	return obj_data
 
-func load_obj(id, pos, rot, other):
-	var item = load("res://Objects/obj_ids/" + str(int(id)) + ".tres")
+func load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary): 
+	var item = load("res://Objects/obj_ids/" + str(int(obj_id)) + ".tres")
 	
-	var object = obj_base.instantiate()
+	var object : GDObject = obj_base.instantiate()
+	object.uid = uid
 	object.obj_res = item
 	
 	object.global_position = pos
 	object.global_rotation = rot
 	
-	object.selected.connect(select_object.bind(false))
 	level.add_child(object)
 
+
 func load_level_file():
-	print("hello")
-	
 	var file_dialogue = FileDialog.new()
 	file_dialogue.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialogue.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	file_dialogue.show_hidden_files = true
 	file_dialogue.title = "Select level file "
-	file_dialogue.add_filter("*.gdaslvl", "Geometrie Das Levels")
+	file_dialogue.add_filter("*.gdaslvl", "Geometrie Das level")
 	
 	ui.add_child(file_dialogue)
 	file_dialogue.popup_centered(Vector2i(700, 500))
@@ -113,6 +127,10 @@ func load_level_file():
 	if lvl_info.has("objects") and lvl_info.has("name") and lvl_info.has("author"):
 		load_level(lvl_info["objects"])
 		level_data = lvl_info
+		
+		if level_data["last_uid"] > 0:
+			last_uid = level_data["last_uid"]
+		
 	else:
 		$Editor_Object/Menu_Layer/AcceptDialog.visible = true
 
@@ -121,9 +139,12 @@ func load_level(objects):
 	delete_objects()
 	
 	for obj in objects:
-		load_obj(obj["id"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
+		load_obj(obj["obj_id"], obj["uid"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
 func load_level_from_info(lvl_info):
+	
+	print(lvl_info.keys())
+	
 	level_data = lvl_info["info"]
 	
 	if lvl_info.has("objects"):
@@ -138,7 +159,6 @@ func initialise_top_bar():
 			button.pressed.connect(delete_objects)
 		if button.name == "Menu":
 			button.pressed.connect(change_menu_state)
-			print("open")
 
 func initialise_tabs():
 	var tab_group = ButtonGroup.new()
@@ -168,6 +188,7 @@ func initialise_edit_btn():
 	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Save.pressed.connect(save_level)
 	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Resume.pressed.connect(change_menu_state)
 	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndExit.pressed.connect(save_and_exit)
+	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndPlay.pressed.connect(save_and_play)
 	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Exit.pressed.connect(exit)
 
 func change_menu_state():
@@ -182,7 +203,19 @@ func save_and_exit():
 	save_level()
 	
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
+	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
+
+func save_and_play():
+	save_level()
+	
+	var save_data = {
+		"info" : level_data,
+		"objects" : []
+	}
+
+	save_data["objects"] = get_data_of_objects(level.get_children())
+	
+	EditorTransition.load_game(save_data)
 
 func exit():
 	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog
@@ -195,7 +228,6 @@ func exit():
 	
 
 func change_editor_mode(new_mode):
-	print(new_mode)
 	
 	if new_mode != edit_mode:
 		edit_mode = new_mode
@@ -209,58 +241,99 @@ func change_editor_mode(new_mode):
 
 func initialise_actions():
 	for button in action_grid.get_children():
-		if button.name == "Copy":
-			button.pressed.connect(copy_objects)
-		elif button.name == "Paste":
-			button.pressed.connect(paste_objects)
-		elif button.name == "Duplicate":
-			button.pressed.connect(duplicate_objects)
-		elif button.name == "Deselect":
-			button.pressed.connect(deselect)
+		
+		match button.name:
+			"Copy":
+				button.pressed.connect(copy_objects)
+			"Paste":
+				button.pressed.connect(paste_objects)
+			"Duplicate":
+				button.pressed.connect(duplicate_objects)
+			"Deselect":
+				button.pressed.connect(deselect)
+			
+
+func get_objects_at_point(pos : Vector2):
+	var space : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query_parameters : PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	query_parameters.position = pos
+	var results : Array[Dictionary] = space.intersect_point(query_parameters)
+	
+	var objects : Array = []
+	for result in results:
+		# var object : Node2D = result["collider"] -- used in debug print statements
+		objects.append(result["collider"])
+	
+	return objects
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("Jump"):
 		if current_id != 0 and edit_mode == "Build":
 			place_object()
-		if edit_mode == "Edit" and not Input.is_action_just_pressed("Jump"):
-			deselect()
+		elif edit_mode == "Edit":
+			var click_pos : Vector2 = get_global_mouse_position()
+			if click_pos != last_click_pos:
+				select_index = 0
+				last_click_pos = click_pos
+			
+			var selection : Array = get_objects_at_point(click_pos)
+			
+			match select_mode:
+				"swipe":
+					for object in selection:
+						select_object(object)
+				_:
+					if  len(selection) == 0:
+						deselect()
+						return
+					select_single(selection[select_index])
+					if select_index < (len(selection) - 1):
+						select_index += 1
+			
 	
 	if event is InputEventMouseMotion:
 		if event.button_mask in [MOUSE_BUTTON_MASK_MIDDLE, MOUSE_BUTTON_MASK_RIGHT]:
 			camera.global_position -= event.relative * 0.25
+			
+			update_grid_position()
 
 func select_item_id(new_id):
 	if new_id and new_id != current_id:
 		current_id = new_id
-		print("selected item " + str(current_id))
 
 func place_object(return_obj = false):
+	
 	var item = load("res://Objects/obj_ids/" + str(current_id) + ".tres")
+	
+	history.create_action("Place object")
 	
 	var object = obj_base.instantiate()
 	object.obj_res = item
-	object.selected.connect(select_object.bind(false))
 	
 	object.global_position = get_global_mouse_position()
 	
-	object.global_position.x = snapped(object.global_position.x, 16) - 8
-	object.global_position.y = snapped(object.global_position.y, 16)
+	object.global_position.x = snapped(object.global_position.x - 8, 16)
+	object.global_position.y = snapped(object.global_position.y - 8, 16)
 	
-	level.add_child(object)
+	history.add_do_method(_add_object_to_level.bind(object))
+	history.add_do_reference(object)
+	history.add_undo_method(_remove_object_from_level.bind(object))
 	
-	select_object(object, true)
+	history.commit_action()
+	
+	select_single(object)
 	
 	if return_obj:
 		return object
 
-func select_object(object, just_built, pasted = false):
-	if object not in selected_objects:
-		if just_built:
-			deselect()
+func select_object(object : Node2D, pasted : bool = false):
+	if object  not in selected_objects:
 		
-		if edit_mode == "Edit" or just_built or pasted:
-			selected_objects.append(object)
-			object.modulate = Color(0, 255, 0)
+		selected_objects.append(object)
+		if pasted:
+			object.select()
+		else:
+			object.select()
 		
 		if not is_instance_valid(object):
 			selected_objects.erase(object)
@@ -268,6 +341,10 @@ func select_object(object, just_built, pasted = false):
 		update_selection_center()
 	else:
 		pass
+
+func select_single(object):
+	deselect()
+	select_object(object)
 
 func select_all():
 	deselect()
@@ -295,20 +372,19 @@ func update_selection_center():
 			average_x += (round(vector2[0]) / len(obj_positions))
 			average_y += (round(vector2[1]) / len(obj_positions))
 		
-		selection_center.global_position = Vector2(snapped(average_x, 8), snapped(average_y, 8))
+		selection_center.global_position = Vector2(snapped(average_x, 1), snapped(average_y, 1))
 		
-		print(selection_center.global_position)
 		level.add_child(selection_center)
 	else:
 		if selection_center:
 			get_tree().queue_delete(selection_center)
 
 func deselect():
-	for obj in selected_objects:
+	for obj : Node2D in selected_objects:
 		if is_instance_valid(obj):
-			obj.modulate = Color(255, 255, 255)
+			obj.deselect()
 		else:
-			print("found previously freed object!")
+			printerr("Attempted to deselect previously freed objects. Checking certainty of all objects.")
 			var unknown_objects = selected_objects
 			selected_objects = []
 			
@@ -316,25 +392,43 @@ func deselect():
 				if is_instance_valid(unknown_state_obj):
 					select_object(unknown_state_obj, false)
 	
-	print("deselected " + str(len(selected_objects)))
-	
-	selected_objects = []
+	selected_objects.clear()
 	
 	if selection_center:
 		get_tree().queue_delete(selection_center)
 
+func remove_from_selection(obj : Node2D):
+	var obj_index : int = selected_objects.find(obj)
+	if obj_index > -1:
+		selected_objects.remove_at(obj_index)
+		obj.deselect()
+
 func delete_objects():
-	var objects_to_delete = selected_objects
+	var objects_to_delete = selected_objects.duplicate()
 	deselect()
 	
+	history.create_action("Delete")
+	
 	for obj in objects_to_delete:
-		obj.queue_free()
+		
+		history.add_undo_method(_add_object_to_level.bind(obj))
+		history.add_undo_reference(obj)
+		
+		history.add_do_method(_remove_object_from_level.bind(obj))
+		history.add_do_reference(obj)
+	
+	history.commit_action()
 	
 
 func move_objects(direction, amount : int):
 	var moved_obj = selected_objects
 	
-	for object in moved_obj:
+	history.create_action("Move")
+	
+	for object : Node2D in moved_obj:
+		
+		history.add_undo_property(object, "global_position", object.global_position)
+		
 		if direction == "Up":
 			object.global_position.y -= amount * 16
 		elif direction == "Down":
@@ -344,13 +438,21 @@ func move_objects(direction, amount : int):
 		elif direction == "Right":
 			object.global_position.x += amount * 16
 		
+		history.add_do_property(object, "global_position", object.global_position)
+		
 		update_selection_center()
 	
+	history.commit_action()
 
 func rotate_objects(direction):
 	
+	history.create_action("Rotate")
+	
+	
 	if selection_center and len(selected_objects) >= 2:
 		for object in selected_objects:
+			history.add_undo_property(object, "global_rotation", object.global_rotation)
+			history.add_undo_property(object, "global_position", object.global_position)
 			object.reparent(selection_center)
 			selection_center.rotate(deg_to_rad(direction * 90))
 			
@@ -362,28 +464,39 @@ func rotate_objects(direction):
 			object.global_position = obj_position
 			object.global_rotation = obj_rotation
 			
+			history.add_do_property(object, "global_rotation", object.global_rotation)
+			history.add_do_property(object, "global_position", object.global_position)
+			
 			selection_center.global_rotation = 0
 	elif len(selected_objects) == 1:
-		var rot_center = Node2D.new()
+		var rot_center : Node2D = Node2D.new()
 		rot_center.global_position = selected_objects[0].get_child(0).global_position
 		level.add_child(rot_center)
+		
+		history.add_undo_property(selected_objects[0], "global_rotation", selected_objects[0].global_rotation)
+		history.add_undo_property(selected_objects[0], "global_position", selected_objects[0].global_position)
 
 		selected_objects[0].reparent(rot_center)
 		rot_center.rotate(deg_to_rad(direction * 90))
-		var new_pos = selected_objects[0].global_position
-		var new_rot = selected_objects[0].global_rotation
+		var new_pos : Vector2 = selected_objects[0].global_position
+		var new_rot : float = selected_objects[0].global_rotation
 		selected_objects[0].reparent(level)
 		selected_objects[0].global_position = new_pos
 		selected_objects[0].global_rotation = new_rot
 		get_tree().queue_delete(rot_center)
 		
+		history.add_do_property(selected_objects[0], "global_rotation", selected_objects[0].global_rotation)
+		history.add_do_property(selected_objects[0], "global_position", selected_objects[0].global_position)
+		
 		if selected_objects[0].obj_res.is_trigger:
 			for child in selected_objects[0].get_children():
 				if child.name == "embedded_scene":
 					child.global_rotation = 0
+	
+	history.commit_action()
 
 func copy_objects():
-	clipboard = []
+	clipboard.clear()
 	
 	for object in selected_objects:
 		var obj_pos = camera.to_local(object.global_position)
@@ -393,6 +506,9 @@ func copy_objects():
 
 func paste_objects():
 	if len(clipboard) >= 1:
+		
+		history.create_action("Paste")
+		
 		deselect()
 		
 		var pasted_objects = []
@@ -402,38 +518,44 @@ func paste_objects():
 		
 			var new_object = obj_base.instantiate()
 			new_object.obj_res = item
-			new_object.selected.connect(select_object.bind(false))
 			
-			new_object.global_position = Vector2(snapped((camera.to_global(object[1])).x, 16) - 8, snapped((camera.to_global(object[1])).y, 16) )
+			new_object.global_position = Vector2(snapped((camera.to_global(object[1])).x, 16) , snapped((camera.to_global(object[1])).y, 16) )
 			new_object.global_rotation = object[2]
 			
-			level.add_child(new_object)
-			
-			print(new_object.global_position)
-			
 			pasted_objects.append(new_object)
+			
+			history.add_do_method(_add_object_to_level.bind(new_object))
+			history.add_do_reference(new_object)
+			history.add_undo_method(_remove_object_from_level.bind(new_object))
+		
+		history.commit_action()
 		
 		for object in pasted_objects:
-			select_object(object, false, true)
+			select_object(object, true)
+		
 
 func duplicate_objects():
-	var objects_to_duplicate = selected_objects
+	var objects_to_duplicate = selected_objects.duplicate()
 	deselect()
 	
+	history.create_action("Duplicate")
+	
 	for obj in objects_to_duplicate:
-		print(str(obj.obj_res.id))
 		
 		var item = load("res://Objects/obj_ids/" + str(obj.obj_res.id) + ".tres")
 	
 		var object = obj_base.instantiate()
 		object.obj_res = item
-		object.selected.connect(select_object.bind(false))
 		
 		object.global_position = obj.global_position
 		object.global_rotation = obj.global_rotation
 		
 		level.add_child(object)
-		select_object(object, false, true)
+		select_object(object, true)
+		
+		history.add_do_method(_add_object_to_level.bind(object))
+		history.add_do_reference(object)
+		history.add_undo_method(_remove_object_from_level.bind(object))
 	
 	update_selection_center()
 
@@ -455,6 +577,7 @@ func check_actions():
 		action_buttons[1].disabled = true
 
 func _process(_delta):
+	
 	if Input.is_action_just_pressed("RotateLeft"):
 		rotate_objects(-1)
 	if Input.is_action_just_pressed("RotateRight"):
@@ -469,6 +592,16 @@ func _process(_delta):
 	if Input.is_action_just_pressed("MoveRight") and not Input.is_action_just_pressed("Duplicate"):
 		move_objects("Right", 1)
 	
+	if Input.is_action_just_pressed("Undo"):
+		history.undo()
+	if Input.is_action_just_pressed("Redo"):
+		history.redo()
+	
+	if Input.is_action_just_pressed("Swipe"):
+		select_mode = "swipe"
+	if Input.is_action_just_released("Swipe"):
+		select_mode = "single"
+	
 	if Input.is_action_just_pressed("Duplicate"):
 		duplicate_objects()
 	
@@ -478,4 +611,28 @@ func _process(_delta):
 	if Input.is_action_just_pressed("Paste"):
 		paste_objects()
 	
+	if Input.is_action_just_pressed("Delete"):
+		delete_objects()
+	
 	check_actions()
+
+# --------- Update editor elements on input or process ----------
+
+##Updates position of the grid in relation to the center of the camera
+func update_grid_position():
+	var camera_pos : Vector2 = camera.global_position
+	var target_grid_position : Vector2 = Vector2(snapped(camera_pos.x  - (grid.region_rect.size.x / 4), 16), snapped(camera_pos.y + (grid.region_rect.size.y / 4), 16))
+	
+	if target_grid_position.x < 0:
+		target_grid_position.x = 0
+	
+	grid.global_position = target_grid_position
+
+# --------- Operation Methods (for undo-redo system) -----------
+
+func _add_object_to_level(object : Node2D):
+	level.add_child(object)
+
+func _remove_object_from_level(object : Node2D):
+	remove_from_selection(object)
+	level.remove_child(object)

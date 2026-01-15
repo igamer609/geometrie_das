@@ -32,8 +32,8 @@ var level_data = {
 
 @export var death_particle : Node
 
-var player = null
-var player_cam = null
+var player : CharacterBody2D = null
+var player_cam : Camera2D = null
 
 var rect_x = 0
 
@@ -64,7 +64,7 @@ func load_level_data(level_info, restart = false):
 	if level_data.has("info"):
 		if level_data.has("objects"):
 			for obj in level_data["objects"]:
-				load_object(obj["id"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
+				load_object(obj["obj_id"], obj["uid"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 		if level_data["info"].has("song_id"):
 			GameProgress.music_to_load = level_data["info"]["song_id"]
 		if level_data.has("bg_color"):
@@ -72,14 +72,15 @@ func load_level_data(level_info, restart = false):
 	
 	emit_signal("loaded_level")
 
-func load_object(id, pos, rot, other):
-	var item = load("res://Objects/obj_ids/" + str(int(id)) + ".tres")
+func load_object(obj_id, uid, pos, rot, other):
+	var item = load("res://Objects/obj_ids/" + str(int(obj_id)) + ".tres")
 	
 	var object = obj_base.instantiate()
 	object.obj_res = item
 	
-	object.global_position = Vector2(pos.x + 8, pos.y)
+	object.in_level = true
 	
+	object.global_position = Vector2(pos.x + 8, pos.y)
 	object.global_rotation = rot
 	
 	level.call_deferred("add_child", object)
@@ -87,10 +88,9 @@ func load_object(id, pos, rot, other):
 func _ready():
 	initiate()
 
+
 func initiate():
 	await loaded_level
-	
-	print(level_data["info"]["name"])
 	$Universal/PauseUI/Control/Rect/LevelName.text = level_data["info"]["name"]
 	
 	GameProgress.in_game = true
@@ -108,6 +108,8 @@ func initiate():
 		player.changed_gamemode.connect(on_gamemode_change)
 		player.died.connect(player_died)
 		player.respawned.connect(player_respawn)
+		
+		player_cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	
 	ground.global_position = Vector2(40, 0)
 	
@@ -118,7 +120,7 @@ func initiate():
 		follow_cam = true
 	
 	change_background(start_bg, 0)
-	
+
 	for trigger in $BG_triggers.get_children():
 		trigger.bg_change.connect(change_background)
 
@@ -140,7 +142,6 @@ func player_respawn():
 	
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false
-	player.speed = 125
 	player.velocity = Vector2.ZERO
 	player.gravity = player.CUBE_GRAVITY
 	
@@ -164,13 +165,18 @@ func on_gamemode_change(portal, gamemode):
 		elif gamemode in ["ship"]:
 			ceiling.visible = true
 			
-			ground.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y + 88)
-			ceiling.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y - 88)
+			var ground_pos : Vector2 = Vector2(player.global_position.x + 3500, portal.global_position.y + 88)
+			if ground_pos.y > 0:
+				ground_pos.y = 0
 			
+			ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+			ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 			
-			if ground.global_position.y > 0:
-				ground.global_position.y = 0
-				ceiling.global_position.y = ground.global_position.y - 176
+			ground.global_position = ground_pos
+			ceiling.global_position = Vector2(player.global_position.x + 3500, ground.global_position.y - 176)
+			
+			ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+			ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 			
 			player_cam.global_position.y = ground.global_position.y - 88
 		elif gamemode in ["ball"]:
@@ -201,6 +207,7 @@ func on_gamemode_change(portal, gamemode):
 			ceiling.global_position.y = ground.global_position.y - 112
 
 func _process(delta):
+	
 	if obtain_endpos:
 		get_endpos()
 		obtain_endpos = false
@@ -254,6 +261,7 @@ func end_level():
 
 func restart():
 	GameProgress.stop_lvl_music()
+	get_tree().paused = false
 	EditorTransition.load_game(level_data, true)
 
 func change_background(new_colour, fade_time):

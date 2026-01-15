@@ -8,72 +8,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rg4ye"]
 size = Vector2(17, 17)
 
-[sub_resource type="Animation" id="Animation_dqb3o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BaseTilemap:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.8, 0.8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles2D2:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_uk81k"]
-resource_name = "activate"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BaseTilemap:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(0.105112, 1.46409, 1),
-"update": 0,
-"values": [Vector2(0.8, 0.8), Vector2(1.2, 1.2), Vector2(0.8, 0.8)]
-}
-
-[sub_resource type="Animation" id="Animation_ngbws"]
-resource_name = "player_enter"
-length = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D2:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xomch"]
-_data = {
-&"RESET": SubResource("Animation_dqb3o"),
-&"activate": SubResource("Animation_uk81k"),
-&"player_enter": SubResource("Animation_ngbws")
-}
-
 [sub_resource type="Curve" id="Curve_qk13h"]
 _limits = [0.0, 200.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 172.727), -363.579, 0.0, 0, 0]
@@ -105,38 +39,105 @@ scale_curve = SubResource("CurveTexture_f7sbh")
 color = Color(0.85098, 1, 0.996078, 0.419608)
 anim_speed_curve = SubResource("CurveTexture_mltk4")
 
+[sub_resource type="Animation" id="Animation_dqb3o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.8, 0.8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ring:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uk81k"]
+resource_name = "activate"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.105112, 1.46409, 1),
+"update": 0,
+"values": [Vector2(0.8, 0.8), Vector2(1.2, 1.2), Vector2(0.8, 0.8)]
+}
+
+[sub_resource type="Animation" id="Animation_ngbws"]
+resource_name = "player_enter"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ring:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xomch"]
+_data = {
+&"RESET": SubResource("Animation_dqb3o"),
+&"activate": SubResource("Animation_uk81k"),
+&"player_enter": SubResource("Animation_ngbws")
+}
+
 [node name="BlueOrb" type="Area2D"]
 scale = Vector2(1.2, 1.2)
 script = ExtResource("1_0gipf")
 jump_type = 2
 
-[node name="BaseTilemap" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_ndx0j")
 region_enabled = true
 region_rect = Rect2(0, 28, 14, 14)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rg4ye")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_xomch")
-}
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Particles" type="GPUParticles2D" parent="."]
+emitting = false
 amount = 16
-process_material = SubResource("ParticleProcessMaterial_1lmjh")
 speed_scale = 2.0
 fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_1lmjh")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xomch")
+}
+
+[node name="Ring" type="GPUParticles2D" parent="."]
 texture_filter = 1
 emitting = false
 amount = 1
-process_material = ExtResource("3_m06e4")
 texture = ExtResource("3_uxv1i")
 lifetime = 0.3
 one_shot = true
+process_material = ExtResource("3_m06e4")

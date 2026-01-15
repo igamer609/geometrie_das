@@ -9,6 +9,7 @@ size = Vector2(19.2, 20)
 z_index = 5
 scale = Vector2(2, 1)
 collision_layer = 2
+platform_on_leave = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-9.53674e-05, 10)

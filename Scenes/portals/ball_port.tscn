@@ -11,14 +11,14 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("1_liqm3")
 portal_type = 4
 
-[node name="BaseTilemap" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_annoi")
 region_enabled = true
 region_rect = Rect2(46, 0, 16, 27)
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4.76837e-07)
 shape = SubResource("RectangleShape2D_qs08e")
 debug_color = Color(0, 0.6, 0.701961, 0)

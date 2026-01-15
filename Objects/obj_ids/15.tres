@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GD_Object" load_steps=5 format=3 uid="uid://ckhyc8jtuohbu"]
+
+[ext_resource type="PackedScene" uid="uid://cbo8wu4f074xw" path="res://Scenes/portals/ship_port.tscn" id="1_aahui"]
+[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/Obj.gd" id="2_r8wto"]
+[ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="3_imsrt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8wto"]
+atlas = ExtResource("3_imsrt")
+region = Rect2(14, 0, 16, 27)
+
+[resource]
+script = ExtResource("2_r8wto")
+id = 15
+is_scene = true
+scene = ExtResource("1_aahui")
+texture = SubResource("AtlasTexture_r8wto")
+collision_shape = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)

@@ -4,17 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="1_rd2d5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxpeg"]
-size = Vector2(4, 4)
+size = Vector2(2.5, 2)
 
-[node name="Spike" type="Area2D"]
+[node name="Spike" type="Area2D" groups=["Hazard"]]
 script = ExtResource("1_i0v2k")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_jxpeg")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 0.5)
 texture = ExtResource("1_rd2d5")
 region_enabled = true
 region_rect = Rect2(48, 0, 15, 16)

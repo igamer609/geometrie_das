@@ -151,6 +151,7 @@ size_flags_vertical = 3
 [node name="Exit" type="TextureButton" parent="."]
 self_modulate = Color(1, 0.894118, 0.890196, 1)
 texture_filter = 1
+layout_mode = 0
 offset_left = 11.0
 offset_top = 11.0
 offset_right = 114.0

@@ -1,35 +1,48 @@
-extends StaticBody2D
-
-signal selected(obj)
+class_name GDObject extends StaticBody2D
 
 @export var obj_res : GD_Object
+@export var in_level : bool = false
 
-@onready var vis_notif = $VisibilityNotifier
-@onready var anim_player = $AnimationPlayer
+var scene : Node2D = null
+
+@onready var vis_notif : VisibleOnScreenNotifier2D = $VisibilityNotifier
+@onready var anim_player : AnimationPlayer = $AnimationPlayer
+@onready var shader_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
+
+@export var uid : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if obj_res:
 		update()
-
-func _input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton:
-		if event.button_index == 1 and event.pressed:
-			print("selected")
-			emit_signal("selected", self)
+	#if in_level:
+	#	enable_transition()
 
 func update():
 	if obj_res.is_scene:
-		var obj_scene = obj_res.scene.instantiate()
-		obj_scene.position = Vector2(8, 8)
-		obj_scene.name = "Scene"
+		scene = obj_res.scene.instantiate()
+		scene.position = Vector2(8, 8)
+		scene.name = "Scene"
 		
-		obj_scene.input_event.connect(_input_event)
+		$Collision.polygon = obj_res.collision_shape
 		
-		add_child(obj_scene)
+		$SceneParent.add_child(scene)
+		
+		if in_level:
+			var particles : GPUParticles2D = scene.find_child("Particles")
+			if(particles):
+				particles.emitting = true
+		
+		var sprite : Sprite2D = scene.find_child("Sprite")
+		if sprite:
+			sprite.material = shader_material
+		
+		$Sprite.queue_free()
+		
 	else:
 		$Sprite.texture = obj_res.texture
 		$Collision.polygon = obj_res.collision_shape
+		$Sprite.material = shader_material
 	
 	if not obj_res.is_solid:
 		set_collision_layer_value(1, false)
@@ -40,8 +53,32 @@ func update():
 		set_collision_layer_value(2, true)
 		set_collision_layer_value(3, false)
 
+func select():
+	if scene:
+		var sprite : Sprite2D = scene.find_child("Sprite")
+		if sprite:
+			sprite.set_instance_shader_parameter("is_selected", true)
+	else:
+		$Sprite.set_instance_shader_parameter("is_selected", true)
+
+func deselect():
+	if scene:
+		var sprite : Sprite2D = scene.find_child("Sprite")
+		if sprite:
+			sprite.set_instance_shader_parameter("is_selected", false)
+	else:
+		$Sprite.set_instance_shader_parameter("is_selected", false)
+
 func enable_transition():
-	visible = false
-	
-	vis_notif.screen_entered.connect(anim_player.play.bind("load1"))
-	vis_notif.screen_exited.connect(anim_player.play_backwards.bind("load1"))
+	vis_notif.screen_entered.connect(load_object)
+	vis_notif.screen_exited.connect(unload_object)
+
+func load_object():
+	print("load!!")
+	if not anim_player.is_playing():
+		anim_player.play("load1")
+
+func unload_object():
+	print("unload")
+	if not anim_player.is_playing():
+		anim_player.play_backwards("load1")

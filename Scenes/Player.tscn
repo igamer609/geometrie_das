@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnojsoxagacoj"]
+[gd_scene load_steps=11 format=3 uid="uid://bnojsoxagacoj"]
 
-[ext_resource type="Shape2D" path="res://Assets/cube.tres" id="1"]
+[ext_resource type="Shape2D" uid="uid://blxa3u7mo75f" path="res://Assets/cube.tres" id="1"]
 [ext_resource type="Script" uid="uid://bteyudj7or5uc" path="res://Scripts/Player.gd" id="1_06ggq"]
 [ext_resource type="Texture2D" uid="uid://c3gmwaa5aedxh" path="res://Assets/player.png" id="3_lto8g"]
 [ext_resource type="Texture2D" uid="uid://bqtnfkmias0dd" path="res://Assets/ball.png" id="4_2lric"]
@@ -8,25 +8,45 @@
 [ext_resource type="AudioStream" uid="uid://chi3x2sqxury5" path="res://Assets/sfx/death_sound.mp3" id="6_6ipy7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a8ao1"]
-size = Vector2(16, 16)
+size = Vector2(5, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nn08x"]
+radius = 8.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bhhdu"]
+custom_solver_bias = 0.15
+a = Vector2(-8, 7.9)
+b = Vector2(8, 7.9)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_52ee3"]
+a = Vector2(-2, 8)
+b = Vector2(2, 8)
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
 collision_mask = 2
-slide_on_ceiling = false
-floor_constant_speed = true
-floor_max_angle = 1.309
+floor_snap_length = 2.0
 platform_on_leave = 2
 script = ExtResource("1_06ggq")
 gravity_reverse = false
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="PlatformArea" type="Area2D" parent="."]
+position = Vector2(0, -2)
+collision_mask = 2
+
+[node name="PlatformHitbox" type="CollisionShape2D" parent="PlatformArea"]
 shape = SubResource("RectangleShape2D_a8ao1")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
-[node name="DetectArea" type="Area2D" parent="."]
+[node name="DamageArea" type="Area2D" parent="." groups=["Player"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectArea"]
+[node name="Straight" type="CollisionShape2D" parent="DamageArea"]
 shape = ExtResource("1")
+debug_color = Color(0.99607843, 0, 0, 0)
+
+[node name="Angled" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_nn08x")
+debug_color = Color(0.99607843, 0, 0, 0)
 
 [node name="Sprites" type="Node2D" parent="."]
 
@@ -73,6 +93,49 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
-[connection signal="area_entered" from="DetectArea" to="." method="_on_detect_area_area_entered"]
-[connection signal="area_exited" from="DetectArea" to="." method="_on_detect_area_area_exited"]
+[node name="SurfaceRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 9)
+collision_mask = 2
+
+[node name="LedgeRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(10, 0)
+collision_mask = 2
+
+[node name="HeadLedgeRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, -5)
+target_position = Vector2(10, 0)
+collision_mask = 2
+
+[node name="BottomRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 7)
+target_position = Vector2(10, 0)
+collision_mask = 2
+
+[node name="TopRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+target_position = Vector2(10, 0)
+collision_mask = 2
+
+[node name="SurfaceHitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_bhhdu")
+one_way_collision = true
+debug_color = Color(0, 0.6, 0.69803923, 0.15686275)
+
+[node name="HeadHitbox" type="CollisionShape2D" parent="."]
+rotation = 3.1415927
+shape = SubResource("SegmentShape2D_bhhdu")
+disabled = true
+one_way_collision = true
+debug_color = Color(0, 0.6, 0.69803923, 0.5803922)
+
+[node name="MinSurfaceHitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_52ee3")
+disabled = true
+one_way_collision = true
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[connection signal="body_entered" from="PlatformArea" to="." method="_on_platform_collision"]
+[connection signal="area_entered" from="DamageArea" to="." method="_on_damage_area_entered"]
+[connection signal="area_exited" from="DamageArea" to="." method="_on_detect_area_exited"]
 [connection signal="timeout" from="Respawn" to="." method="_on_respawn_timeout"]

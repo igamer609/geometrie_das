@@ -26,13 +26,13 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjyem"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u66gc"]
 content_margin_left = 10.0
 content_margin_top = 20.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjyem"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4ti0"]
 
@@ -225,6 +225,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_1yyfo")
 Button/styles/pressed = SubResource("StyleBoxFlat_ibjao")
 
 [node name="Editor" type="Node2D"]
+physics_interpolation_mode = 2
 script = ExtResource("1_id040")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -239,24 +240,21 @@ texture = ExtResource("1_ojbeb")
 [node name="Grid" type="Node2D" parent="."]
 
 [node name="GridSprite" type="Sprite2D" parent="Grid"]
-modulate = Color(0.188235, 0.188235, 0.188235, 1)
+modulate = Color(0, 0, 0, 0.3764706)
 z_index = -5
 texture_filter = 1
 texture_repeat = 2
-position = Vector2(-8, 8)
 scale = Vector2(0.5, -0.5)
 texture = ExtResource("1_0y7rc")
 centered = false
 region_enabled = true
-region_rect = Rect2(0, 0, 6e+06, 20000)
+region_rect = Rect2(0, 0, 1280, 720)
 
 [node name="Line2D" type="Line2D" parent="Grid"]
-position = Vector2(-8, 2)
-points = PackedVector2Array(0, 94, 0, -9874)
+points = PackedVector2Array(0, 94, 0, -7.226206, 0, -9874)
 width = 2.0
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(128, -32)
 zoom = Vector2(3, 3)
 
 [node name="Level" type="Node2D" parent="."]
@@ -329,8 +327,8 @@ offset_right = -192.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/side_margin = 15
-theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
 current_tab = 0
 
 [node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
@@ -599,6 +597,105 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Orbs" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+columns = 10
+metadata/_tab_index = 2
+
+[node name="ItemButton2" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 12
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton2"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 13
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton3"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 14
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton4"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 15
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton5"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Edit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport"]
 visible = false
 layout_mode = 1
@@ -611,16 +708,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 0
 offset_left = 112.0
-offset_top = 32.0
-offset_right = -624.0
-offset_bottom = -160.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 29.0
+offset_right = 179.0
+offset_bottom = 96.0
 theme = ExtResource("5_vdfow")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Up"]
@@ -638,25 +730,21 @@ grow_vertical = 2
 texture = ExtResource("7_uumli")
 
 [node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 0
 offset_left = 112.0
-offset_top = 160.0
-offset_right = -624.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 159.0
+offset_right = 179.0
+offset_bottom = 226.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect2" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Down"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Down"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = 12.0
+offset_top = 13.0
 offset_right = -10.0
 offset_bottom = -7.0
 grow_horizontal = 2
@@ -664,21 +752,16 @@ grow_vertical = 2
 texture = ExtResource("7_uumli")
 flip_v = true
 
-[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = 160.0
-offset_right = -688.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.57079
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 94.0
+offset_right = 314.0
+offset_bottom = 161.0
+rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Left"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Right"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -692,27 +775,23 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_uumli")
 
-[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 176.0
-offset_top = 160.0
-offset_right = -560.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.57079
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["one_block"]]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 94.0
+offset_right = 179.0
+offset_bottom = 161.0
+rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect2" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Right"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Left"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = 12.0
+offset_top = 13.0
 offset_right = -10.0
 offset_bottom = -7.0
 grow_horizontal = 2
@@ -848,6 +927,7 @@ grow_vertical = 2
 texture = ExtResource("12_oi36f")
 
 [node name="Ground" parent="Editor_Object" instance=ExtResource("9_5bivf")]
+physics_interpolation_mode = 1
 
 [node name="Menu_Layer" type="CanvasLayer" parent="Editor_Object"]
 layer = 3

@@ -89,7 +89,6 @@ func player_respawn():
 	
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false
-	player.speed = 125
 	player.velocity = Vector2.ZERO
 	player.gravity = player.CUBE_GRAVITY
 	

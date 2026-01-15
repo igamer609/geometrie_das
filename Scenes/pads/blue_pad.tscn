@@ -50,7 +50,7 @@ color = Color(0.85098, 1, 0.996078, 0.419608)
 script = ExtResource("1_2gmdr")
 jump_type = 2
 
-[node name="BaseTilemap" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -2.38419e-07)
 scale = Vector2(1, 1.06667)
@@ -58,15 +58,15 @@ texture = ExtResource("2_jujta")
 region_enabled = true
 region_rect = Rect2(36, 27, 16, 15)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_1lyxv")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Particles" type="GPUParticles2D" parent="."]
 position = Vector2(0, 7)
 amount = 11
-process_material = SubResource("ParticleProcessMaterial_vuqhk")
 lifetime = 0.9
 speed_scale = 2.0
 fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_vuqhk")

@@ -6,15 +6,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7iqr"]
 radius = 26.0192
 
-[node name="Sawblade" type="Area2D"]
+[node name="Sawblade" type="Area2D" groups=["Hazard"]]
 script = ExtResource("1_fbf8a")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(1.325, 1.325)
 texture = ExtResource("2_xv0s6")
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 scale = Vector2(0.6, 0.6)
 shape = SubResource("CircleShape2D_c7iqr")
-debug_color = Color(1, 0, 0.133333, 0.172549)
+debug_color = Color(1, 0, 0.13333334, 0)

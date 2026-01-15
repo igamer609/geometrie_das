@@ -10,8 +10,6 @@ region = Rect2(32, 0, 16, 16)
 [resource]
 script = ExtResource("1_uaxoj")
 id = 3
-is_scene = false
 texture = SubResource("AtlasTexture_2ako3")
 collision_shape = PackedVector2Array(8, 0, -8, 0, -8, 8, 8, 8)
 is_solid = true
-is_trigger = false

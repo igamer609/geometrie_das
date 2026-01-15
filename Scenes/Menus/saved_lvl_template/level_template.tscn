@@ -30,6 +30,7 @@ offset_bottom = 88.0
 grow_horizontal = 2
 theme_override_constants/separation = 25
 split_offset = 35
+dragging_enabled = false
 
 [node name="Details" type="HBoxContainer" parent="Container"]
 layout_mode = 2

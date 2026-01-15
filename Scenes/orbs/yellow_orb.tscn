@@ -43,7 +43,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BaseTilemap:scale")
+tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -55,7 +55,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles2D2:emitting")
+tracks/1/path = NodePath("Ring:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -71,7 +71,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BaseTilemap:scale")
+tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -87,7 +87,7 @@ length = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D2:emitting")
+tracks/0/path = NodePath("Ring:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -129,33 +129,34 @@ scale = Vector2(1.2, 1.2)
 script = ExtResource("1_npmkk")
 jump_type = 1
 
-[node name="BaseTilemap" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_aj0fd")
 region_enabled = true
 region_rect = Rect2(0, 0, 14, 14)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rg4ye")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Particles" type="GPUParticles2D" parent="."]
+emitting = false
 amount = 16
-process_material = SubResource("ParticleProcessMaterial_1lmjh")
 speed_scale = 2.0
 fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_1lmjh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_xomch")
+&"": SubResource("AnimationLibrary_xomch")
 }
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="Ring" type="GPUParticles2D" parent="."]
 texture_filter = 1
 emitting = false
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_lnqdr")
 texture = ExtResource("3_oqxkp")
 lifetime = 0.3
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_lnqdr")

@@ -14,6 +14,4 @@ id = 2
 is_scene = true
 scene = ExtResource("1_b2mn5")
 texture = SubResource("AtlasTexture_2ako3")
-collision_shape = PackedVector2Array(16, -16, -16, -16, -16, 16, 16, 16)
-is_solid = false
-is_trigger = false
+collision_shape = PackedVector2Array(0, -8, 8, 8, -8, 8)

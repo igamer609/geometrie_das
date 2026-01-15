@@ -45,6 +45,14 @@ texture_margin_top = 24.0
 texture_margin_bottom = 24.0
 axis_stretch_horizontal = 1
 
+[sub_resource type="Curve" id="Curve_5qmfb"]
+_data = [Vector2(0, 0.924793), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_upd24"]
+width = 826
+curve = SubResource("Curve_5qmfb")
+
 [sub_resource type="Curve" id="Curve_6ee17"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0769231, 1), 0.0, 0.0, 0, 0, Vector2(0.674208, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
@@ -63,14 +71,6 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.0
 scale_max = 17.13
 alpha_curve = SubResource("CurveTexture_omqxk")
-
-[sub_resource type="Curve" id="Curve_5qmfb"]
-_data = [Vector2(0, 0.924793), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_upd24"]
-width = 826
-curve = SubResource("Curve_5qmfb")
 
 [sub_resource type="Curve" id="Curve_0komb"]
 _data = [Vector2(0, 0), 0.0, -0.25, 0, 0, Vector2(1, 1), -0.458221, 0.441558, 0, 0]
@@ -313,6 +313,36 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h6nsj")
 
+[node name="Restart" type="TextureButton" parent="Universal/PauseUI/Control/Rect"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.54501
+offset_top = -92.0
+offset_right = -26.543945
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Restart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = 30.0
+offset_right = -31.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_sgf4h")
+
 [node name="Exit" type="TextureButton" parent="Universal/PauseUI/Control/Rect"]
 texture_filter = 1
 layout_mode = 1
@@ -321,10 +351,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -96.0
-offset_top = -24.0
-offset_right = 76.0
-offset_bottom = 148.0
+offset_left = 25.0
+offset_top = -96.0
+offset_right = 175.0
+offset_bottom = 54.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
@@ -357,8 +387,8 @@ offset_bottom = -185.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 55
 theme_override_constants/line_spacing = 25
+theme_override_constants/outline_size = 55
 theme_override_fonts/font = ExtResource("9_v5nhe")
 theme_override_font_sizes/font_size = 60
 text = "Untitled"
@@ -473,18 +503,18 @@ vertical_alignment = 1
 
 [node name="EndParticles" type="GPUParticles2D" parent="Universal/EndAnimation"]
 emitting = false
-process_material = SubResource("ParticleProcessMaterial_f5t7b")
 texture = SubResource("CurveTexture_upd24")
 lifetime = 2.0
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_f5t7b")
 
 [node name="EndParticles2" type="GPUParticles2D" parent="Universal/EndAnimation"]
 texture_filter = 1
 emitting = false
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_teeq7")
 texture = ExtResource("15_kpvsc")
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_teeq7")
 script = ExtResource("16_foyog")
 
 [node name="EndUI" type="CanvasLayer" parent="Universal/EndAnimation"]
@@ -498,10 +528,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 199.0
-offset_top = 2000.0
-offset_right = 1081.0
-offset_bottom = 2618.0
+offset_left = -441.0
+offset_top = 1640.0
+offset_right = 441.0
+offset_bottom = 2258.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
@@ -605,16 +635,16 @@ texture = ExtResource("19_akev4")
 
 [node name="EndAnimation" type="AnimationPlayer" parent="Universal/EndAnimation"]
 libraries = {
-"": SubResource("AnimationLibrary_3aw7d")
+&"": SubResource("AnimationLibrary_3aw7d")
 }
 
 [node name="DeathEffect" type="GPUParticles2D" parent="Universal"]
 emitting = false
 amount = 1
-process_material = SubResource("ParticleProcessMaterial_nvx1k")
 texture = ExtResource("20_fq7st")
 lifetime = 0.4
 one_shot = true
+process_material = SubResource("ParticleProcessMaterial_nvx1k")
 
 [node name="BG" type="ParallaxBackground" parent="Universal"]
 process_mode = 1
@@ -635,6 +665,7 @@ texture = ExtResource("21_1gw2q")
 
 [node name="BG_triggers" type="Node" parent="."]
 
+[connection signal="pressed" from="Universal/PauseUI/Control/Rect/Restart" to="." method="restart"]
 [connection signal="pressed" from="Universal/PauseUI/Control/Rect/Exit" to="." method="exit_level"]
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Exit" to="." method="exit_level"]
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Restart" to="." method="restart"]

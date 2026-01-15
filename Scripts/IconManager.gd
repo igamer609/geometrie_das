@@ -11,7 +11,8 @@ func save_ids():
 	var save_data = {
 		"cube_id" : cube_id,
 		"ship_id" : ship_id,
-		"ball_id" : ball_id
+		"ball_id" : ball_id,
+		
 	}
 	
 	var save_file = FileAccess.open("user://iconsave.save", FileAccess.WRITE)
