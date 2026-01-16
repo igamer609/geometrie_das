@@ -22,11 +22,11 @@ func _ship_tab():
 func _process(delta):
 	for icon in $DisplayIcons.get_children():
 		if icon.name == "CubeDisplay":
-			icon.texture.region = Rect2(IconManager.cube_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
 		if icon.name == "ShipDisplay":
-			icon.texture.region = Rect2(IconManager.ship_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.ship_id * 16, 0, 16, 16)
 		if icon.name == "BallDisplay":
-			icon.texture.region = Rect2(IconManager.ball_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.ball_id * 16, 0, 16, 16)
 
 
 func _on_exit():

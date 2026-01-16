@@ -23,7 +23,7 @@ config/version.release="1.1"
 
 [autoload]
 
-IconManager="*res://Scenes/managers/icon_manager.tscn"
+PlayerData="*res://Scenes/managers/icon_manager.tscn"
 TransitionScene="*res://Scenes/Transition/SceneTransition.tscn"
 GameProgress="*res://Scenes/Menus/GameProgress.tscn"
 MenuMusic="*res://Scenes/managers/menu_music.tscn"

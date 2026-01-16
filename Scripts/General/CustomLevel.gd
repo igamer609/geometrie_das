@@ -229,10 +229,10 @@ func _process(delta):
 	
 	GameProgress.update_bar((player.global_position.x / endpos.global_position.x) * 100)
 	
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and not is_finishing():
 		get_tree().paused = !get_tree().paused
 	
-	if player.global_position.x >= rect_x + 152:
+	if is_finishing():
 		follow_cam = false
 		player.gravity = 10
 		player.velocity.y = -50
@@ -242,13 +242,14 @@ func _process(delta):
 		level_ended = true
 		end_level()
 
+func is_finishing() -> bool:
+	return player.global_position.x >= rect_x + 152
+
 func exit_level():
 	GameProgress.in_game = false
 	GameProgress.music_to_load = 0
 	GameProgress.stop_lvl_music()
-	
 	MenuMusic.start_music()
-	
 	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
 
 func end_level():

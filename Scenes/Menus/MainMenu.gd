@@ -38,7 +38,7 @@ func reset_progress():
 	if FileAccess.file_exists("user://iconsave.save"):
 		DirAccess.remove_absolute("user://iconsave.save")
 	
-	IconManager.load_ids()
+	PlayerData.load_data()
 	
 	$ResetDialogue.visible = false
 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GD_Object" load_steps=5 format=3 uid="uid://nf2ewjuobndo"]
+
+[ext_resource type="PackedScene" uid="uid://dtfyfwg6wjpnm" path="res://Scenes/portals/gravity_port_yellow.tscn" id="1_j7cos"]
+[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/Obj.gd" id="2_d84cd"]
+[ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="3_4hl8p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d84cd"]
+atlas = ExtResource("3_4hl8p")
+region = Rect2(72, 33, 10, 27)
+
+[resource]
+script = ExtResource("2_d84cd")
+id = 18
+is_scene = true
+scene = ExtResource("1_j7cos")
+texture = SubResource("AtlasTexture_d84cd")
+collision_shape = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)

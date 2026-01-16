@@ -329,9 +329,10 @@ grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
-current_tab = 0
+current_tab = 2
 
 [node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
@@ -598,7 +599,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Orbs" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
-visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
@@ -615,6 +615,29 @@ script = ExtResource("7_t5tsa")
 id = 12
 
 [node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton2"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 19
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton9"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -650,6 +673,77 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 20
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton10"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 17
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton6"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 4
+
+[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 18
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton7"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 4
+
 [node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
@@ -672,6 +766,7 @@ offset_right = -12.0
 offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
+stretch_mode = 4
 
 [node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
 custom_minimum_size = Vector2(70, 70)
@@ -695,6 +790,31 @@ offset_right = -12.0
 offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
+stretch_mode = 4
+
+[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 16
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton8"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 4
 
 [node name="Edit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport"]
 visible = false

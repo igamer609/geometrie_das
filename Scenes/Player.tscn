@@ -26,12 +26,12 @@ b = Vector2(2, 8)
 texture_filter = 1
 collision_mask = 2
 floor_snap_length = 2.0
-platform_on_leave = 2
+platform_on_leave = 1
+platform_floor_layers = 4294967040
 script = ExtResource("1_06ggq")
 gravity_reverse = false
 
 [node name="PlatformArea" type="Area2D" parent="."]
-position = Vector2(0, -2)
 collision_mask = 2
 
 [node name="PlatformHitbox" type="CollisionShape2D" parent="PlatformArea"]
@@ -94,7 +94,12 @@ wait_time = 0.1
 one_shot = true
 
 [node name="SurfaceRaycast" type="RayCast2D" parent="."]
-target_position = Vector2(0, 9)
+target_position = Vector2(0, 8.5)
+collision_mask = 2
+
+[node name="CeilingRaycast" type="RayCast2D" parent="."]
+rotation = 3.1415927
+target_position = Vector2(0, 8.5)
 collision_mask = 2
 
 [node name="LedgeRaycast" type="RayCast2D" parent="."]

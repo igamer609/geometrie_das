@@ -265,7 +265,7 @@ death_particle = NodePath("Universal/DeathEffect")
 
 [node name="Player" parent="." instance=ExtResource("3_tq51e")]
 process_mode = 1
-position = Vector2(0, -16)
+position = Vector2(0, -8.94)
 
 [node name="Universal" type="Node" parent="."]
 process_mode = 1
@@ -282,8 +282,7 @@ position = Vector2(3500, 0)
 
 [node name="Ceiling" parent="Universal" instance=ExtResource("5_vb1ue")]
 process_mode = 1
-visible = false
-position = Vector2(1728, 271.9)
+position = Vector2(1728, -400)
 rotation = 3.14159
 
 [node name="PauseUI" type="CanvasLayer" parent="Universal"]
