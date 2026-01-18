@@ -4,6 +4,7 @@ signal loaded_level()
 
 var level_data = {
 	"info" : {
+		"id": 0,
 		"name" : "Untitled",
 		"author" : "-",
 		"difficulty" : 0,
@@ -14,6 +15,7 @@ var level_data = {
 	"objects" : []
 }
 
+var _playtesting : bool = false
 @onready var obj_base = preload("res://Objects/object.tscn")
 
 @export var start_bg : Color
@@ -55,13 +57,17 @@ func get_endpos():
 	
 	print(endpos.global_position.x)
 
-func load_level_data(level_info, restart = false):
+func load_level_data(level_info, restart = false, playtesting = false):
 	level_data = level_info
 	
 	if restart:
 		first_attempt = false
 	
 	if level_data.has("info"):
+		
+		if not playtesting:
+			GameProgress.current_level_id = level_data["info"]["id"]
+		
 		if level_data.has("objects"):
 			for obj in level_data["objects"]:
 				load_object(obj["obj_id"], obj["uid"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
@@ -70,6 +76,7 @@ func load_level_data(level_info, restart = false):
 		if level_data.has("bg_color"):
 			start_bg = level_data["info"]["bg_color"]
 	
+	_playtesting = playtesting
 	emit_signal("loaded_level")
 
 func load_object(obj_id, uid, pos, rot, other):
@@ -253,17 +260,28 @@ func exit_level():
 	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
 
 func end_level():
-	GameProgress.check_progress(100)
+	if _playtesting:
+		_verify_level()
 	
 	end_particles.global_position = player.global_position
 	end_animation.play("end_anim")
 	
 	player_cam.position_smoothing_enabled = false
 
+func _verify_level():
+	var directory = DirAccess.get_files_at("user://saved_levels")
+	
+	for this_level  in directory:
+		print(this_level)
+		var file_path = "user://saved_levels/" + this_level
+		
+		var lvl_file = FileAccess.open(file_path, FileAccess.READ)
+		var lvl_info = JSON.parse_string(lvl_file.get_line())
+
 func restart():
 	GameProgress.stop_lvl_music()
 	get_tree().paused = false
-	EditorTransition.load_game(level_data, true)
+	EditorTransition.load_game(level_data, true, _playtesting)
 
 func change_background(new_colour, fade_time):
 	

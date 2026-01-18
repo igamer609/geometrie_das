@@ -32,7 +32,7 @@ var select_mode = "single"
 var swipe = false
 var menu_state = "closed"
 
-var level_data = {"name" : "", "author" : "", "difficulty" : 0, "version" : 1.1, "song_id" : 0, "last_uid" : 0}
+var level_data = {"local_id": generate_unique_id(), "name" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
 
 var selection_center = null
 
@@ -43,7 +43,6 @@ const TEMPLATE_OBJ_DICT = {
 	"other" : {}
 }
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	initialise_tabs()
 	
@@ -102,6 +101,11 @@ func load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dicti
 	
 	level.add_child(object)
 
+func generate_unique_id() -> int:
+	var time : int = Time.get_unix_time_from_system()
+	var rand : int = randi() % 10000 + 1
+	
+	return time * 10000 + rand
 
 func load_level_file():
 	var file_dialogue = FileDialog.new()
@@ -215,7 +219,7 @@ func save_and_play():
 
 	save_data["objects"] = get_data_of_objects(level.get_children())
 	
-	EditorTransition.load_game(save_data)
+	EditorTransition.load_game(save_data, false, true)
 
 func exit():
 	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog

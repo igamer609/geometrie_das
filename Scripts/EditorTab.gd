@@ -22,32 +22,45 @@ extends Control
 #=========Default level data=========#
 var default_level_data = {
 	"info" : {
-		"name" : "",
-		"author" : "",
-		"difficulty" : 0,
-		"version" : 1.1,
-		"song_id" : 1,
+		"local_id": generate_unique_id(),
+		 "name" : "",
+		 "author" : "", 
+		"difficulty" : 0, 
+		"version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), 
+		"song_id" : 1, 
+		"last_uid" : 0, 
+		"song_offset" : 0,
+		 "verified" : 0,
+		 "published_id" : -1,
 		"bg_color" : Color("0045e1")
 		},
 	"objects" : []
 }
 
-var level_data = {
+var level_data ={
 	"info" : {
-		"name" : "",
-		"author" : "",
-		"difficulty" : 0,
-		"version" : 1.1,
-		"song_id" : 1,
+		"local_id": generate_unique_id(),
+		 "name" : "",
+		 "author" : "", 
+		"difficulty" : 0, 
+		"version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), 
+		"song_id" : 1, 
+		"last_uid" : 0, 
+		"song_offset" : 0,
+		 "verified" : 0,
+		 "published_id" : -1,
 		"bg_color" : Color("0045e1")
 		},
 	"objects" : []
 }
 var text_box_limit = ["$", "#", "@", "!", "%", "^", "&", "*", "(", ")", "'", '"']
 
+func generate_unique_id() -> int:
+	var time : int = Time.get_unix_time_from_system()
+	var rand : int = randi() % 10000 + 1
+	return time * 10000 + rand
+
 func _ready():
-	GameProgress.track_progress = false
-	
 	setup_difficulty_buttons()
 	setup_text_boxes()
 	setup_tab_buttons()
@@ -112,9 +125,9 @@ func change_level_author(author):
 
 func create_level():
 	if level_data["info"]["name"] == "":
-		level_data["info"]["name"] = "Untitled " + str(get_instance_id())
+		level_data["info"]["name"] = "Untitled " + str(level_data["info"]["local_id"])
 	if level_data["info"]["author"] == "":
-		level_data["info"]["author"] = "-"
+		level_data["info"]["author"] = "Player"
 	
 	EditorTransition.load_editor(level_data)
 

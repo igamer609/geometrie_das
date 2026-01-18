@@ -93,7 +93,7 @@ func player_respawn():
 	player.gravity = player.CUBE_GRAVITY
 	
 	player.global_position.x = 0
-	player.global_position.y = -12
+	player.global_position.y = -8
 	
 	ground.global_position = Vector2(player.global_position.x + 3500, 0)
 	

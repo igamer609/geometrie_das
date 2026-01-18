@@ -10,7 +10,7 @@ region = Rect2(0, 28, 14, 14)
 
 [resource]
 script = ExtResource("2_x7tuf")
-id = 13
+id = 20
 is_scene = true
 scene = ExtResource("1_ttcu3")
 texture = SubResource("AtlasTexture_x7tuf")

@@ -40,7 +40,7 @@ func add_level_template(level_data):
 		new_lvl.author_label.text = "by -"
 	
 	new_lvl.song_label.text = GameProgress.music_ids[int(level_data["info"]["song_id"])][1]
-	new_lvl.play_button.pressed.connect(EditorTransition.load_game.bind(level_data))
+	new_lvl.play_button.pressed.connect(EditorTransition.load_game.bind(level_data, false, true))
 	new_lvl.edit_button.pressed.connect(EditorTransition.load_editor.bind(level_data))
 
 func _ready():

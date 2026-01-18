@@ -31,23 +31,6 @@ platform_floor_layers = 4294967040
 script = ExtResource("1_06ggq")
 gravity_reverse = false
 
-[node name="PlatformArea" type="Area2D" parent="."]
-collision_mask = 2
-
-[node name="PlatformHitbox" type="CollisionShape2D" parent="PlatformArea"]
-shape = SubResource("RectangleShape2D_a8ao1")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[node name="DamageArea" type="Area2D" parent="." groups=["Player"]]
-
-[node name="Straight" type="CollisionShape2D" parent="DamageArea"]
-shape = ExtResource("1")
-debug_color = Color(0.99607843, 0, 0, 0)
-
-[node name="Angled" type="CollisionShape2D" parent="DamageArea"]
-shape = SubResource("CircleShape2D_nn08x")
-debug_color = Color(0.99607843, 0, 0, 0)
-
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="cube" type="Sprite2D" parent="Sprites"]
@@ -77,6 +60,23 @@ scale = Vector2(0.358645, 0.345016)
 texture = ExtResource("3_lto8g")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
+
+[node name="PlatformArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="PlatformHitbox" type="CollisionShape2D" parent="PlatformArea"]
+shape = SubResource("RectangleShape2D_a8ao1")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="DamageArea" type="Area2D" parent="." groups=["Player"]]
+
+[node name="Straight" type="CollisionShape2D" parent="DamageArea"]
+shape = ExtResource("1")
+debug_color = Color(0.99607843, 0, 0, 0)
+
+[node name="Angled" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("CircleShape2D_nn08x")
+debug_color = Color(0.99607843, 0, 0, 0)
 
 [node name="Respawn" type="Timer" parent="."]
 one_shot = true

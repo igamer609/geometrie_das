@@ -225,7 +225,6 @@ texture_normal = SubResource("AtlasTexture_umc5e")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 0
 
 [node name="Cube2" type="TextureButton" parent="IconToolbox/Cubes"]
 texture_filter = 1
@@ -235,7 +234,6 @@ texture_normal = SubResource("AtlasTexture_ksf3y")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 0
 id = 1
 
 [node name="Cube3" type="TextureButton" parent="IconToolbox/Cubes"]
@@ -246,7 +244,6 @@ texture_normal = SubResource("AtlasTexture_6s5fc")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 0
 id = 2
 
 [node name="Cube4" type="TextureButton" parent="IconToolbox/Cubes"]
@@ -257,7 +254,6 @@ texture_normal = SubResource("AtlasTexture_e5fr2")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 0
 id = 3
 
 [node name="Cube5" type="TextureButton" parent="IconToolbox/Cubes"]
@@ -268,7 +264,6 @@ texture_normal = SubResource("AtlasTexture_yto3b")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 0
 id = 4
 
 [node name="Ships" type="GridContainer" parent="IconToolbox"]
@@ -297,7 +292,7 @@ texture_normal = SubResource("AtlasTexture_k33ah")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 1
+gamemode = 1
 
 [node name="Ship2" type="TextureButton" parent="IconToolbox/Ships"]
 texture_filter = 1
@@ -307,7 +302,7 @@ texture_normal = SubResource("AtlasTexture_3483f")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 1
+gamemode = 1
 id = 1
 
 [node name="Balls" type="GridContainer" parent="IconToolbox"]
@@ -336,7 +331,7 @@ texture_normal = SubResource("AtlasTexture_8xes3")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 2
+gamemode = 2
 
 [node name="Ball2" type="TextureButton" parent="IconToolbox/Balls"]
 texture_filter = 1
@@ -346,7 +341,7 @@ texture_normal = SubResource("AtlasTexture_dtrnw")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 2
+gamemode = 2
 id = 1
 
 [node name="Ball3" type="TextureButton" parent="IconToolbox/Balls"]
@@ -357,7 +352,7 @@ texture_normal = SubResource("AtlasTexture_p5yae")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 2
+gamemode = 2
 id = 2
 
 [node name="Ball4" type="TextureButton" parent="IconToolbox/Balls"]
@@ -368,7 +363,7 @@ texture_normal = SubResource("AtlasTexture_eyru4")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
-type = 2
+gamemode = 2
 id = 3
 
 [node name="TabContainer" type="HBoxContainer" parent="."]

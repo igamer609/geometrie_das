@@ -1,8 +1,5 @@
 extends Control
 
-func _ready():
-	GameProgress.track_progress = true
-
 func _icon_button():
 	TransitionScene.change_scene("res://Scenes/Menus/IconMenu.tscn")
 
@@ -31,12 +28,12 @@ func open_reset():
 func cancel_reset():
 	$ResetDialogue.visible = false
 
-func reset_progress():
+func _reset_progress():
 	if FileAccess.file_exists("user://level_data.save"):
 		DirAccess.remove_absolute("user://level_data.save")
 	
-	if FileAccess.file_exists("user://iconsave.save"):
-		DirAccess.remove_absolute("user://iconsave.save")
+	if FileAccess.file_exists("user://playerdata.save"):
+		DirAccess.remove_absolute("user://playerdata.save")
 	
 	PlayerData.load_data()
 	

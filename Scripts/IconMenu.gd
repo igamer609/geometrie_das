@@ -1,9 +1,11 @@
 extends Control
 
-func _cube_tab():
-	change_tab("Cube")
+func _ready() -> void:
+	_cube_tab()
 
 func change_tab(gamemode):
+	_update_icons()
+	
 	for container in $IconToolbox.get_children():
 		if container.name == gamemode + "s":
 			container.visible = true
@@ -16,10 +18,7 @@ func change_tab(gamemode):
 		else:
 			icon.visible = false
 
-func _ship_tab():
-	change_tab("Ship")
-
-func _process(delta):
+func _update_icons():
 	for icon in $DisplayIcons.get_children():
 		if icon.name == "CubeDisplay":
 			icon.texture.region = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
@@ -28,10 +27,17 @@ func _process(delta):
 		if icon.name == "BallDisplay":
 			icon.texture.region = Rect2(PlayerData.ball_id * 16, 0, 16, 16)
 
+func _process(_delta: float) -> void:
+	_update_icons()
 
-func _on_exit():
-	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")
+func _cube_tab():
+	change_tab("Cube")
 
+func _ship_tab():
+	change_tab("Ship")
 
 func _ball_tab():
 	change_tab("Ball")
+
+func _on_exit():
+	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")

@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Geometrie Daș"
-config/description="A recreation of Geometry Dash in Godot 4. Made by IGamer."
-config/version="1.0.0.0"
+config/description="A recreation of Geometry Dash in Godot 4. Made by IGamer609."
+config/version="1.1.6.0"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.5")
 run/max_fps=120
@@ -23,11 +23,15 @@ config/version.release="1.1"
 
 [autoload]
 
-PlayerData="*res://Scenes/managers/icon_manager.tscn"
+PlayerData="*res://Scenes/managers/PlayerData.tscn"
 TransitionScene="*res://Scenes/Transition/SceneTransition.tscn"
 GameProgress="*res://Scenes/Menus/GameProgress.tscn"
 MenuMusic="*res://Scenes/managers/menu_music.tscn"
 EditorTransition="*res://Scenes/Transition/EditorTransition.tscn"
+
+[debug]
+
+gdscript/warnings/unused_variable=0
 
 [display]
 
@@ -35,7 +39,6 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/resizable=false
 window/stretch/mode="canvas_items"
-window/vsync/vsync_mode=0
 
 [global_group]
 

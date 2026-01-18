@@ -3,27 +3,29 @@ extends Control
 var template_scene = preload("res://Scenes/Menus/level_template.tscn")
 var tab = null
 
-var current_level = 0
+var current_level =1
 
 var tab_info = null
 var tab_progress = null
 var tab_play = null
 
 var main_levels = {
-	"0":
+	"1":
 		{
 			"Name" : "Glorious Morning",
 			"Scene" : "res://Scenes/Levels/GloriousMorning.tscn",
+			"ID" : 1,
 			"MusicID" : 1,
 			"MusicOffset" : 0.5,
 			"Difficulty" : "easy",
 			"Progress" : 0,
 			"Practice" : 0
 		},
-	"1":
+	"2":
 		{
 			"Name" : "yStep",
 			"Scene" : "res://Scenes/Levels/yStep.tscn",
+			"ID" : 2,
 			"MusicID" : 2,
 			"MusicOffset" : 1,
 			"Difficulty" : "hard",
@@ -43,34 +45,28 @@ func _ready():
 	if GameProgress.progress_to_update:
 		load_data()
 		
-		update_progress(GameProgress.current_level_progress, GameProgress.current_level_practice, GameProgress.current_level)
+		update_progress(GameProgress.current_level_progress, GameProgress.current_level_practice, GameProgress.current_level_id)
 		GameProgress.progress_to_update = false
-		
-		save_data()
 	
 	load_data()
 	
-	update_tab(GameProgress.current_level)
-	
-	print("hey")
+	update_tab(GameProgress.current_level_id)
 
-func update_progress(progress, practice, level):
-	main_levels[str(level)]["Progress"] = round(progress)
-	main_levels[str(level)]["Practice"] = round(practice)
+func update_progress(normal : int, practice : int, level_id : int):
+	main_levels[str(level_id)]["Progress"] = round(normal)
+	main_levels[str(level_id)]["Practice"] = round(practice)
 	
 
 func update_tab(index_change):
 	
-	print("help!")
-	
 	var new_tab_info = null
 	
-	if (current_level + index_change) < 0:
-		new_tab_info = main_levels[str(len(main_levels) - 1)]
-		current_level = len(main_levels) - 1
-	elif (current_level + index_change) > (len(main_levels) - 1):
-		new_tab_info = main_levels[str(0)]
-		current_level = 0
+	if (current_level + index_change) < 1:
+		new_tab_info = main_levels[str(len(main_levels))]
+		current_level = len(main_levels)
+	elif (current_level + index_change) > (len(main_levels)):
+		new_tab_info = main_levels["1"]
+		current_level = 1
 	else:
 		new_tab_info = main_levels[str(current_level + index_change)]
 		current_level += index_change
@@ -87,62 +83,32 @@ func update_tab(index_change):
 		if child.name == "PracticeProgress":
 			child.value = new_tab_info["Practice"]
 	
-	if tab_play.pressed.is_connected(load_level.bind(new_tab_info["Scene"])):
-		tab_play.pressed.disconnect(load_level.bind(new_tab_info["Scene"]))
-	tab_play.pressed.connect(load_level.bind(new_tab_info["Scene"]))
+	if tab_play.pressed.is_connected(load_level.bind(new_tab_info["Scene"], new_tab_info["ID"], new_tab_info["MusicID"])):
+		tab_play.pressed.disconnect(load_level.bind(new_tab_info["Scene"], new_tab_info["ID"], new_tab_info["MusicID"]))
+	tab_play.pressed.connect(load_level.bind(new_tab_info["Scene"], new_tab_info["ID"], new_tab_info["MusicID"]))
 
 func _on_back_button_pressed():
 	update_tab(-1)
 
-func save():
-	var data = {
-		
-	}
-	
-	for level in main_levels:
-		print(level)
-		data[level] = main_levels[level]
-	
-	print(data)
-	return data
+func load_data() -> void:
+	var progress : Dictionary = PlayerData.get_main_levels_progress()
+	for level in progress:
+		main_levels[level]["Progress"] = progress[level]["n"]
+		main_levels[level]["Practice"] =progress[level]["p"]
 
-func save_data():
-	var save_file = FileAccess.open("user://level_data.save", FileAccess.WRITE)
-	
-	var save_string = JSON.stringify(save())
-	
-	save_file.store_line(save_string)
-
-func load_data():
-	if not FileAccess.file_exists("user://level_data.save"):
-		return
-	
-	var saved_data = FileAccess.open("user://level_data.save", FileAccess.READ)
-	
-	var json_string = saved_data.get_line()
-	var parsed_data = JSON.parse_string(json_string)
-	
-	for level in parsed_data:
-		print(level)
-		main_levels[level]["Progress"] = parsed_data[level]["Progress"]
-		main_levels[level]["Practice"] = parsed_data[level]["Practice"]
-
-func load_level(scene):
-	GameProgress.current_level = current_level
-	GameProgress.current_level_progress = main_levels[str(current_level)]["Progress"]
-	GameProgress.current_level_practice = main_levels[str(current_level)]["Practice"]
+func load_level(scene_path : String, id : int, song_id : int) -> void:
+	GameProgress.enter_level({"id" = main_levels[str(id)]["ID"], "song_id" = main_levels[str(song_id)]["MusicID"]})
 	GameProgress.run_music = false
 	
 	MenuMusic.stop_music()
 	
 	GameProgress.music_offset = main_levels[str(current_level)]["MusicOffset"]
 	GameProgress.music_to_load =  main_levels[str(current_level)]["MusicID"]
-	TransitionScene.change_scene(scene)
+	TransitionScene.change_scene(scene_path)
 
 func _on_scroll_right():
 	update_tab(1)
 
-
 func exit():
 	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")
-	GameProgress.current_level = 0
+	GameProgress.quit_menu()
