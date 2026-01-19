@@ -1,2 +1,0 @@
-GD_Object
-Resource

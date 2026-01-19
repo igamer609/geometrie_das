@@ -1,3 +1,12 @@
+# Geometrie Das 1.1 Beta 6
+- improved player collision (fixed raycasts being in the wrong place)
+- removed dependancies on delta time (for physics processes, because the project runs at a fixed 240hz to create a more unified experience)
+- also adjusted cube and ship physics to be more accurate and enjoyable
+- added buffering (this was very needed)
+- revamped data schemas for the player data and custom levels to allow saving and loading icons, progress on levels (normal, practice, attempts, jumps --not implemented yet) both main and custom (custom levels are still playtest only but they are ready to be implemented as custom levels), statistics (still not sure what those will be, total attempts and jumps will definetely be included)
+- yes i have decided to eventually make online levels possible, bro might be robtop (not yet but each update leads me closer)
+- more special items in the editor (gravity portals)
+
 # Geometrie Das 1.1 Beta 4/5 (should i name it 2.0?)
 - remade player collision and physics (not yet tuned correcly)
 - changed how the editor renders selected objects (uses shaders)

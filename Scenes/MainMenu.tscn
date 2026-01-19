@@ -26,15 +26,15 @@
 
 [sub_resource type="Theme" id="Theme_xo01h"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px28w"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7mea"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxvfd"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ble0c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2hcpy"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ble0c"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxvfd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7mea"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px28w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7wema"]
 atlas = ExtResource("8_8r4vh")
@@ -85,7 +85,8 @@ Button/styles/hover = SubResource("StyleBoxTexture_rko12")
 Button/styles/normal = SubResource("StyleBoxTexture_rko12")
 Button/styles/pressed = SubResource("StyleBoxTexture_dwhu7")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkmvo"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i27x1"]
+content_margin_top = 29.0
 texture = ExtResource("15_qhnq8")
 texture_margin_left = 55.0
 texture_margin_top = 55.0
@@ -101,8 +102,7 @@ texture_margin_right = 50.0
 texture_margin_bottom = 25.0
 modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i27x1"]
-content_margin_top = 29.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkmvo"]
 texture = ExtResource("15_qhnq8")
 texture_margin_left = 55.0
 texture_margin_top = 55.0
@@ -133,8 +133,8 @@ texture_margin_top = 24.0
 texture_margin_bottom = 24.0
 axis_stretch_horizontal = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgjxf"]
-bg_color = Color(0.607843, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32ode"]
+bg_color = Color(1, 0, 0, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -157,8 +157,8 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32ode"]
-bg_color = Color(1, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgjxf"]
+bg_color = Color(0.607843, 0, 0, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -223,11 +223,11 @@ offset_bottom = 93.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xo01h")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
 
 [node name="TextureRect" type="TextureRect" parent="Center/MainPlay"]
 texture_filter = 1
@@ -271,11 +271,11 @@ offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xo01h")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
 
 [node name="TextureRect" type="TextureRect" parent="Center/Icons"]
 texture_filter = 1
@@ -317,11 +317,11 @@ offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_xo01h")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
 
 [node name="TextureRect" type="TextureRect" parent="Center/Edit"]
 texture_filter = 1
@@ -376,11 +376,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_xo01h")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
 
 [node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/Settings"]
 layout_mode = 1
@@ -413,11 +413,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = SubResource("Theme_xo01h")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
 
 [node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit"]
 layout_mode = 1
@@ -554,9 +554,9 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
 theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 text = "Open"
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
@@ -607,9 +607,9 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
 theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 text = "Open"
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
@@ -659,9 +659,9 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
 theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 text = "Open"
 metadata/MusicLink = "https://www.youtube.com/watch?v=KTQSxSYTGgE"
 
@@ -968,9 +968,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("22_y2t2u")
 theme_override_font_sizes/font_size = 26
-theme_override_styles/hover = SubResource("StyleBoxFlat_sgjxf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_g7j8s")
 theme_override_styles/normal = SubResource("StyleBoxFlat_32ode")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_g7j8s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sgjxf")
 text = "Yes"
 
 [connection signal="pressed" from="Center/MainPlay" to="." method="_levels_pressed"]
