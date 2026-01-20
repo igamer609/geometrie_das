@@ -1,8 +1,14 @@
 extends Node2D
 
-@export var current_id = 0
-@export var selected_objects = []
-@export var clipboard = []
+enum EditorMode {BUILD, EDIT}
+enum SelectionMode {SINGLE, SWIPE}
+
+var current_id : int = 0
+var selected_objects : Array = []
+var clipboard : Array = []
+var swiping : bool = false
+var swipe_start : Vector2
+var swipe_rect : Rect2
 
 @onready var obj_base = preload("res://Objects/object.tscn")
 
@@ -27,10 +33,9 @@ var history = UndoRedo.new()
 var last_click_pos : Vector2
 var select_index : int = 0
 
-var edit_mode = "Build"
-var select_mode = "single"
-var swipe = false
-var menu_state = "closed"
+var edit_mode : EditorMode = EditorMode.BUILD
+var select_mode : SelectionMode = SelectionMode.SINGLE
+var menu_state = false
 
 var level_data = {"local_id": 0, "name" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
 
@@ -163,15 +168,16 @@ func initialise_top_bar():
 			button.pressed.connect(change_menu_state)
 
 func initialise_tabs():
+	
 	var tab_group = ButtonGroup.new()
 	
 	for tab in editor_tabs.get_children():
 		tab.button_group = tab_group
 		
 		if tab.name == "Build":
-			tab.pressed.connect(change_editor_mode.bind("Build"))
+			tab.pressed.connect(change_editor_mode.bind(EditorMode.BUILD))
 		elif tab.name == "Edit":
-			tab.pressed.connect(change_editor_mode.bind("Edit"))
+			tab.pressed.connect(change_editor_mode.bind(EditorMode.EDIT))
 
 func initialise_items():
 	var btn_group = ButtonGroup.new()
@@ -194,12 +200,8 @@ func initialise_edit_btn():
 	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Exit.pressed.connect(exit)
 
 func change_menu_state():
-	if menu_state == "closed":
-		$Editor_Object/Menu_Layer/EditorMenu.visible = true
-		menu_state = "opened"
-	elif menu_state == "opened":
-		$Editor_Object/Menu_Layer/EditorMenu.visible = false
-		menu_state = "closed"
+	menu_state = !menu_state
+	$Editor_Object/Menu_Layer/EditorMenu.visible = true
 
 func save_and_exit():
 	save_level()
@@ -234,10 +236,10 @@ func change_editor_mode(new_mode):
 	if new_mode != edit_mode:
 		edit_mode = new_mode
 		
-		if edit_mode == "Build":
+		if edit_mode == EditorMode.BUILD:
 			item_tab.visible = true
 			edit_tab.visible = false
-		if edit_mode == "Edit":
+		if edit_mode == EditorMode.EDIT:
 			item_tab.visible = false
 			edit_tab.visible = true
 
@@ -268,36 +270,57 @@ func get_objects_at_point(pos : Vector2):
 	
 	return objects
 
-func _unhandled_input(event):
-	if Input.is_action_just_pressed("Jump"):
-		if current_id != 0 and edit_mode == "Build":
-			place_object()
-		elif edit_mode == "Edit":
-			var click_pos : Vector2 = get_global_mouse_position()
-			if click_pos != last_click_pos:
-				select_index = 0
-				last_click_pos = click_pos
-			
-			var selection : Array = get_objects_at_point(click_pos)
-			
-			match select_mode:
-				"swipe":
-					for object in selection:
-						select_object(object)
-				_:
+func _unhandled_input(event : InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			if edit_mode == EditorMode.BUILD && current_id != 0:
+				place_object()
+			elif edit_mode == EditorMode.EDIT:
+				if select_mode == SelectionMode.SINGLE:
+					var click_pos : Vector2 = get_global_mouse_position()
+					if click_pos != last_click_pos:
+						select_index = 0
+						last_click_pos = click_pos
+					
+					var selection : Array = get_objects_at_point(click_pos)
+					
 					if  len(selection) == 0:
 						deselect()
 						return
+					
 					select_single(selection[select_index])
 					if select_index < (len(selection) - 1):
 						select_index += 1
-			
+					
+				if select_mode == SelectionMode.SWIPE:
+					swiping = true
+					swipe_start = get_global_mouse_position()
+		if not event.pressed:
+			if swiping:
+				swiping = false
+				queue_redraw()
+				_box_select()
 	
 	if event is InputEventMouseMotion:
 		if event.button_mask in [MOUSE_BUTTON_MASK_MIDDLE, MOUSE_BUTTON_MASK_RIGHT]:
 			camera.global_position -= event.relative * 0.25
 			
 			update_grid_position()
+		elif event.button_mask in [MOUSE_BUTTON_LEFT] and swiping:
+			swipe_rect = Rect2(swipe_start, get_global_mouse_position() - swipe_start)
+			queue_redraw()
+
+func _draw() -> void:
+	if swiping:
+		draw_rect(swipe_rect, Color(0, 1, 0, 1), false)
+
+func _box_select():
+	for object in level.get_children():
+		if object.is_class("StaticBody2D"):
+			var obj_rect : Rect2 = object.get_selection_rect().abs()
+			swipe_rect = swipe_rect.abs()
+			if swipe_rect.intersects(obj_rect):
+				select_object(object)
 
 func select_item_id(new_id):
 	if new_id and new_id != current_id:
@@ -625,9 +648,9 @@ func _process(_delta):
 		history.redo()
 	
 	if Input.is_action_just_pressed("Swipe"):
-		select_mode = "swipe"
+		select_mode = SelectionMode.SWIPE
 	if Input.is_action_just_released("Swipe"):
-		select_mode = "single"
+		select_mode = SelectionMode.SINGLE
 	
 	if Input.is_action_just_pressed("Duplicate"):
 		duplicate_objects()

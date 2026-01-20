@@ -72,6 +72,17 @@ func enable_transition():
 	vis_notif.screen_entered.connect(load_object)
 	vis_notif.screen_exited.connect(unload_object)
 
+func get_selection_rect() -> Rect2:
+	var points : PackedVector2Array = $Collision.polygon
+	if points.is_empty():
+		return Rect2().abs()
+
+	var rect : Rect2 = Rect2(points[0], Vector2.ZERO)
+	for i in range(1, points.size()):
+		rect = rect.expand(points[i])
+
+	return $Collision.get_global_transform() * rect.abs()
+
 func load_object():
 	print("load!!")
 	if not anim_player.is_playing():
