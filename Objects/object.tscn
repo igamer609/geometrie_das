@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bs0q1rfqhqk56"]
+[gd_scene load_steps=7 format=3 uid="uid://bs0q1rfqhqk56"]
 
 [ext_resource type="Script" uid="uid://bjvd7wkynvf73" path="res://Objects/ObjectItem.gd" id="1_k2iyv"]
 [ext_resource type="Material" uid="uid://ymw6cv2dpasf" path="res://Objects/SelectedMaterial.tres" id="1_yvv17"]
-[ext_resource type="Resource" uid="uid://co4yyuvsoaray" path="res://Objects/obj_ids/13.tres" id="2_m7x2b"]
 
 [sub_resource type="Animation" id="Animation_2s3rd"]
 length = 0.001
@@ -149,7 +148,6 @@ collision_layer = 0
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_k2iyv")
-obj_res = ExtResource("2_m7x2b")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(8, 8)

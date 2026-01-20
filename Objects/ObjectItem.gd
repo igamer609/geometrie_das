@@ -10,13 +10,12 @@ var scene : Node2D = null
 @onready var shader_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
 
 @export var uid : int
+@export var other : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if obj_res:
 		update()
-	#if in_level:
-	#	enable_transition()
 
 func update():
 	if obj_res.is_scene:

@@ -3,7 +3,7 @@ extends Control
 var template_scene = preload("res://Scenes/Menus/level_template.tscn")
 var tab = null
 
-var current_level =1
+var current_level = 1
 
 var tab_info = null
 var tab_progress = null
@@ -42,20 +42,12 @@ func _ready():
 	tab_progress = tab.get_child(1)
 	tab_play = tab.get_child(2)
 	
-	if GameProgress.progress_to_update:
-		load_data()
-		
-		update_progress(GameProgress.current_level_progress, GameProgress.current_level_practice, GameProgress.current_level_id)
-		GameProgress.progress_to_update = false
-	
 	load_data()
-	
-	update_tab(GameProgress.current_level_id)
+	update_tab(0)
 
 func update_progress(normal : int, practice : int, level_id : int):
 	main_levels[str(level_id)]["Progress"] = round(normal)
 	main_levels[str(level_id)]["Practice"] = round(practice)
-	
 
 func update_tab(index_change):
 	

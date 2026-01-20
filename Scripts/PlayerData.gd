@@ -28,8 +28,6 @@ func save():
 		"progress" : _progress
 	}
 	
-	print(save_data)
-	
 	var save_file = FileAccess.open("user://playerdata.save", FileAccess.WRITE)
 	var json_string = JSON.stringify(save_data)
 	

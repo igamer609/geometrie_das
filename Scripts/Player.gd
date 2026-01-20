@@ -9,25 +9,23 @@ signal respawned()
 @onready var shipSprite = $Sprites/ship
 @onready var ballSprite = $Sprites/ball
 
-const SCALE_MULTIPLIER : int = 10
+const SCALE_MULTIPLIER : float = 10
 
-const CUBE_JUMP_VELOCITY : float = 27 * SCALE_MULTIPLIER
+const CUBE_JUMP_VELOCITY : float = 25 * SCALE_MULTIPLIER
 
 const SHIP_MAX_VEL : int = 160
 const SHIP_THRUST : float = 4
 
-const CUBE_GRAVITY : float = 95 * SCALE_MULTIPLIER
+const CUBE_GRAVITY : float = 93 * SCALE_MULTIPLIER
 const SHIP_GRAVITY : float = 2
 const BALL_GRAVITY : float = 4
 
-const GROUNDED_LEDGE_RAY_OFFSET : float = 5
+const GROUNDED_LEDGE_RAY_OFFSET : float = 6
 const WALL_RAY_MARGIN : float = 0.5
 
-enum jump_types {pink = 200, yellow = 300}
+enum jump_types {pink = 225, yellow = 300}
 
 var speed : int = 130
-
-const jump_speed : float = 25
 
 @export var gravity_reverse : bool = true
 var gravity_multiplier : int = 1
@@ -35,8 +33,8 @@ var gravity_multiplier : int = 1
 
 @export var gamemode : String = "cube"
 
-
 var can_move : bool = true
+var consecutive_jumps : int = 0
 
 var in_orb : bool = false
 var orb_type = null
@@ -123,12 +121,17 @@ func _process_cube_physics(delta : float) -> void:
 	if not hit_orb:
 		if Input.is_action_pressed("Jump"):
 				if is_really_on_surface():
-					velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier 
+					velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier
+					if consecutive_jumps > 1:
+						velocity.y -= SCALE_MULTIPLIER * gravity_multiplier
+					consecutive_jumps += 1
+		else:
+			consecutive_jumps = 0
 	
 	if Input.is_action_pressed("Jump") or not is_really_on_surface():
-		$Sprites.rotate(deg_to_rad(2 * gravity_multiplier))
+		$Sprites.rotate(deg_to_rad(1.33 * gravity_multiplier))
 	elif is_really_on_surface() and not Input.is_action_pressed("Jump"):
-		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.1)
+		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.2)
 	
 	if velocity.y > 700:
 		velocity.y = 700

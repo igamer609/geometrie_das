@@ -155,7 +155,6 @@ func _process(delta):
 			follow_cam = true
 	
 	if follow_cam:
-		GameProgress.run_music = true
 		player_cam.global_position.x = player.global_position.x
 		player_cam.position_smoothing_enabled = true
 		

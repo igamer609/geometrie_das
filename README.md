@@ -1,3 +1,13 @@
+# Geometrie Das 1.1 Beta 7
+- small changes to jump height for the cube
+- added small a correction to consecutive jumps to allow staircase-like structures to be used properly
+- now level files will be named after their local id (made to differenciate playtest levels to published levels)
+- when having one object selected, placing another object of the same type mentains the properties (rn only rotation)
+- increased max physics steps per frame (30 for 240hz)
+- discovered frame inconsistencies caused by hardware limitations/other programs (tested: OBS causes lag spikes, closing it makes the FPS and Process times stable)
+- main menu background has it's scroll now dependant on delta
+- changed loading popup (will add check to see if it's the first time playing)
+
 # Geometrie Das 1.1 Beta 6
 - improved player collision (fixed raycasts being in the wrong place)
 - removed dependancies on delta time (for physics processes, because the project runs at a fixed 240hz to create a more unified experience)

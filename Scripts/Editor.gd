@@ -32,7 +32,7 @@ var select_mode = "single"
 var swipe = false
 var menu_state = "closed"
 
-var level_data = {"local_id": generate_unique_id(), "name" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
+var level_data = {"local_id": 0, "name" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
 
 var selection_center = null
 
@@ -63,7 +63,11 @@ func save_level():
 	if not DirAccess.dir_exists_absolute("user://saved_levels/"):
 		DirAccess.make_dir_absolute("user://saved_levels/")
 	
-	var save_file : FileAccess = FileAccess.open("user://saved_levels/" + save_data["info"]["name"] + ".gdaslvl", FileAccess.WRITE)
+	if not save_data["info"].has("local_id"):
+		print(save_data["info"])
+		save_data["info"]["local_id"] = generate_unique_id()
+	
+	var save_file : FileAccess = FileAccess.open("user://saved_levels/" +str( int(save_data["info"]["local_id"])) + ".gdaslvl", FileAccess.WRITE)
 	var save_string : String = JSON.stringify(save_data)
 	
 	var success : bool = save_file.store_line(save_string)
@@ -71,9 +75,7 @@ func save_level():
 	return success
 
 func get_data_of_objects(objects : Array[Node]):
-	
 	var obj_data : Array[Dictionary] = []
-	
 	for obj in objects:
 		if obj.is_class("StaticBody2D"):
 			var obj_info = TEMPLATE_OBJ_DICT.duplicate()
@@ -84,12 +86,12 @@ func get_data_of_objects(objects : Array[Node]):
 
 			if obj.obj_res.is_trigger:
 				obj_info["other"]["trigger_info"] = obj.trigger.get_info()
-
+			
 			obj_data.append(obj_info)
 	
 	return obj_data
 
-func load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary): 
+func load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
 	var item = load("res://Objects/obj_ids/" + str(int(obj_id)) + ".tres")
 	
 	var object : GDObject = obj_base.instantiate()
@@ -98,13 +100,14 @@ func load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dicti
 	
 	object.global_position = pos
 	object.global_rotation = rot
+	object.other = other
 	
 	level.add_child(object)
+	return object
 
 func generate_unique_id() -> int:
 	var time : int = Time.get_unix_time_from_system()
 	var rand : int = randi() % 10000 + 1
-	
 	return time * 10000 + rand
 
 func load_level_file():
@@ -120,15 +123,13 @@ func load_level_file():
 	
 	await file_dialogue.file_selected
 	
-	
-	
 	var file_path = file_dialogue.current_path
 	get_tree().queue_delete(file_dialogue)
 	
 	var lvl_file = FileAccess.open(file_path, FileAccess.READ)
 	var lvl_info = JSON.parse_string(lvl_file.get_line())
 	
-	if lvl_info.has("objects") and lvl_info.has("name") and lvl_info.has("author"):
+	if lvl_info.has("objects") and lvl_info.has("name") and lvl_info.has("author") and lvl_info.has("local_id"):
 		load_level(lvl_info["objects"])
 		level_data = lvl_info
 		
@@ -146,9 +147,6 @@ func load_level(objects):
 		load_obj(obj["obj_id"], obj["uid"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
 func load_level_from_info(lvl_info):
-	
-	print(lvl_info.keys())
-	
 	level_data = lvl_info["info"]
 	
 	if lvl_info.has("objects"):
@@ -307,28 +305,53 @@ func select_item_id(new_id):
 
 func place_object(return_obj = false):
 	
-	var item = load("res://Objects/obj_ids/" + str(current_id) + ".tres")
+	last_uid += 1
+	var pos : Vector2 = get_global_mouse_position()
+	pos.x = snapped(pos.x - 8, 16)
+	pos.y = snapped(pos.y - 8, 16)
 	
-	history.create_action("Place object")
-	
-	var object = obj_base.instantiate()
-	object.obj_res = item
-	
-	object.global_position = get_global_mouse_position()
-	
-	object.global_position.x = snapped(object.global_position.x - 8, 16)
-	object.global_position.y = snapped(object.global_position.y - 8, 16)
-	
-	history.add_do_method(_add_object_to_level.bind(object))
-	history.add_do_reference(object)
-	history.add_undo_method(_remove_object_from_level.bind(object))
-	
-	history.commit_action()
-	
-	select_single(object)
-	
-	if return_obj:
-		return object
+	if len(selected_objects) == 1 and selected_objects[0].obj_res.id == current_id:
+		history.create_action("Place object")
+		
+		var object : Node2D = load_obj(current_id, last_uid, pos,  0,  selected_objects[0].other)
+		var rot_center : Node2D = Node2D.new()
+		rot_center.global_position = object.get_child(0).global_position
+		level.add_child(rot_center)
+		object.reparent(rot_center)
+		rot_center.rotate(selected_objects[0].global_rotation)
+		var new_pos : Vector2 = object.global_position
+		var new_rot : float = object.global_rotation
+		object.reparent(level)
+		object.global_position = new_pos
+		object.global_rotation = new_rot
+		get_tree().queue_delete(rot_center)
+		
+		history.add_do_method(_add_object_to_level.bind(object))
+		history.add_do_reference(object)
+		history.add_undo_method(_remove_object_from_level.bind(object))
+		history.commit_action()
+		
+		select_single(object)
+		if return_obj:
+			return object
+	else:
+		var item : GD_Object = load("res://Objects/obj_ids/" + str(current_id) + ".tres")
+		history.create_action("Place object")
+		
+		var object : Node2D = obj_base.instantiate()
+		object.obj_res = item
+		object.uid = last_uid
+		object.global_position = pos
+		
+		history.add_do_method(_add_object_to_level.bind(object))
+		history.add_do_reference(object)
+		history.add_undo_method(_remove_object_from_level.bind(object))
+		history.commit_action()
+		
+		select_single(object)
+		
+		if return_obj:
+			return object
 
 func select_object(object : Node2D, pasted : bool = false):
 	if object  not in selected_objects:
@@ -635,7 +658,8 @@ func update_grid_position():
 # --------- Operation Methods (for undo-redo system) -----------
 
 func _add_object_to_level(object : Node2D):
-	level.add_child(object)
+	if object.get_parent() != level:
+		level.add_child(object)
 
 func _remove_object_from_level(object : Node2D):
 	remove_from_selection(object)

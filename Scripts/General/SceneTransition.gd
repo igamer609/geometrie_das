@@ -32,9 +32,7 @@ func wait(seconds):
 	
 	return true
 
-func load_editor(level_info):
-	print(level_info)
-	
+func load_editor(level_info : Dictionary):
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	

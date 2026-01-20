@@ -12,10 +12,9 @@ config_version=5
 
 config/name="Geometrie Daș"
 config/description="A recreation of Geometry Dash in Godot 4. Made by IGamer609."
-config/version="1.1.6.0"
+config/version="1.1.7.0"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.5")
-run/max_fps=120
 boot_splash/show_image=false
 boot_splash/fullsize=false
 config/icon="res://logo/icon.png"
@@ -128,7 +127,7 @@ Delete={
 [physics]
 
 common/physics_ticks_per_second=240
-common/physics_jitter_fix=1.0
+common/max_physics_steps_per_frame=30
 common/physics_interpolation=true
 common/enable_pause_aware_picking=true
 

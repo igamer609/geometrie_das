@@ -11,4 +11,4 @@ func change_hue():
 		rng.randomize()
 
 func _process(delta):
-	scroll_offset.x -= 0.5
+	scroll_offset.x -= 60 * delta

@@ -286,7 +286,7 @@ death_particle = NodePath("Universal/DeathEffect")
 
 [node name="Player" parent="." instance=ExtResource("3_tq51e")]
 process_mode = 1
-position = Vector2(0, -16)
+position = Vector2(0, -8)
 
 [node name="Universal" type="Node" parent="."]
 process_mode = 1
@@ -562,10 +562,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 199.0
-offset_top = 2000.0
-offset_right = 1081.0
-offset_bottom = 2618.0
+offset_left = -441.0
+offset_top = 1640.0
+offset_right = 441.0
+offset_bottom = 2258.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0

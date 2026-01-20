@@ -14,7 +14,6 @@ script = ExtResource("2_yrnkp")
 
 [node name="GameStart" type="CanvasLayer" parent="."]
 layer = 128
-visible = false
 
 [node name="BG" type="ColorRect" parent="GameStart"]
 anchors_preset = 15
@@ -53,16 +52,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -248.0
-offset_top = -122.0
+offset_top = -103.0
 offset_right = 235.0
-offset_bottom = -21.0
+offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_mrcew")
 theme_override_font_sizes/font_size = 24
-text = "This game is a recreation of Geometry Dash in Godot 4.2.
-
-Everything except for the music and SFX used are made by me and my friends."
+text = "This is an open source recreation of Geometry Dash in Godot 4.
+Everything except for the music and SFX used are made by me and other contributors.
+You can contribute too!"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -73,10 +72,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 44.0
-offset_top = 3.0
-offset_right = 207.0
-offset_bottom = 21.0
+offset_left = 43.5
+offset_top = 27.0
+offset_right = 207.5
+offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_mrcew")
