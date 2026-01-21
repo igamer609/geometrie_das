@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_jujta"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lyxv"]
-size = Vector2(10, 4)
+size = Vector2(14, 3)
 
 [sub_resource type="Curve" id="Curve_2bsbb"]
 _data = [Vector2(1, 0.593407), 0.0, 0.0, 0, 0]
@@ -59,7 +59,7 @@ region_enabled = true
 region_rect = Rect2(36, 27, 16, 15)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_1lyxv")
 debug_color = Color(0, 0.6, 0.701961, 0)
 

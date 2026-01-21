@@ -1,3 +1,9 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
 extends Node2D
 
 enum EditorMode {BUILD, EDIT}
@@ -201,7 +207,7 @@ func initialise_edit_btn():
 
 func change_menu_state():
 	menu_state = !menu_state
-	$Editor_Object/Menu_Layer/EditorMenu.visible = true
+	$Editor_Object/Menu_Layer/EditorMenu.visible = menu_state
 
 func save_and_exit():
 	save_level()
@@ -303,7 +309,7 @@ func _unhandled_input(event : InputEvent) -> void:
 	
 	if event is InputEventMouseMotion:
 		if event.button_mask in [MOUSE_BUTTON_MASK_MIDDLE, MOUSE_BUTTON_MASK_RIGHT]:
-			camera.global_position -= event.relative * 0.25
+			camera.global_position -= event.relative * 0.50
 			
 			update_grid_position()
 		elif event.button_mask in [MOUSE_BUTTON_LEFT] and swiping:

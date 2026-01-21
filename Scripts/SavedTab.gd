@@ -1,3 +1,9 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
 extends Control
 
 @onready var lvl_template = preload("res://Scenes/Menus/saved_lvl_template/level_template.tscn")

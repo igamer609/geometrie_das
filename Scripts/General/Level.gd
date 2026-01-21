@@ -1,3 +1,11 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
+# Note!! To be replaced with CustomLevel...
+
 extends Node2D
 
 @export var start_bg : Color

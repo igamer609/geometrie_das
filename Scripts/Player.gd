@@ -1,7 +1,12 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+#	"Love you, RubRub" - igamer
+# ----------------------------------------------------------
+
 extends CharacterBody2D
-
 signal changed_gamemode(last_portal, mode)
-
 signal died()
 signal respawned()
 
@@ -13,17 +18,17 @@ const SCALE_MULTIPLIER : float = 10
 
 const CUBE_JUMP_VELOCITY : float = 25 * SCALE_MULTIPLIER
 
-const SHIP_MAX_VEL : int = 160
+const SHIP_MAX_VEL : int = 180
 const SHIP_THRUST : float = 4
 
 const CUBE_GRAVITY : float = 93 * SCALE_MULTIPLIER
-const SHIP_GRAVITY : float = 2
+const SHIP_GRAVITY : float = 1.7
 const BALL_GRAVITY : float = 4
 
 const GROUNDED_LEDGE_RAY_OFFSET : float = 6
 const WALL_RAY_MARGIN : float = 0.5
 
-enum jump_types {pink = 225, yellow = 300}
+enum jump_types {pink = 200, yellow = 275}
 
 var speed : int = 130
 
@@ -31,6 +36,7 @@ var speed : int = 130
 var gravity_multiplier : int = 1
 @export var gravity : int = 50
 
+enum GamemodeTypes {CUBE, SHIP, BALL}
 @export var gamemode : String = "cube"
 
 var can_move : bool = true
@@ -77,6 +83,10 @@ func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 4:
 		$HeadHitbox.set_deferred("disabled", false)
+		
+		if gamemode == "cube" and (velocity.y * gravity_multiplier < -10 or Input.is_action_just_pressed("Jump")):
+			velocity.y -= SCALE_MULTIPLIER * 5 * gravity_multiplier
+		
 		gamemode = "ball"
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	
@@ -213,7 +223,7 @@ func _check_orbs() -> bool:
 			elif orb_type == 1:
 				velocity.y = -jump_types.yellow * gravity_multiplier
 			elif orb_type == 2:
-				velocity.y = -50 * gravity_multiplier
+				velocity.y = -100 * gravity_multiplier
 				change_gravity(0)
 
 			orb_queue[0].jump_activate()
@@ -324,9 +334,9 @@ func _on_damage_area_entered(area):
 		change_gamemode(area.portal_type, area)
 	if area.is_in_group("JumpPad"):
 		if area.jump_type == 0:
-			velocity.y = -jump_types.pink * gravity_multiplier
+			velocity.y = -jump_types.pink * 1.15 * gravity_multiplier
 		elif area.jump_type == 1:
-			velocity.y = -jump_types.yellow * gravity_multiplier
+			velocity.y = -jump_types.yellow * 1.15 * gravity_multiplier
 		elif area.jump_type == 2:
 			velocity.y = -150 * gravity_multiplier
 			change_gravity(0)

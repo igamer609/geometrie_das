@@ -1,3 +1,9 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
 class_name GDObject extends StaticBody2D
 
 @export var obj_res : GD_Object
