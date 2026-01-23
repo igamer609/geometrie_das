@@ -9,7 +9,7 @@ extends Area2D
 @export_enum("pink", "yellow", "blue", "green") var jump_type : int
 
 func player_enter():
-	$AnimationPlayer.play("player_enter")
+	$Ring.emitting = true
 
-func jump_activate():
+func activate():
 	$AnimationPlayer.play("activate")

@@ -1,9 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://dj5rko0ln58jg"]
+[gd_scene load_steps=17 format=3 uid="uid://dj5rko0ln58jg"]
 
 [ext_resource type="Script" uid="uid://cks1jjfj33xpy" path="res://Scripts/Orb.gd" id="1_0gipf"]
+[ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_787gk"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_ndx0j"]
 [ext_resource type="Material" uid="uid://cvjsgjtr136d0" path="res://Scenes/orbs/orb_ring_process.tres" id="3_m06e4"]
 [ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="3_uxv1i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xkun"]
+shader = ExtResource("2_787gk")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rg4ye"]
 size = Vector2(17, 17)
@@ -65,6 +69,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:instance_shader_parameters/flash_intensity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_uk81k"]
 resource_name = "activate"
@@ -76,10 +92,22 @@ tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
+"times": PackedFloat32Array(0, 0.06666667, 0.2),
 "transitions": PackedFloat32Array(0.105112, 1.46409, 1),
 "update": 0,
 "values": [Vector2(0.8, 0.8), Vector2(1.2, 1.2), Vector2(0.8, 0.8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:instance_shader_parameters/flash_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2.1435468),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_ngbws"]
@@ -105,13 +133,15 @@ _data = {
 &"player_enter": SubResource("Animation_ngbws")
 }
 
-[node name="BlueOrb" type="Area2D"]
+[node name="BlueOrb" type="Area2D" groups=["Orb"]]
 scale = Vector2(1.2, 1.2)
 script = ExtResource("1_0gipf")
 jump_type = 2
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_2xkun")
+instance_shader_parameters/flash_intensity = 0.0
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_ndx0j")
 region_enabled = true

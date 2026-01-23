@@ -5,5 +5,13 @@
 # ----------------------------------------------------------
 
 extends Area2D
+@onready var anim_player : AnimationPlayer
 
 @export_enum("pink", "yellow", "blue") var jump_type : int
+
+func _ready() -> void:
+	anim_player = find_child("AnimationPlayer")
+
+func activate() -> void:
+	if anim_player:
+		anim_player.play("activate")

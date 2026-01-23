@@ -1,21 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ymw6cv2dpasf"]
 
-[sub_resource type="Shader" id="Shader_volf4"]
-code = "shader_type canvas_item;
-render_mode blend_mix;
-
-instance uniform bool is_selected = false;
-
-void fragment() {
-	vec4 tex_color = texture(TEXTURE, UV);
-	 if (is_selected) {
-		vec3 multiply = tex_color.rgb * vec3(0.0, 0.9, 0.0);
-	 	//vec3 tint = mix(tex_color.rgb, multiply.rgb, 0.8);
-		COLOR = vec4(multiply, tex_color.a);
-	} else {
-		 COLOR = tex_color;
-	 }
-}"
+[ext_resource type="Shader" uid="uid://bxegxk5fe3ome" path="res://Scenes/shader/Selection.gdshader" id="1_xjrqb"]
 
 [resource]
-shader = SubResource("Shader_volf4")
+shader = ExtResource("1_xjrqb")

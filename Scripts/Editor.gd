@@ -195,8 +195,12 @@ func initialise_items():
 
 func initialise_edit_btn():
 	for button in edit_tab.get_children():
-		if button.is_in_group("one_block"):
+		if button.is_in_group("16_unit"):
 			button.pressed.connect(move_objects.bind(button.name, 1))
+		elif button.is_in_group("8_unit"):
+			button.pressed.connect(move_objects.bind(button.name, 0.5))
+		elif button.is_in_group("1_unit"):
+			button.pressed.connect(move_objects.bind(button.name, 0.1))
 	
 	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Load.pressed.connect(load_level_file)
 	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Save.pressed.connect(save_level)
@@ -476,7 +480,7 @@ func delete_objects():
 	history.commit_action()
 	
 
-func move_objects(direction, amount : int):
+func move_objects(direction, amount : float):
 	var moved_obj = selected_objects
 	
 	history.create_action("Move")
@@ -486,13 +490,13 @@ func move_objects(direction, amount : int):
 		history.add_undo_property(object, "global_position", object.global_position)
 		
 		if direction == "Up":
-			object.global_position.y -= amount * 16
+			object.global_position.y -= roundi(amount * 16)
 		elif direction == "Down":
-			object.global_position.y += amount * 16
+			object.global_position.y += roundi(amount * 16)
 		elif direction == "Left":
-			object.global_position.x -= amount * 16
+			object.global_position.x -= roundi(amount * 16)
 		elif direction == "Right":
-			object.global_position.x += amount * 16
+			object.global_position.x += roundi(amount * 16)
 		
 		history.add_do_property(object, "global_position", object.global_position)
 		

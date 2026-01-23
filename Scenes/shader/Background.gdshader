@@ -23,7 +23,6 @@ void fragment() {
 
 	color_hsv.x = mod((color_hsv.x + Shift_Hue), 1.0f);
 
-// VectorFunc:5
 	vec3 color_rgb;
 	{
 		vec3 c = color_hsv;
@@ -35,10 +34,4 @@ void fragment() {
 // Output:0
 	texture_color = vec4(color_rgb.rgb,texture_color.a);
 	COLOR.rgba = texture_color;
-
 }
-
-//void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
-	// Uncomment to replace the default light processing function with this one.
-//}

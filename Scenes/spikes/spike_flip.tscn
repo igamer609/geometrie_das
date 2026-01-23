@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://uweese3u3jns"]
+[gd_scene load_steps=3 format=3 uid="uid://uweese3u3jns"]
 
-[ext_resource type="Script" uid="uid://0yelgkayp6gm" path="res://Scripts/DestroyPlayer.gd" id="1_eeeav"]
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_7cgvl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxpeg"]
@@ -8,7 +7,6 @@ size = Vector2(4, 6.99999)
 
 [node name="Spike" type="Area2D"]
 rotation = 3.14159
-script = ExtResource("1_eeeav")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.25169e-06, -0.5)

@@ -226,7 +226,7 @@ func _check_orbs() -> bool:
 				velocity.y = -100 * gravity_multiplier
 				change_gravity(0)
 
-			orb_queue[0].jump_activate()
+			orb_queue[0].activate()
 			orb_queue.pop_front()
 			return true
 	else:
@@ -324,15 +324,16 @@ func change_gravity(g : int):
 		0:
 			change_gravity(-gravity_multiplier)
 
-func _on_damage_area_entered(area):
+func _on_damage_area_entered(area : Area2D):
 	if area.is_in_group("Hazard"):
 		die()
-	if area.has_method("jump_activate"):
+	if area.is_in_group("Orb"):
 		orb_queue.append(area)
 		area.player_enter()
 	if area.is_in_group("gamemode_portal"):
 		change_gamemode(area.portal_type, area)
 	if area.is_in_group("JumpPad"):
+		area.activate()
 		if area.jump_type == 0:
 			velocity.y = -jump_types.pink * 1.15 * gravity_multiplier
 		elif area.jump_type == 1:
