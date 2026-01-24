@@ -1,3 +1,13 @@
+# Geometrie Das 1.1 Beta 8
+- tuned consecutive jump correction
+- decreased ship gravity to be 45% of thrust
+- added highlight effects to orbs and pads when activated (will be applied to portals in the future)
+- small changes to UI graphics
+- added box selection to swipe mode
+- added more UI elements to the editor, along with more functions (zoom in/out, swipe toggle, undo/redo buttons etc.)
+- added boost when jumping into a ball portal as a cube
+- added more move step buttons (8 units and 1 units) and rotate buttons in edit mode
+
 # Geometrie Das 1.1 Beta 7
 - small changes to jump height for the cube
 - added small a correction to consecutive jumps to allow staircase-like structures to be used properly
