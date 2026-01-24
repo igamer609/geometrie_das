@@ -43,6 +43,7 @@ window/stretch/mode="canvas_items"
 
 Hazard=""
 Orb=""
+Object="All level objects"
 
 [input]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bkyo4lgnhak2y"]
+[gd_scene load_steps=42 format=3 uid="uid://bkyo4lgnhak2y"]
 
 [ext_resource type="Texture2D" uid="uid://b2kw7xp5t2kvg" path="res://Scenes/editor/grid.png" id="1_0y7rc"]
 [ext_resource type="Script" uid="uid://dqn2hmigqedje" path="res://Scripts/Editor.gd" id="1_id040"]
@@ -10,7 +10,6 @@
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="8_u03d0"]
 [ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="9_5bivf"]
 [ext_resource type="Texture2D" uid="uid://bfg2s4cmrid53" path="res://Assets/buttons/button2.png" id="9_xovdc"]
-[ext_resource type="Texture2D" uid="uid://bw46xormqd664" path="res://Assets/buttons/delete_button.png" id="10_yj6o7"]
 [ext_resource type="Texture2D" uid="uid://cqkg76guhq3bl" path="res://Assets/buttons/pause.png" id="11_hkpmq"]
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
 
@@ -41,6 +40,34 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_aq6jn"]
 atlas = ExtResource("7_m37bs")
 region = Rect2(32, 3, 32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m37bs"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(1, 35, 31, 28)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m37bs"]
+bg_color = Color(0, 0.87511814, 0.9139557, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qb8vd"]
+bg_color = Color(0.25098, 0.964706, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4ti0"]
 
@@ -83,7 +110,7 @@ corner_radius_bottom_left = 10
 [sub_resource type="Theme" id="Theme_5y5ev"]
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/constants/outline_size = 7
+Button/constants/outline_size = 6
 Button/font_sizes/font_size = 22
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
@@ -177,7 +204,7 @@ corner_radius_bottom_left = 10
 [sub_resource type="Theme" id="Theme_ajxdj"]
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/constants/outline_size = 7
+Button/constants/outline_size = 6
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
@@ -224,7 +251,7 @@ corner_radius_bottom_left = 10
 [sub_resource type="Theme" id="Theme_3njmh"]
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/constants/outline_size = 7
+Button/constants/outline_size = 6
 Button/font_sizes/font_size = 18
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
@@ -232,17 +259,38 @@ Button/styles/hover = SubResource("StyleBoxFlat_dbcj4")
 Button/styles/normal = SubResource("StyleBoxFlat_1yyfo")
 Button/styles/pressed = SubResource("StyleBoxFlat_ibjao")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlxfu"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(110, 4, 18, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khu03"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(65, 2, 23, 22)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5kxy"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(65, 26, 10.405, 10.48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypo3h"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(77, 26, 9, 10.48)
+
 [node name="Editor" type="Node2D"]
 physics_interpolation_mode = 2
 script = ExtResource("1_id040")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 modulate = Color(0.168627, 0.533333, 1, 1)
-motion_mirroring = Vector2(1000, 750)
+motion_mirroring = Vector2(2000, 750)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("1_ojbeb")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1000, 0)
 texture = ExtResource("1_ojbeb")
 
 [node name="Grid" type="Node2D" parent="."]
@@ -325,7 +373,6 @@ toggle_mode = true
 text = "Edit"
 
 [node name="Items" type="TabContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -338,10 +385,9 @@ grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
-current_tab = 1
+current_tab = 0
 
 [node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
-visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
@@ -555,6 +601,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
@@ -826,16 +873,27 @@ grow_vertical = 2
 stretch_mode = 4
 
 [node name="Edit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 288.0
-offset_right = -192.0
+offset_right = -144.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Up16Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["16_unit"]]
+[node name="MoveButtons" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="16Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
 layout_mode = 0
 offset_left = 85.0
 offset_top = 17.0
@@ -843,7 +901,7 @@ offset_right = 145.0
 offset_bottom = 77.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Up16Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Up"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -857,7 +915,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 
-[node name="Down16Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["16_unit"]]
+[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
 layout_mode = 0
 offset_left = 85.0
 offset_top = 147.0
@@ -865,7 +923,7 @@ offset_right = 145.0
 offset_bottom = 207.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Down16Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Down"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -880,7 +938,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 flip_v = true
 
-[node name="Right16Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["16_unit"]]
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
 layout_mode = 0
 offset_left = 210.0
 offset_top = 82.0
@@ -889,7 +947,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Right16Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Right"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -903,7 +961,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 
-[node name="Left16Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["16_unit"]]
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
 layout_mode = 0
 offset_left = 80.0
 offset_top = 82.0
@@ -912,7 +970,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Left16Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Left"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -927,15 +985,22 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 flip_v = true
 
-[node name="Up8Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["8_unit"]]
+[node name="8Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons"]
+anchors_preset = 0
+offset_left = 225.0
+offset_top = 1.0
+offset_right = 265.0
+offset_bottom = 41.0
+
+[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
 layout_mode = 0
-offset_left = 316.0002
+offset_left = 85.00021
 offset_top = 17.0
-offset_right = 376.0002
+offset_right = 145.00021
 offset_bottom = 77.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Up8Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Up"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -950,15 +1015,15 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 
-[node name="Down8Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["8_unit"]]
+[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
 layout_mode = 0
-offset_left = 316.0002
+offset_left = 85.00021
 offset_top = 147.0
-offset_right = 376.0002
+offset_right = 145.00021
 offset_bottom = 207.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Down8Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Down"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -974,16 +1039,16 @@ texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 flip_v = true
 
-[node name="Right8Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["8_unit"]]
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
 layout_mode = 0
-offset_left = 441.0002
+offset_left = 210.00021
 offset_top = 82.0
-offset_right = 501.0002
+offset_right = 270.0002
 offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Right8Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Right"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -998,16 +1063,16 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 
-[node name="Left8Unit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" groups=["8_unit"]]
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
 layout_mode = 0
-offset_left = 311.0002
+offset_left = 80.00021
 offset_top = 82.0
-offset_right = 371.0002
+offset_right = 140.00021
 offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/Left8Unit"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Left"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1022,6 +1087,194 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 flip_v = true
+
+[node name="1Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons"]
+anchors_preset = 0
+offset_left = 441.0
+offset_top = 1.0
+offset_right = 481.0
+offset_bottom = 41.0
+
+[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+layout_mode = 0
+offset_left = 85.00021
+offset_top = 17.0
+offset_right = 145.00021
+offset_bottom = 77.0
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Up"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.999756
+offset_top = 7.0
+offset_right = -10.000244
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_aq6jn")
+stretch_mode = 3
+
+[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+layout_mode = 0
+offset_left = 85.00021
+offset_top = 147.0
+offset_right = 145.00021
+offset_bottom = 207.0
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Down"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -10.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_aq6jn")
+stretch_mode = 3
+flip_v = true
+
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+layout_mode = 0
+offset_left = 210.00021
+offset_top = 82.0
+offset_right = 270.0002
+offset_bottom = 142.0
+rotation = 1.5708
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Right"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = -10.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_aq6jn")
+stretch_mode = 3
+
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+layout_mode = 0
+offset_left = 80.00021
+offset_top = 82.0
+offset_right = 140.00021
+offset_bottom = 142.0
+rotation = 1.5708
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Left"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = -10.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_aq6jn")
+stretch_mode = 3
+flip_v = true
+
+[node name="OtherButtons" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -172.0
+offset_top = 14.0
+offset_right = -33.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="RotateLeft" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons" groups=["rot_left"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateLeft"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.188408
+offset_top = -20.0
+offset_right = 21.999947
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_m37bs")
+stretch_mode = 5
+
+[node name="RotateRight" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons" groups=["rot_right"]]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = ExtResource("5_vdfow")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateRight"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.188408
+offset_top = -20.0
+offset_right = 21.999947
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_m37bs")
+stretch_mode = 5
+flip_h = true
+
+[node name="QuickOptions" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = 38.0
+offset_bottom = -51.0
+grow_horizontal = 0
+grow_vertical = 2
+columns = 2
+
+[node name="Swipe" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/QuickOptions"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme = ExtResource("5_vdfow")
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m37bs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qb8vd")
+toggle_mode = true
+text = "Swipe"
 
 [node name="ObjectActions" type="Control" parent="Editor_Object/UI_Layer/Actions"]
 layout_mode = 1
@@ -1085,10 +1338,10 @@ mouse_filter = 1
 [node name="Delete" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
 modulate = Color(0.741176, 0.741176, 0.741176, 1)
 layout_mode = 0
-offset_left = 24.0
-offset_top = 26.0
-offset_right = 94.0
-offset_bottom = 96.0
+offset_left = 202.0
+offset_top = 22.0
+offset_right = 282.0
+offset_bottom = 102.0
 texture_normal = ExtResource("9_xovdc")
 stretch_mode = 0
 
@@ -1103,7 +1356,106 @@ offset_right = -13.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("10_yj6o7")
+texture = SubResource("AtlasTexture_qlxfu")
+stretch_mode = 5
+
+[node name="Undo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+self_modulate = Color(0.269, 1, 0.13999999, 1)
+layout_mode = 0
+offset_left = 19.0
+offset_top = 23.0
+offset_right = 99.0
+offset_bottom = 103.0
+texture_normal = ExtResource("9_xovdc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Undo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = -13.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_khu03")
+stretch_mode = 5
+
+[node name="ZoomIn" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+self_modulate = Color(0.269, 1, 0.13999999, 1)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 323.0
+offset_right = 88.0
+offset_bottom = 387.0
+texture_normal = ExtResource("9_xovdc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomIn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = -13.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_u5kxy")
+stretch_mode = 5
+
+[node name="ZoomOut" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+self_modulate = Color(1, 0.42400002, 0.36, 1)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 391.0
+offset_right = 88.0
+offset_bottom = 455.0
+texture_normal = ExtResource("9_xovdc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomOut"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = -13.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ypo3h")
+stretch_mode = 5
+
+[node name="Redo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+self_modulate = Color(0.269, 1, 0.13999999, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 104.0
+offset_top = 23.0
+offset_right = 184.0
+offset_bottom = 103.0
+texture_normal = ExtResource("9_xovdc")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Redo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = -13.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_khu03")
+stretch_mode = 5
+flip_h = true
 
 [node name="Menu" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
 self_modulate = Color(0.45098, 1, 0, 1)
@@ -1128,7 +1480,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_hkpmq")
 
-[node name="Menu2" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="LevelSettings" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
 self_modulate = Color(0.45098, 1, 0, 1)
 layout_mode = 0
 offset_left = 1063.0
@@ -1138,7 +1490,7 @@ offset_bottom = 103.0
 texture_normal = ExtResource("9_xovdc")
 stretch_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Menu2"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/LevelSettings"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

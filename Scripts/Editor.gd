@@ -18,16 +18,19 @@ var swipe_rect : Rect2
 
 @onready var obj_base = preload("res://Objects/object.tscn")
 
-@onready var camera = $Camera
-@onready var level = $Level
-@onready var ui = $Editor_Object/UI_Layer
-@onready var grid = $Grid/GridSprite
+@onready var camera : Camera2D = $Camera
+@onready var level : Node2D = $Level
+@onready var ui : CanvasLayer = $Editor_Object/UI_Layer
+@onready var grid : Sprite2D = $Grid/GridSprite
 
-@onready var editor_tabs = $Editor_Object/UI_Layer/Actions/Viewport/Tabs
-@onready var top_bar = $Editor_Object/UI_Layer/TopBar
+@onready var editor_tabs : VBoxContainer = $Editor_Object/UI_Layer/Actions/Viewport/Tabs
+@onready var top_bar : Control = $Editor_Object/UI_Layer/TopBar
 
-@onready var item_tab = $Editor_Object/UI_Layer/Actions/Viewport/Items
-@onready var edit_tab = $Editor_Object/UI_Layer/Actions/Viewport/Edit
+@onready var item_tab : TabContainer = $Editor_Object/UI_Layer/Actions/Viewport/Items
+@onready var edit_tab : Control = $Editor_Object/UI_Layer/Actions/Viewport/Edit
+@onready var move_container : Control = $Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons
+@onready var edit_other_actions : GridContainer = $Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons
+@onready var swipe_toggle : Button = $Editor_Object/UI_Layer/Actions/Viewport/QuickOptions/Swipe
 
 @onready var action_grid = $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid
 @onready var action_buttons = [$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Copy, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Paste, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Duplicate, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Deselect, $Editor_Object/UI_Layer/TopBar/Delete]
@@ -38,6 +41,7 @@ var history = UndoRedo.new()
 
 var last_click_pos : Vector2
 var select_index : int = 0
+var zoom_multiplier : float = 1.0
 
 var edit_mode : EditorMode = EditorMode.BUILD
 var select_mode : SelectionMode = SelectionMode.SINGLE
@@ -55,28 +59,26 @@ const TEMPLATE_OBJ_DICT = {
 }
 
 func _ready():
-	initialise_tabs()
-	
-	initialise_items()
-	initialise_edit_btn()
-	initialise_actions()
-	
-	initialise_top_bar()
+	_initialise_tabs()
+	_initialise_items()
+	_initialise_edit_btn()
+	_initialise_actions()
+	_initialise_top_bar()
 
-func save_level():
+func _save_level():
 	var save_data = {
 		"info" : level_data,
 		"objects" : []
 	}
 
-	save_data["objects"] = get_data_of_objects(level.get_children())
+	save_data["objects"] = _get_data_of_objects(level.get_children())
 	
 	if not DirAccess.dir_exists_absolute("user://saved_levels/"):
 		DirAccess.make_dir_absolute("user://saved_levels/")
 	
 	if not save_data["info"].has("local_id"):
 		print(save_data["info"])
-		save_data["info"]["local_id"] = generate_unique_id()
+		save_data["info"]["local_id"] = _generate_unique_id()
 	
 	var save_file : FileAccess = FileAccess.open("user://saved_levels/" +str( int(save_data["info"]["local_id"])) + ".gdaslvl", FileAccess.WRITE)
 	var save_string : String = JSON.stringify(save_data)
@@ -85,7 +87,7 @@ func save_level():
 	
 	return success
 
-func get_data_of_objects(objects : Array[Node]):
+func _get_data_of_objects(objects : Array[Node]):
 	var obj_data : Array[Dictionary] = []
 	for obj in objects:
 		if obj.is_class("StaticBody2D"):
@@ -102,7 +104,7 @@ func get_data_of_objects(objects : Array[Node]):
 	
 	return obj_data
 
-func load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
+func _load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
 	var item = load("res://Objects/obj_ids/" + str(int(obj_id)) + ".tres")
 	
 	var object : GDObject = obj_base.instantiate()
@@ -116,12 +118,12 @@ func load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dicti
 	level.add_child(object)
 	return object
 
-func generate_unique_id() -> int:
+func _generate_unique_id() -> int:
 	var time : int = Time.get_unix_time_from_system()
 	var rand : int = randi() % 10000 + 1
 	return time * 10000 + rand
 
-func load_level_file():
+func _load_level_file():
 	var file_dialogue = FileDialog.new()
 	file_dialogue.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialogue.file_mode = FileDialog.FILE_MODE_OPEN_FILE
@@ -141,7 +143,7 @@ func load_level_file():
 	var lvl_info = JSON.parse_string(lvl_file.get_line())
 	
 	if lvl_info.has("objects") and lvl_info.has("name") and lvl_info.has("author") and lvl_info.has("local_id"):
-		load_level(lvl_info["objects"])
+		_load_level(lvl_info["objects"])
 		level_data = lvl_info
 		
 		if level_data["last_uid"] > 0:
@@ -150,42 +152,47 @@ func load_level_file():
 	else:
 		$Editor_Object/Menu_Layer/AcceptDialog.visible = true
 
-func load_level(objects):
+func _load_level(objects):
 	select_all()
 	delete_objects()
 	
 	for obj in objects:
-		load_obj(obj["obj_id"], obj["uid"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
+		_load_obj(obj["obj_id"], obj["uid"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
 func load_level_from_info(lvl_info):
 	level_data = lvl_info["info"]
 	
 	if lvl_info.has("objects"):
-		load_level(lvl_info["objects"])
+		_load_level(lvl_info["objects"])
 	
-	save_level()
+	_save_level()
 	return true
 
-func initialise_top_bar():
+func _initialise_top_bar():
 	for button in top_bar.get_children():
 		if button.name == "Delete":
 			button.pressed.connect(delete_objects)
-		if button.name == "Menu":
-			button.pressed.connect(change_menu_state)
+		elif button.name == "Menu":
+			button.pressed.connect(_change_menu_state)
+		elif button.name == "Undo":
+			button.pressed.connect(history.undo)
+		elif button.name == "Redo":
+			button.pressed.connect(history.redo)
+		elif button.name == "ZoomIn":
+			button.pressed.connect(_zoom.bind(0.3))
+		elif button.name == "ZoomOut":
+			button.pressed.connect(_zoom.bind(-0.3))
 
-func initialise_tabs():
-	
+func _initialise_tabs():
 	var tab_group = ButtonGroup.new()
-	
 	for tab in editor_tabs.get_children():
 		tab.button_group = tab_group
-		
 		if tab.name == "Build":
-			tab.pressed.connect(change_editor_mode.bind(EditorMode.BUILD))
+			tab.pressed.connect(_change_editor_mode.bind(EditorMode.BUILD))
 		elif tab.name == "Edit":
-			tab.pressed.connect(change_editor_mode.bind(EditorMode.EDIT))
+			tab.pressed.connect(_change_editor_mode.bind(EditorMode.EDIT))
 
-func initialise_items():
+func _initialise_items():
 	var btn_group = ButtonGroup.new()
 	
 	for container in item_tab.get_children():
@@ -193,59 +200,60 @@ func initialise_items():
 			button.button_group = btn_group
 			button.select_item.connect(select_item_id)
 
-func initialise_edit_btn():
-	for button in edit_tab.get_children():
-		if button.is_in_group("16_unit"):
-			button.pressed.connect(move_objects.bind(button.name, 1))
-		elif button.is_in_group("8_unit"):
-			button.pressed.connect(move_objects.bind(button.name, 0.5))
-		elif button.is_in_group("1_unit"):
-			button.pressed.connect(move_objects.bind(button.name, 0.1))
+func _initialise_edit_btn():
+	for move_group : Control in move_container.get_children():
+		for button : Button in move_group.get_children():
+			if button.is_in_group("16_unit"):
+				button.pressed.connect(move_objects.bind(button.name, 1))
+			elif button.is_in_group("8_unit"):
+				button.pressed.connect(move_objects.bind(button.name, 0.5))
+			elif button.is_in_group("1_unit"):
+				button.pressed.connect(move_objects.bind(button.name, 0.1))
+	for button : Button in edit_other_actions.get_children():
+		if button.is_in_group("rot_right"):
+			button.pressed.connect(rotate_objects.bind(1))
+		elif button.is_in_group("rot_left"):
+			button.pressed.connect(rotate_objects.bind(-1))
 	
-	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Load.pressed.connect(load_level_file)
-	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Save.pressed.connect(save_level)
-	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Resume.pressed.connect(change_menu_state)
-	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndExit.pressed.connect(save_and_exit)
-	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndPlay.pressed.connect(save_and_play)
-	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Exit.pressed.connect(exit)
+	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Load.pressed.connect(_load_level_file)
+	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Save.pressed.connect(_save_level)
+	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Resume.pressed.connect(_change_menu_state)
+	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndExit.pressed.connect(_save_and_exit)
+	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndPlay.pressed.connect(_save_and_play)
+	$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Exit.pressed.connect(_exit)
 
-func change_menu_state():
+func _change_menu_state():
 	menu_state = !menu_state
 	$Editor_Object/Menu_Layer/EditorMenu.visible = menu_state
 
-func save_and_exit():
-	save_level()
+func _save_and_exit():
+	_save_level()
 	
 	MenuMusic.start_music()
 	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
 
-func save_and_play():
-	save_level()
+func _save_and_play():
+	_save_level()
 	
 	var save_data = {
 		"info" : level_data,
 		"objects" : []
 	}
 
-	save_data["objects"] = get_data_of_objects(level.get_children())
+	save_data["objects"] = _get_data_of_objects(level.get_children())
 	
 	EditorTransition.load_game(save_data, false, true)
 
-func exit():
+func _exit():
 	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog
 	dialog.visible = true
-	
 	await dialog.confirmed
-	
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
-	
+	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
 
-func change_editor_mode(new_mode):
-	
+func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:
 		edit_mode = new_mode
-		
 		if edit_mode == EditorMode.BUILD:
 			item_tab.visible = true
 			edit_tab.visible = false
@@ -253,19 +261,13 @@ func change_editor_mode(new_mode):
 			item_tab.visible = false
 			edit_tab.visible = true
 
-func initialise_actions():
+func _initialise_actions():
 	for button in action_grid.get_children():
-		
 		match button.name:
-			"Copy":
-				button.pressed.connect(copy_objects)
-			"Paste":
-				button.pressed.connect(paste_objects)
-			"Duplicate":
-				button.pressed.connect(duplicate_objects)
-			"Deselect":
-				button.pressed.connect(deselect)
-			
+			"Copy": button.pressed.connect(copy_objects);
+			"Paste": button.pressed.connect(paste_objects);
+			"Duplicate": button.pressed.connect(duplicate_objects);
+			"Deselect": button.pressed.connect(deselect);
 
 func get_objects_at_point(pos : Vector2):
 	var space : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
@@ -324,6 +326,13 @@ func _draw() -> void:
 	if swiping:
 		draw_rect(swipe_rect, Color(0, 1, 0, 1), false)
 
+func _zoom(amount : float):
+	zoom_multiplier += amount
+	zoom_multiplier = clamp(zoom_multiplier, 0.5, 2)
+	
+	camera.zoom = Vector2(3 * zoom_multiplier, 3 * zoom_multiplier)
+	update_grid_position()
+
 func _box_select():
 	for object in level.get_children():
 		if object.is_class("StaticBody2D"):
@@ -346,7 +355,7 @@ func place_object(return_obj = false):
 	if len(selected_objects) == 1 and selected_objects[0].obj_res.id == current_id:
 		history.create_action("Place object")
 		
-		var object : Node2D = load_obj(current_id, last_uid, pos,  0,  selected_objects[0].other)
+		var object : Node2D = _load_obj(current_id, last_uid, pos,  0,  selected_objects[0].other)
 		var rot_center : Node2D = Node2D.new()
 		rot_center.global_position = object.get_child(0).global_position
 		level.add_child(rot_center)
@@ -483,6 +492,7 @@ func delete_objects():
 func move_objects(direction, amount : float):
 	var moved_obj = selected_objects
 	
+	
 	history.create_action("Move")
 	
 	for object : Node2D in moved_obj:
@@ -497,6 +507,8 @@ func move_objects(direction, amount : float):
 			object.global_position.x -= roundi(amount * 16)
 		elif direction == "Right":
 			object.global_position.x += roundi(amount * 16)
+		
+		print(object.global_position)
 		
 		history.add_do_property(object, "global_position", object.global_position)
 		
@@ -657,10 +669,11 @@ func _process(_delta):
 	if Input.is_action_just_pressed("Redo"):
 		history.redo()
 	
-	if Input.is_action_just_pressed("Swipe"):
-		select_mode = SelectionMode.SWIPE
-	if Input.is_action_just_released("Swipe"):
+	if  not swipe_toggle.button_pressed:
 		select_mode = SelectionMode.SINGLE
+	
+	if Input.is_action_pressed("Swipe") or swipe_toggle.button_pressed:
+		select_mode = SelectionMode.SWIPE
 	
 	if Input.is_action_just_pressed("Duplicate"):
 		duplicate_objects()
@@ -682,6 +695,9 @@ func _process(_delta):
 func update_grid_position():
 	var camera_pos : Vector2 = camera.global_position
 	var target_grid_position : Vector2 = Vector2(snapped(camera_pos.x  - (grid.region_rect.size.x / 4), 16), snapped(camera_pos.y + (grid.region_rect.size.y / 4), 16))
+	
+	var camera_rect : Vector2 = get_viewport_rect().size * 3 / camera.zoom
+	grid.region_rect.size = camera_rect
 	
 	if target_grid_position.x < 0:
 		target_grid_position.x = 0

@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://756i0al4p4q2"]
+[gd_scene load_steps=6 format=3 uid="uid://756i0al4p4q2"]
 
 [ext_resource type="Script" uid="uid://d22b4jfmpj4f8" path="res://Scripts/portal.gd" id="1_flofq"]
+[ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_cd708"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_gdlbl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6nh2m"]
+shader = ExtResource("2_cd708")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tq04g"]
 size = Vector2(15, 24.3333)
@@ -13,6 +17,7 @@ portal_type = 2
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_6nh2m")
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_gdlbl")
 region_enabled = true

@@ -66,7 +66,6 @@ func load_game(level_info : Dictionary, restart = false, playtesting = false):
 	if not playtesting:
 		root.load_level_data(level_info, restart, playtesting)
 	else:
-		print(level_info)
 		root.load_level_data(level_info, restart, playtesting)
 	
 	if not restart:

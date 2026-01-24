@@ -133,7 +133,7 @@ func _process_cube_physics(delta : float) -> void:
 				if is_really_on_surface():
 					velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier
 					if consecutive_jumps > 1:
-						velocity.y -= SCALE_MULTIPLIER * gravity_multiplier
+						velocity.y -= (SCALE_MULTIPLIER - 2) * gravity_multiplier
 					consecutive_jumps += 1
 		else:
 			consecutive_jumps = 0
@@ -159,6 +159,7 @@ func _process_cube_physics(delta : float) -> void:
 func _process_ship_physics(delta : float) -> void:
 	
 	velocity.y += SHIP_GRAVITY * gravity_multiplier
+	orb_buffer = false
 	_check_orbs()
 	
 	if Input.is_action_pressed("Jump"):
