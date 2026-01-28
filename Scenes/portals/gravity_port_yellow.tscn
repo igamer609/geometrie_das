@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtfyfwg6wjpnm"]
 
-[ext_resource type="Script" uid="uid://d22b4jfmpj4f8" path="res://Scripts/portal.gd" id="1_p8uta"]
+[ext_resource type="Script" uid="uid://d22b4jfmpj4f8" path="res://Scripts/Portal.gd" id="1_p8uta"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_t1lnb"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_u7fos"]
 

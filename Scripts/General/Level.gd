@@ -215,9 +215,11 @@ func change_background(new_colour, fade_time):
 	if fade_time > 0:
 		var tween = get_tree().create_tween()
 		tween.tween_property($Universal/BG/BGLayer/BGSprite, "modulate", new_colour, fade_time)
+		tween.set_meta("scope", 2)
 	else:
 		$Universal/BG/BGLayer/BGSprite.modulate = new_colour
 
 func end_tweens():
 	for tween in get_tree().get_processed_tweens():
-		tween.stop()
+		if tween.get_meta("scope") == 2:
+			tween.stop()

@@ -8,6 +8,7 @@ size = Vector2(4, 7)
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2nc3"]
 atlas = ExtResource("1_2aa1q")
 region = Rect2(16, 0, 16, 16)
+filter_clip = true
 
 [node name="Spike" type="Area2D" groups=["Hazard"]]
 

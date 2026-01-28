@@ -13,8 +13,6 @@ signal bg_change(color, fade)
 
 var enabled = true
 
-
-
 func _on_body_entered(body):
 	if body.is_in_group("Player") and enabled:
 		emit_signal("bg_change", color, fade_time)

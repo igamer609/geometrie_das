@@ -13,7 +13,7 @@ var scene : Node2D = null
 
 @onready var vis_notif : VisibleOnScreenNotifier2D = $VisibilityNotifier
 @onready var anim_player : AnimationPlayer = $AnimationPlayer
-@onready var shader_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
+@onready var _selection_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
 
 @export var uid : int
 @export var other : Dictionary
@@ -37,17 +37,18 @@ func update():
 			var particles : GPUParticles2D = scene.find_child("Particles")
 			if(particles):
 				particles.emitting = true
-		
-		var sprite : Sprite2D = scene.find_child("Sprite")
-		if sprite:
-			sprite.material = shader_material
+		else:
+			var sprite : Sprite2D = scene.find_child("Sprite")
+			if sprite:
+				sprite.material = _selection_material
 		
 		$Sprite.queue_free()
 		
 	else:
 		$Sprite.texture = obj_res.texture
 		$Collision.polygon = obj_res.collision_shape
-		$Sprite.material = shader_material
+		if not in_level:
+			$Sprite.material = _selection_material
 	
 	if not obj_res.is_solid:
 		set_collision_layer_value(1, false)

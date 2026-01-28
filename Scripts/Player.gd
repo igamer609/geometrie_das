@@ -48,11 +48,11 @@ var orb_queue : Array[Area2D] = []
 var orb_buffer : bool = false
 
 func _ready():
-	check_icons()
+	_check_icons()
 	change_gravity(1)
 	#Engine.time_scale = 0.2
 
-func check_icons():
+func _check_icons():
 	for sprite in $Sprites.get_children():
 			if sprite.name == "cube":
 				sprite.region_rect = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
@@ -240,6 +240,8 @@ func _check_orbs() -> bool:
 
 func die():
 	emit_signal("died")
+	orb_buffer = false
+	orb_queue.clear()
 	can_move = false
 	visible = false
 	$DeathSFX.play()
@@ -333,6 +335,7 @@ func _on_damage_area_entered(area : Area2D):
 		area.player_enter()
 	if area.is_in_group("gamemode_portal"):
 		change_gamemode(area.portal_type, area)
+		area.activate()
 	if area.is_in_group("JumpPad"):
 		area.activate()
 		if area.jump_type == 0:

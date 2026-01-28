@@ -1,4 +1,43 @@
-[gd_scene format=3 uid="uid://xmk70fjbj7hr"]
+[gd_scene load_steps=14 format=3 uid="uid://xmk70fjbj7hr"]
+
+[ext_resource type="Script" uid="uid://511mh35jque1" path="res://Scripts/LevelEditorMenu.gd" id="1_lnwpy"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_lkc53"]
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="3_8k56j"]
+[ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="4_lkc53"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="5_8k56j"]
+
+[sub_resource type="Gradient" id="Gradient_i1gkn"]
+colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oyjrx"]
+gradient = SubResource("Gradient_i1gkn")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocrpo"]
+atlas = ExtResource("2_lkc53")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_2unau"]
+events = [SubResource("InputEventKey_pa3jt")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgly8"]
+atlas = ExtResource("2_lkc53")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtws1"]
+atlas = ExtResource("2_lkc53")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyjrx"]
+atlas = ExtResource("4_lkc53")
+region = Rect2(37, 0, 37, 34)
 
 [node name="LevelEditingMenu" type="Control"]
 layout_mode = 3
@@ -7,3 +46,216 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lnwpy")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gradient" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_oyjrx")
+
+[node name="Corner" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 0
+offset_left = 120.00015
+offset_top = -0.00015203904
+offset_right = 240.0003
+offset_bottom = 120.0
+rotation = 1.5708
+texture = SubResource("AtlasTexture_ocrpo")
+
+[node name="Corner2" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 120.0
+offset_right = 120.0
+offset_bottom = 240.00006
+grow_horizontal = 0
+rotation = 3.14159
+texture = SubResource("AtlasTexture_ocrpo")
+
+[node name="Corner3" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+offset_right = 120.0
+grow_vertical = 0
+texture = SubResource("AtlasTexture_ocrpo")
+
+[node name="Corner4" type="TextureRect" parent="Background"]
+clip_children = 2
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 1.000061
+offset_bottom = 121.00012
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 4.71239
+texture = SubResource("AtlasTexture_ocrpo")
+
+[node name="Exit" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 3.0
+offset_top = 20.0
+offset_right = 95.0
+offset_bottom = 96.0
+shortcut = SubResource("Shortcut_2unau")
+texture_normal = SubResource("AtlasTexture_vgly8")
+stretch_mode = 0
+flip_h = true
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 112.0
+offset_top = 98.0
+offset_right = -107.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Create" type="Control" parent="Container"]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="LineEdit" parent="Container/Create"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -17.0
+offset_bottom = 57.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_8k56j")
+theme_override_font_sizes/font_size = 31
+placeholder_text = "Title"
+alignment = 1
+max_length = 22
+
+[node name="Title2" type="LineEdit" parent="Container/Create"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 66.0
+offset_bottom = 198.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_8k56j")
+theme_override_font_sizes/font_size = 31
+placeholder_text = "Description"
+alignment = 1
+max_length = 22
+
+[node name="Edit" type="TextureButton" parent="Container/Create"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.5
+offset_top = -16.5
+offset_right = -110.27527
+offset_bottom = 137.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_rtws1")
+stretch_mode = 0
+
+[node name="Texture" type="TextureRect" parent="Container/Create/Edit"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.612366
+offset_top = -43.75
+offset_right = 43.358063
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_oyjrx")
+
+[node name="Length" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -43.0
+offset_right = 259.0
+offset_bottom = -20.0
+grow_vertical = 0
+theme = ExtResource("5_8k56j")
+theme_override_font_sizes/font_size = 26
+text = "Length: N/A"
+
+[node name="Length2" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -281.0
+offset_top = -43.0
+offset_right = -122.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("5_8k56j")
+theme_override_font_sizes/font_size = 26
+text = "ID: Unverified"
+horizontal_alignment = 1
+
+[node name="Song" type="Label" parent="Container"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -79.5
+offset_top = -43.0
+offset_right = 79.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_8k56j")
+theme_override_font_sizes/font_size = 26
+text = "Song: N/A"
+horizontal_alignment = 1

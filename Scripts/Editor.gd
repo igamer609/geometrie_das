@@ -547,8 +547,11 @@ func rotate_objects(direction):
 		
 		history.add_undo_property(selected_objects[0], "global_rotation", selected_objects[0].global_rotation)
 		history.add_undo_property(selected_objects[0], "global_position", selected_objects[0].global_position)
-
-		selected_objects[0].reparent(rot_center)
+		
+		if selected_objects[0].is_inside_tree():
+			selected_objects[0].reparent(rot_center)
+		else:
+			selected_objects[0].parent = rot_center
 		rot_center.rotate(deg_to_rad(direction * 90))
 		var new_pos : Vector2 = selected_objects[0].global_position
 		var new_rot : float = selected_objects[0].global_rotation

@@ -1,10 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmbgw4i4n5jwm"]
+[gd_scene load_steps=9 format=3 uid="uid://cmbgw4i4n5jwm"]
 
 [ext_resource type="Script" uid="uid://cgfrum2vkeru6" path="res://Scenes/Menus/saved_lvl_template/level_template.gd" id="1_kbo2c"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="2_3jnab"]
-[ext_resource type="Texture2D" uid="uid://bfg2s4cmrid53" path="res://Assets/buttons/button2.png" id="3_253m3"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="3_2x8eo"]
 [ext_resource type="Texture2D" uid="uid://b0doevgxrotyq" path="res://Assets/buttons/editor tabs/edit.png" id="4_kswul"]
 [ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="5_v72xi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir8ck"]
+atlas = ExtResource("3_2x8eo")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc5nh"]
+atlas = ExtResource("3_2x8eo")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pj5c"]
 bg_color = Color(0.682353, 0.219608, 0.0235294, 1)
@@ -70,13 +78,12 @@ size_flags_vertical = 4
 alignment = 1
 
 [node name="Edit" type="TextureButton" parent="Container/Buttons"]
-self_modulate = Color(0.0784314, 1, 0.847059, 1)
 texture_filter = 1
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("3_253m3")
+texture_normal = SubResource("AtlasTexture_ir8ck")
 ignore_texture_size = true
 stretch_mode = 4
 
@@ -98,13 +105,12 @@ mouse_filter = 2
 texture = ExtResource("4_kswul")
 
 [node name="Play" type="TextureButton" parent="Container/Buttons"]
-self_modulate = Color(0.509804, 1, 0.0784314, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("3_253m3")
+texture_normal = SubResource("AtlasTexture_wc5nh")
 ignore_texture_size = true
 stretch_mode = 4
 

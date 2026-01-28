@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2kqortclhrt0"]
+[gd_scene load_steps=13 format=3 uid="uid://c2kqortclhrt0"]
 
 [ext_resource type="Script" uid="uid://b8k5mfx22apsw" path="res://Scripts/General/JumpPad.gd" id="1_2gmdr"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_dtshu"]
@@ -50,43 +50,6 @@ scale_max = 2.2
 scale_curve = SubResource("CurveTexture_rx6cy")
 color = Color(0.85098, 1, 0.996078, 0.419608)
 
-[sub_resource type="Animation" id="Animation_22gar"]
-resource_name = "activate"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:instance_shader_parameters/flash_intensity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 2.8284266),
-"update": 0,
-"values": [1.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_6cxak"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:instance_shader_parameters/flash_intensity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_g0lk7"]
-_data = {
-&"RESET": SubResource("Animation_6cxak"),
-&"activate": SubResource("Animation_22gar")
-}
-
 [node name="BluePad" type="Area2D" groups=["JumpPad"]]
 script = ExtResource("1_2gmdr")
 jump_type = 2
@@ -108,13 +71,9 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="Particles" type="GPUParticles2D" parent="."]
 position = Vector2(0, 7)
+emitting = false
 amount = 11
 lifetime = 0.9
 speed_scale = 2.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_vuqhk")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_g0lk7")
-}

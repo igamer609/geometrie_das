@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c07frehibtpco"]
+[gd_scene load_steps=31 format=3 uid="uid://c07frehibtpco"]
 
 [ext_resource type="Script" uid="uid://dpi8io8fm88in" path="res://Scripts/EditorTab.gd" id="1_nusqu"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_lrw8v"]
@@ -9,12 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://b0doevgxrotyq" path="res://Assets/buttons/editor tabs/edit.png" id="4_ws4t1"]
 [ext_resource type="Texture2D" uid="uid://2t1r4tq4jnbi" path="res://Assets/buttons/tab_button/button4_disabled.png" id="5_4vn04"]
 [ext_resource type="Texture2D" uid="uid://cu2acjt586g03" path="res://Assets/level/editor_difficulty.png" id="5_yv0px"]
-[ext_resource type="Texture2D" uid="uid://s45suag2xf8t" path="res://Assets/buttons/editor tabs/create_edit.png" id="6_6rhub"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_uehhm"]
-[ext_resource type="Texture2D" uid="uid://djoiuv0d1n80t" path="res://Assets/buttons/editor tabs/saved.png" id="7_cctbx"]
 [ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="8_k5inn"]
-[ext_resource type="Texture2D" uid="uid://cn76rk2qgurhq" path="res://Assets/buttons/editor tabs/featured.png" id="9_vxqr5"]
-[ext_resource type="Texture2D" uid="uid://dnryne7n8gqbf" path="res://Assets/buttons/editor tabs/load.png" id="10_j3i0s"]
+[ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="12_80pvi"]
 
 [sub_resource type="Gradient" id="Gradient_tos4a"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -66,6 +63,22 @@ texture = ExtResource("3_nkebe")
 texture = ExtResource("5_4vn04")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rjg8l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir8y0"]
+atlas = ExtResource("12_80pvi")
+region = Rect2(0, 86, 48, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0xc0"]
+atlas = ExtResource("12_80pvi")
+region = Rect2(0, 0, 37, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tos4a"]
+atlas = ExtResource("12_80pvi")
+region = Rect2(0, 38, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ygfu"]
+atlas = ExtResource("12_80pvi")
+region = Rect2(48, 38, 48, 48)
 
 [node name="EditTab" type="Control"]
 layout_mode = 3
@@ -533,8 +546,8 @@ offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("7_cctbx")
-stretch_mode = 4
+texture = SubResource("AtlasTexture_ir8y0")
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="TabContainer/Saved"]
 layout_mode = 1
@@ -589,7 +602,7 @@ offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("6_6rhub")
+texture = SubResource("AtlasTexture_w0xc0")
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="TabContainer/Create"]
@@ -645,7 +658,7 @@ offset_bottom = -39.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("9_vxqr5")
+texture = SubResource("AtlasTexture_tos4a")
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="TabContainer/Featured"]
@@ -701,7 +714,7 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("10_j3i0s")
+texture = SubResource("AtlasTexture_8ygfu")
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="TabContainer/Load"]

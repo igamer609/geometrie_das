@@ -1,7 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b3ucus1aap11v"]
+[gd_scene load_steps=13 format=3 uid="uid://b3ucus1aap11v"]
 
 [ext_resource type="Script" uid="uid://b8k5mfx22apsw" path="res://Scripts/General/JumpPad.gd" id="1_0imgw"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_e2nbf"]
+[ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_lb68q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2dc7"]
+shader = ExtResource("2_lb68q")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1lyxv"]
 size = Vector2(10, 4.1)
@@ -51,8 +55,9 @@ rotation = 3.14159
 script = ExtResource("1_0imgw")
 jump_type = 2
 
-[node name="BaseTilemap" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_y2dc7")
 position = Vector2(0, -2.38419e-07)
 scale = Vector2(1, 1.06667)
 texture = ExtResource("2_e2nbf")
@@ -67,7 +72,7 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(0, 7)
 amount = 11
-process_material = SubResource("ParticleProcessMaterial_vuqhk")
 lifetime = 0.9
 speed_scale = 2.0
 fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_vuqhk")

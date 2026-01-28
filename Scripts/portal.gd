@@ -7,3 +7,9 @@
 extends Area2D
 
 @export_enum("gravity_down", "gravity_up", "cube", "ship", "ball") var portal_type
+
+func activate() -> void:
+	var tween : Tween = create_tween().bind_node(self)
+	tween.set_meta("scope", 3)
+	$Sprite.set_instance_shader_parameter("flash_intensity", 0.7)
+	tween.tween_property($Sprite, "instance_shader_parameters/flash_intensity", 0.0, 0.3).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
