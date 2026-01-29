@@ -66,6 +66,8 @@ func get_endpos():
 func load_level_data(level_info, restart = false, playtesting = false):
 	level_data = level_info
 	
+	print(level_info)
+	
 	if restart:
 		first_attempt = false
 	
@@ -263,7 +265,7 @@ func exit_level():
 	GameProgress.music_to_load = 0
 	GameProgress.stop_lvl_music()
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
+	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
 func end_level():
 	if _playtesting:
@@ -275,14 +277,17 @@ func end_level():
 	player_cam.position_smoothing_enabled = false
 
 func _verify_level():
-	var directory = DirAccess.get_files_at("user://saved_levels")
+	var directory : PackedStringArray = DirAccess.get_files_at("user://saved_levels")
+	level_data["info"]["verified"] = 1
 	
-	for this_level  in directory:
-		print(this_level)
-		var file_path = "user://saved_levels/" + this_level
+	for this_level : String  in directory:
 		
-		var lvl_file = FileAccess.open(file_path, FileAccess.READ)
-		var lvl_info = JSON.parse_string(lvl_file.get_line())
+		if int(this_level.get_slice(".", 0)) == level_data["info"]["local_id"]:
+			var file_path : String = "user://saved_levels/" + this_level
+			var lvl_file : FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
+			
+			var lvl_info : String = JSON.stringify(level_data)
+			var success : bool = lvl_file.store_line(lvl_info)
 
 func restart():
 	GameProgress.stop_lvl_music()

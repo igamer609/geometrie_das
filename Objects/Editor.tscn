@@ -1,8 +1,9 @@
-[gd_scene load_steps=49 format=3 uid="uid://bkyo4lgnhak2y"]
+[gd_scene load_steps=51 format=3 uid="uid://bkyo4lgnhak2y"]
 
 [ext_resource type="Texture2D" uid="uid://b2kw7xp5t2kvg" path="res://Scenes/editor/grid.png" id="1_0y7rc"]
 [ext_resource type="Script" uid="uid://dqn2hmigqedje" path="res://Scripts/Editor.gd" id="1_id040"]
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_ojbeb"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="5_m37bs"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_vdfow"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_x4tf7"]
 [ext_resource type="Texture2D" uid="uid://c4rbj4m7l8xxt" path="res://Assets/icon_sheet_1.png" id="7_m37bs"]
@@ -13,17 +14,20 @@
 [ext_resource type="Texture2D" uid="uid://cqkg76guhq3bl" path="res://Assets/buttons/pause.png" id="11_hkpmq"]
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w78n2"]
-bg_color = Color(0.0196078, 0.858824, 1, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3xft"]
+atlas = ExtResource("5_m37bs")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ygdoy"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_x3xft")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u66gc"]
 content_margin_left = 10.0
@@ -45,29 +49,20 @@ region = Rect2(32, 3, 32, 18)
 atlas = ExtResource("7_m37bs")
 region = Rect2(1, 35, 31, 28)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m37bs"]
-bg_color = Color(0, 0.87511814, 0.9139557, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("5_m37bs")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qb8vd"]
-bg_color = Color(0.25098, 0.964706, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m37bs"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4ti0"]
 
@@ -384,7 +379,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 31
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
 toggle_mode = true
 button_pressed = true
 text = "Build"
@@ -396,7 +391,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 31
-theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
 toggle_mode = true
 text = "Edit"
 
@@ -1299,8 +1294,8 @@ layout_mode = 2
 theme = ExtResource("5_vdfow")
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 16
-theme_override_styles/pressed = SubResource("StyleBoxFlat_m37bs")
-theme_override_styles/hover = SubResource("StyleBoxFlat_qb8vd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_m37bs")
 toggle_mode = true
 text = "Swipe"
 

@@ -210,6 +210,40 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_oyjrx")
 
+[node name="Play" type="TextureButton" parent="Container/Create"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.5
+offset_top = -24.5
+offset_right = 76.5
+offset_bottom = 140.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_rtws1")
+stretch_mode = 0
+
+[node name="Texture" type="TextureRect" parent="Container/Create/Play"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.612366
+offset_top = -43.75
+offset_right = 43.358063
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_oyjrx")
+
 [node name="Length" type="Label" parent="Container"]
 layout_mode = 1
 anchors_preset = 2

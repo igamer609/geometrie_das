@@ -4,7 +4,7 @@
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
 
-extends TextureButton
+extends AnimatedTextureButton
 
 signal selected_icon
 
@@ -12,6 +12,7 @@ signal selected_icon
 @export var id : int
 
 func _ready():
+	super()
 	texture_normal.region = Rect2(id * 16, 0, 16, 16)
 	connect("pressed", change_icon)
 

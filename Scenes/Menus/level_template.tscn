@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://70v10gk4dvig"]
+[gd_scene load_steps=11 format=3 uid="uid://70v10gk4dvig"]
 
 [ext_resource type="Texture2D" uid="uid://d1ciusy8i88tx" path="res://Assets/level/difficulty.png" id="1_uj4at"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_ljxiq"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="3_h7dvc"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_bt4ry"]
 [ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="4_e54ao"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu0fl"]
@@ -217,6 +218,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_0q2vj")
 stretch_mode = 0
+script = ExtResource("4_bt4ry")
 
 [node name="Texture" type="TextureRect" parent="Play"]
 texture_filter = 1

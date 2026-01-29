@@ -1,10 +1,11 @@
-[gd_scene load_steps=41 format=3 uid="uid://cma8h3ddt0i6a"]
+[gd_scene load_steps=42 format=3 uid="uid://cma8h3ddt0i6a"]
 
 [ext_resource type="Script" uid="uid://10ip4e4fo6i7" path="res://Scripts/General/CustomLevel.gd" id="1_jl4xf"]
 [ext_resource type="PackedScene" uid="uid://bfkbo56nphh1i" path="res://Scenes/player_full.tscn" id="3_tq51e"]
 [ext_resource type="PackedScene" uid="uid://b741ehrnqe0e3" path="res://Scenes/Levels/LevelItems/LevelFinish.tscn" id="4_irpq7"]
 [ext_resource type="Script" uid="uid://dktn2ch0f3dqj" path="res://Scripts/General/EditorLevelPauseUI.gd" id="5_noxto"]
 [ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="5_vb1ue"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="7_trony"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="7_xgy81"]
 [ext_resource type="Texture2D" uid="uid://bxera88yuskwv" path="res://Assets/buttons/menu_icon.png" id="8_y3fcr"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="9_v5nhe"]
@@ -328,6 +329,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
 stretch_mode = 0
+script = ExtResource("7_trony")
 
 [node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Restart"]
 layout_mode = 1
@@ -358,6 +360,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
 stretch_mode = 0
+script = ExtResource("7_trony")
 
 [node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Exit"]
 layout_mode = 1
@@ -556,6 +559,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
 stretch_mode = 0
+script = ExtResource("7_trony")
 
 [node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Exit"]
 layout_mode = 1
@@ -586,6 +590,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
 stretch_mode = 0
+script = ExtResource("7_trony")
 
 [node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Restart"]
 layout_mode = 1

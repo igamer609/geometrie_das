@@ -230,7 +230,7 @@ func _save_and_exit():
 	_save_level()
 	
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
+	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
 func _save_and_play():
 	_save_level()
@@ -249,7 +249,7 @@ func _exit():
 	dialog.visible = true
 	await dialog.confirmed
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/SavedTab.tscn")
+	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
 func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:

@@ -46,6 +46,7 @@ func update():
 		
 	else:
 		$Sprite.texture = obj_res.texture
+		$Sprite.texture.filter_clip = true
 		$Collision.polygon = obj_res.collision_shape
 		if not in_level:
 			$Sprite.material = _selection_material

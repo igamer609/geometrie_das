@@ -1,9 +1,10 @@
-[gd_scene load_steps=47 format=3 uid="uid://bgck0oehre0fd"]
+[gd_scene load_steps=44 format=3 uid="uid://bgck0oehre0fd"]
 
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_hsfy0"]
 [ext_resource type="Script" uid="uid://cy41q61xo81ol" path="res://Scenes/Menus/MainMenu.gd" id="1_yix18"]
 [ext_resource type="Script" uid="uid://cqcb7ra3ormy5" path="res://Scripts/General/ScrollBG.gd" id="2_jfxmx"]
 [ext_resource type="Texture2D" uid="uid://cxd3ekx4dqkyl" path="res://Assets/ground.png" id="3_wnfrj"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="5_leunp"]
 [ext_resource type="Texture2D" uid="uid://cgoy16m7tp0ak" path="res://Assets/buttons/Button.png" id="6_hjx7h"]
 [ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="7_rs2qu"]
 [ext_resource type="Texture2D" uid="uid://bjiroqc7tuokb" path="res://Assets/other/Logo.png" id="7_xxn82"]
@@ -13,10 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="9_fus76"]
 [ext_resource type="Texture2D" uid="uid://kimjg2avm5hx" path="res://Assets/buttons/music_btn.png" id="9_u7ykm"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="11_52cdl"]
-[ext_resource type="Script" uid="uid://2mkxf0etqxec" path="res://Scripts/General/MusicCredit.gd" id="12_xw00a"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="13_criex"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="14_h8ib8"]
-[ext_resource type="Texture2D" uid="uid://d0deeixq08h1t" path="res://Assets/buttons/img_button_3.png" id="15_qhnq8"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="17_leunp"]
 [ext_resource type="Texture2D" uid="uid://bsyh6saqughub" path="res://Assets/buttons/slider textures/slider_notch.png" id="17_qaagr"]
 [ext_resource type="Texture2D" uid="uid://g5687ofk6b86" path="res://Assets/buttons/slider textures/notch_action.png" id="18_ahu0q"]
 [ext_resource type="Texture2D" uid="uid://bwinen8ft4rtu" path="res://Assets/buttons/slider textures/slider_background.png" id="19_k7pqo"]
@@ -48,31 +48,18 @@ Label/constants/outline_size = 7
 Label/font_sizes/font_size = 26
 Label/fonts/font = ExtResource("14_h8ib8")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbrmw"]
-content_margin_top = 29.0
-texture = ExtResource("15_qhnq8")
-texture_margin_left = 55.0
-texture_margin_top = 55.0
-texture_margin_right = 50.0
-texture_margin_bottom = 25.0
-modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h1v62"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hdia"]
+atlas = ExtResource("17_leunp")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rko12"]
-content_margin_top = 29.0
-texture = ExtResource("15_qhnq8")
-texture_margin_left = 55.0
-texture_margin_top = 55.0
-texture_margin_right = 50.0
-texture_margin_bottom = 25.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwhu7"]
-content_margin_top = 29.0
-texture = ExtResource("15_qhnq8")
-texture_margin_left = 55.0
-texture_margin_top = 55.0
-texture_margin_right = 50.0
-texture_margin_bottom = 25.0
-modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
+texture = SubResource("AtlasTexture_5hdia")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
 
 [sub_resource type="Theme" id="Theme_1jcnl"]
 Button/colors/font_color = Color(1, 1, 1, 1)
@@ -80,34 +67,10 @@ Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 14
 Button/font_sizes/font_size = 46
 Button/fonts/font = ExtResource("14_h8ib8")
-Button/styles/focus = SubResource("StyleBoxTexture_mbrmw")
+Button/styles/focus = SubResource("StyleBoxEmpty_h1v62")
 Button/styles/hover = SubResource("StyleBoxTexture_rko12")
 Button/styles/normal = SubResource("StyleBoxTexture_rko12")
-Button/styles/pressed = SubResource("StyleBoxTexture_dwhu7")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i27x1"]
-content_margin_top = 29.0
-texture = ExtResource("15_qhnq8")
-texture_margin_left = 55.0
-texture_margin_top = 55.0
-texture_margin_right = 50.0
-texture_margin_bottom = 25.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ipbg"]
-content_margin_top = 29.0
-texture = ExtResource("15_qhnq8")
-texture_margin_left = 55.0
-texture_margin_top = 55.0
-texture_margin_right = 50.0
-texture_margin_bottom = 25.0
-modulate_color = Color(0.215686, 0.678431, 0.215686, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkmvo"]
-texture = ExtResource("15_qhnq8")
-texture_margin_left = 55.0
-texture_margin_top = 55.0
-texture_margin_right = 50.0
-texture_margin_bottom = 25.0
+Button/styles/pressed = SubResource("StyleBoxTexture_rko12")
 
 [sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
 device = -1
@@ -228,6 +191,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+script = ExtResource("5_leunp")
 
 [node name="TextureRect" type="TextureRect" parent="Center/MainPlay"]
 texture_filter = 1
@@ -276,6 +240,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+script = ExtResource("5_leunp")
 
 [node name="TextureRect" type="TextureRect" parent="Center/Icons"]
 texture_filter = 1
@@ -322,6 +287,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_2hcpy")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qxvfd")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
+script = ExtResource("5_leunp")
 
 [node name="TextureRect" type="TextureRect" parent="Center/Edit"]
 texture_filter = 1
@@ -381,6 +347,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+script = ExtResource("5_leunp")
 
 [node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/Settings"]
 layout_mode = 1
@@ -418,6 +385,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+script = ExtResource("5_leunp")
 
 [node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit"]
 layout_mode = 1
@@ -513,7 +481,6 @@ texture_filter = 2
 custom_minimum_size = Vector2(0, 76.22)
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("12_xw00a")
 
 [node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic"]
 layout_mode = 1
@@ -554,10 +521,8 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 text = "Open"
+script = ExtResource("5_leunp")
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
 [node name="GloriousMorning" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
@@ -565,7 +530,6 @@ texture_filter = 2
 custom_minimum_size = Vector2(0, 76.22)
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("12_xw00a")
 
 [node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning"]
 layout_mode = 1
@@ -607,10 +571,8 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 text = "Open"
+script = ExtResource("5_leunp")
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
 [node name="yStep" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
@@ -618,7 +580,6 @@ texture_filter = 2
 custom_minimum_size = Vector2(0, 76.22)
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("12_xw00a")
 
 [node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep"]
 layout_mode = 1
@@ -659,10 +620,8 @@ offset_bottom = 51.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = SubResource("Theme_1jcnl")
-theme_override_styles/normal = SubResource("StyleBoxTexture_i27x1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8ipbg")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kkmvo")
 text = "Open"
+script = ExtResource("5_leunp")
 metadata/MusicLink = "https://www.youtube.com/watch?v=KTQSxSYTGgE"
 
 [node name="Exit" type="TextureButton" parent="MusicCredits"]
@@ -951,6 +910,7 @@ grow_vertical = 2
 theme = ExtResource("22_y2t2u")
 theme_override_font_sizes/font_size = 26
 text = "No"
+script = ExtResource("5_leunp")
 
 [node name="Reset" type="Button" parent="ResetDialogue/NinePatchRect"]
 layout_mode = 1
@@ -971,6 +931,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_32ode")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_g7j8s")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sgjxf")
 text = "Yes"
+script = ExtResource("5_leunp")
 
 [connection signal="pressed" from="Center/MainPlay" to="." method="_levels_pressed"]
 [connection signal="pressed" from="Center/Icons" to="." method="_icon_button"]

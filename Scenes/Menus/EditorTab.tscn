@@ -1,16 +1,14 @@
-[gd_scene load_steps=31 format=3 uid="uid://c07frehibtpco"]
+[gd_scene load_steps=24 format=3 uid="uid://c07frehibtpco"]
 
 [ext_resource type="Script" uid="uid://dpi8io8fm88in" path="res://Scripts/EditorTab.gd" id="1_nusqu"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_lrw8v"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="2_rmdpf"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="3_7f0cn"]
-[ext_resource type="Texture2D" uid="uid://c2uy23ngv73gv" path="res://Assets/buttons/tab_button/button4.png" id="3_nkebe"]
-[ext_resource type="Texture2D" uid="uid://c1ydmkuw701vn" path="res://Assets/buttons/tab_button/button4_pressed.png" id="4_mng8q"]
 [ext_resource type="Texture2D" uid="uid://b0doevgxrotyq" path="res://Assets/buttons/editor tabs/edit.png" id="4_ws4t1"]
-[ext_resource type="Texture2D" uid="uid://2t1r4tq4jnbi" path="res://Assets/buttons/tab_button/button4_disabled.png" id="5_4vn04"]
 [ext_resource type="Texture2D" uid="uid://cu2acjt586g03" path="res://Assets/level/editor_difficulty.png" id="5_yv0px"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_uehhm"]
 [ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="8_k5inn"]
+[ext_resource type="Theme" uid="uid://h56k7qdjefl1" path="res://Assets/themes/editor_tab.tres" id="9_w0xc0"]
 [ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="12_80pvi"]
 
 [sub_resource type="Gradient" id="Gradient_tos4a"]
@@ -49,20 +47,6 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_u5mj4"]
 atlas = ExtResource("2_lrw8v")
 region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vq6k0"]
-texture = ExtResource("3_nkebe")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1bhs7"]
-texture = ExtResource("4_mng8q")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ndirt"]
-texture = ExtResource("3_nkebe")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2y6gb"]
-texture = ExtResource("5_4vn04")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rjg8l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ir8y0"]
 atlas = ExtResource("12_80pvi")
@@ -523,11 +507,7 @@ offset_right = -994.0
 offset_bottom = -359.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
+theme = ExtResource("9_w0xc0")
 text = "
 "
 text_overrun_behavior = 2
@@ -579,11 +559,7 @@ offset_right = -781.0
 offset_bottom = -359.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
+theme = ExtResource("9_w0xc0")
 text = "
 "
 text_overrun_behavior = 2
@@ -635,11 +611,7 @@ offset_right = -994.0
 offset_bottom = -148.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
+theme = ExtResource("9_w0xc0")
 text = "
 "
 text_overrun_behavior = 2
@@ -691,11 +663,7 @@ offset_right = -781.0
 offset_bottom = -148.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_vq6k0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1bhs7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ndirt")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_2y6gb")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rjg8l")
+theme = ExtResource("9_w0xc0")
 text = "
 "
 text_overrun_behavior = 2

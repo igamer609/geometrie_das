@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://h56k7qdjefl1"]
+
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="1_6rxvm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odito"]
+atlas = ExtResource("1_6rxvm")
+region = Rect2(96, 0, 64, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3yt0e"]
+texture = SubResource("AtlasTexture_odito")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6rxvm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h28x"]
+atlas = ExtResource("1_6rxvm")
+region = Rect2(32, 0, 64, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vq6k0"]
+texture = SubResource("AtlasTexture_5h28x")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hydwq"]
+atlas = ExtResource("1_6rxvm")
+region = Rect2(160, 0, 64, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ljgr6"]
+texture = SubResource("AtlasTexture_hydwq")
+
+[resource]
+Button/styles/disabled = SubResource("StyleBoxTexture_3yt0e")
+Button/styles/focus = SubResource("StyleBoxEmpty_6rxvm")
+Button/styles/hover = SubResource("StyleBoxTexture_vq6k0")
+Button/styles/normal = SubResource("StyleBoxTexture_vq6k0")
+Button/styles/pressed = SubResource("StyleBoxTexture_ljgr6")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ctm4f0gyo1rt0"]
+[gd_scene load_steps=34 format=3 uid="uid://ctm4f0gyo1rt0"]
 
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="1_5gw3d"]
 [ext_resource type="Script" uid="uid://36j7qynmvv45" path="res://Scripts/IconMenu.gd" id="1_ea3ny"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://du8liw5rlyv2k" path="res://Scripts/General/SelectIcon.gd" id="3_lnb1n"]
 [ext_resource type="Texture2D" uid="uid://br36bnl0j1uvc" path="res://Assets/other/mini_icons_white.png" id="5_0qh8t"]
 [ext_resource type="Texture2D" uid="uid://bqtnfkmias0dd" path="res://Assets/ball.png" id="6_odinw"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="7_hk6wx"]
 
 [sub_resource type="Gradient" id="Gradient_dobci"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -386,6 +387,7 @@ custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_7ckbm")
 stretch_mode = 0
+script = ExtResource("7_hk6wx")
 
 [node name="TextureButton" type="TextureRect" parent="TabContainer/CubeTab"]
 texture_filter = 1
@@ -409,6 +411,7 @@ custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_7ckbm")
 stretch_mode = 0
+script = ExtResource("7_hk6wx")
 
 [node name="TextureButton" type="TextureRect" parent="TabContainer/ShipTab"]
 texture_filter = 1
@@ -432,6 +435,7 @@ custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_7ckbm")
 stretch_mode = 0
+script = ExtResource("7_hk6wx")
 
 [node name="TextureButton" type="TextureRect" parent="TabContainer/BallTab"]
 texture_filter = 1
@@ -503,6 +507,7 @@ shortcut = SubResource("Shortcut_2pxaf")
 texture_normal = SubResource("AtlasTexture_tt5nb")
 stretch_mode = 0
 flip_h = true
+script = ExtResource("7_hk6wx")
 
 [connection signal="pressed" from="TabContainer/CubeTab" to="." method="_cube_tab"]
 [connection signal="pressed" from="TabContainer/ShipTab" to="." method="_ship_tab"]

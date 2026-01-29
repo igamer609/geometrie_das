@@ -346,8 +346,8 @@ func _on_damage_area_entered(area : Area2D):
 			velocity.y = -150 * gravity_multiplier
 			change_gravity(0)
 
-func _on_detect_area_exited(area):
-	if area.has_method("jump_activate"):
+func _on_detect_area_exited(area : Area2D):
+	if area.is_in_group("Orb"):
 		var orb_index : int = orb_queue.find(area)
 		if orb_index > -1:
 			orb_queue.remove_at(orb_index)
