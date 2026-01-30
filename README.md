@@ -1,3 +1,12 @@
+# Geometrie Das 1.1 Beta 9
+- fixed bad management of instances (using direct references in _physics_process - yes i know stupid)
+- fixed orbs remaining in the activation queue even if player left it's area
+- overhauled graphics (it's so much prettier :3), also preparing to merge even more textures into atlases
+- added button effects on button down and up (very bouncy)
+- implemented preloading of objects to (potentially) improve loading times
+- other small still in progress additions (not available yet)
+- and misc small fixes
+
 # Geometrie Das 1.1 Beta 8
 - tuned consecutive jump correction
 - decreased ship gravity to be 45% of thrust

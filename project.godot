@@ -12,21 +12,22 @@ config_version=5
 
 config/name="Geometrie Daș"
 config/description="A recreation of Geometry Dash in Godot 4. Made by IGamer609."
-config/version="1.1.7.0"
+config/version="1.1.9.0"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.5")
 boot_splash/show_image=false
 boot_splash/fullsize=false
 config/icon="res://logo/icon.png"
-config/version.release="1.1"
+config/version.release="1.1-beta9"
 
 [autoload]
 
 PlayerData="*res://Scenes/managers/PlayerData.tscn"
 TransitionScene="*res://Scenes/Transition/SceneTransition.tscn"
 GameProgress="*res://Scenes/Menus/GameProgress.tscn"
-MenuMusic="*res://Scenes/managers/menu_music.tscn"
+MenuMusic="*res://Scenes/managers/MenuMusic.tscn"
 EditorTransition="*res://Scenes/Transition/EditorTransition.tscn"
+ResourceLibrary="*res://Scenes/Loader.tscn"
 
 [debug]
 

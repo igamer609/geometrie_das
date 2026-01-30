@@ -60,13 +60,9 @@ func get_endpos():
 	
 	rect_x = last_x
 	endpos.global_position.x = last_x + 348
-	
-	print(endpos.global_position.x)
 
 func load_level_data(level_info, restart = false, playtesting = false):
 	level_data = level_info
-	
-	print(level_info)
 	
 	if restart:
 		first_attempt = false
@@ -87,8 +83,8 @@ func load_level_data(level_info, restart = false, playtesting = false):
 	_playtesting = playtesting
 	emit_signal("loaded_level")
 
-func load_object(obj_id, uid, pos, rot, other):
-	var item = load("res://Objects/obj_ids/" + str(int(obj_id)) + ".tres")
+func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other):
+	var item = ResourceLibrary.library[obj_id]
 	
 	var object = obj_base.instantiate()
 	object.obj_res = item

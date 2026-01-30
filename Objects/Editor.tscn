@@ -1,10 +1,11 @@
-[gd_scene load_steps=51 format=3 uid="uid://bkyo4lgnhak2y"]
+[gd_scene load_steps=53 format=3 uid="uid://bkyo4lgnhak2y"]
 
 [ext_resource type="Texture2D" uid="uid://b2kw7xp5t2kvg" path="res://Scenes/editor/grid.png" id="1_0y7rc"]
 [ext_resource type="Script" uid="uid://dqn2hmigqedje" path="res://Scripts/Editor.gd" id="1_id040"]
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_ojbeb"]
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="5_m37bs"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_vdfow"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="6_aq6jn"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_x4tf7"]
 [ext_resource type="Texture2D" uid="uid://c4rbj4m7l8xxt" path="res://Assets/icon_sheet_1.png" id="7_m37bs"]
 [ext_resource type="Script" uid="uid://ch81n08otqnbs" path="res://Scenes/editor/ItemSelectButton.gd" id="7_t5tsa"]
@@ -12,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="9_5bivf"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="10_m37bs"]
 [ext_resource type="Texture2D" uid="uid://cqkg76guhq3bl" path="res://Assets/buttons/pause.png" id="11_hkpmq"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="12_khu03"]
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3xft"]
@@ -307,13 +309,21 @@ scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 modulate = Color(0.0056164735, 0.49120545, 0.99996215, 1)
-motion_mirroring = Vector2(2000, 750)
+motion_mirroring = Vector2(1000, 750)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(0, 750)
 texture = ExtResource("1_ojbeb")
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2(1000, 0)
+texture = ExtResource("1_ojbeb")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(1000, 750)
+texture = ExtResource("1_ojbeb")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 texture = ExtResource("1_ojbeb")
 
 [node name="Grid" type="Node2D" parent="."]
@@ -383,6 +393,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
 toggle_mode = true
 button_pressed = true
 text = "Build"
+script = ExtResource("6_aq6jn")
 
 [node name="Edit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Tabs"]
 custom_minimum_size = Vector2(225, 50)
@@ -394,6 +405,7 @@ theme_override_font_sizes/font_size = 31
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
 toggle_mode = true
 text = "Edit"
+script = ExtResource("6_aq6jn")
 
 [node name="Items" type="TabContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
 layout_mode = 1
@@ -1234,6 +1246,7 @@ columns = 2
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme = ExtResource("5_vdfow")
+script = ExtResource("6_aq6jn")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateLeft"]
 texture_filter = 1
@@ -1256,6 +1269,7 @@ stretch_mode = 5
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme = ExtResource("5_vdfow")
+script = ExtResource("6_aq6jn")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateRight"]
 texture_filter = 1
@@ -1298,6 +1312,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
 theme_override_styles/hover = SubResource("StyleBoxTexture_m37bs")
 toggle_mode = true
 text = "Swipe"
+script = ExtResource("6_aq6jn")
 
 [node name="ObjectActions" type="Control" parent="Editor_Object/UI_Layer/Actions"]
 layout_mode = 1
@@ -1327,12 +1342,14 @@ custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_5y5ev")
 text = "Copy"
+script = ExtResource("6_aq6jn")
 
 [node name="Paste" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_4w7du")
 text = "Paste"
+script = ExtResource("6_aq6jn")
 
 [node name="Duplicate" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
 custom_minimum_size = Vector2(80, 80)
@@ -1340,6 +1357,7 @@ layout_mode = 2
 theme = SubResource("Theme_ajxdj")
 text = "Copy+
 paste"
+script = ExtResource("6_aq6jn")
 
 [node name="Deselect" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
 custom_minimum_size = Vector2(80, 80)
@@ -1347,6 +1365,7 @@ layout_mode = 2
 theme = SubResource("Theme_3njmh")
 text = "de
 select"
+script = ExtResource("6_aq6jn")
 
 [node name="TopBar" type="Control" parent="Editor_Object/UI_Layer"]
 layout_mode = 3
@@ -1366,6 +1385,7 @@ offset_right = 287.0
 offset_bottom = 107.0
 texture_normal = SubResource("AtlasTexture_s1emi")
 stretch_mode = 0
+script = ExtResource("12_khu03")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Delete"]
 layout_mode = 1
@@ -1389,6 +1409,7 @@ offset_right = 104.0
 offset_bottom = 108.0
 texture_normal = SubResource("AtlasTexture_rqgy1")
 stretch_mode = 0
+script = ExtResource("12_khu03")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Undo"]
 layout_mode = 1
@@ -1412,6 +1433,7 @@ offset_right = 88.0
 offset_bottom = 387.0
 texture_normal = SubResource("AtlasTexture_um3un")
 stretch_mode = 0
+script = ExtResource("12_khu03")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomIn"]
 layout_mode = 1
@@ -1435,6 +1457,7 @@ offset_right = 88.0
 offset_bottom = 455.0
 texture_normal = SubResource("AtlasTexture_758p6")
 stretch_mode = 0
+script = ExtResource("12_khu03")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomOut"]
 layout_mode = 1
@@ -1459,6 +1482,7 @@ offset_right = 189.0
 offset_bottom = 108.0
 texture_normal = SubResource("AtlasTexture_t2ba8")
 stretch_mode = 0
+script = ExtResource("12_khu03")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Redo"]
 layout_mode = 1
@@ -1483,6 +1507,7 @@ offset_right = 1249.0
 offset_bottom = 108.0
 texture_normal = SubResource("AtlasTexture_g6r6n")
 stretch_mode = 0
+script = ExtResource("12_khu03")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Menu"]
 layout_mode = 1
@@ -1505,6 +1530,7 @@ offset_right = 1145.0
 offset_bottom = 103.0
 texture_normal = SubResource("AtlasTexture_po6up")
 stretch_mode = 0
+script = ExtResource("12_khu03")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/LevelSettings"]
 layout_mode = 1
@@ -1556,6 +1582,7 @@ size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 36
 text = "resume"
+script = ExtResource("6_aq6jn")
 
 [node name="Save" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
 layout_mode = 2
@@ -1563,6 +1590,7 @@ size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 36
 text = "save"
+script = ExtResource("6_aq6jn")
 
 [node name="SaveAndPlay" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
 layout_mode = 2
@@ -1570,6 +1598,7 @@ size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 36
 text = "save and play"
+script = ExtResource("6_aq6jn")
 
 [node name="SaveAndExit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
 layout_mode = 2
@@ -1577,6 +1606,7 @@ size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 36
 text = "save and exit"
+script = ExtResource("6_aq6jn")
 
 [node name="Load" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
 layout_mode = 2
@@ -1584,6 +1614,7 @@ size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 36
 text = "load"
+script = ExtResource("6_aq6jn")
 
 [node name="Exit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
 layout_mode = 2
@@ -1591,6 +1622,7 @@ size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
 theme_override_font_sizes/font_size = 36
 text = "exit"
+script = ExtResource("6_aq6jn")
 
 [node name="ExitDialog" type="ConfirmationDialog" parent="Editor_Object/Menu_Layer/EditorMenu"]
 title = "Exit without saving"

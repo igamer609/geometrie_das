@@ -14,6 +14,17 @@ signal respawned()
 @onready var shipSprite = $Sprites/ship
 @onready var ballSprite = $Sprites/ball
 
+@onready var surface_raycast : RayCast2D = $SurfaceRaycast
+@onready var bottom_raycast : RayCast2D = $BottomRaycast
+@onready var ledge_raycast : RayCast2D = $LedgeRaycast
+
+@onready var ceiling_raycast : RayCast2D = $CeilingRaycast
+@onready var head_raycast : RayCast2D = $HeadRaycast
+@onready var head_ledge_raycast : RayCast2D = $HeadLedgeRaycast
+
+@onready var surface_hitbox : CollisionShape2D = $SurfaceHitbox
+@onready var head_hitbox : CollisionShape2D = $HeadHitbox
+
 const SCALE_MULTIPLIER : float = 10
 
 const CUBE_JUMP_VELOCITY : float = 25 * SCALE_MULTIPLIER
@@ -73,16 +84,16 @@ func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
 			velocity.y = velocity.y * 0.75
 		change_gravity(-1)
 	elif new_gamemode == 2:
-		$HeadHitbox.set_deferred("disabled", true)
+		head_hitbox.set_deferred("disabled", true)
 		gamemode = "cube"
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 3:
-		$HeadHitbox.set_deferred("disabled", false)
+		head_hitbox.set_deferred("disabled", false)
 		gamemode = "ship"
 		$Sprites.rotation_degrees = velocity.y / PI
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 4:
-		$HeadHitbox.set_deferred("disabled", false)
+		head_hitbox.set_deferred("disabled", false)
 		
 		if gamemode == "cube" and (velocity.y * gravity_multiplier < -10 or Input.is_action_just_pressed("Jump")):
 			velocity.y -= SCALE_MULTIPLIER * 5 * gravity_multiplier
@@ -152,9 +163,9 @@ func _process_cube_physics(delta : float) -> void:
 		snap_to_ledge()
 	
 	if (velocity.y * gravity_multiplier) < -10 or is_headed_into_wall() or is_on_ledge():
-		$SurfaceHitbox.disabled = true
+		surface_hitbox.disabled = true
 	elif not is_headed_into_wall():
-		$SurfaceHitbox.disabled = false
+		surface_hitbox.disabled = false
 
 func _process_ship_physics(delta : float) -> void:
 	
@@ -179,14 +190,14 @@ func _process_ship_physics(delta : float) -> void:
 		snap_to_ledge()
 	
 	if is_head_headed_into_wall():
-		$HeadHitbox.disabled = true
+		head_hitbox.disabled = true
 	else:
-		$HeadHitbox.disabled = false
+		head_hitbox.disabled = false
 	
 	if is_bottom_headed_into_wall() or is_on_ledge():
-		$SurfaceHitbox.disabled =true
+		surface_hitbox.disabled =true
 	else:
-		$SurfaceHitbox.disabled = false
+		surface_hitbox.disabled = false
 
 func _process_ball_physics(delta : float) -> void:
 	
@@ -203,14 +214,14 @@ func _process_ball_physics(delta : float) -> void:
 		snap_to_ledge()
 	
 	if is_head_headed_into_wall():
-		$HeadHitbox.disabled = true
+		head_hitbox.disabled = true
 	else:
-		$HeadHitbox.disabled = false
+		head_hitbox.disabled = false
 	
 	if is_bottom_headed_into_wall() or is_on_ledge():
-		$SurfaceHitbox.disabled =true
+		surface_hitbox.disabled =true
 	else:
-		$SurfaceHitbox.disabled = false
+		surface_hitbox.disabled = false
 
 func _check_orbs() -> bool:
 	if len(orb_queue) >= 1:
@@ -250,18 +261,18 @@ func die():
 func is_really_on_surface() -> bool:
 	if velocity.y * gravity_multiplier < -10: 
 		return false
-	return is_on_floor() or $SurfaceRaycast.is_colliding()
+	return is_on_floor() or surface_raycast.is_colliding()
 
 func is_really_on_ceiling() -> bool:
 	if velocity.y * gravity_multiplier > 10:
 		return false
-	return is_on_ceiling() or $CeilingRaycast.is_colliding()
+	return is_on_ceiling() or ceiling_raycast.is_colliding()
 
 func snap_to_surface()->void:
 	if velocity.y * gravity_multiplier < -10: 
 		return
-	if not is_on_floor() and $SurfaceRaycast.is_colliding() and $CeilingRaycast.is_colliding():
-		var top_surface : Vector2 = $SurfaceRaycast.get_collision_point()
+	if not is_on_floor() and surface_raycast.is_colliding() and ceiling_raycast.is_colliding():
+		var top_surface : Vector2 = surface_raycast.get_collision_point()
 		global_position.y += top_surface.y - (global_position.y + ( 8 * gravity_multiplier))
 
 func snap_to_ledge() -> void:
@@ -277,16 +288,16 @@ func snap_to_ledge() -> void:
 		global_position.y -= platform_offset * gravity_multiplier
 
 func is_on_ledge() -> bool:
-	return $BottomRaycast.is_colliding() and not $LedgeRaycast.is_colliding()
+	return bottom_raycast.is_colliding() and not ledge_raycast.is_colliding()
 
 func is_headed_into_wall() -> bool:
-	return ($BottomRaycast.is_colliding() and $LedgeRaycast.is_colliding()) or is_on_wall()
+	return (bottom_raycast.is_colliding() and ledge_raycast.is_colliding()) or is_on_wall()
 
 func is_bottom_headed_into_wall() -> bool:
-	return ($BottomRaycast.is_colliding() or $LedgeRaycast.is_colliding())
+	return (bottom_raycast.is_colliding() or ledge_raycast.is_colliding())
 
 func is_head_headed_into_wall() -> bool:
-	return ($TopRaycast.is_colliding() or $HeadLedgeRaycast.is_colliding())
+	return (head_raycast.is_colliding() or head_ledge_raycast.is_colliding())
 
 func change_gravity(g : int):
 	match g:
@@ -294,14 +305,14 @@ func change_gravity(g : int):
 			gravity_reverse = true
 			gravity_multiplier = -1
 			up_direction = Vector2(0, 1)
-			$SurfaceHitbox.global_rotation_degrees = 180
-			$HeadHitbox.global_rotation_degrees = 0
-			$SurfaceRaycast.global_rotation_degrees = 180
-			$CeilingRaycast.global_rotation_degrees = 0
-			$LedgeRaycast.set_deferred("position.y", -GROUNDED_LEDGE_RAY_OFFSET)
-			$HeadLedgeRaycast.set_deferred("position.y", GROUNDED_LEDGE_RAY_OFFSET)
-			$BottomRaycast.position.y = -8 + WALL_RAY_MARGIN
-			$TopRaycast.position.y = 8 - WALL_RAY_MARGIN
+			surface_hitbox.global_rotation_degrees = 180
+			head_hitbox.global_rotation_degrees = 0
+			surface_raycast.global_rotation_degrees = 180
+			ceiling_raycast.global_rotation_degrees = 0
+			ledge_raycast.set_deferred("position.y", -GROUNDED_LEDGE_RAY_OFFSET)
+			head_ledge_raycast.set_deferred("position.y", GROUNDED_LEDGE_RAY_OFFSET)
+			bottom_raycast.position.y = -8 + WALL_RAY_MARGIN
+			head_raycast.position.y = 8 - WALL_RAY_MARGIN
 			
 			shipSprite.flip_v = true
 			for child in shipSprite.get_children():
@@ -311,14 +322,14 @@ func change_gravity(g : int):
 			gravity_reverse = false
 			gravity_multiplier = 1
 			up_direction = Vector2(0, -1)
-			$SurfaceHitbox.global_rotation_degrees = 0
-			$HeadHitbox.global_rotation_degrees = 180
-			$SurfaceRaycast.global_rotation_degrees = 0
-			$CeilingRaycast.global_rotation_degrees = 180
-			$LedgeRaycast.set_deferred("position.y", GROUNDED_LEDGE_RAY_OFFSET)
-			$HeadLedgeRaycast.set_deferred("position.y", -GROUNDED_LEDGE_RAY_OFFSET)
-			$BottomRaycast.position.y = 8 - WALL_RAY_MARGIN
-			$TopRaycast.position.y = -8 + WALL_RAY_MARGIN
+			surface_hitbox.global_rotation_degrees = 0
+			head_hitbox.global_rotation_degrees = 180
+			surface_raycast.global_rotation_degrees = 0
+			ceiling_raycast.global_rotation_degrees = 180
+			ledge_raycast.set_deferred("position.y", GROUNDED_LEDGE_RAY_OFFSET)
+			head_ledge_raycast.set_deferred("position.y", -GROUNDED_LEDGE_RAY_OFFSET)
+			bottom_raycast.position.y = 8 - WALL_RAY_MARGIN
+			head_raycast.position.y = -8 + WALL_RAY_MARGIN
 			
 			shipSprite.flip_v = false
 			for child in shipSprite.get_children():

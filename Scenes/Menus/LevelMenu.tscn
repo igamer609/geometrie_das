@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bmwm74ihme4tf"]
+[gd_scene load_steps=11 format=3 uid="uid://bmwm74ihme4tf"]
 
 [ext_resource type="Script" uid="uid://dm6tfw47ajn5b" path="res://Scenes/Menus/LevelMenu.gd" id="1_pejut"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="1_vqb1s"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="3_b3ixn"]
 
 [sub_resource type="Gradient" id="Gradient_mu4wv"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -117,13 +118,16 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -62.0
-offset_right = 105.0
-offset_bottom = 63.0
+offset_left = 16.0
+offset_top = -60.0
+offset_right = 121.0
+offset_bottom = 40.0
 grow_vertical = 2
+pivot_offset = Vector2(680, -66)
 texture_normal = SubResource("AtlasTexture_dohx5")
 stretch_mode = 0
 flip_h = true
+script = ExtResource("3_b3ixn")
 
 [node name="ScrollRight" type="TextureButton" parent="."]
 texture_filter = 1
@@ -133,13 +137,15 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -105.0
-offset_top = -62.5
-offset_bottom = 62.5
+offset_left = -121.0
+offset_top = -60.0
+offset_right = -16.0
+offset_bottom = 40.0
 grow_horizontal = 0
 grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_dohx5")
 stretch_mode = 0
+script = ExtResource("3_b3ixn")
 
 [node name="Exit" type="TextureButton" parent="."]
 self_modulate = Color(1, 0.894118, 0.890196, 1)
@@ -153,6 +159,7 @@ shortcut = SubResource("Shortcut_nhj7q")
 texture_normal = SubResource("AtlasTexture_wf3m2")
 stretch_mode = 0
 flip_h = true
+script = ExtResource("3_b3ixn")
 
 [connection signal="pressed" from="ScrollLeft" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ScrollRight" to="." method="_on_scroll_right"]

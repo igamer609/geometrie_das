@@ -1,16 +1,16 @@
 [gd_scene load_steps=6 format=3 uid="uid://ei3jc8f61e8g"]
 
-[ext_resource type="AudioStream" uid="uid://d22lbedgb1n7e" path="res://Assets/music/menu.mp3" id="1_lepfm"]
-[ext_resource type="Script" uid="uid://dipbe48vu0cfd" path="res://MenuMusic.gd" id="2_yrnkp"]
-[ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="3_qf65p"]
-[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="4_mrcew"]
-[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_ssvr1"]
+[ext_resource type="AudioStream" uid="uid://d22lbedgb1n7e" path="res://Assets/music/menu.mp3" id="1_62pty"]
+[ext_resource type="Script" uid="uid://dipbe48vu0cfd" path="res://MenuMusic.gd" id="2_ii5pr"]
+[ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="3_kmjpk"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="4_8j5im"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_8jkv1"]
 
 [node name="MenuMusic" type="AudioStreamPlayer"]
-stream = ExtResource("1_lepfm")
+stream = ExtResource("1_62pty")
 volume_db = -15.0
 bus = &"Music"
-script = ExtResource("2_yrnkp")
+script = ExtResource("2_ii5pr")
 
 [node name="GameStart" type="CanvasLayer" parent="."]
 layer = 128
@@ -38,7 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(-19, -28)
 mouse_filter = 0
-texture = ExtResource("3_qf65p")
+texture = ExtResource("3_kmjpk")
 patch_margin_left = 125
 patch_margin_top = 125
 patch_margin_right = 125
@@ -57,7 +57,7 @@ offset_right = 235.0
 offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_mrcew")
+theme = ExtResource("4_8j5im")
 theme_override_font_sizes/font_size = 24
 text = "This is an open source recreation of Geometry Dash in Godot 4.
 Everything except for the music and SFX used are made by me and other contributors.
@@ -78,7 +78,7 @@ offset_right = 207.5
 offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_mrcew")
+theme = ExtResource("4_8j5im")
 theme_override_font_sizes/font_size = 28
 text = "-igamer609"
 horizontal_alignment = 1
@@ -96,7 +96,7 @@ offset_right = 76.5
 offset_bottom = 107.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("5_ssvr1")
+theme = ExtResource("5_8jkv1")
 theme_override_font_sizes/font_size = 26
 text = "OK"
 

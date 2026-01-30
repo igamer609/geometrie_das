@@ -105,7 +105,7 @@ func _get_data_of_objects(objects : Array[Node]):
 	return obj_data
 
 func _load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
-	var item = load("res://Objects/obj_ids/" + str(int(obj_id)) + ".tres")
+	var item = ResourceLibrary.library[obj_id]
 	
 	var object : GDObject = obj_base.instantiate()
 	object.uid = uid
@@ -377,7 +377,7 @@ func place_object(return_obj = false):
 		if return_obj:
 			return object
 	else:
-		var item : GD_Object = load("res://Objects/obj_ids/" + str(current_id) + ".tres")
+		var item : GD_Object = ResourceLibrary.library[current_id]
 		history.create_action("Place object")
 		
 		var object : Node2D = obj_base.instantiate()
@@ -489,13 +489,15 @@ func delete_objects():
 	history.commit_action()
 	
 
-func move_objects(direction, amount : float):
+func move_objects(direction, amount : float) -> void:
 	var moved_obj = selected_objects
-	
 	
 	history.create_action("Move")
 	
-	for object : Node2D in moved_obj:
+	for object in moved_obj:
+		
+		if not is_instance_valid(object):
+			continue
 		
 		history.add_undo_property(object, "global_position", object.global_position)
 		

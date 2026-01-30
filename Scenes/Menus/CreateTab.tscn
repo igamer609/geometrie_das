@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://1hej4pddofsm"]
+[gd_scene load_steps=11 format=3 uid="uid://1hej4pddofsm"]
 
 [ext_resource type="Script" uid="uid://iyn63wg3v3wa" path="res://Scripts/SavedTab.gd" id="1_3w12y"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_w4wcw"]
 [ext_resource type="Texture2D" uid="uid://ck2m8uuj1ey40" path="res://Assets/menu_textures/menu2.png" id="3_gllmg"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_f6eml"]
 
 [sub_resource type="Gradient" id="Gradient_dobci"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -160,5 +161,6 @@ shortcut = SubResource("Shortcut_qr8xq")
 texture_normal = SubResource("AtlasTexture_sgw2h")
 stretch_mode = 0
 flip_h = true
+script = ExtResource("4_f6eml")
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

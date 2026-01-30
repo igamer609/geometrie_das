@@ -41,7 +41,7 @@ func _reset_progress():
 	if FileAccess.file_exists("user://playerdata.save"):
 		DirAccess.remove_absolute("user://playerdata.save")
 	
-	PlayerData.load_data()
+	PlayerData.load_save()
 	
 	$ResetDialogue.visible = false
 

@@ -9,7 +9,7 @@ extends AudioStreamPlayer
 @export var music_play = true
 
 func _ready():
-	$GameStart.visible = true
+	$GameStart.visible = PlayerData.new
 
 func stop_music():
 	music_play = false

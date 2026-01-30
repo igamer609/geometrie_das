@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnojsoxagacoj"]
+[gd_scene load_steps=10 format=3 uid="uid://bnojsoxagacoj"]
 
 [ext_resource type="Shape2D" uid="uid://blxa3u7mo75f" path="res://Assets/cube.tres" id="1"]
 [ext_resource type="Script" uid="uid://bteyudj7or5uc" path="res://Scripts/Player.gd" id="1_06ggq"]
@@ -17,10 +17,6 @@ radius = 8.0
 custom_solver_bias = 0.15
 a = Vector2(-8, 7.9)
 b = Vector2(8, 7.9)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_52ee3"]
-a = Vector2(-2, 8)
-b = Vector2(2, 8)
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
@@ -117,7 +113,7 @@ position = Vector2(0, 7)
 target_position = Vector2(10, 0)
 collision_mask = 2
 
-[node name="TopRaycast" type="RayCast2D" parent="."]
+[node name="HeadRaycast" type="RayCast2D" parent="."]
 position = Vector2(0, -7)
 target_position = Vector2(10, 0)
 collision_mask = 2
@@ -133,12 +129,6 @@ shape = SubResource("SegmentShape2D_bhhdu")
 disabled = true
 one_way_collision = true
 debug_color = Color(0, 0.6, 0.69803923, 0.5803922)
-
-[node name="MinSurfaceHitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("SegmentShape2D_52ee3")
-disabled = true
-one_way_collision = true
-debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [connection signal="body_entered" from="PlatformArea" to="." method="_on_platform_collision"]
 [connection signal="area_entered" from="DamageArea" to="." method="_on_damage_area_entered"]

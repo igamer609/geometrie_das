@@ -15,11 +15,11 @@ func _ready() -> void:
 func _on_down() -> void:
 	var tween : Tween = create_tween()
 	tween.set_meta("scope", 100)
-	tween.set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
+	tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.6)
 
 func _on_up() -> void:
 	var tween : Tween = create_tween()
 	tween.set_meta("scope", 100)
-	tween.set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2.ONE, 0.2)
+	tween.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector2.ONE, 0.6)

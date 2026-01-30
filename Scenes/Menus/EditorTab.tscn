@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://c07frehibtpco"]
+[gd_scene load_steps=25 format=3 uid="uid://c07frehibtpco"]
 
 [ext_resource type="Script" uid="uid://dpi8io8fm88in" path="res://Scripts/EditorTab.gd" id="1_nusqu"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_lrw8v"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="2_rmdpf"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="3_7f0cn"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="3_m6ubn"]
 [ext_resource type="Texture2D" uid="uid://b0doevgxrotyq" path="res://Assets/buttons/editor tabs/edit.png" id="4_ws4t1"]
 [ext_resource type="Texture2D" uid="uid://cu2acjt586g03" path="res://Assets/level/editor_difficulty.png" id="5_yv0px"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_uehhm"]
@@ -154,6 +155,7 @@ shortcut = SubResource("Shortcut_2pxaf")
 texture_normal = SubResource("AtlasTexture_tt5nb")
 stretch_mode = 0
 flip_h = true
+script = ExtResource("3_m6ubn")
 
 [node name="LevelDisplay" type="Control" parent="."]
 layout_mode = 1
