@@ -17,8 +17,9 @@ func _preload_resources() -> void:
 	var dir : PackedStringArray = DirAccess.get_files_at("res://Objects/obj_ids/")
 	
 	for file : String  in dir:
-		var path : String = "res://Objects/obj_ids/" + file
+		var path : String = ("res://Objects/obj_ids/" + file).replace(".remap", "")
 		_load_queue.append(path)
+		print(path, " ", file)
 		ResourceLoader.load_threaded_request(path)
 	
 	_is_loading = true
@@ -32,7 +33,7 @@ func _process(_delta: float) -> void:
 		var status : ResourceLoader.ThreadLoadStatus =  ResourceLoader.load_threaded_get_status(path)
 		
 		if status == ResourceLoader.THREAD_LOAD_LOADED:
-			var res : GD_Object = ResourceLoader.load_threaded_get(path)
+			var res = ResourceLoader.load_threaded_get(path)
 			library[res.id] = res
 			finished_count += 1
 	
