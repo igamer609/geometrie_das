@@ -11,3 +11,7 @@ export_credentials.cfg
 *.translation
 /.godot
 export_presets.cfg
+
+# Environment variables 
+# (don't want to leak something by accident teehee :3)
+.env

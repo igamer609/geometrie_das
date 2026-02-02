@@ -1,24 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmbgw4i4n5jwm"]
+[gd_scene format=3 uid="uid://cmbgw4i4n5jwm"]
 
 [ext_resource type="Script" uid="uid://cgfrum2vkeru6" path="res://Scenes/Menus/saved_lvl_template/level_template.gd" id="1_kbo2c"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="2_3jnab"]
-[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="3_2x8eo"]
-[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_ir8ck"]
-[ext_resource type="Texture2D" uid="uid://b0doevgxrotyq" path="res://Assets/buttons/editor tabs/edit.png" id="4_kswul"]
-[ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="5_v72xi"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ir8ck"]
-atlas = ExtResource("3_2x8eo")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wc5nh"]
-atlas = ExtResource("3_2x8eo")
-region = Rect2(96, 0, 32, 32)
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="3_aq2y6"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="4_2x8eo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pj5c"]
 bg_color = Color(0.682353, 0.219608, 0.0235294, 1)
 
-[node name="LevelTemplate" type="Control"]
+[node name="LevelTemplate" type="Control" unique_id=2016460835]
 custom_minimum_size = Vector2(0, 99.305)
 layout_mode = 3
 anchors_preset = 0
@@ -28,7 +18,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 script = ExtResource("1_kbo2c")
 
-[node name="Container" type="HSplitContainer" parent="."]
+[node name="Container" type="HSplitContainer" parent="." unique_id=117252455]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -38,103 +28,56 @@ offset_right = 192.0
 offset_bottom = 88.0
 grow_horizontal = 2
 theme_override_constants/separation = 25
-split_offset = 35
+split_offsets = PackedInt32Array(35)
 dragging_enabled = false
+split_offset = 35
 
-[node name="Details" type="HBoxContainer" parent="Container"]
+[node name="Details" type="HBoxContainer" parent="Container" unique_id=1789813271]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Labels" type="VBoxContainer" parent="Container/Details"]
+[node name="Labels" type="VBoxContainer" parent="Container/Details" unique_id=960744734]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Name" type="Label" parent="Container/Details/Labels"]
+[node name="Name" type="Label" parent="Container/Details/Labels" unique_id=1437866063]
 layout_mode = 2
 theme = ExtResource("2_3jnab")
 theme_override_constants/outline_size = 9
 theme_override_font_sizes/font_size = 23
 text = "Name"
 
-[node name="Author" type="Label" parent="Container/Details/Labels"]
+[node name="Author" type="Label" parent="Container/Details/Labels" unique_id=802836461]
 layout_mode = 2
 theme = ExtResource("2_3jnab")
 theme_override_constants/outline_size = 9
 theme_override_font_sizes/font_size = 17
 text = "by Author"
 
-[node name="Song" type="Label" parent="Container/Details/Labels"]
+[node name="Song" type="Label" parent="Container/Details/Labels" unique_id=1739574177]
 layout_mode = 2
 theme = ExtResource("2_3jnab")
 theme_override_constants/outline_size = 9
 theme_override_font_sizes/font_size = 15
 text = "Glorious Morning"
 
-[node name="Buttons" type="HBoxContainer" parent="Container"]
+[node name="Buttons" type="HBoxContainer" parent="Container" unique_id=1338992004]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Edit" type="TextureButton" parent="Container/Buttons"]
-texture_filter = 1
-custom_minimum_size = Vector2(55, 55)
+[node name="View" type="Button" parent="Container/Buttons" unique_id=2027573719]
+custom_minimum_size = Vector2(75, 40)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = SubResource("AtlasTexture_ir8ck")
-ignore_texture_size = true
-stretch_mode = 4
-script = ExtResource("4_ir8ck")
+theme = ExtResource("3_aq2y6")
+text = "View"
+script = ExtResource("4_2x8eo")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
 
-[node name="Texture" type="TextureRect" parent="Container/Buttons/Edit"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -19.5
-offset_top = -17.0
-offset_right = 17.5
-offset_bottom = 17.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("4_kswul")
-
-[node name="Play" type="TextureButton" parent="Container/Buttons"]
-texture_filter = 1
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = SubResource("AtlasTexture_wc5nh")
-ignore_texture_size = true
-stretch_mode = 4
-script = ExtResource("4_ir8ck")
-
-[node name="Texture" type="TextureRect" parent="Container/Buttons/Play"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -17.5
-offset_right = 20.0
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("5_v72xi")
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1950920933]
 custom_minimum_size = Vector2(0, 1.19)
 layout_mode = 1
 anchors_preset = 12

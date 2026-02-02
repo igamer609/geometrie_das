@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dnovrm50d0vay"]
+[gd_resource type="Theme" format=3 uid="uid://dnovrm50d0vay"]
 
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="1_hc2ey"]
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="2_nbxjy"]

@@ -1,17 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dq1f5nt64f7se"]
+[gd_scene format=3 uid="uid://dq1f5nt64f7se"]
 
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="1_rd2d5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxpeg"]
-size = Vector2(2.5, 2)
+size = Vector2(4, 2)
 
-[node name="Spike" type="Area2D" groups=["Hazard"]]
+[node name="Spike" type="Area2D" unique_id=1066816316 groups=["Hazard"]]
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1003042141]
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_jxpeg")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=382126275]
 texture_filter = 1
 position = Vector2(0, 0.5)
 texture = ExtResource("1_rd2d5")

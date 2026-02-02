@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://1hej4pddofsm"]
+[gd_scene format=3 uid="uid://1hej4pddofsm"]
 
 [ext_resource type="Script" uid="uid://iyn63wg3v3wa" path="res://Scripts/SavedTab.gd" id="1_3w12y"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_w4wcw"]
 [ext_resource type="Texture2D" uid="uid://ck2m8uuj1ey40" path="res://Assets/menu_textures/menu2.png" id="3_gllmg"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_f6eml"]
+[ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="5_26jw6"]
 
 [sub_resource type="Gradient" id="Gradient_dobci"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -30,7 +31,15 @@ events = [SubResource("InputEventKey_pa3jt")]
 atlas = ExtResource("2_w4wcw")
 region = Rect2(64, 0, 32, 32)
 
-[node name="SavedTab" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uoj5x"]
+atlas = ExtResource("2_w4wcw")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bmhj"]
+atlas = ExtResource("5_26jw6")
+region = Rect2(0, 0, 37.056, 33.782)
+
+[node name="CreateTab" type="Control" unique_id=1758738328]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3w12y")
 
-[node name="Background" type="Control" parent="."]
+[node name="Background" type="Control" parent="." unique_id=33443975]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +56,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Gradient" type="TextureRect" parent="Background"]
+[node name="Gradient" type="TextureRect" parent="Background" unique_id=620551856]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_5tmgj")
 
-[node name="Corner" type="TextureRect" parent="Background"]
+[node name="Corner" type="TextureRect" parent="Background" unique_id=1308176957]
 clip_children = 2
 texture_filter = 1
 layout_mode = 0
@@ -66,7 +75,7 @@ offset_bottom = 162.0
 rotation = 1.5708
 texture = SubResource("AtlasTexture_fqb0t")
 
-[node name="Corner2" type="TextureRect" parent="Background"]
+[node name="Corner2" type="TextureRect" parent="Background" unique_id=1518036339]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -80,7 +89,7 @@ grow_horizontal = 0
 rotation = 3.14159
 texture = SubResource("AtlasTexture_fqb0t")
 
-[node name="Corner3" type="TextureRect" parent="Background"]
+[node name="Corner3" type="TextureRect" parent="Background" unique_id=442000608]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -92,7 +101,7 @@ offset_right = 162.0
 grow_vertical = 0
 texture = SubResource("AtlasTexture_fqb0t")
 
-[node name="Corner4" type="TextureRect" parent="Background"]
+[node name="Corner4" type="TextureRect" parent="Background" unique_id=1846493812]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -109,7 +118,7 @@ grow_vertical = 0
 rotation = 4.71239
 texture = SubResource("AtlasTexture_fqb0t")
 
-[node name="Main" type="NinePatchRect" parent="."]
+[node name="Main" type="NinePatchRect" parent="." unique_id=1331949780]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -130,7 +139,7 @@ patch_margin_top = 58
 patch_margin_right = 58
 patch_margin_bottom = 58
 
-[node name="Scroll" type="ScrollContainer" parent="Main"]
+[node name="Scroll" type="ScrollContainer" parent="Main" unique_id=1134903277]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,12 +153,12 @@ grow_vertical = 2
 scale = Vector2(0.895, 0.895)
 horizontal_scroll_mode = 0
 
-[node name="Container" type="VBoxContainer" parent="Main/Scroll"]
+[node name="Container" type="VBoxContainer" parent="Main/Scroll" unique_id=895135360]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Exit" type="TextureButton" parent="."]
+[node name="Exit" type="TextureButton" parent="." unique_id=1433520157]
 self_modulate = Color(1, 0.894118, 0.890196, 1)
 texture_filter = 1
 layout_mode = 0
@@ -162,5 +171,41 @@ texture_normal = SubResource("AtlasTexture_sgw2h")
 stretch_mode = 0
 flip_h = true
 script = ExtResource("4_f6eml")
+
+[node name="Create" type="TextureButton" parent="." unique_id=2011495479]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 469.0
+offset_top = 199.0
+offset_right = 607.5
+offset_bottom = 337.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_uoj5x")
+stretch_mode = 0
+script = ExtResource("4_f6eml")
+
+[node name="Texture" type="TextureRect" parent="Create" unique_id=626752850]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.731995
+offset_top = -49.0625
+offset_right = 52.731995
+offset_bottom = 49.0625
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_2bmhj")
+stretch_mode = 5
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c07frehibtpco"]
+[gd_scene format=3 uid="uid://c07frehibtpco"]
 
 [ext_resource type="Script" uid="uid://dpi8io8fm88in" path="res://Scripts/EditorTab.gd" id="1_nusqu"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_lrw8v"]
@@ -65,7 +65,7 @@ region = Rect2(0, 38, 48, 48)
 atlas = ExtResource("12_80pvi")
 region = Rect2(48, 38, 48, 48)
 
-[node name="EditTab" type="Control"]
+[node name="EditTab" type="Control" unique_id=1954766971]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,7 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nusqu")
 
-[node name="Background" type="Control" parent="."]
+[node name="Background" type="Control" parent="." unique_id=1865805132]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,7 +82,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Gradient" type="TextureRect" parent="Background"]
+[node name="Gradient" type="TextureRect" parent="Background" unique_id=2005900743]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,7 +91,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_avu8y")
 
-[node name="Corner" type="TextureRect" parent="Background"]
+[node name="Corner" type="TextureRect" parent="Background" unique_id=236838222]
 clip_children = 2
 texture_filter = 1
 layout_mode = 0
@@ -101,7 +101,7 @@ offset_bottom = 162.0
 rotation = 1.5708
 texture = SubResource("AtlasTexture_5ccc2")
 
-[node name="Corner2" type="TextureRect" parent="Background"]
+[node name="Corner2" type="TextureRect" parent="Background" unique_id=1181363693]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -115,7 +115,7 @@ grow_horizontal = 0
 rotation = 3.14159
 texture = SubResource("AtlasTexture_5ccc2")
 
-[node name="Corner3" type="TextureRect" parent="Background"]
+[node name="Corner3" type="TextureRect" parent="Background" unique_id=1325228950]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -127,7 +127,7 @@ offset_right = 162.0
 grow_vertical = 0
 texture = SubResource("AtlasTexture_5ccc2")
 
-[node name="Corner4" type="TextureRect" parent="Background"]
+[node name="Corner4" type="TextureRect" parent="Background" unique_id=564554874]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -144,7 +144,7 @@ grow_vertical = 0
 rotation = 4.71239
 texture = SubResource("AtlasTexture_5ccc2")
 
-[node name="Exit" type="TextureButton" parent="."]
+[node name="Exit" type="TextureButton" parent="." unique_id=848518663]
 texture_filter = 1
 layout_mode = 1
 offset_left = 18.0
@@ -157,7 +157,7 @@ stretch_mode = 0
 flip_h = true
 script = ExtResource("3_m6ubn")
 
-[node name="LevelDisplay" type="Control" parent="."]
+[node name="LevelDisplay" type="Control" parent="." unique_id=1547666416]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -169,7 +169,7 @@ offset_bottom = -59.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Unloaded" type="Label" parent="LevelDisplay"]
+[node name="Unloaded" type="Label" parent="LevelDisplay" unique_id=549751373]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -187,7 +187,7 @@ theme_override_font_sizes/font_size = 36
 text = "Create or load level"
 horizontal_alignment = 1
 
-[node name="Create" type="Control" parent="LevelDisplay"]
+[node name="Create" type="Control" parent="LevelDisplay" unique_id=1317056699]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -196,7 +196,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="LineEdit" parent="LevelDisplay/Create"]
+[node name="Title" type="LineEdit" parent="LevelDisplay/Create" unique_id=2038919003]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -209,7 +209,7 @@ placeholder_text = "Title"
 alignment = 1
 max_length = 22
 
-[node name="Author" type="LineEdit" parent="LevelDisplay/Create"]
+[node name="Author" type="LineEdit" parent="LevelDisplay/Create" unique_id=1034212541]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -222,7 +222,7 @@ placeholder_text = "Author"
 alignment = 1
 max_length = 22
 
-[node name="Difficulty" type="TextureRect" parent="LevelDisplay/Create"]
+[node name="Difficulty" type="TextureRect" parent="LevelDisplay/Create" unique_id=1986739334]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -238,7 +238,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_ckp0p")
 stretch_mode = 4
 
-[node name="Edit" type="TextureButton" parent="LevelDisplay/Create"]
+[node name="Edit" type="TextureButton" parent="LevelDisplay/Create" unique_id=695207066]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -255,7 +255,7 @@ grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_vh2qw")
 stretch_mode = 0
 
-[node name="Texture" type="TextureRect" parent="LevelDisplay/Create/Edit"]
+[node name="Texture" type="TextureRect" parent="LevelDisplay/Create/Edit" unique_id=2137214468]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -272,7 +272,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_ws4t1")
 
-[node name="DifficultyRadio" type="GridContainer" parent="LevelDisplay/Create"]
+[node name="DifficultyRadio" type="GridContainer" parent="LevelDisplay/Create" unique_id=1053318969]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -287,7 +287,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 3
 
-[node name="0" type="Button" parent="LevelDisplay/Create/DifficultyRadio"]
+[node name="0" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=1868097198]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 theme = ExtResource("6_uehhm")
@@ -296,7 +296,7 @@ theme_override_font_sizes/font_size = 23
 toggle_mode = true
 text = "0"
 
-[node name="1" type="Button" parent="LevelDisplay/Create/DifficultyRadio"]
+[node name="1" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=428181823]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 theme = ExtResource("6_uehhm")
@@ -305,7 +305,7 @@ theme_override_font_sizes/font_size = 23
 toggle_mode = true
 text = "1"
 
-[node name="2" type="Button" parent="LevelDisplay/Create/DifficultyRadio"]
+[node name="2" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=363406801]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 theme = ExtResource("6_uehhm")
@@ -314,7 +314,7 @@ theme_override_font_sizes/font_size = 23
 toggle_mode = true
 text = "2"
 
-[node name="3" type="Button" parent="LevelDisplay/Create/DifficultyRadio"]
+[node name="3" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=1149779277]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 theme = ExtResource("6_uehhm")
@@ -324,7 +324,7 @@ toggle_mode = true
 text = "3
 "
 
-[node name="4" type="Button" parent="LevelDisplay/Create/DifficultyRadio"]
+[node name="4" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=7023731]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 theme = ExtResource("6_uehhm")
@@ -333,7 +333,7 @@ theme_override_font_sizes/font_size = 23
 toggle_mode = true
 text = "4"
 
-[node name="5" type="Button" parent="LevelDisplay/Create/DifficultyRadio"]
+[node name="5" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=83847704]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 theme = ExtResource("6_uehhm")
@@ -342,7 +342,7 @@ theme_override_font_sizes/font_size = 23
 toggle_mode = true
 text = "5"
 
-[node name="Load" type="Control" parent="LevelDisplay"]
+[node name="Load" type="Control" parent="LevelDisplay" unique_id=684203508]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -351,7 +351,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="LevelDisplay/Load"]
+[node name="Title" type="Label" parent="LevelDisplay/Load" unique_id=917632045]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -362,7 +362,7 @@ theme = ExtResource("2_rmdpf")
 text = "Name"
 horizontal_alignment = 1
 
-[node name="Author" type="Label" parent="LevelDisplay/Load"]
+[node name="Author" type="Label" parent="LevelDisplay/Load" unique_id=991287871]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -374,7 +374,7 @@ theme_override_font_sizes/font_size = 46
 text = "by User"
 horizontal_alignment = 1
 
-[node name="MusicLabel" type="Label" parent="LevelDisplay/Load"]
+[node name="MusicLabel" type="Label" parent="LevelDisplay/Load" unique_id=238055543]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -389,7 +389,7 @@ theme_override_font_sizes/font_size = 46
 text = "Glorious Morning"
 autowrap_mode = 1
 
-[node name="Difficulty" type="TextureRect" parent="LevelDisplay/Load"]
+[node name="Difficulty" type="TextureRect" parent="LevelDisplay/Load" unique_id=1358603481]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -405,7 +405,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_ckp0p")
 stretch_mode = 4
 
-[node name="DifficultyLabel" type="Label" parent="LevelDisplay/Load/Difficulty"]
+[node name="DifficultyLabel" type="Label" parent="LevelDisplay/Load/Difficulty" unique_id=336691410]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -423,7 +423,7 @@ theme_override_font_sizes/font_size = 26
 text = "N/A"
 horizontal_alignment = 1
 
-[node name="Play" type="TextureButton" parent="LevelDisplay/Load"]
+[node name="Play" type="TextureButton" parent="LevelDisplay/Load" unique_id=730433724]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -440,7 +440,7 @@ grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_u5mj4")
 stretch_mode = 0
 
-[node name="Texture" type="TextureRect" parent="LevelDisplay/Load/Play"]
+[node name="Texture" type="TextureRect" parent="LevelDisplay/Load/Play" unique_id=105213013]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -455,7 +455,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("8_k5inn")
 
-[node name="Edit" type="TextureButton" parent="LevelDisplay/Load"]
+[node name="Edit" type="TextureButton" parent="LevelDisplay/Load" unique_id=1870250883]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -472,7 +472,7 @@ grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_vh2qw")
 stretch_mode = 0
 
-[node name="Texture" type="TextureRect" parent="LevelDisplay/Load/Edit"]
+[node name="Texture" type="TextureRect" parent="LevelDisplay/Load/Edit" unique_id=1121104009]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -487,7 +487,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_ws4t1")
 
-[node name="TabContainer" type="Control" parent="."]
+[node name="TabContainer" type="Control" parent="." unique_id=1335659718]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -498,14 +498,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Saved" type="Button" parent="TabContainer"]
+[node name="Saved" type="Button" parent="TabContainer" unique_id=2142474448]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 121.0
+offset_left = 335.0
 offset_top = 196.0
-offset_right = -994.0
+offset_right = -780.0
 offset_bottom = -359.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -515,7 +515,7 @@ text = "
 text_overrun_behavior = 2
 icon_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Saved"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Saved" unique_id=593103041]
 custom_minimum_size = Vector2(40.27, 100.545)
 layout_mode = 1
 anchors_preset = 15
@@ -531,7 +531,7 @@ mouse_filter = 2
 texture = SubResource("AtlasTexture_ir8y0")
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="TabContainer/Saved"]
+[node name="Label" type="Label" parent="TabContainer/Saved" unique_id=542044380]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -550,14 +550,14 @@ theme_override_font_sizes/font_size = 30
 text = "Saved"
 horizontal_alignment = 1
 
-[node name="Create" type="Button" parent="TabContainer"]
+[node name="Create" type="Button" parent="TabContainer" unique_id=1207546443]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 334.0
+offset_left = 120.0
 offset_top = 196.0
-offset_right = -781.0
+offset_right = -995.0
 offset_bottom = -359.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -567,7 +567,7 @@ text = "
 text_overrun_behavior = 2
 icon_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Create"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Create" unique_id=99153146]
 custom_minimum_size = Vector2(40.27, 100.545)
 layout_mode = 1
 anchors_preset = 15
@@ -583,7 +583,7 @@ mouse_filter = 2
 texture = SubResource("AtlasTexture_w0xc0")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="TabContainer/Create"]
+[node name="Label" type="Label" parent="TabContainer/Create" unique_id=1938729615]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -602,7 +602,7 @@ theme_override_font_sizes/font_size = 30
 text = "Create"
 horizontal_alignment = 1
 
-[node name="Featured" type="Button" parent="TabContainer"]
+[node name="Featured" type="Button" parent="TabContainer" unique_id=1323912798]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -619,7 +619,7 @@ text = "
 text_overrun_behavior = 2
 icon_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Featured"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Featured" unique_id=16914482]
 custom_minimum_size = Vector2(40.27, 100.545)
 layout_mode = 1
 anchors_preset = 15
@@ -635,7 +635,7 @@ mouse_filter = 2
 texture = SubResource("AtlasTexture_tos4a")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="TabContainer/Featured"]
+[node name="Label" type="Label" parent="TabContainer/Featured" unique_id=1508481908]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -654,7 +654,7 @@ theme_override_font_sizes/font_size = 28
 text = "Featured"
 horizontal_alignment = 1
 
-[node name="Load" type="Button" parent="TabContainer"]
+[node name="Load" type="Button" parent="TabContainer" unique_id=74981972]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -671,7 +671,7 @@ text = "
 text_overrun_behavior = 2
 icon_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Load"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Load" unique_id=33634361]
 custom_minimum_size = Vector2(40.27, 100.545)
 layout_mode = 1
 anchors_preset = 15
@@ -687,7 +687,7 @@ mouse_filter = 2
 texture = SubResource("AtlasTexture_8ygfu")
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="TabContainer/Load"]
+[node name="Label" type="Label" parent="TabContainer/Load" unique_id=194541190]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

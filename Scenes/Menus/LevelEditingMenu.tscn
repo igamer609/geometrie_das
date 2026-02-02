@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://xmk70fjbj7hr"]
+[gd_scene format=3 uid="uid://xmk70fjbj7hr"]
 
 [ext_resource type="Script" uid="uid://511mh35jque1" path="res://Scripts/LevelEditorMenu.gd" id="1_lnwpy"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_lkc53"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="3_8k56j"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_8k56j"]
 [ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="4_lkc53"]
+[ext_resource type="FontFile" uid="uid://bjkadcrmyiknc" path="res://Assets/fonts/roboto-mono.ttf" id="4_rtws1"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="5_8k56j"]
 
 [sub_resource type="Gradient" id="Gradient_i1gkn"]
@@ -37,9 +39,17 @@ region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oyjrx"]
 atlas = ExtResource("4_lkc53")
-region = Rect2(37, 0, 37, 34)
+region = Rect2(0, 0, 37.056, 33.782)
 
-[node name="LevelEditingMenu" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k56j"]
+atlas = ExtResource("4_lkc53")
+region = Rect2(193, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2unau"]
+atlas = ExtResource("4_lkc53")
+region = Rect2(128, 0, 32, 32)
+
+[node name="LevelEditMenu" type="Control" unique_id=1361488786]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +58,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lnwpy")
 
-[node name="Background" type="Control" parent="."]
+[node name="Background" type="Control" parent="." unique_id=1736348492]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,7 +66,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Gradient" type="TextureRect" parent="Background"]
+[node name="Gradient" type="TextureRect" parent="Background" unique_id=1977549826]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,7 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_oyjrx")
 
-[node name="Corner" type="TextureRect" parent="Background"]
+[node name="Corner" type="TextureRect" parent="Background" unique_id=1865240411]
 clip_children = 2
 texture_filter = 1
 layout_mode = 0
@@ -76,7 +86,7 @@ offset_bottom = 120.0
 rotation = 1.5708
 texture = SubResource("AtlasTexture_ocrpo")
 
-[node name="Corner2" type="TextureRect" parent="Background"]
+[node name="Corner2" type="TextureRect" parent="Background" unique_id=857969734]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -90,7 +100,7 @@ grow_horizontal = 0
 rotation = 3.14159
 texture = SubResource("AtlasTexture_ocrpo")
 
-[node name="Corner3" type="TextureRect" parent="Background"]
+[node name="Corner3" type="TextureRect" parent="Background" unique_id=666197758]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -102,7 +112,7 @@ offset_right = 120.0
 grow_vertical = 0
 texture = SubResource("AtlasTexture_ocrpo")
 
-[node name="Corner4" type="TextureRect" parent="Background"]
+[node name="Corner4" type="TextureRect" parent="Background" unique_id=1091357596]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -119,7 +129,7 @@ grow_vertical = 0
 rotation = 4.71239
 texture = SubResource("AtlasTexture_ocrpo")
 
-[node name="Exit" type="TextureButton" parent="."]
+[node name="Exit" type="TextureButton" parent="." unique_id=63475351]
 texture_filter = 1
 layout_mode = 0
 offset_left = 3.0
@@ -130,8 +140,10 @@ shortcut = SubResource("Shortcut_2unau")
 texture_normal = SubResource("AtlasTexture_vgly8")
 stretch_mode = 0
 flip_h = true
+script = ExtResource("4_8k56j")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=1662555817]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,108 +155,7 @@ offset_bottom = -79.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Create" type="Control" parent="Container"]
-anchors_preset = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Title" type="LineEdit" parent="Container/Create"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = -17.0
-offset_bottom = 57.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("3_8k56j")
-theme_override_font_sizes/font_size = 31
-placeholder_text = "Title"
-alignment = 1
-max_length = 22
-
-[node name="Title2" type="LineEdit" parent="Container/Create"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 66.0
-offset_bottom = 198.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("3_8k56j")
-theme_override_font_sizes/font_size = 31
-placeholder_text = "Description"
-alignment = 1
-max_length = 22
-
-[node name="Edit" type="TextureButton" parent="Container/Create"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -265.5
-offset_top = -16.5
-offset_right = -110.27527
-offset_bottom = 137.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_rtws1")
-stretch_mode = 0
-
-[node name="Texture" type="TextureRect" parent="Container/Create/Edit"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -51.612366
-offset_top = -43.75
-offset_right = 43.358063
-offset_bottom = 42.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_oyjrx")
-
-[node name="Play" type="TextureButton" parent="Container/Create"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -88.5
-offset_top = -24.5
-offset_right = 76.5
-offset_bottom = 140.5
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_rtws1")
-stretch_mode = 0
-
-[node name="Texture" type="TextureRect" parent="Container/Create/Play"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -51.612366
-offset_top = -43.75
-offset_right = 43.358063
-offset_bottom = 42.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_oyjrx")
-
-[node name="Length" type="Label" parent="Container"]
+[node name="Length" type="Label" parent="Container" unique_id=2126254953]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -258,7 +169,7 @@ theme = ExtResource("5_8k56j")
 theme_override_font_sizes/font_size = 26
 text = "Length: N/A"
 
-[node name="Length2" type="Label" parent="Container"]
+[node name="Status" type="Label" parent="Container" unique_id=1804164371]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -273,10 +184,10 @@ grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("5_8k56j")
 theme_override_font_sizes/font_size = 26
-text = "ID: Unverified"
+text = "Unverified"
 horizontal_alignment = 1
 
-[node name="Song" type="Label" parent="Container"]
+[node name="Song" type="Label" parent="Container" unique_id=1386622519]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -293,3 +204,148 @@ theme = ExtResource("5_8k56j")
 theme_override_font_sizes/font_size = 26
 text = "Song: N/A"
 horizontal_alignment = 1
+
+[node name="Title" type="LineEdit" parent="Container" unique_id=1747055198]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -17.0
+offset_bottom = 57.0
+grow_horizontal = 2
+theme_override_colors/font_uneditable_color = Color(1, 0.84533334, 0.42000002, 1)
+theme_override_fonts/font = ExtResource("3_8k56j")
+theme_override_font_sizes/font_size = 40
+placeholder_text = "Title"
+alignment = 1
+max_length = 22
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+
+[node name="Descirption" type="LineEdit" parent="Container" unique_id=1698381213]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 66.0
+offset_bottom = 198.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_rtws1")
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Description"
+alignment = 1
+max_length = 100
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+
+[node name="Edit" type="TextureButton" parent="Container" unique_id=701959979]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.5
+offset_top = -26.5
+offset_right = -110.5
+offset_bottom = 143.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_rtws1")
+stretch_mode = 0
+script = ExtResource("4_8k56j")
+
+[node name="Texture" type="TextureRect" parent="Container/Edit" unique_id=174525452]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.731995
+offset_top = -49.0625
+offset_right = 52.731995
+offset_bottom = 49.0625
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_oyjrx")
+stretch_mode = 5
+
+[node name="Publish" type="TextureButton" parent="Container" unique_id=1121463998]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 119.5
+offset_top = -26.5
+offset_right = 289.5
+offset_bottom = 143.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_rtws1")
+stretch_mode = 0
+script = ExtResource("4_8k56j")
+
+[node name="Texture" type="TextureRect" parent="Container/Publish" unique_id=1945876599]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.193817
+offset_top = -52.25
+offset_right = 54.193817
+offset_bottom = 52.25
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_8k56j")
+stretch_mode = 5
+
+[node name="Play" type="TextureButton" parent="Container" unique_id=1769064387]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.23999
+offset_top = -32.03
+offset_right = 93.76111
+offset_bottom = 147.97028
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_rtws1")
+stretch_mode = 0
+script = ExtResource("4_8k56j")
+
+[node name="Texture" type="TextureRect" parent="Container/Play" unique_id=183966642]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -48.0
+offset_right = 53.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_2unau")
+stretch_mode = 5

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmhspyhspcna2"]
+[gd_scene format=3 uid="uid://bmhspyhspcna2"]
 
 [ext_resource type="Script" uid="uid://bg0thjqc0ak31" path="res://Scripts/General/SceneTransition.gd" id="1_5evyy"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="2_cd4u5"]
@@ -65,12 +65,12 @@ _data = {
 &"fade": SubResource("Animation_r7gek")
 }
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1551327388]
 process_mode = 3
 layer = 3
 script = ExtResource("1_5evyy")
 
-[node name="FadeRect" type="ColorRect" parent="."]
+[node name="FadeRect" type="ColorRect" parent="." unique_id=513544294]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -79,12 +79,10 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_dw8cy")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=443202881]
+libraries/ = SubResource("AnimationLibrary_dw8cy")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1957137191]
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 3
 anchor_left = 1.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bkyo4lgnhak2y"]
+[gd_scene format=3 uid="uid://bkyo4lgnhak2y"]
 
 [ext_resource type="Texture2D" uid="uid://b2kw7xp5t2kvg" path="res://Scenes/editor/grid.png" id="1_0y7rc"]
 [ext_resource type="Script" uid="uid://dqn2hmigqedje" path="res://Scripts/Editor.gd" id="1_id040"]
@@ -300,35 +300,35 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
 
-[node name="Editor" type="Node2D"]
+[node name="Editor" type="Node2D" unique_id=1935897522]
 physics_interpolation_mode = 2
 script = ExtResource("1_id040")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=196500545]
 scroll_ignore_camera_zoom = true
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1266783088]
 modulate = Color(0.0056164735, 0.49120545, 0.99996215, 1)
 motion_mirroring = Vector2(1000, 750)
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=931789907]
 position = Vector2(0, 750)
 texture = ExtResource("1_ojbeb")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=165998765]
 position = Vector2(1000, 0)
 texture = ExtResource("1_ojbeb")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1614490137]
 position = Vector2(1000, 750)
 texture = ExtResource("1_ojbeb")
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=325260504]
 texture = ExtResource("1_ojbeb")
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="Grid" type="Node2D" parent="." unique_id=1190300967]
 
-[node name="GridSprite" type="Sprite2D" parent="Grid"]
+[node name="GridSprite" type="Sprite2D" parent="Grid" unique_id=887804]
 modulate = Color(0, 0, 0, 0.3764706)
 z_index = -5
 texture_filter = 1
@@ -339,21 +339,21 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1280, 720)
 
-[node name="Line2D" type="Line2D" parent="Grid"]
+[node name="Line2D" type="Line2D" parent="Grid" unique_id=1826259718]
 points = PackedVector2Array(0, 94, 0, -7.226206, 0, -9874)
 width = 2.0
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." unique_id=659548559]
 zoom = Vector2(3, 3)
 
-[node name="Level" type="Node2D" parent="."]
+[node name="Level" type="Node2D" parent="." unique_id=1560956405]
 
-[node name="Editor_Object" type="Node2D" parent="."]
+[node name="Editor_Object" type="Node2D" parent="." unique_id=517401073]
 
-[node name="UI_Layer" type="CanvasLayer" parent="Editor_Object"]
+[node name="UI_Layer" type="CanvasLayer" parent="Editor_Object" unique_id=494449399]
 layer = 2
 
-[node name="Actions" type="Control" parent="Editor_Object/UI_Layer"]
+[node name="Actions" type="Control" parent="Editor_Object/UI_Layer" unique_id=1433804455]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -362,7 +362,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Viewport" type="ColorRect" parent="Editor_Object/UI_Layer/Actions"]
+[node name="Viewport" type="ColorRect" parent="Editor_Object/UI_Layer/Actions" unique_id=2024084160]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -372,7 +372,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0901961, 0.0901961, 0.0901961, 0.811765)
 
-[node name="Tabs" type="VBoxContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+[node name="Tabs" type="VBoxContainer" parent="Editor_Object/UI_Layer/Actions/Viewport" unique_id=267925729]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -382,7 +382,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -75
 
-[node name="Build" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Tabs"]
+[node name="Build" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Tabs" unique_id=371477408]
 custom_minimum_size = Vector2(225, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -395,7 +395,7 @@ button_pressed = true
 text = "Build"
 script = ExtResource("6_aq6jn")
 
-[node name="Edit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Tabs"]
+[node name="Edit" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Tabs" unique_id=161826299]
 custom_minimum_size = Vector2(225, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -407,7 +407,7 @@ toggle_mode = true
 text = "Edit"
 script = ExtResource("6_aq6jn")
 
-[node name="Items" type="TabContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+[node name="Items" type="TabContainer" parent="Editor_Object/UI_Layer/Actions/Viewport" unique_id=1937618181]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -422,13 +422,13 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
 current_tab = 0
 
-[node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+[node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=1017700827]
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
 metadata/_tab_index = 0
 
-[node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=913764980]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -438,7 +438,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 1
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton" unique_id=528362769]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -451,7 +451,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1651342954]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -461,7 +461,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 3
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton3"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton3" unique_id=934089837]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -474,7 +474,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=475822366]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -484,7 +484,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 5
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton4"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton4" unique_id=660067062]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -497,7 +497,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1691825200]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -507,7 +507,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 6
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton5"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton5" unique_id=827939105]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -520,7 +520,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1135217071]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -530,7 +530,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 7
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton6"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton6" unique_id=924416431]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -543,7 +543,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1872679310]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -553,7 +553,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 8
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton7"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton7" unique_id=1345434268]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -566,7 +566,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=471097646]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -576,7 +576,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 9
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton8"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton8" unique_id=1275395378]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -589,7 +589,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=180507593]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -599,7 +599,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 10
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton9"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton9" unique_id=887077265]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -612,7 +612,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks"]
+[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=968604678]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -622,7 +622,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 11
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton10"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton10" unique_id=647148484]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -635,14 +635,14 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+[node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=41072254]
 visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
 metadata/_tab_index = 1
 
-[node name="ItemButton2" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes"]
+[node name="ItemButton2" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes" unique_id=1655636590]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -652,7 +652,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 2
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes/ItemButton2"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes/ItemButton2" unique_id=1524066591]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -665,7 +665,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes"]
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes" unique_id=272585469]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -675,7 +675,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 4
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes/ItemButton3"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Spikes/ItemButton3" unique_id=747831243]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -688,14 +688,14 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Orbs" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items"]
+[node name="Orbs" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=716978703]
 visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
 metadata/_tab_index = 2
 
-[node name="ItemButton2" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton2" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=1357525638]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -705,7 +705,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 12
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton2"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton2" unique_id=1567817013]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -718,7 +718,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=1024756444]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -728,7 +728,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 19
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton9"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton9" unique_id=1940203176]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -741,7 +741,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=1616317643]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -751,7 +751,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 13
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton3"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton3" unique_id=779609511]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -764,7 +764,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=27179557]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -774,7 +774,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 20
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton10"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton10" unique_id=720287204]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -787,7 +787,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=1514837947]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -797,7 +797,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 17
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton6"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton6" unique_id=938856254]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -811,7 +811,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 4
 
-[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=1459103541]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -821,7 +821,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 18
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton7"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton7" unique_id=1161464562]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -835,7 +835,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 4
 
-[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=1764919265]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -845,7 +845,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 14
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton4"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton4" unique_id=2071403763]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -859,7 +859,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 4
 
-[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=256797803]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -869,7 +869,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 15
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton5"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton5" unique_id=808053857]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -883,7 +883,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 4
 
-[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs"]
+[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs" unique_id=262376193]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -893,7 +893,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 16
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton8"]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Orbs/ItemButton8" unique_id=407253503]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -907,7 +907,7 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 4
 
-[node name="Edit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+[node name="Edit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport" unique_id=1524483505]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -918,17 +918,17 @@ offset_right = -144.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MoveButtons" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit"]
+[node name="MoveButtons" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" unique_id=1750536476]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="16Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons"]
+[node name="16Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons" unique_id=232617572]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
+[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=249429000 groups=["16_unit"]]
 layout_mode = 0
 offset_left = 85.0
 offset_top = 17.0
@@ -936,7 +936,7 @@ offset_right = 145.0
 offset_bottom = 77.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Up"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Up" unique_id=1407744070]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -950,7 +950,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 
-[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
+[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=1825532020 groups=["16_unit"]]
 layout_mode = 0
 offset_left = 85.0
 offset_top = 147.0
@@ -958,7 +958,7 @@ offset_right = 145.0
 offset_bottom = 207.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Down"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Down" unique_id=1933415390]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -973,7 +973,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 flip_v = true
 
-[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=280072670 groups=["16_unit"]]
 layout_mode = 0
 offset_left = 210.0
 offset_top = 82.0
@@ -982,7 +982,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Right"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Right" unique_id=1830796161]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -996,7 +996,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 
-[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" groups=["16_unit"]]
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=98594762 groups=["16_unit"]]
 layout_mode = 0
 offset_left = 80.0
 offset_top = 82.0
@@ -1005,7 +1005,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Left"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Left" unique_id=1236077103]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1020,14 +1020,14 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_qb8vd")
 flip_v = true
 
-[node name="8Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons"]
+[node name="8Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons" unique_id=1116364296]
 anchors_preset = 0
 offset_left = 225.0
 offset_top = 1.0
 offset_right = 265.0
 offset_bottom = 41.0
 
-[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
+[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=479078285 groups=["8_unit"]]
 layout_mode = 0
 offset_left = 85.00021
 offset_top = 17.0
@@ -1035,7 +1035,7 @@ offset_right = 145.00021
 offset_bottom = 77.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Up"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Up" unique_id=107119270]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1050,7 +1050,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 
-[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
+[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=1085236972 groups=["8_unit"]]
 layout_mode = 0
 offset_left = 85.00021
 offset_top = 147.0
@@ -1058,7 +1058,7 @@ offset_right = 145.00021
 offset_bottom = 207.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Down"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Down" unique_id=2131424843]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1074,7 +1074,7 @@ texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 flip_v = true
 
-[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=1751360692 groups=["8_unit"]]
 layout_mode = 0
 offset_left = 210.00021
 offset_top = 82.0
@@ -1083,7 +1083,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Right"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Right" unique_id=1663474716]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1098,7 +1098,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 
-[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" groups=["8_unit"]]
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=1182926702 groups=["8_unit"]]
 layout_mode = 0
 offset_left = 80.00021
 offset_top = 82.0
@@ -1107,7 +1107,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Left"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Left" unique_id=273368282]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1123,14 +1123,14 @@ texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 5
 flip_v = true
 
-[node name="1Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons"]
+[node name="1Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons" unique_id=1785171846]
 anchors_preset = 0
 offset_left = 441.0
 offset_top = 1.0
 offset_right = 481.0
 offset_bottom = 41.0
 
-[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+[node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=1817130539 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 85.00021
 offset_top = 17.0
@@ -1138,7 +1138,7 @@ offset_right = 145.00021
 offset_bottom = 77.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Up"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Up" unique_id=681990533]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1153,7 +1153,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 3
 
-[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+[node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=1514060145 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 85.00021
 offset_top = 147.0
@@ -1161,7 +1161,7 @@ offset_right = 145.00021
 offset_bottom = 207.0
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Down"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Down" unique_id=1191505563]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1177,7 +1177,7 @@ texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 3
 flip_v = true
 
-[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+[node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=98168662 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 210.00021
 offset_top = 82.0
@@ -1186,7 +1186,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Right"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Right" unique_id=1966779091]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1201,7 +1201,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 3
 
-[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" groups=["1_unit"]]
+[node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=2012975401 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 80.00021
 offset_top = 82.0
@@ -1210,7 +1210,7 @@ offset_bottom = 142.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Left"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Left" unique_id=2077848525]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1226,7 +1226,7 @@ texture = SubResource("AtlasTexture_aq6jn")
 stretch_mode = 3
 flip_v = true
 
-[node name="OtherButtons" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit"]
+[node name="OtherButtons" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit" unique_id=48145253]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1242,13 +1242,13 @@ theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 12
 columns = 2
 
-[node name="RotateLeft" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons" groups=["rot_left"]]
+[node name="RotateLeft" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons" unique_id=560091817 groups=["rot_left"]]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme = ExtResource("5_vdfow")
 script = ExtResource("6_aq6jn")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateLeft"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateLeft" unique_id=923392557]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1265,13 +1265,13 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_m37bs")
 stretch_mode = 5
 
-[node name="RotateRight" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons" groups=["rot_right"]]
+[node name="RotateRight" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons" unique_id=1529922723 groups=["rot_right"]]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 theme = ExtResource("5_vdfow")
 script = ExtResource("6_aq6jn")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateRight"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons/RotateRight" unique_id=1619056506]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1289,7 +1289,7 @@ texture = SubResource("AtlasTexture_m37bs")
 stretch_mode = 5
 flip_h = true
 
-[node name="QuickOptions" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport"]
+[node name="QuickOptions" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport" unique_id=1211803845]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1302,7 +1302,7 @@ grow_horizontal = 0
 grow_vertical = 2
 columns = 2
 
-[node name="Swipe" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/QuickOptions"]
+[node name="Swipe" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/QuickOptions" unique_id=244020496]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 theme = ExtResource("5_vdfow")
@@ -1314,44 +1314,46 @@ toggle_mode = true
 text = "Swipe"
 script = ExtResource("6_aq6jn")
 
-[node name="ObjectActions" type="Control" parent="Editor_Object/UI_Layer/Actions"]
+[node name="ObjectActions" type="Control" parent="Editor_Object/UI_Layer/Actions" unique_id=1092391794]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 960.0
+offset_left = 1062.0
 offset_top = 120.0
 offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ActionGrid" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/ObjectActions"]
+[node name="ActionGrid" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/ObjectActions" unique_id=1809041815]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_left = 0.133
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 58.0
+offset_left = 0.006000519
+offset_right = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
-columns = 3
+columns = 2
 
-[node name="Copy" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+[node name="Copy" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=894373126]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_5y5ev")
 text = "Copy"
 script = ExtResource("6_aq6jn")
 
-[node name="Paste" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+[node name="Paste" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=805062073]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_4w7du")
 text = "Paste"
 script = ExtResource("6_aq6jn")
 
-[node name="Duplicate" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+[node name="Duplicate" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=394892213]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_ajxdj")
@@ -1359,7 +1361,7 @@ text = "Copy+
 paste"
 script = ExtResource("6_aq6jn")
 
-[node name="Deselect" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid"]
+[node name="Deselect" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=1319992746]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme = SubResource("Theme_3njmh")
@@ -1367,7 +1369,7 @@ text = "de
 select"
 script = ExtResource("6_aq6jn")
 
-[node name="TopBar" type="Control" parent="Editor_Object/UI_Layer"]
+[node name="TopBar" type="Control" parent="Editor_Object/UI_Layer" unique_id=607141345]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1377,7 +1379,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Delete" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="Delete" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=1064103326]
 layout_mode = 0
 offset_left = 202.0
 offset_top = 22.0
@@ -1387,7 +1389,7 @@ texture_normal = SubResource("AtlasTexture_s1emi")
 stretch_mode = 0
 script = ExtResource("12_khu03")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Delete"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Delete" unique_id=1506755406]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1401,7 +1403,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_qlxfu")
 stretch_mode = 5
 
-[node name="Undo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="Undo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=2123104834]
 layout_mode = 0
 offset_left = 19.0
 offset_top = 23.0
@@ -1411,7 +1413,7 @@ texture_normal = SubResource("AtlasTexture_rqgy1")
 stretch_mode = 0
 script = ExtResource("12_khu03")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Undo"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Undo" unique_id=628925611]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1425,7 +1427,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_khu03")
 stretch_mode = 5
 
-[node name="ZoomIn" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="ZoomIn" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=427214192]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 323.0
@@ -1435,7 +1437,7 @@ texture_normal = SubResource("AtlasTexture_um3un")
 stretch_mode = 0
 script = ExtResource("12_khu03")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomIn"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomIn" unique_id=595747007]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1449,7 +1451,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_u5kxy")
 stretch_mode = 5
 
-[node name="ZoomOut" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="ZoomOut" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=2090298013]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 391.0
@@ -1459,7 +1461,7 @@ texture_normal = SubResource("AtlasTexture_758p6")
 stretch_mode = 0
 script = ExtResource("12_khu03")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomOut"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/ZoomOut" unique_id=1916548205]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1473,7 +1475,7 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_ypo3h")
 stretch_mode = 5
 
-[node name="Redo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="Redo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=553427624]
 texture_filter = 1
 layout_mode = 0
 offset_left = 104.0
@@ -1484,7 +1486,7 @@ texture_normal = SubResource("AtlasTexture_t2ba8")
 stretch_mode = 0
 script = ExtResource("12_khu03")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Redo"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Redo" unique_id=290712308]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1499,7 +1501,7 @@ texture = SubResource("AtlasTexture_khu03")
 stretch_mode = 5
 flip_h = true
 
-[node name="Menu" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="Menu" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=237923277]
 layout_mode = 0
 offset_left = 1157.0
 offset_top = 16.0
@@ -1509,7 +1511,7 @@ texture_normal = SubResource("AtlasTexture_g6r6n")
 stretch_mode = 0
 script = ExtResource("12_khu03")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Menu"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Menu" unique_id=1253177752]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1522,7 +1524,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_hkpmq")
 
-[node name="LevelSettings" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar"]
+[node name="LevelSettings" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=1912839585]
 layout_mode = 0
 offset_left = 1063.0
 offset_top = 21.0
@@ -1532,7 +1534,7 @@ texture_normal = SubResource("AtlasTexture_po6up")
 stretch_mode = 0
 script = ExtResource("12_khu03")
 
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/LevelSettings"]
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/LevelSettings" unique_id=1185913467]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1545,13 +1547,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_oi36f")
 
-[node name="Ground" parent="Editor_Object" instance=ExtResource("9_5bivf")]
+[node name="Ground" parent="Editor_Object" unique_id=1675744057 instance=ExtResource("9_5bivf")]
 physics_interpolation_mode = 1
 
-[node name="Menu_Layer" type="CanvasLayer" parent="Editor_Object"]
+[node name="Menu_Layer" type="CanvasLayer" parent="Editor_Object" unique_id=610382271]
 layer = 3
 
-[node name="EditorMenu" type="ColorRect" parent="Editor_Object/Menu_Layer"]
+[node name="EditorMenu" type="ColorRect" parent="Editor_Object/Menu_Layer" unique_id=800902147]
 visible = false
 z_index = 3
 anchors_preset = 15
@@ -1561,7 +1563,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.815686)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Editor_Object/Menu_Layer/EditorMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Editor_Object/Menu_Layer/EditorMenu" unique_id=1710738587]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1576,7 +1578,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
 
-[node name="Resume" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+[node name="Resume" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer" unique_id=140552282]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
@@ -1584,7 +1586,7 @@ theme_override_font_sizes/font_size = 36
 text = "resume"
 script = ExtResource("6_aq6jn")
 
-[node name="Save" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+[node name="Save" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer" unique_id=1850275890]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
@@ -1592,7 +1594,7 @@ theme_override_font_sizes/font_size = 36
 text = "save"
 script = ExtResource("6_aq6jn")
 
-[node name="SaveAndPlay" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+[node name="SaveAndPlay" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer" unique_id=863797176]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
@@ -1600,7 +1602,7 @@ theme_override_font_sizes/font_size = 36
 text = "save and play"
 script = ExtResource("6_aq6jn")
 
-[node name="SaveAndExit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+[node name="SaveAndExit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer" unique_id=391184663]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
@@ -1608,7 +1610,7 @@ theme_override_font_sizes/font_size = 36
 text = "save and exit"
 script = ExtResource("6_aq6jn")
 
-[node name="Load" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+[node name="Load" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer" unique_id=125073735]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
@@ -1616,7 +1618,7 @@ theme_override_font_sizes/font_size = 36
 text = "load"
 script = ExtResource("6_aq6jn")
 
-[node name="Exit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer"]
+[node name="Exit" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer" unique_id=170336059]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_vdfow")
@@ -1624,7 +1626,7 @@ theme_override_font_sizes/font_size = 36
 text = "exit"
 script = ExtResource("6_aq6jn")
 
-[node name="ExitDialog" type="ConfirmationDialog" parent="Editor_Object/Menu_Layer/EditorMenu"]
+[node name="ExitDialog" type="ConfirmationDialog" parent="Editor_Object/Menu_Layer/EditorMenu" unique_id=835164406]
 title = "Exit without saving"
 initial_position = 2
 size = Vector2i(449, 106)
@@ -1632,7 +1634,7 @@ ok_button_text = "Yes"
 dialog_text = "Are you sure you want to exit the editor without saving?
 This will erase any changes made since the last save."
 
-[node name="Error" type="AcceptDialog" parent="Editor_Object/Menu_Layer"]
+[node name="Error" type="AcceptDialog" parent="Editor_Object/Menu_Layer" unique_id=1837906546]
 title = "Error!"
 initial_position = 2
 size = Vector2i(580, 80)

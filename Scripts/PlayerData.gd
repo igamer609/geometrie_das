@@ -79,13 +79,14 @@ func load_save():
 			if _progress.has("icons"):
 				_progress["icon_kit"] = _progress["icons"]
 				_progress.erase("icons")
-		
+			if not _progress.has("name"):
+				_progress["name"] = "Player"
+			
 			for item in _progress["icon_kit"]:
 				match item:
 					"cube" : cube_id = _progress["icon_kit"][item];
 					"ship" : ship_id = _progress["icon_kit"][item];
 					"ball" : ball_id = _progress["icon_kit"][item];
-			
 		else:
 			return
 		
@@ -125,6 +126,9 @@ func get_level_progress(id : int) -> Dictionary:
 		var level : Dictionary = _new_level(level_id)
 		_progress["levels"].append(level)
 		return level
+
+func get_player_name() -> String:
+	return _progress["name"]
 
 func _has_dict_with_value(array : Array, key : String, value: Variant) -> bool:
 	for dict : Dictionary in array:

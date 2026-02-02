@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cytkix20fnkey"]
+[gd_scene format=3 uid="uid://cytkix20fnkey"]
 
 [ext_resource type="Script" uid="uid://d4cql2u6ecerg" path="res://Scripts/Transition.gd" id="1_igi5o"]
 
@@ -40,12 +40,12 @@ _data = {
 &"fade": SubResource("Animation_r7gek")
 }
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=2076694971]
 process_mode = 3
 layer = 3
 script = ExtResource("1_igi5o")
 
-[node name="FadeRect" type="ColorRect" parent="."]
+[node name="FadeRect" type="ColorRect" parent="." unique_id=308648844]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -54,7 +54,19 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_dw8cy")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=425224332]
+libraries/ = SubResource("AnimationLibrary_dw8cy")
+
+[node name="MessageContainer" type="Control" parent="." unique_id=1239175814]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MessageContainer" unique_id=1389509816]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

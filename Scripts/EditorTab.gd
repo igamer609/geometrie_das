@@ -151,7 +151,7 @@ func reset_create_tab():
 func setup_tab_buttons():
 	for button in $TabContainer.get_children():
 		if button.name == "Create":
-			button.pressed.connect(reset_create_tab)
+			button.pressed.connect(TransitionScene.change_scene.bind("res://Scenes/Menus/CreateTab.tscn"))
 		if button.name == "Load":
 			button.pressed.connect(load_level_from_file)
 		if button.name == "Saved":

@@ -22,6 +22,8 @@ var level_data = {
 }
 
 var _playtesting : bool = false
+var _return_scene : String
+var _loaded_path : String
 @onready var obj_base = preload("res://Objects/object.tscn")
 
 @export var start_bg : Color
@@ -34,6 +36,8 @@ var _playtesting : bool = false
 
 @export var pause_ui : Node
 @export var end_ui : Node
+@export var restart_button : TextureButton
+@export var exit_button : TextureButton
 
 @export var end_particles : Node
 @export var end_animation : Node
@@ -50,7 +54,7 @@ var follow_cam = false
 var level_ended = false
 var obtain_endpos = true
 
-func get_endpos():
+func _get_endpos():
 	var last_x = 0
 	
 	for obj in level.get_children():
@@ -61,7 +65,18 @@ func get_endpos():
 	rect_x = last_x
 	endpos.global_position.x = last_x + 348
 
-func load_level_data(level_info, restart = false, playtesting = false):
+func _get_path_to_level():
+	var file_path : String = ""
+	if _playtesting:
+		var directory : PackedStringArray = DirAccess.get_files_at("user://created_levels")
+		
+		for this_level : String  in directory:
+			if int(this_level.get_slice(".", 0)) == level_data["info"]["local_id"]:
+				file_path = "user://created_levels/" + this_level
+	
+	return file_path
+
+func load_level_data(level_info, restart = false, playtesting = false, return_scene = ""):
 	level_data = level_info
 	
 	if restart:
@@ -81,12 +96,22 @@ func load_level_data(level_info, restart = false, playtesting = false):
 			start_bg = level_data["info"]["bg_color"]
 	
 	_playtesting = playtesting
+	_loaded_path = _get_path_to_level()
+	
+	if not return_scene.is_empty():
+		_return_scene = return_scene
+		
+	exit_button.pressed.connect(_exit_level)
+	restart_button.pressed.connect(_restart)
+	
+	
 	emit_signal("loaded_level")
 
 func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other):
 	var item = ResourceLibrary.library[obj_id]
 	
-	var object = obj_base.instantiate()
+	var object : GDObject = obj_base.instantiate()
+	object.uid = uid
 	object.obj_res = item
 	
 	object.in_level = true
@@ -99,10 +124,9 @@ func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other):
 func _ready():
 	initiate()
 
-
 func initiate():
 	await loaded_level
-	$Universal/PauseUI/Control/Rect/LevelName.text = level_data["info"]["name"]
+	$Universal/PauseUI/Control/Rect/LevelName.text = level_data["info"]["title"]
 	
 	GameProgress.in_game = true
 	GameProgress.run_music = true
@@ -220,7 +244,7 @@ func on_gamemode_change(portal, gamemode):
 func _process(delta):
 	
 	if obtain_endpos:
-		get_endpos()
+		_get_endpos()
 		obtain_endpos = false
 	
 	if first_attempt:
@@ -251,19 +275,24 @@ func _process(delta):
 	
 	if (player.global_position.x / endpos.global_position.x) * 100 >= 100 and not level_ended:
 		level_ended = true
-		end_level()
+		_end_level()
 
 func is_finishing() -> bool:
 	return player.global_position.x >= rect_x + 152
 
-func exit_level():
+func _exit_level():
 	GameProgress.in_game = false
 	GameProgress.music_to_load = 0
 	GameProgress.stop_lvl_music()
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
+	
+	match _return_scene:
+		"res://Scenes/Menus/LevelEditingMenu.tscn":
+			EditorTransition.load_level_edit_menu(level_data["info"], _loaded_path)
+		_:
+			TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
-func end_level():
+func _end_level():
 	if _playtesting:
 		_verify_level()
 	
@@ -285,10 +314,10 @@ func _verify_level():
 			var lvl_info : String = JSON.stringify(level_data)
 			var success : bool = lvl_file.store_line(lvl_info)
 
-func restart():
+func _restart():
 	GameProgress.stop_lvl_music()
 	get_tree().paused = false
-	EditorTransition.load_game(level_data, true, _playtesting)
+	EditorTransition.load_game(level_data, true, _playtesting, _return_scene)
 
 func change_background(new_colour, fade_time):
 	

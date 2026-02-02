@@ -8,17 +8,21 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Geometrie Daș"
 config/description="A recreation of Geometry Dash in Godot 4. Made by IGamer609."
-config/version="1.1.9.0"
+config/version="2.0-beta.1"
 run/main_scene="res://Scenes/MainMenu.tscn"
-config/features=PackedStringArray("4.5")
+config/features=PackedStringArray("4.6")
 boot_splash/show_image=false
-boot_splash/fullsize=false
+boot_splash/stretch_mode=0
 config/icon="res://logo/icon.png"
-config/version.release="1.1-beta9"
+config/version.release="2.0-beta.1"
 
 [autoload]
 

@@ -47,7 +47,9 @@ var edit_mode : EditorMode = EditorMode.BUILD
 var select_mode : SelectionMode = SelectionMode.SINGLE
 var menu_state = false
 
-var level_data = {"local_id": 0, "name" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
+var _level_data : Dictionary = {"local_id": 0, "title" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
+var _last_saved_objects : PackedByteArray = []
+var _level_path : String
 
 var selection_center = null
 
@@ -67,23 +69,28 @@ func _ready():
 
 func _save_level():
 	var save_data = {
-		"info" : level_data,
+		"info" : _level_data,
 		"objects" : []
 	}
 
 	save_data["objects"] = _get_data_of_objects(level.get_children())
 	
-	if not DirAccess.dir_exists_absolute("user://saved_levels/"):
-		DirAccess.make_dir_absolute("user://saved_levels/")
+	if not DirAccess.dir_exists_absolute("user://created_levels/"):
+		DirAccess.make_dir_absolute("user://created_levels/")
 	
 	if not save_data["info"].has("local_id"):
-		print(save_data["info"])
 		save_data["info"]["local_id"] = _generate_unique_id()
 	
-	var save_file : FileAccess = FileAccess.open("user://saved_levels/" +str( int(save_data["info"]["local_id"])) + ".gdaslvl", FileAccess.WRITE)
+	
+	
+	var save_file : FileAccess = FileAccess.open_compressed(_level_path, FileAccess.WRITE, FileAccess.COMPRESSION_GZIP)
 	var save_string : String = JSON.stringify(save_data)
 	
 	var success : bool = save_file.store_line(save_string)
+	
+	if success:
+		var entry_data : Dictionary = ResourceLibrary.entry_data_from_info(save_data["info"], _level_path)
+		ResourceLibrary.updade_entry(str(save_data["info"]["local_id"]), entry_data, true)
 	
 	return success
 
@@ -144,10 +151,10 @@ func _load_level_file():
 	
 	if lvl_info.has("objects") and lvl_info.has("name") and lvl_info.has("author") and lvl_info.has("local_id"):
 		_load_level(lvl_info["objects"])
-		level_data = lvl_info
+		_level_data = lvl_info
 		
-		if level_data["last_uid"] > 0:
-			last_uid = level_data["last_uid"]
+		if _level_data["last_uid"] > 0:
+			last_uid = _level_data["last_uid"]
 		
 	else:
 		$Editor_Object/Menu_Layer/AcceptDialog.visible = true
@@ -159,8 +166,9 @@ func _load_level(objects):
 	for obj in objects:
 		_load_obj(obj["obj_id"], obj["uid"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
-func load_level_from_info(lvl_info):
-	level_data = lvl_info["info"]
+func load_level_from_info(lvl_info, path):
+	_level_data = lvl_info["info"]
+	_level_path = path
 	
 	if lvl_info.has("objects"):
 		_load_level(lvl_info["objects"])
@@ -230,26 +238,30 @@ func _save_and_exit():
 	_save_level()
 	
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
+	EditorTransition.load_level_edit_menu(_level_data, _level_path)
 
 func _save_and_play():
 	_save_level()
 	
-	var save_data = {
-		"info" : level_data,
+	var save_data: Dictionary = {
+		"info" : _level_data,
 		"objects" : []
 	}
 
 	save_data["objects"] = _get_data_of_objects(level.get_children())
 	
-	EditorTransition.load_game(save_data, false, true)
+	EditorTransition.load_game(save_data, false, true, "res://Scenes/Menus/LevelEditingMenu.tscn")
 
 func _exit():
 	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog
 	dialog.visible = true
 	await dialog.confirmed
 	MenuMusic.start_music()
-	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
+	
+	var lvl_file = FileAccess.open_compressed(_level_path, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
+	var level_old = JSON.parse_string(lvl_file.get_line())
+	
+	EditorTransition.load_level_edit_menu(level_old, _level_path)
 
 func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:
@@ -329,6 +341,8 @@ func _draw() -> void:
 func _zoom(amount : float):
 	zoom_multiplier += amount
 	zoom_multiplier = clamp(zoom_multiplier, 0.5, 2)
+	
+	#TransitionScene.show_message("x" + str(zoom_multiplier))
 	
 	camera.zoom = Vector2(3 * zoom_multiplier, 3 * zoom_multiplier)
 	update_grid_position()
@@ -591,7 +605,7 @@ func paste_objects():
 		var pasted_objects = []
 		
 		for object in clipboard:
-			var item = load("res://Objects/obj_ids/" + str(object[0].obj_res.id) + ".tres")
+			var item = ResourceLibrary.library[object[0].obj_res.id]
 		
 			var new_object = obj_base.instantiate()
 			new_object.obj_res = item
@@ -619,7 +633,7 @@ func duplicate_objects():
 	
 	for obj in objects_to_duplicate:
 		
-		var item = load("res://Objects/obj_ids/" + str(obj.obj_res.id) + ".tres")
+		var item =ResourceLibrary.library[obj.obj_res.id]
 	
 		var object = obj_base.instantiate()
 		object.obj_res = item
