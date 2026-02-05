@@ -6,5 +6,7 @@
 
 extends GPUParticles2D
 
+#to be added to scene only on level end!
+
 func _process(delta):
 	global_position = get_parent().get_child(0).global_position

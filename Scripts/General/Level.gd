@@ -5,6 +5,7 @@
 # ----------------------------------------------------------
 
 # Note!! To be replaced with CustomLevel...
+# No further changes will be added to this script and scene as it is deprecated and is subject for removal.
 
 extends Node2D
 

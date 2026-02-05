@@ -18,6 +18,7 @@ const path_to_self : String = "res://Scenes/Menus/LevelEditingMenu.tscn"
 @onready var publish_button = $Container/Publish
 
 #=========Default level data=========#
+#can also be replaced by custom RefCounted implementation to allow for easier management
 var default_level_info : Dictionary = {
 		"local_id": _generate_unique_id(),
 		 "title" : "",

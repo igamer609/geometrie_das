@@ -1,3 +1,24 @@
+# Geometrie Das 2.0 Beta 1 (and 1a)
+- added preloading of resources and scenes (mostly for level loading optimizations)
+- added level editing menu (rename, add a description, edit or playtest the level)
+- remade level loading and saving
+- levels and the level indexex are now compressed to save disk space and allow for cheaper sharing
+- refactored objects
+- fixed a few minor bugs when playtesting a level
+
+to be added:
+- show details on the level editing menu (calculated length, used song, published id)
+- all these systems are made with the end goal of easily implementing uploading and saving custom levels
+- more objects in the editor (pink orb/pad, more blocks and spikes, decorations)
+- layers (both editor and render)
+- lazy loading (objects load as the player progresses trough the level, to be implemented alongside practice mode possibly)
+- triggers (at least color/pulse triggers)
+
+Online features to be added after most of these things are implemented.
+I only really have time on weekends to add complex features (WE love fridays) so don't expect it finished TOO soon.
+I also try to make things more general to allow building on top of current logic more easily. If you have any suggestions regarding
+optimizations, I am happy to listen!
+
 # Geometrie Das 1.1 Beta 9
 - fixed bad management of instances (using direct references in _physics_process - yes i know stupid)
 - fixed orbs remaining in the activation queue even if player left it's area

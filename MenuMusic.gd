@@ -17,6 +17,8 @@ func stop_music():
 func start_music():
 	music_play = true
 
+#this method of checking sucks and should absolutely be replaced
+
 func _process(_delta):
 	if music_play and not playing:
 		play()

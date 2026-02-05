@@ -81,6 +81,7 @@ func _process(_delta: float) -> void:
 func get_current_registry_type() -> RegistryType:
 	return _current_registry_type
 
+#can be replaced by custom RefCounted based object for easier management
 func entry_data_from_info(info : Dictionary, path_ref : String) -> Dictionary:
 	return {
 		"info" : info,
@@ -145,9 +146,9 @@ func save_current_registry() -> bool:
 		var reg_string : String = JSON.stringify(current_registry)
 		var is_valid : bool = reg_file.store_line(reg_string)
 		reg_file.close()
+		
 		if not is_valid:
 			return false
-			
 		return true
 	else: 
 		return false
