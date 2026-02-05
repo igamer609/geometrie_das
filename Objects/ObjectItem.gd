@@ -6,22 +6,38 @@
 
 class_name GDObject extends StaticBody2D
 
-@export var obj_res : GD_Object
+@export var obj_res : GDObjectResource
 @export var in_level : bool = false
 
 var scene : Node2D = null
 
 @onready var vis_notif : VisibleOnScreenNotifier2D = $VisibilityNotifier
-@onready var anim_player : AnimationPlayer = $AnimationPlayer
+@onready var obj_sprite : Sprite2D = $Sprite
+@onready var scene_parent : Node2D = $SceneParent
 @onready var _selection_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
+@onready var collision : CollisionPolygon2D = $Collision
 
 @export var uid : int
 @export var other : Dictionary
 
-# Called when the node enters the scene tree for the first time.
+static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary) -> GDObject:
+	var res : GDObjectResource = ResourceLibrary.library[obj_id]
+	var object : GDObject = ResourceLibrary.scenes["GDObject"].instantiate()
+	
+	object.obj_res = res
+	object.uid = n_uid
+	object.global_position = pos
+	object.global_rotation = rot
+	object.other = n_other
+	
+	return object
+
 func _ready():
 	if obj_res:
 		update()
+	
+	vis_notif.screen_entered.connect(_show)
+	vis_notif.screen_exited.connect(_hide)
 
 func update():
 	if obj_res.is_scene:
@@ -29,9 +45,9 @@ func update():
 		scene.position = Vector2(8, 8)
 		scene.name = "Scene"
 		
-		$Collision.polygon = obj_res.collision_shape
+		collision.polygon = obj_res.collision_shape
 		
-		$SceneParent.add_child(scene)
+		scene_parent.add_child(scene)
 		
 		if in_level:
 			var particles : GPUParticles2D = scene.find_child("Particles")
@@ -42,14 +58,14 @@ func update():
 			if sprite:
 				sprite.material = _selection_material
 		
-		$Sprite.queue_free()
+		obj_sprite.hide()
 		
 	else:
-		$Sprite.texture = obj_res.texture
-		$Sprite.texture.filter_clip = true
-		$Collision.polygon = obj_res.collision_shape
+		obj_sprite.texture = obj_res.texture
+		obj_sprite.texture.filter_clip = true
+		collision.polygon = obj_res.collision_shape
 		if not in_level:
-			$Sprite.material = _selection_material
+			obj_sprite.material = _selection_material
 	
 	if not obj_res.is_solid:
 		set_collision_layer_value(1, false)
@@ -76,27 +92,25 @@ func deselect():
 	else:
 		$Sprite.set_instance_shader_parameter("is_selected", false)
 
-func enable_transition():
-	vis_notif.screen_entered.connect(load_object)
-	vis_notif.screen_exited.connect(unload_object)
-
 func get_selection_rect() -> Rect2:
-	var points : PackedVector2Array = $Collision.polygon
+	var points : PackedVector2Array = collision.polygon
 	if points.is_empty():
 		return Rect2().abs()
-
+	
 	var rect : Rect2 = Rect2(points[0], Vector2.ZERO)
 	for i in range(1, points.size()):
 		rect = rect.expand(points[i])
+	
+	return collision.get_global_transform() * rect.abs()
+ 
+func _hide() -> void:
+	if obj_res.is_scene and scene != null:
+		scene_parent.remove_child(scene)
+	elif not obj_res.is_scene:
+		obj_sprite.hide()
 
-	return $Collision.get_global_transform() * rect.abs()
-
-func load_object():
-	print("load!!")
-	if not anim_player.is_playing():
-		anim_player.play("load1")
-
-func unload_object():
-	print("unload")
-	if not anim_player.is_playing():
-		anim_player.play_backwards("load1")
+func _show() -> void:
+	if obj_res.is_scene and scene != null and scene.get_parent() == null:
+		scene_parent.add_child(scene)
+	elif not obj_res.is_scene:
+		obj_sprite.show()

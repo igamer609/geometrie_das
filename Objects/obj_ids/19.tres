@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="GD_Object" load_steps=5 format=3 uid="uid://cldbiy7e377mv"]
+[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://cldbiy7e377mv"]
 
 [ext_resource type="PackedScene" uid="uid://c2kqortclhrt0" path="res://Scenes/pads/blue_pad.tscn" id="1_eai71"]
-[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/Obj.gd" id="2_ypbvk"]
+[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_ypbvk"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="3_an2bp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ypbvk"]

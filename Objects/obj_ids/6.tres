@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="GD_Object" load_steps=4 format=3 uid="uid://e55cx3lymavt"]
+[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://e55cx3lymavt"]
 
-[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/Obj.gd" id="1_avawy"]
+[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="1_avawy"]
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_kew07"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sl18h"]

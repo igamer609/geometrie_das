@@ -96,9 +96,11 @@ func _load_editor() -> void:
 	if load_path.is_empty():
 		var path : String = _create_level()
 		EditorTransition.load_editor(level_info, path)
+		return
 	
-	var data : Dictionary = _load_level_from_file(load_path)
-	EditorTransition.load_editor(data, load_path)
+	var object_data : Array = _load_level_from_file(load_path)["objects"]
+	var level_data : Dictionary = {"info" : level_info, "objects": object_data}
+	EditorTransition.load_editor(level_data, load_path)
 
 func _play_level() -> void:
 	if level_info["title"] == "":
@@ -108,8 +110,9 @@ func _play_level() -> void:
 		var path : String = _create_level()
 		EditorTransition.load_game(level_info, false, true)
 	
-	var data : Dictionary = _load_level_from_file(load_path)
-	EditorTransition.load_game(data, false, true, path_to_self)
+	var object_data : Array = _load_level_from_file(load_path)["objects"]
+	var level_data : Dictionary = {"info" : level_info, "objects": object_data}
+	EditorTransition.load_game(level_data, false, true, path_to_self)
 
 func _create_level() -> String:
 	

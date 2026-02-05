@@ -5,7 +5,7 @@
 # ----------------------------------------------------------
 
 extends Resource
-class_name GD_Object
+class_name GDObjectResource
 
 @export var id : int
 

@@ -24,7 +24,7 @@ var level_data = {
 var _playtesting : bool = false
 var _return_scene : String
 var _loaded_path : String
-@onready var obj_base = preload("res://Objects/object.tscn")
+@onready var obj_base = ResourceLibrary.scenes["GDObject"]
 
 @export var start_bg : Color
 
@@ -54,7 +54,7 @@ var follow_cam = false
 var level_ended = false
 var obtain_endpos = true
 
-func _get_endpos():
+func _get_endpos() -> void:
 	var last_x = 0
 	
 	for obj in level.get_children():
@@ -65,7 +65,7 @@ func _get_endpos():
 	rect_x = last_x
 	endpos.global_position.x = last_x + 348
 
-func _get_path_to_level():
+func _get_path_to_level() -> String:
 	var file_path : String = ""
 	if _playtesting:
 		var directory : PackedStringArray = DirAccess.get_files_at("user://created_levels")
@@ -76,7 +76,7 @@ func _get_path_to_level():
 	
 	return file_path
 
-func load_level_data(level_info, restart = false, playtesting = false, return_scene = ""):
+func load_level_data(level_info : Dictionary, restart = false, playtesting = false, return_scene = "") -> void:
 	level_data = level_info
 	
 	if restart:
@@ -104,20 +104,10 @@ func load_level_data(level_info, restart = false, playtesting = false, return_sc
 	exit_button.pressed.connect(_exit_level)
 	restart_button.pressed.connect(_restart)
 	
-	
 	emit_signal("loaded_level")
 
-func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other):
-	var item = ResourceLibrary.library[obj_id]
-	
-	var object : GDObject = obj_base.instantiate()
-	object.uid = uid
-	object.obj_res = item
-	
-	object.in_level = true
-	
-	object.global_position = Vector2(pos.x + 8, pos.y)
-	object.global_rotation = rot
+func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other) -> void:
+	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other)
 	
 	level.call_deferred("add_child", object)
 

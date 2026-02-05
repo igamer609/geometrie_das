@@ -16,7 +16,7 @@ var swiping : bool = false
 var swipe_start : Vector2
 var swipe_rect : Rect2
 
-@onready var obj_base = preload("res://Objects/object.tscn")
+var obj_base = ResourceLibrary.scenes["GDObject"]
 
 @onready var camera : Camera2D = $Camera
 @onready var level : Node2D = $Level
@@ -48,7 +48,6 @@ var select_mode : SelectionMode = SelectionMode.SINGLE
 var menu_state = false
 
 var _level_data : Dictionary = {"local_id": 0, "title" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
-var _last_saved_objects : PackedByteArray = []
 var _level_path : String
 
 var selection_center = null
@@ -72,7 +71,6 @@ func _save_level():
 		"info" : _level_data,
 		"objects" : []
 	}
-
 	save_data["objects"] = _get_data_of_objects(level.get_children())
 	
 	if not DirAccess.dir_exists_absolute("user://created_levels/"):
@@ -81,7 +79,8 @@ func _save_level():
 	if not save_data["info"].has("local_id"):
 		save_data["info"]["local_id"] = _generate_unique_id()
 	
-	
+	if save_data["info"]["title"].is_empty():
+		save_data["info"]["title"] = "Untitled " + save_data["info"]["local_id"]
 	
 	var save_file : FileAccess = FileAccess.open_compressed(_level_path, FileAccess.WRITE, FileAccess.COMPRESSION_GZIP)
 	var save_string : String = JSON.stringify(save_data)
@@ -95,8 +94,10 @@ func _save_level():
 	return success
 
 func _get_data_of_objects(objects : Array[Node]):
+	objects.sort_custom(func(a : Node, b : Node) : return b.global_position.x > a.global_position.x)
 	var obj_data : Array[Dictionary] = []
 	for obj in objects:
+		
 		if obj.is_class("StaticBody2D"):
 			var obj_info = TEMPLATE_OBJ_DICT.duplicate()
 
@@ -112,15 +113,7 @@ func _get_data_of_objects(objects : Array[Node]):
 	return obj_data
 
 func _load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
-	var item = ResourceLibrary.library[obj_id]
-	
-	var object : GDObject = obj_base.instantiate()
-	object.uid = uid
-	object.obj_res = item
-	
-	object.global_position = pos
-	object.global_rotation = rot
-	object.other = other
+	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other)
 	
 	level.add_child(object)
 	return object
@@ -149,7 +142,7 @@ func _load_level_file():
 	var lvl_file = FileAccess.open(file_path, FileAccess.READ)
 	var lvl_info = JSON.parse_string(lvl_file.get_line())
 	
-	if lvl_info.has("objects") and lvl_info.has("name") and lvl_info.has("author") and lvl_info.has("local_id"):
+	if lvl_info.has("objects") and lvl_info.has("title") and lvl_info.has("author") and lvl_info.has("local_id"):
 		_load_level(lvl_info["objects"])
 		_level_data = lvl_info
 		
@@ -170,8 +163,12 @@ func load_level_from_info(lvl_info, path):
 	_level_data = lvl_info["info"]
 	_level_path = path
 	
+	if _level_data.has("title") and _level_data["title"].is_empty():
+		_level_data["title"] = "Untitled " + _level_data["local_id"]
+	
 	if lvl_info.has("objects"):
 		_load_level(lvl_info["objects"])
+		lvl_info.erase("objects")
 	
 	_save_level()
 	return true
@@ -289,8 +286,8 @@ func get_objects_at_point(pos : Vector2):
 	
 	var objects : Array = []
 	for result in results:
-		# var object : Node2D = result["collider"] -- used in debug print statements
-		objects.append(result["collider"])
+		if result["collider"].is_in_group("Object"):
+			objects.append(result["collider"])
 	
 	return objects
 
@@ -340,7 +337,7 @@ func _draw() -> void:
 
 func _zoom(amount : float):
 	zoom_multiplier += amount
-	zoom_multiplier = clamp(zoom_multiplier, 0.5, 2)
+	zoom_multiplier = clamp(zoom_multiplier, 0.3, 2.1)
 	
 	#TransitionScene.show_message("x" + str(zoom_multiplier))
 	
@@ -349,7 +346,7 @@ func _zoom(amount : float):
 
 func _box_select():
 	for object in level.get_children():
-		if object.is_class("StaticBody2D"):
+		if object.is_in_group("Object"):
 			var obj_rect : Rect2 = object.get_selection_rect().abs()
 			swipe_rect = swipe_rect.abs()
 			if swipe_rect.intersects(obj_rect):
@@ -366,7 +363,7 @@ func place_object(return_obj = false):
 	pos.x = snapped(pos.x - 8, 16)
 	pos.y = snapped(pos.y - 8, 16)
 	
-	if len(selected_objects) == 1 and selected_objects[0].obj_res.id == current_id:
+	if selected_objects.size() == 1 and selected_objects[0].obj_res.id == current_id:
 		history.create_action("Place object")
 		
 		var object : Node2D = _load_obj(current_id, last_uid, pos,  0,  selected_objects[0].other)
@@ -391,7 +388,7 @@ func place_object(return_obj = false):
 		if return_obj:
 			return object
 	else:
-		var item : GD_Object = ResourceLibrary.library[current_id]
+		var item : GDObjectResource = ResourceLibrary.library[current_id]
 		history.create_action("Place object")
 		
 		var object : Node2D = obj_base.instantiate()
@@ -487,7 +484,7 @@ func remove_from_selection(obj : Node2D):
 		obj.deselect()
 
 func delete_objects():
-	var objects_to_delete = selected_objects.duplicate()
+	var objects_to_delete = selected_objects.duplicate(true)
 	deselect()
 	
 	history.create_action("Delete")
@@ -523,8 +520,6 @@ func move_objects(direction, amount : float) -> void:
 			object.global_position.x -= roundi(amount * 16)
 		elif direction == "Right":
 			object.global_position.x += roundi(amount * 16)
-		
-		print(object.global_position)
 		
 		history.add_do_property(object, "global_position", object.global_position)
 		
@@ -626,7 +621,7 @@ func paste_objects():
 		
 
 func duplicate_objects():
-	var objects_to_duplicate = selected_objects.duplicate()
+	var objects_to_duplicate = selected_objects.duplicate(true)
 	deselect()
 	
 	history.create_action("Duplicate")
@@ -640,13 +635,14 @@ func duplicate_objects():
 		
 		object.global_position = obj.global_position
 		object.global_rotation = obj.global_rotation
-		
-		level.add_child(object)
 		select_object(object, true)
 		
 		history.add_do_method(_add_object_to_level.bind(object))
 		history.add_do_reference(object)
 		history.add_undo_method(_remove_object_from_level.bind(object))
+		history.add_undo_reference(object)
+	
+	history.commit_action()
 	
 	update_selection_center()
 
@@ -731,4 +727,7 @@ func _add_object_to_level(object : Node2D):
 
 func _remove_object_from_level(object : Node2D):
 	remove_from_selection(object)
-	level.remove_child(object)
+	if object.get_parent() == level:
+		level.remove_child(object)
+	else:
+		pass
