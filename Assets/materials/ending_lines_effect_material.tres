@@ -1,0 +1,38 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://bgrmalhd7klfl"]
+
+[sub_resource type="Curve" id="Curve_6ee17"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.17999999, 0.74409443), 0.05686817, 0.05686817, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1odxn"]
+curve = SubResource("Curve_6ee17")
+
+[sub_resource type="Curve" id="Curve_1odxn"]
+_data = [Vector2(0, 0), 0.0, 1.9886364, 0, 1, Vector2(0.50285715, 1), 1.9886364, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1d6bv"]
+_limits = [0.0, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 6), 0.0, 0.0, 0, 0, Vector2(1, 6), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ip3b2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_jdhsk"]
+curve_x = SubResource("Curve_1odxn")
+curve_y = SubResource("Curve_1d6bv")
+curve_z = SubResource("Curve_ip3b2")
+
+[resource]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(50, 50, 50)
+angle_min = 90.000015
+angle_max = 270.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveXYZTexture_jdhsk")
+alpha_curve = SubResource("CurveTexture_1odxn")

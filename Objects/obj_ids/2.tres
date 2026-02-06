@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://l17wjirqwt7x"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://l17wjirqwt7x"]
 
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="1_7gggv"]
 [ext_resource type="PackedScene" uid="uid://cq4so1doqjh56" path="res://Scenes/spikes/spike.tscn" id="1_b2mn5"]

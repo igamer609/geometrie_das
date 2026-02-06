@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bnn5jt8hfo8uf"]
+[gd_scene format=3 uid="uid://bnn5jt8hfo8uf"]
 
 [ext_resource type="Script" uid="uid://p0mul7ebjb51" path="res://Scripts/General/Level.gd" id="1_p51vv"]
 [ext_resource type="TileSet" uid="uid://cfh26e0o581fl" path="res://Assets/Base_Tileset.tres" id="3_8j3yq"]
@@ -11,7 +11,7 @@
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="8_oxngu"]
 [ext_resource type="Texture2D" uid="uid://bsyh6saqughub" path="res://Assets/buttons/slider textures/slider_notch.png" id="11_bfda4"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="11_hqfqt"]
-[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndParticles2.gd" id="12_68h1q"]
+[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndEffects.gd" id="12_68h1q"]
 [ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="12_f0gky"]
 [ext_resource type="Texture2D" uid="uid://g5687ofk6b86" path="res://Assets/buttons/slider textures/notch_action.png" id="12_q8v4o"]
 [ext_resource type="Texture2D" uid="uid://cbrk0jtu1s2ip" path="res://Assets/other/level_complete.png" id="13_26b15"]

@@ -14,8 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bwinen8ft4rtu" path="res://Assets/buttons/slider textures/slider_background.png" id="12_skbfn"]
 [ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="13_1d4n8"]
 [ext_resource type="Script" uid="uid://crqxuhvgwmvno" path="res://Scripts/General/SoundSlider.gd" id="14_07gf6"]
-[ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="15_kpvsc"]
-[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndParticles2.gd" id="16_foyog"]
+[ext_resource type="PackedScene" uid="uid://cfdt0mdpbxvon" path="res://Scenes/Levels/LevelItems/EndEffects.tscn" id="16_vo7p4"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="17_p3r8p"]
 [ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="18_sgf4h"]
 [ext_resource type="Texture2D" uid="uid://cbrk0jtu1s2ip" path="res://Assets/other/level_complete.png" id="19_akev4"]
@@ -46,114 +45,43 @@ texture_margin_top = 24.0
 texture_margin_bottom = 24.0
 axis_stretch_horizontal = 1
 
-[sub_resource type="Curve" id="Curve_5qmfb"]
-_data = [Vector2(0, 0.924793), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_upd24"]
-width = 826
-curve = SubResource("Curve_5qmfb")
-
-[sub_resource type="Curve" id="Curve_6ee17"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0769231, 1), 0.0, 0.0, 0, 0, Vector2(0.674208, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_omqxk"]
-curve = SubResource("Curve_6ee17")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f5t7b"]
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(36.35, 1, 1)
-angle_min = -720.0
-angle_max = 720.0
-direction = Vector3(0, 0, 0)
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.0
-scale_max = 17.13
-alpha_curve = SubResource("CurveTexture_omqxk")
-
-[sub_resource type="Curve" id="Curve_0komb"]
-_data = [Vector2(0, 0), 0.0, -0.25, 0, 0, Vector2(1, 1), -0.458221, 0.441558, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_45fmw"]
-curve = SubResource("Curve_0komb")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_teeq7"]
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(36.35, 1, 1)
-angle_min = -720.0
-angle_max = 720.0
-direction = Vector3(0, 0, 0)
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-scale_min = 10.0
-scale_max = 10.0
-scale_curve = SubResource("CurveTexture_45fmw")
-alpha_curve = SubResource("CurveTexture_omqxk")
-
 [sub_resource type="Animation" id="Animation_ws4a1"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("EndParticles:emitting")
+tracks/0/path = NodePath("EndUI/NinePatchRect:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(199, 2000)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("EndUI/NinePatchRect:position")
+tracks/1/path = NodePath("EndUI:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(199, 2000)]
+"update": 1,
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("EndUI:visible")
+tracks/2/path = NodePath("EndUI/LevelComplete:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EndUI/LevelComplete:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("EndParticles2:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_jtc8t"]
@@ -162,62 +90,38 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("EndParticles:emitting")
+tracks/0/path = NodePath("EndUI/NinePatchRect:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("EndUI/NinePatchRect:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(1.5, 2.5),
 "transitions": PackedFloat32Array(0.225313, 1),
 "update": 0,
 "values": [Vector2(199, 2000), Vector2(199, 51)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("EndUI:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EndUI/LevelComplete:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EndUI/LevelComplete:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.6, 1.3, 1.7),
 "transitions": PackedFloat32Array(0.203063, 2, 1, 3.4822, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("EndParticles2:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3aw7d"]
@@ -247,7 +151,7 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_5v3uq")
 alpha_curve = SubResource("CurveTexture_k3lcr")
 
-[node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "end_particles", "end_animation", "death_particle")]
+[node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "end_effects", "end_animation", "death_particle")]
 process_mode = 3
 script = ExtResource("1_jl4xf")
 start_bg = Color(0, 0.270588, 0.882353, 1)
@@ -260,7 +164,7 @@ pause_ui = NodePath("Universal/PauseUI")
 end_ui = NodePath("Universal/EndAnimation/EndUI")
 restart_button = NodePath("Universal/PauseUI/Control/Rect/Restart")
 exit_button = NodePath("Universal/PauseUI/Control/Rect/Exit")
-end_particles = NodePath("Universal/EndAnimation/EndParticles")
+end_effects = NodePath("Universal/EndAnimation/EndEffect")
 end_animation = NodePath("Universal/EndAnimation/EndAnimation")
 death_particle = NodePath("Universal/DeathEffect")
 
@@ -268,7 +172,7 @@ death_particle = NodePath("Universal/DeathEffect")
 
 [node name="Player" parent="." unique_id=1199746068 instance=ExtResource("3_tq51e")]
 process_mode = 1
-position = Vector2(0, -8)
+position = Vector2(-64, -8)
 
 [node name="Universal" type="Node" parent="." unique_id=697846460]
 process_mode = 1
@@ -505,21 +409,7 @@ vertical_alignment = 1
 
 [node name="EndAnimation" type="Node2D" parent="Universal" unique_id=724575211]
 
-[node name="EndParticles" type="GPUParticles2D" parent="Universal/EndAnimation" unique_id=618667435]
-emitting = false
-texture = SubResource("CurveTexture_upd24")
-lifetime = 2.0
-one_shot = true
-process_material = SubResource("ParticleProcessMaterial_f5t7b")
-
-[node name="EndParticles2" type="GPUParticles2D" parent="Universal/EndAnimation" unique_id=1984740115]
-texture_filter = 1
-emitting = false
-amount = 1
-texture = ExtResource("15_kpvsc")
-one_shot = true
-process_material = SubResource("ParticleProcessMaterial_teeq7")
-script = ExtResource("16_foyog")
+[node name="EndEffect" parent="Universal/EndAnimation" unique_id=1452284093 instance=ExtResource("16_vo7p4")]
 
 [node name="EndUI" type="CanvasLayer" parent="Universal/EndAnimation" unique_id=406471801]
 layer = 7

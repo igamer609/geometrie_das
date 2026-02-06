@@ -39,7 +39,7 @@ var _loaded_path : String
 @export var restart_button : TextureButton
 @export var exit_button : TextureButton
 
-@export var end_particles : Node
+@export var end_effects : EndEffects
 @export var end_animation : Node
 
 @export var death_particle : Node
@@ -170,7 +170,7 @@ func player_respawn():
 	player.velocity = Vector2.ZERO
 	player.gravity = player.CUBE_GRAVITY
 	
-	player.global_position.x = 0
+	player.global_position.x = -64
 	player.global_position.y = -12
 	
 	ground.global_position = Vector2(player.global_position.x + 3500, 0)
@@ -180,7 +180,6 @@ func player_respawn():
 	follow_cam = true
 
 func on_gamemode_change(portal, gamemode):
-	
 	if portal:
 		if gamemode in ["cube"]:
 			ceiling.visible = false
@@ -286,7 +285,8 @@ func _end_level():
 	if _playtesting:
 		_verify_level()
 	
-	end_particles.global_position = player.global_position
+	end_effects.sync_to_pos(player.global_position)
+	end_effects.activate_end_anim()
 	end_animation.play("end_anim")
 	
 	player_cam.position_smoothing_enabled = false

@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://cfdt0mdpbxvon"]
+
+[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndEffects.gd" id="1_napjh"]
+[ext_resource type="Material" uid="uid://bgrmalhd7klfl" path="res://Assets/materials/ending_lines_effect_material.tres" id="2_ln66d"]
+[ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="3_hldb8"]
+
+[sub_resource type="Animation" id="Animation_1in4p"]
+resource_name = "EndEffects"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EndParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndRingEffect:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.36666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_5mdfs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EndParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndRingEffect:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eghu2"]
+_data = {
+&"EndEffects": SubResource("Animation_1in4p"),
+&"RESET": SubResource("Animation_5mdfs")
+}
+
+[sub_resource type="Curve" id="Curve_5qmfb"]
+_data = [Vector2(0, 0.924793), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_owsu4"]
+width = 826
+curve = SubResource("Curve_5qmfb")
+
+[sub_resource type="Curve" id="Curve_qyny4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.24571429, 1), -1.2199781e-07, -1.2199781e-07, 0, 0, Vector2(0.56285715, 0.4589426), -1.9774514, -1.9774514, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_omqxk"]
+curve = SubResource("Curve_qyny4")
+
+[sub_resource type="Curve" id="Curve_427cd"]
+_data = [Vector2(0, 0), 0.0, -0.25, 0, 0, Vector2(1, 1), -0.458221, 0.441558, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_45fmw"]
+curve = SubResource("Curve_427cd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uk4xf"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(36.35, 1, 1)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_45fmw")
+alpha_curve = SubResource("CurveTexture_omqxk")
+
+[node name="EndEffect" type="Node2D" unique_id=1452284093]
+script = ExtResource("1_napjh")
+
+[node name="Animation" type="AnimationPlayer" parent="." unique_id=566104650]
+libraries/ = SubResource("AnimationLibrary_eghu2")
+
+[node name="EndParticles" type="GPUParticles2D" parent="." unique_id=1462624242]
+emitting = false
+texture = SubResource("CurveTexture_owsu4")
+lifetime = 2.0
+one_shot = true
+process_material = ExtResource("2_ln66d")
+
+[node name="EndRingEffect" type="GPUParticles2D" parent="." unique_id=1355922255]
+texture_filter = 1
+emitting = false
+amount = 1
+texture = ExtResource("3_hldb8")
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_uk4xf")

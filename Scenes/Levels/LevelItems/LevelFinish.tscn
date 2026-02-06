@@ -1,12 +1,58 @@
-[gd_scene load_steps=2 format=3 uid="uid://b741ehrnqe0e3"]
+[gd_scene format=3 uid="uid://b741ehrnqe0e3"]
 
-[ext_resource type="Texture2D" uid="uid://bk4p47iobsrht" path="res://Assets/other/finish.png" id="1_6fgqf"]
+[ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="1_7wt8d"]
+[ext_resource type="Shader" uid="uid://b6tn3u3au34ka" path="res://Scenes/shader/RepeatAtlasTexture.gdshader" id="1_at41l"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_535kv"]
+shader = ExtResource("1_at41l")
+shader_parameter/region_top_left = Vector2(0, 240)
+shader_parameter/region_size = Vector2(16, 16)
+shader_parameter/repeat_amount = Vector2(1, 1)
 
-[node name="Finish" type="Sprite2D" parent="."]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_at41l"]
+shader = ExtResource("1_at41l")
+shader_parameter/region_top_left = Vector2(48, 16)
+shader_parameter/region_size = Vector2(16, 16)
+shader_parameter/repeat_amount = Vector2(48, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r2bls"]
+shader = ExtResource("1_at41l")
+shader_parameter/region_top_left = Vector2(0, 16)
+shader_parameter/region_size = Vector2(16, 16)
+shader_parameter/repeat_amount = Vector2(48, 14)
+
+[node name="LevelFinish" type="Node2D" unique_id=145923703]
+
+[node name="Glow" type="Sprite2D" parent="." unique_id=1446228423]
 z_index = 5
 texture_filter = 1
-position = Vector2(128, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("1_6fgqf")
+texture_repeat = 2
+material = SubResource("ShaderMaterial_535kv")
+position = Vector2(-33.111332, 9.228056e-07)
+rotation = -1.5707964
+scale = Vector2(2, 0.26493227)
+texture = ExtResource("1_7wt8d")
+region_filter_clip_enabled = true
+
+[node name="Wall" type="Sprite2D" parent="." unique_id=265121721]
+z_index = 5
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_at41l")
+position = Vector2(6.4, 0)
+rotation = -1.5707964
+scale = Vector2(2, 0.05)
+texture = ExtResource("1_7wt8d")
+region_filter_clip_enabled = true
+
+[node name="Background" type="Sprite2D" parent="." unique_id=914264597]
+z_index = 5
+texture_filter = 1
+texture_repeat = 2
+material = SubResource("ShaderMaterial_r2bls")
+position = Vector2(90, -8.1975327e-07)
+rotation = -1.5707964
+scale = Vector2(2, 0.6)
+texture = ExtResource("1_7wt8d")
+region_rect = Rect2(0, 0, 480, 64)
+region_filter_clip_enabled = true

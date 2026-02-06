@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cma8h3ddt0i6a"]
+[gd_scene format=3 uid="uid://cma8h3ddt0i6a"]
 
 [ext_resource type="Script" uid="uid://p0mul7ebjb51" path="res://Scripts/General/Level.gd" id="1_yf7va"]
 [ext_resource type="PackedScene" uid="uid://bfkbo56nphh1i" path="res://Scenes/player_full.tscn" id="3_tq51e"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="13_1d4n8"]
 [ext_resource type="Script" uid="uid://crqxuhvgwmvno" path="res://Scripts/General/SoundSlider.gd" id="14_07gf6"]
 [ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="15_kpvsc"]
-[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndParticles2.gd" id="16_foyog"]
+[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndEffects.gd" id="16_foyog"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="17_p3r8p"]
 [ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="18_sgf4h"]
 [ext_resource type="Texture2D" uid="uid://cbrk0jtu1s2ip" path="res://Assets/other/level_complete.png" id="19_akev4"]
@@ -268,7 +268,7 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_5v3uq")
 alpha_curve = SubResource("CurveTexture_k3lcr")
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("player_parent", "ceiling", "ground", "endpos", "pause_ui", "end_ui", "end_particles", "end_animation", "death_particle")]
+[node name="Main" type="Node2D" unique_id=355005566 node_paths=PackedStringArray("player_parent", "ceiling", "ground", "endpos", "pause_ui", "end_ui", "end_particles", "end_animation", "death_particle")]
 process_mode = 3
 script = ExtResource("1_yf7va")
 start_bg = Color(0, 0.270588, 0.882353, 1)
@@ -282,38 +282,38 @@ end_particles = NodePath("Universal/EndAnimation/EndParticles")
 end_animation = NodePath("Universal/EndAnimation/EndAnimation")
 death_particle = NodePath("Universal/DeathEffect")
 
-[node name="Level" type="Node2D" parent="."]
+[node name="Level" type="Node2D" parent="." unique_id=80291719]
 
-[node name="Player" parent="." instance=ExtResource("3_tq51e")]
+[node name="Player" parent="." unique_id=1801704217 instance=ExtResource("3_tq51e")]
 process_mode = 1
 position = Vector2(0, -8)
 
-[node name="Universal" type="Node" parent="."]
+[node name="Universal" type="Node" parent="." unique_id=1571918961]
 process_mode = 1
 
-[node name="EndPosition" type="Node2D" parent="Universal"]
+[node name="EndPosition" type="Node2D" parent="Universal" unique_id=887494940]
 process_mode = 1
 position = Vector2(-592, -39.975)
 
-[node name="Node2D" parent="Universal/EndPosition" instance=ExtResource("4_irpq7")]
+[node name="Node2D" parent="Universal/EndPosition" unique_id=1364245543 instance=ExtResource("4_irpq7")]
 
-[node name="Ground" parent="Universal" instance=ExtResource("5_vb1ue")]
+[node name="Ground" parent="Universal" unique_id=1715738553 instance=ExtResource("5_vb1ue")]
 process_mode = 1
 position = Vector2(3500, 0)
 
-[node name="Ceiling" parent="Universal" instance=ExtResource("5_vb1ue")]
+[node name="Ceiling" parent="Universal" unique_id=1148347687 instance=ExtResource("5_vb1ue")]
 process_mode = 1
 visible = false
 position = Vector2(1728, 271.9)
 rotation = 3.14159
 
-[node name="PauseUI" type="CanvasLayer" parent="Universal"]
+[node name="PauseUI" type="CanvasLayer" parent="Universal" unique_id=1118680758]
 process_mode = 3
 layer = 8
 visible = false
 script = ExtResource("6_iw02n")
 
-[node name="Control" type="Control" parent="Universal/PauseUI"]
+[node name="Control" type="Control" parent="Universal/PauseUI" unique_id=516011576]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -321,7 +321,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Rect" type="Panel" parent="Universal/PauseUI/Control"]
+[node name="Rect" type="Panel" parent="Universal/PauseUI/Control" unique_id=605088283]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -334,7 +334,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h6nsj")
 
-[node name="Exit" type="TextureButton" parent="Universal/PauseUI/Control/Rect"]
+[node name="Exit" type="TextureButton" parent="Universal/PauseUI/Control/Rect" unique_id=1233352795]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -351,7 +351,7 @@ grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
 stretch_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Exit"]
+[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Exit" unique_id=1893533321]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -364,7 +364,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_y3fcr")
 
-[node name="LevelName" type="Label" parent="Universal/PauseUI/Control/Rect"]
+[node name="LevelName" type="Label" parent="Universal/PauseUI/Control/Rect" unique_id=252766431]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -387,7 +387,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="Progress" type="ProgressBar" parent="Universal/PauseUI/Control/Rect"]
+[node name="Progress" type="ProgressBar" parent="Universal/PauseUI/Control/Rect" unique_id=1346356736]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -409,7 +409,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_0fpk7")
 step = 1.0
 value = 34.0
 
-[node name="Practice" type="ProgressBar" parent="Universal/PauseUI/Control/Rect"]
+[node name="Practice" type="ProgressBar" parent="Universal/PauseUI/Control/Rect" unique_id=1382843300]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -430,7 +430,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_g00ub")
 theme_override_styles/fill = SubResource("StyleBoxFlat_bksmn")
 step = 1.0
 
-[node name="Control" type="Control" parent="Universal/PauseUI/Control/Rect"]
+[node name="Control" type="Control" parent="Universal/PauseUI/Control/Rect" unique_id=1222948629]
 layout_mode = 1
 anchor_top = 0.744
 anchor_right = 1.0
@@ -439,7 +439,7 @@ offset_top = -4.25601
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Music" type="HSlider" parent="Universal/PauseUI/Control/Rect/Control"]
+[node name="Music" type="HSlider" parent="Universal/PauseUI/Control/Rect/Control" unique_id=1740718112]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
@@ -465,7 +465,7 @@ value = 1.0
 script = ExtResource("14_07gf6")
 bus_name = "Music"
 
-[node name="Label" type="Label" parent="Universal/PauseUI/Control/Rect/Control"]
+[node name="Label" type="Label" parent="Universal/PauseUI/Control/Rect/Control" unique_id=826859839]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -486,7 +486,7 @@ text = "Music"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SFX" type="HSlider" parent="Universal/PauseUI/Control/Rect/Control"]
+[node name="SFX" type="HSlider" parent="Universal/PauseUI/Control/Rect/Control" unique_id=918570951]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
@@ -511,7 +511,7 @@ value = 1.0
 script = ExtResource("14_07gf6")
 bus_name = "SFX"
 
-[node name="Label2" type="Label" parent="Universal/PauseUI/Control/Rect/Control"]
+[node name="Label2" type="Label" parent="Universal/PauseUI/Control/Rect/Control" unique_id=1296069750]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -533,16 +533,16 @@ text = "SFX
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EndAnimation" type="Node2D" parent="Universal"]
+[node name="EndAnimation" type="Node2D" parent="Universal" unique_id=1201406160]
 
-[node name="EndParticles" type="GPUParticles2D" parent="Universal/EndAnimation"]
+[node name="EndParticles" type="GPUParticles2D" parent="Universal/EndAnimation" unique_id=1239958720]
 emitting = false
 texture = SubResource("CurveTexture_upd24")
 lifetime = 2.0
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_f5t7b")
 
-[node name="EndParticles2" type="GPUParticles2D" parent="Universal/EndAnimation"]
+[node name="EndParticles2" type="GPUParticles2D" parent="Universal/EndAnimation" unique_id=1361773302]
 texture_filter = 1
 emitting = false
 amount = 1
@@ -551,11 +551,11 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_teeq7")
 script = ExtResource("16_foyog")
 
-[node name="EndUI" type="CanvasLayer" parent="Universal/EndAnimation"]
+[node name="EndUI" type="CanvasLayer" parent="Universal/EndAnimation" unique_id=252021450]
 layer = 7
 visible = false
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Universal/EndAnimation/EndUI"]
+[node name="NinePatchRect" type="NinePatchRect" parent="Universal/EndAnimation/EndUI" unique_id=444056724]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -575,7 +575,7 @@ patch_margin_top = 125
 patch_margin_right = 125
 patch_margin_bottom = 125
 
-[node name="Exit" type="TextureButton" parent="Universal/EndAnimation/EndUI/NinePatchRect"]
+[node name="Exit" type="TextureButton" parent="Universal/EndAnimation/EndUI/NinePatchRect" unique_id=278163700]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -592,7 +592,7 @@ grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
 stretch_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Exit"]
+[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Exit" unique_id=497049260]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -605,7 +605,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_y3fcr")
 
-[node name="Restart" type="TextureButton" parent="Universal/EndAnimation/EndUI/NinePatchRect"]
+[node name="Restart" type="TextureButton" parent="Universal/EndAnimation/EndUI/NinePatchRect" unique_id=1228070370]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -622,7 +622,7 @@ grow_vertical = 2
 texture_normal = SubResource("AtlasTexture_80ntc")
 stretch_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Restart"]
+[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect/Restart" unique_id=855445445]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -635,7 +635,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("18_sgf4h")
 
-[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect"]
+[node name="TextureRect" type="TextureRect" parent="Universal/EndAnimation/EndUI/NinePatchRect" unique_id=1652073796]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -650,7 +650,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("19_akev4")
 
-[node name="LevelComplete" type="TextureRect" parent="Universal/EndAnimation/EndUI"]
+[node name="LevelComplete" type="TextureRect" parent="Universal/EndAnimation/EndUI" unique_id=1300290421]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -667,12 +667,10 @@ scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(384, 72)
 texture = ExtResource("19_akev4")
 
-[node name="EndAnimation" type="AnimationPlayer" parent="Universal/EndAnimation"]
-libraries = {
-&"": SubResource("AnimationLibrary_3aw7d")
-}
+[node name="EndAnimation" type="AnimationPlayer" parent="Universal/EndAnimation" unique_id=170222794]
+libraries/ = SubResource("AnimationLibrary_3aw7d")
 
-[node name="DeathEffect" type="GPUParticles2D" parent="Universal"]
+[node name="DeathEffect" type="GPUParticles2D" parent="Universal" unique_id=1212493122]
 emitting = false
 amount = 1
 texture = ExtResource("20_fq7st")
@@ -680,68 +678,68 @@ lifetime = 0.4
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_nvx1k")
 
-[node name="BG" type="ParallaxBackground" parent="Universal"]
+[node name="BG" type="ParallaxBackground" parent="Universal" unique_id=1861893775]
 process_mode = 1
 offset = Vector2(0, -200)
 scale = Vector2(0.375, 0.375)
 transform = Transform2D(0.375, 0, 0, 0.375, 0, -200)
 scroll_offset = Vector2(300, 150)
 
-[node name="BGLayer" type="ParallaxLayer" parent="Universal/BG"]
+[node name="BGLayer" type="ParallaxLayer" parent="Universal/BG" unique_id=1662809180]
 motion_scale = Vector2(0.45, 0.375)
 motion_mirroring = Vector2(2000, 1500)
 
-[node name="BGSprite" type="Sprite2D" parent="Universal/BG/BGLayer"]
+[node name="BGSprite" type="Sprite2D" parent="Universal/BG/BGLayer" unique_id=337255148]
 modulate = Color(0, 0.533333, 1, 1)
 texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("21_1gw2q")
 
-[node name="BG_triggers" type="Node" parent="."]
+[node name="BG_triggers" type="Node" parent="." unique_id=1633624444]
 
-[node name="bg_trigger" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger" parent="BG_triggers" unique_id=715986106 instance=ExtResource("22_yqasf")]
 position = Vector2(904, -288)
 color = Color(0.054902, 0, 0.529412, 1)
 fade_time = 2.0
 
-[node name="bg_trigger2" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger2" parent="BG_triggers" unique_id=1640148527 instance=ExtResource("22_yqasf")]
 position = Vector2(1640, -336)
 color = Color(0.815686, 0, 0.529412, 1)
 fade_time = 2.0
 
-[node name="bg_trigger10" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger10" parent="BG_triggers" unique_id=1852071143 instance=ExtResource("22_yqasf")]
 position = Vector2(2807, -336)
 fade_time = 5.0
 
-[node name="bg_trigger3" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger3" parent="BG_triggers" unique_id=55311517 instance=ExtResource("22_yqasf")]
 position = Vector2(3320, -336)
 color = Color(0.901961, 0.721569, 0, 1)
 
-[node name="bg_trigger4" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger4" parent="BG_triggers" unique_id=1764807733 instance=ExtResource("22_yqasf")]
 position = Vector2(3336, -336)
 color = Color(0, 0.792157, 0, 1)
 fade_time = 4.0
 
-[node name="bg_trigger5" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger5" parent="BG_triggers" unique_id=1344579440 instance=ExtResource("22_yqasf")]
 position = Vector2(3864, -336)
 color = Color(0, 0.792157, 0.568627, 1)
 fade_time = 3.0
 
-[node name="bg_trigger6" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger6" parent="BG_triggers" unique_id=1982635291 instance=ExtResource("22_yqasf")]
 position = Vector2(4495, -336)
 color = Color(0, 0.792157, 0.568627, 1)
 fade_time = 2.5
 
-[node name="bg_trigger7" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger7" parent="BG_triggers" unique_id=1926636166 instance=ExtResource("22_yqasf")]
 position = Vector2(4808, -336)
 color = Color(0.980392, 0, 0.0823529, 1)
 
-[node name="bg_trigger8" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger8" parent="BG_triggers" unique_id=1308115023 instance=ExtResource("22_yqasf")]
 position = Vector2(5064, -336)
 color = Color(1, 0.4, 0, 1)
 fade_time = 0.5
 
-[node name="bg_trigger9" parent="BG_triggers" instance=ExtResource("22_yqasf")]
+[node name="bg_trigger9" parent="BG_triggers" unique_id=103823828 instance=ExtResource("22_yqasf")]
 position = Vector2(5255, -336)
 color = Color(0.529412, 0, 0.65098, 1)
 fade_time = 0.5

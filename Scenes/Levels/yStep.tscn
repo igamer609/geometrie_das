@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://law3oijol76n"]
+[gd_scene format=3 uid="uid://law3oijol76n"]
 
 [ext_resource type="Script" uid="uid://p0mul7ebjb51" path="res://Scripts/General/Level.gd" id="1_hujsc"]
 [ext_resource type="TileSet" uid="uid://cfh26e0o581fl" path="res://Assets/Base_Tileset.tres" id="2_3iabf"]
@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="13_p2ldd"]
 [ext_resource type="Script" uid="uid://crqxuhvgwmvno" path="res://Scripts/General/SoundSlider.gd" id="14_lmyef"]
 [ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="15_q88r8"]
-[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndParticles2.gd" id="16_ug1q1"]
+[ext_resource type="Script" uid="uid://cgge6bic0uh6j" path="res://Scripts/General/EndEffects.gd" id="16_ug1q1"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="17_57tn2"]
 [ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="18_on61j"]
 [ext_resource type="Texture2D" uid="uid://cbrk0jtu1s2ip" path="res://Assets/other/level_complete.png" id="19_fnijo"]

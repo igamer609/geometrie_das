@@ -4,9 +4,11 @@
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
 
-extends GPUParticles2D
+class_name EndEffects
+extends Node2D
 
-#to be added to scene only on level end!
+func activate_end_anim() -> void:
+	$Animation.play("EndEffects")
 
-func _process(delta):
-	global_position = get_parent().get_child(0).global_position
+func sync_to_pos(new_pos : Vector2) -> void:
+	self.global_position = new_pos

@@ -40,6 +40,7 @@ var last_uid : int = 0
 var history = UndoRedo.new()
 
 var last_click_pos : Vector2
+var last_grid_pos : Vector2
 var select_index : int = 0
 var zoom_multiplier : float = 1.0
 
@@ -49,6 +50,8 @@ var menu_state = false
 
 var _level_data : Dictionary = {"local_id": 0, "title" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
 var _level_path : String
+
+var _current_spacial_index : Dictionary[Vector2, Array] = {}
 
 var selection_center = null
 
@@ -112,14 +115,19 @@ func _get_data_of_objects(objects : Array[Node]):
 	
 	return obj_data
 
-func _load_obj(obj_id : int, uid : int, pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
-	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other)
+func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
+	last_uid += 1
+	var object : GDObject = GDObject.create_object(obj_id, last_uid, pos, rot, other)
+	
+	if not _current_spacial_index.has(pos):
+		_current_spacial_index[pos] = []
+	_current_spacial_index[pos].append(object)
 	
 	level.add_child(object)
 	return object
 
 func _generate_unique_id() -> int:
-	var time : int = Time.get_unix_time_from_system()
+	var time : int =int(Time.get_unix_time_from_system())
 	var rand : int = randi() % 10000 + 1
 	return time * 10000 + rand
 
@@ -157,7 +165,7 @@ func _load_level(objects):
 	delete_objects()
 	
 	for obj in objects:
-		_load_obj(obj["obj_id"], obj["uid"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
+		_load_obj(obj["obj_id"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
 func load_level_from_info(lvl_info, path):
 	_level_data = lvl_info["info"]
@@ -295,7 +303,11 @@ func _unhandled_input(event : InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if edit_mode == EditorMode.BUILD && current_id != 0:
-				place_object()
+				if  select_mode == SelectionMode.SINGLE:
+					place_object()
+				elif select_mode == SelectionMode.SWIPE:
+					swiping = true
+					place_object()
 			elif edit_mode == EditorMode.EDIT:
 				if select_mode == SelectionMode.SINGLE:
 					var click_pos : Vector2 = get_global_mouse_position()
@@ -317,6 +329,7 @@ func _unhandled_input(event : InputEvent) -> void:
 					swiping = true
 					swipe_start = get_global_mouse_position()
 		if not event.pressed:
+			last_click_pos = Vector2.ZERO
 			if swiping:
 				swiping = false
 				queue_redraw()
@@ -325,14 +338,22 @@ func _unhandled_input(event : InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if event.button_mask in [MOUSE_BUTTON_MASK_MIDDLE, MOUSE_BUTTON_MASK_RIGHT]:
 			camera.global_position -= event.relative * 0.50
-			
 			update_grid_position()
-		elif event.button_mask in [MOUSE_BUTTON_LEFT] and swiping:
+		elif event.button_mask in [MOUSE_BUTTON_LEFT] and swiping and edit_mode == EditorMode.EDIT:
 			swipe_rect = Rect2(swipe_start, get_global_mouse_position() - swipe_start)
 			queue_redraw()
+		elif event.button_mask in [MOUSE_BUTTON_LEFT] and swiping and edit_mode == EditorMode.BUILD:
+			
+			var current_grid_pos : Vector2 = get_global_mouse_position()
+			current_grid_pos.x = snapped(current_grid_pos.x - 8, 16)
+			current_grid_pos.y = snapped(current_grid_pos.y - 8, 16)
+			
+			if current_id != 0 and current_grid_pos != last_grid_pos:
+				place_object()
+				last_grid_pos = current_grid_pos
 
 func _draw() -> void:
-	if swiping:
+	if swiping && edit_mode == EditorMode.EDIT:
 		draw_rect(swipe_rect, Color(0, 1, 0, 1), false)
 
 func _zoom(amount : float):
@@ -356,24 +377,59 @@ func select_item_id(new_id):
 	if new_id and new_id != current_id:
 		current_id = new_id
 
-func place_object(return_obj = false):
+func _is_same_object_at_pos(pos : Vector2) -> bool:
+	if not _current_spacial_index.has(pos):
+		return false
+	else:
+		if not _current_spacial_index[pos].is_empty():
+			
+			for object : GDObject in _current_spacial_index[pos]:
+				if object.obj_res.id == current_id:
+					return true
 	
-	last_uid += 1
+	return false
+
+func _update_obj_ref_position(obj : GDObject, old_pos : Vector2, pos : Vector2) -> void:
+	
+	if _current_spacial_index.has(old_pos):
+		
+		var obj_array : Array = _current_spacial_index[old_pos]
+		obj_array.erase(obj)
+		
+		if obj_array.is_empty():
+			_current_spacial_index.erase(old_pos)
+	
+	obj.global_position = pos
+	
+	if not _current_spacial_index.has(pos):
+		_current_spacial_index[pos] = []
+	
+	_current_spacial_index[pos].append(obj)
+
+
+func place_object(return_obj = true) -> GDObject:
+	
 	var pos : Vector2 = get_global_mouse_position()
 	pos.x = snapped(pos.x - 8, 16)
 	pos.y = snapped(pos.y - 8, 16)
 	
+	if _is_same_object_at_pos(pos):
+		return
+	
 	if selected_objects.size() == 1 and selected_objects[0].obj_res.id == current_id:
 		history.create_action("Place object")
 		
-		var object : Node2D = _load_obj(current_id, last_uid, pos,  0,  selected_objects[0].other)
+		var object : Node2D = _load_obj(current_id, pos,  0,  selected_objects[0].other)
+		
 		var rot_center : Node2D = Node2D.new()
 		rot_center.global_position = object.get_child(0).global_position
+		
 		level.add_child(rot_center)
 		object.reparent(rot_center)
 		rot_center.rotate(selected_objects[0].global_rotation)
 		var new_pos : Vector2 = object.global_position
 		var new_rot : float = object.global_rotation
+		
 		object.reparent(level)
 		object.global_position = new_pos
 		object.global_rotation = new_rot
@@ -388,13 +444,9 @@ func place_object(return_obj = false):
 		if return_obj:
 			return object
 	else:
-		var item : GDObjectResource = ResourceLibrary.library[current_id]
 		history.create_action("Place object")
 		
-		var object : Node2D = obj_base.instantiate()
-		object.obj_res = item
-		object.uid = last_uid
-		object.global_position = pos
+		var object : Node2D = _load_obj(current_id, pos, 0, {})
 		
 		history.add_do_method(_add_object_to_level.bind(object))
 		history.add_do_reference(object)
@@ -405,6 +457,8 @@ func place_object(return_obj = false):
 		
 		if return_obj:
 			return object
+	
+	return
 
 func select_object(object : Node2D, pasted : bool = false):
 	if object  not in selected_objects:
@@ -433,6 +487,7 @@ func select_all():
 		if object.is_class("StaticBody2D"):
 			select_object(object, false)
 
+# To be changed! Has to use formula for calculating center of gravity for n objects (x = x1 + x2 + ... + xn / n, same for y)
 func update_selection_center():
 	if len(selected_objects) >= 2:
 		if selection_center:
@@ -505,32 +560,32 @@ func move_objects(direction, amount : float) -> void:
 	
 	history.create_action("Move")
 	
-	for object in moved_obj:
+	for object : GDObject in moved_obj:
 		
 		if not is_instance_valid(object):
 			continue
 		
-		history.add_undo_property(object, "global_position", object.global_position)
+		var old_pos : Vector2 = object.global_position
+		var new_pos : Vector2 = object.global_position
 		
 		if direction == "Up":
-			object.global_position.y -= roundi(amount * 16)
+			new_pos.y -= roundi(amount * 16)
 		elif direction == "Down":
-			object.global_position.y += roundi(amount * 16)
+			new_pos.y += roundi(amount * 16)
 		elif direction == "Left":
-			object.global_position.x -= roundi(amount * 16)
+			new_pos.x -= roundi(amount * 16)
 		elif direction == "Right":
-			object.global_position.x += roundi(amount * 16)
+			new_pos.x += roundi(amount * 16)
 		
-		history.add_do_property(object, "global_position", object.global_position)
-		
-		update_selection_center()
+		history.add_undo_method(_update_obj_ref_position.bind(object, new_pos, old_pos))
+		history.add_do_method(_update_obj_ref_position.bind(object, old_pos, new_pos))
 	
 	history.commit_action()
+	update_selection_center()
 
 func rotate_objects(direction):
 	
 	history.create_action("Rotate")
-	
 	
 	if selection_center and len(selected_objects) >= 2:
 		for object in selected_objects:
@@ -600,13 +655,7 @@ func paste_objects():
 		var pasted_objects = []
 		
 		for object in clipboard:
-			var item = ResourceLibrary.library[object[0].obj_res.id]
-		
-			var new_object = obj_base.instantiate()
-			new_object.obj_res = item
-			
-			new_object.global_position = Vector2(snapped((camera.to_global(object[1])).x, 16) , snapped((camera.to_global(object[1])).y, 16) )
-			new_object.global_rotation = object[2]
+			var new_object : GDObject = _load_obj(object[0].obj_res.id, Vector2(snapped((camera.to_global(object[1])).x, 16) , snapped((camera.to_global(object[1])).y, 16) ), object[2], object[3])
 			
 			pasted_objects.append(new_object)
 			
@@ -626,15 +675,10 @@ func duplicate_objects():
 	
 	history.create_action("Duplicate")
 	
-	for obj in objects_to_duplicate:
+	for obj : GDObject in objects_to_duplicate:
 		
-		var item =ResourceLibrary.library[obj.obj_res.id]
-	
-		var object = obj_base.instantiate()
-		object.obj_res = item
-		
-		object.global_position = obj.global_position
-		object.global_rotation = obj.global_rotation
+		var object = _load_obj(obj.obj_res.id, obj.global_position, obj.global_rotation, obj.other)
+
 		select_object(object, true)
 		
 		history.add_do_method(_add_object_to_level.bind(object))
@@ -724,10 +768,13 @@ func update_grid_position():
 func _add_object_to_level(object : Node2D):
 	if object.get_parent() != level:
 		level.add_child(object)
+		
+		_current_spacial_index[object.global_position].append(object)
 
 func _remove_object_from_level(object : Node2D):
 	remove_from_selection(object)
 	if object.get_parent() == level:
 		level.remove_child(object)
+		_current_spacial_index[object.global_position].erase(object)
 	else:
 		pass
