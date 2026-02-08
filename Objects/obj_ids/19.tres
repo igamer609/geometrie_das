@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://cldbiy7e377mv"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://cldbiy7e377mv"]
 
 [ext_resource type="PackedScene" uid="uid://c2kqortclhrt0" path="res://Scenes/pads/blue_pad.tscn" id="1_eai71"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_ypbvk"]

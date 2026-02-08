@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://8hsx8iyktxjb"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://8hsx8iyktxjb"]
 
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="1_qbgv2"]
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_l5nts"]

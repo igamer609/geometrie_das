@@ -16,4 +16,5 @@ class_name GDObjectResource
 @export var collision_shape : PackedVector2Array
 
 @export var is_solid : bool
+@export var is_decoration : bool
 @export var is_trigger : bool

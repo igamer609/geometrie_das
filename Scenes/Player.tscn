@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnojsoxagacoj"]
+[gd_scene format=3 uid="uid://bnojsoxagacoj"]
 
 [ext_resource type="Shape2D" uid="uid://blxa3u7mo75f" path="res://Assets/cube.tres" id="1"]
 [ext_resource type="Script" uid="uid://bteyudj7or5uc" path="res://Scripts/Player.gd" id="1_06ggq"]
@@ -18,7 +18,7 @@ custom_solver_bias = 0.15
 a = Vector2(-8, 7.9)
 b = Vector2(8, 7.9)
 
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=218381096 groups=["Player"]]
 texture_filter = 1
 collision_mask = 2
 floor_snap_length = 2.0
@@ -27,21 +27,21 @@ platform_floor_layers = 4294967040
 script = ExtResource("1_06ggq")
 gravity_reverse = false
 
-[node name="Sprites" type="Node2D" parent="."]
+[node name="Sprites" type="Node2D" parent="." unique_id=278623522]
 
-[node name="cube" type="Sprite2D" parent="Sprites"]
+[node name="cube" type="Sprite2D" parent="Sprites" unique_id=916702000]
 texture = ExtResource("3_lto8g")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="ball" type="Sprite2D" parent="Sprites"]
+[node name="ball" type="Sprite2D" parent="Sprites" unique_id=1173237883]
 visible = false
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("4_2lric")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="ship" type="Sprite2D" parent="Sprites"]
+[node name="ship" type="Sprite2D" parent="Sprites" unique_id=703348467]
 visible = false
 position = Vector2(5.96046e-08, -5.96046e-08)
 scale = Vector2(1.605, 1.605)
@@ -49,7 +49,7 @@ texture = ExtResource("4_qbp78")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="ShipCube" type="Sprite2D" parent="Sprites/ship"]
+[node name="ShipCube" type="Sprite2D" parent="Sprites/ship" unique_id=1848282311]
 z_index = -1
 position = Vector2(0.623, -2)
 scale = Vector2(0.358645, 0.345016)
@@ -57,73 +57,73 @@ texture = ExtResource("3_lto8g")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="PlatformArea" type="Area2D" parent="."]
+[node name="PlatformArea" type="Area2D" parent="." unique_id=2087763262]
 collision_mask = 2
 
-[node name="PlatformHitbox" type="CollisionShape2D" parent="PlatformArea"]
+[node name="PlatformHitbox" type="CollisionShape2D" parent="PlatformArea" unique_id=204803851]
 shape = SubResource("RectangleShape2D_a8ao1")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
-[node name="DamageArea" type="Area2D" parent="." groups=["Player"]]
+[node name="DamageArea" type="Area2D" parent="." unique_id=785959380 groups=["Player"]]
 
-[node name="Straight" type="CollisionShape2D" parent="DamageArea"]
+[node name="Straight" type="CollisionShape2D" parent="DamageArea" unique_id=184430382]
 shape = ExtResource("1")
 debug_color = Color(0.99607843, 0, 0, 0)
 
-[node name="Angled" type="CollisionShape2D" parent="DamageArea"]
+[node name="Angled" type="CollisionShape2D" parent="DamageArea" unique_id=1970070724]
 shape = SubResource("CircleShape2D_nn08x")
 debug_color = Color(0.99607843, 0, 0, 0)
 
-[node name="Respawn" type="Timer" parent="."]
+[node name="Respawn" type="Timer" parent="." unique_id=1497507377]
 one_shot = true
 
-[node name="DeathSFX" type="AudioStreamPlayer" parent="."]
+[node name="DeathSFX" type="AudioStreamPlayer" parent="." unique_id=659125607]
 stream = ExtResource("6_6ipy7")
 bus = &"SFX"
 
-[node name="OrbBuffering" type="Timer" parent="."]
+[node name="OrbBuffering" type="Timer" parent="." unique_id=1622738673]
 wait_time = 0.2
 one_shot = true
 
-[node name="BallBuffering" type="Timer" parent="."]
+[node name="BallBuffering" type="Timer" parent="." unique_id=502211660]
 wait_time = 0.1
 one_shot = true
 
-[node name="SurfaceRaycast" type="RayCast2D" parent="."]
+[node name="SurfaceRaycast" type="RayCast2D" parent="." unique_id=1731021870]
 target_position = Vector2(0, 8.5)
 collision_mask = 2
 
-[node name="CeilingRaycast" type="RayCast2D" parent="."]
+[node name="CeilingRaycast" type="RayCast2D" parent="." unique_id=1676599771]
 rotation = 3.1415927
 target_position = Vector2(0, 8.5)
 collision_mask = 2
 
-[node name="LedgeRaycast" type="RayCast2D" parent="."]
+[node name="LedgeRaycast" type="RayCast2D" parent="." unique_id=375620991]
 position = Vector2(0, 5)
 target_position = Vector2(10, 0)
 collision_mask = 2
 
-[node name="HeadLedgeRaycast" type="RayCast2D" parent="."]
+[node name="HeadLedgeRaycast" type="RayCast2D" parent="." unique_id=1859209384]
 position = Vector2(0, -5)
 target_position = Vector2(10, 0)
 collision_mask = 2
 
-[node name="BottomRaycast" type="RayCast2D" parent="."]
+[node name="BottomRaycast" type="RayCast2D" parent="." unique_id=965366397]
 position = Vector2(0, 7)
 target_position = Vector2(10, 0)
 collision_mask = 2
 
-[node name="HeadRaycast" type="RayCast2D" parent="."]
+[node name="HeadRaycast" type="RayCast2D" parent="." unique_id=551590423]
 position = Vector2(0, -7)
 target_position = Vector2(10, 0)
 collision_mask = 2
 
-[node name="SurfaceHitbox" type="CollisionShape2D" parent="."]
+[node name="SurfaceHitbox" type="CollisionShape2D" parent="." unique_id=1479108542]
 shape = SubResource("SegmentShape2D_bhhdu")
 one_way_collision = true
 debug_color = Color(0, 0.6, 0.69803923, 0.15686275)
 
-[node name="HeadHitbox" type="CollisionShape2D" parent="."]
+[node name="HeadHitbox" type="CollisionShape2D" parent="." unique_id=257767518]
 rotation = 3.1415927
 shape = SubResource("SegmentShape2D_bhhdu")
 disabled = true

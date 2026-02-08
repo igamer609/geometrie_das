@@ -20,7 +20,7 @@ var scene : Node2D = null
 @export var uid : int
 @export var other : Dictionary
 
-static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary) -> GDObject:
+static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary, in_level : bool = false) -> GDObject:
 	var res : GDObjectResource = ResourceLibrary.library[obj_id]
 	var object : GDObject = ResourceLibrary.scenes["GDObject"].instantiate()
 	
@@ -29,6 +29,7 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	object.global_position = pos
 	object.global_rotation = rot
 	object.other = n_other
+	object.in_level = in_level
 	
 	return object
 
@@ -40,11 +41,14 @@ func _ready():
 	vis_notif.screen_exited.connect(_hide)
 
 func update():
+	
+	if in_level and obj_res.is_decoration:
+		collision.queue_free()
+	
 	if obj_res.is_scene:
 		scene = obj_res.scene.instantiate()
 		scene.position = Vector2(8, 8)
 		scene.name = "Scene"
-		
 		collision.polygon = obj_res.collision_shape
 		
 		scene_parent.add_child(scene)
@@ -53,17 +57,19 @@ func update():
 			var particles : GPUParticles2D = scene.find_child("Particles")
 			if(particles):
 				particles.emitting = true
+			collision.queue_free()
+			obj_sprite.queue_free()
 		else:
 			var sprite : Sprite2D = scene.find_child("Sprite")
 			if sprite:
 				sprite.material = _selection_material
 		
-		obj_sprite.hide()
-		
 	else:
 		obj_sprite.texture = obj_res.texture
 		obj_sprite.texture.filter_clip = true
-		collision.polygon = obj_res.collision_shape
+		if not obj_res.is_decoration:
+			collision.polygon = obj_res.collision_shape
+		scene_parent.queue_free()
 		if not in_level:
 			obj_sprite.material = _selection_material
 	

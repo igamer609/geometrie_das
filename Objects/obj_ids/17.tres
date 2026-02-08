@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://m7om0w4tefqf"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://m7om0w4tefqf"]
 
 [ext_resource type="PackedScene" uid="uid://qoofnu672pi1" path="res://Scenes/portals/gravity_port_blue.tscn" id="1_pjeqr"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_otro0"]

@@ -1,12 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfkbo56nphh1i"]
+[gd_scene format=3 uid="uid://bfkbo56nphh1i"]
 
 [ext_resource type="PackedScene" uid="uid://bnojsoxagacoj" path="res://Scenes/Player.tscn" id="1_um1qs"]
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" unique_id=88342751]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_um1qs")]
+[node name="CharacterBody2D" parent="." unique_id=1076148367 instance=ExtResource("1_um1qs")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=587811827]
+physics_interpolation_mode = 2
 offset = Vector2(40, 0)
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true

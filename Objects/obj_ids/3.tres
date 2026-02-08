@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://w7s87c6ti5nu"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://w7s87c6ti5nu"]
 
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="1_uaxoj"]
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_8cb1m"]
@@ -11,5 +11,5 @@ region = Rect2(32, 0, 16, 16)
 script = ExtResource("1_uaxoj")
 id = 3
 texture = SubResource("AtlasTexture_2ako3")
-collision_shape = PackedVector2Array(8, 0, -8, 0, -8, 8, 8, 8)
+collision_shape = PackedVector2Array(8, 0, -8, 0, -8, -8, 8, -8)
 is_solid = true

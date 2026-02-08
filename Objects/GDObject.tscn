@@ -154,9 +154,10 @@ position = Vector2(8, 8)
 
 [node name="Collision" type="CollisionPolygon2D" parent="." unique_id=51191561]
 position = Vector2(8, 8)
+polygon = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
 
 [node name="VisibilityNotifier" type="VisibleOnScreenEnabler2D" parent="." unique_id=46714941]
-rect = Rect2(-2, -2, 21, 21)
+rect = Rect2(-2, -2, 20, 20)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1924104623]
 libraries/ = SubResource("AnimationLibrary_5uwnx")

@@ -211,7 +211,7 @@ func _initialise_items():
 	for container in item_tab.get_children():
 		for button in container.get_children():
 			button.button_group = btn_group
-			button.select_item.connect(select_item_id)
+			button.select_item.connect(select_item_id.bind(button))
 
 func _initialise_edit_btn():
 	for move_group : Control in move_container.get_children():
@@ -373,16 +373,18 @@ func _box_select():
 			if swipe_rect.intersects(obj_rect):
 				select_object(object)
 
-func select_item_id(new_id):
+func select_item_id(new_id : int, button : Button):
 	if new_id and new_id != current_id:
 		current_id = new_id
+	else:
+		current_id = 0
+		button.button_pressed = false
 
 func _is_same_object_at_pos(pos : Vector2) -> bool:
 	if not _current_spacial_index.has(pos):
 		return false
 	else:
 		if not _current_spacial_index[pos].is_empty():
-			
 			for object : GDObject in _current_spacial_index[pos]:
 				if object.obj_res.id == current_id:
 					return true
@@ -405,7 +407,7 @@ func _update_obj_ref_position(obj : GDObject, old_pos : Vector2, pos : Vector2) 
 		_current_spacial_index[pos] = []
 	
 	_current_spacial_index[pos].append(obj)
-
+	print(_current_spacial_index.size())
 
 func place_object(return_obj = true) -> GDObject:
 	
@@ -773,8 +775,10 @@ func _add_object_to_level(object : Node2D):
 
 func _remove_object_from_level(object : Node2D):
 	remove_from_selection(object)
+	
+	if _current_spacial_index.has(object.global_position):
+		_current_spacial_index[object.global_position].erase(object)
 	if object.get_parent() == level:
 		level.remove_child(object)
-		_current_spacial_index[object.global_position].erase(object)
 	else:
 		pass

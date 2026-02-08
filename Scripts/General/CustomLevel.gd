@@ -107,7 +107,7 @@ func load_level_data(level_info : Dictionary, restart = false, playtesting = fal
 	emit_signal("loaded_level")
 
 func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other) -> void:
-	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other)
+	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other, true)
 	
 	level.call_deferred("add_child", object)
 
@@ -307,6 +307,10 @@ func _verify_level():
 func _restart():
 	GameProgress.stop_lvl_music()
 	get_tree().paused = false
+	
+	for object : GDObject in level.get_children():
+		object.queue_free()
+	
 	EditorTransition.load_game(level_data, true, _playtesting, _return_scene)
 
 func change_background(new_colour, fade_time):

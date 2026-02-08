@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://co4yyuvsoaray"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://co4yyuvsoaray"]
 
 [ext_resource type="PackedScene" uid="uid://bcowywtpam54y" path="res://Scenes/orbs/yellow_orb.tscn" id="1_ot4ho"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_ot4ho"]

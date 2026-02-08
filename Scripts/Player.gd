@@ -52,6 +52,7 @@ enum GamemodeTypes {CUBE, SHIP, BALL}
 
 var can_move : bool = true
 var consecutive_jumps : int = 0
+var time_in_air : float = 0
 
 var in_orb : bool = false
 var orb_type = null
