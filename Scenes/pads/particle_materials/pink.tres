@@ -1,0 +1,41 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://dcetffw8f2h7w"]
+
+[sub_resource type="Curve" id="Curve_2bsbb"]
+_data = [Vector2(1, 0.593407), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_b4gmy"]
+_data = [Vector2(1, 0.505494), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_1gymh"]
+_data = [Vector2(1, 0.494505), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_joe5h"]
+width = 66
+curve_x = SubResource("Curve_2bsbb")
+curve_y = SubResource("Curve_b4gmy")
+curve_z = SubResource("Curve_1gymh")
+
+[sub_resource type="Curve" id="Curve_vqsao"]
+_data = [Vector2(0.755656, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.85222, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rx6cy"]
+curve = SubResource("Curve_vqsao")
+
+[resource]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(7.315, 0, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_joe5h")
+gravity = Vector3(0, -78.865, 0)
+scale_max = 2.2
+scale_curve = SubResource("CurveTexture_rx6cy")
+color = Color(1, 0.72, 0.81799996, 0.41960785)

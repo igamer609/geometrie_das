@@ -1,11 +1,11 @@
-[gd_scene load_steps=44 format=3 uid="uid://bgck0oehre0fd"]
+[gd_scene format=3 uid="uid://bgck0oehre0fd"]
 
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_hsfy0"]
 [ext_resource type="Script" uid="uid://cy41q61xo81ol" path="res://Scenes/Menus/MainMenu.gd" id="1_yix18"]
 [ext_resource type="Script" uid="uid://cqcb7ra3ormy5" path="res://Scripts/General/ScrollBG.gd" id="2_jfxmx"]
 [ext_resource type="Texture2D" uid="uid://cxd3ekx4dqkyl" path="res://Assets/ground.png" id="3_wnfrj"]
 [ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="5_leunp"]
-[ext_resource type="Texture2D" uid="uid://cgoy16m7tp0ak" path="res://Assets/buttons/Button.png" id="6_hjx7h"]
+[ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="6_leunp"]
 [ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="7_rs2qu"]
 [ext_resource type="Texture2D" uid="uid://bjiroqc7tuokb" path="res://Assets/other/Logo.png" id="7_xxn82"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="8_8r4vh"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="11_52cdl"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="13_criex"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="14_h8ib8"]
+[ext_resource type="Texture2D" uid="uid://05c3bngjpc1p" path="res://Assets/other/title_20.png" id="14_leunp"]
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="17_leunp"]
 [ext_resource type="Texture2D" uid="uid://bsyh6saqughub" path="res://Assets/buttons/slider textures/slider_notch.png" id="17_qaagr"]
 [ext_resource type="Texture2D" uid="uid://g5687ofk6b86" path="res://Assets/buttons/slider textures/notch_action.png" id="18_ahu0q"]
@@ -35,6 +36,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e7mea"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_px28w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1v62"]
+atlas = ExtResource("6_leunp")
+region = Rect2(188, 61, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7wema"]
 atlas = ExtResource("8_8r4vh")
@@ -132,7 +137,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=149775596]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -141,30 +146,30 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yix18")
 
-[node name="Background" type="ParallaxBackground" parent="."]
+[node name="Background" type="ParallaxBackground" parent="." unique_id=131350355]
 script = ExtResource("2_jfxmx")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background" unique_id=322153195]
 motion_mirroring = Vector2(2000, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer" unique_id=1679235476]
 modulate = Color(0, 0.698039, 1, 1)
 texture_filter = 1
 position = Vector2(590, 114)
 scale = Vector2(2, 2)
 texture = ExtResource("1_hsfy0")
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background"]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background" unique_id=1941450664]
 motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(879.835, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer2"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer2" unique_id=1607084751]
 texture_filter = 1
 position = Vector2(480, 1152)
 scale = Vector2(0.667708, 10.0333)
 texture = ExtResource("3_wnfrj")
 
-[node name="Center" type="Control" parent="."]
+[node name="Center" type="Control" parent="." unique_id=1019392302]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -172,7 +177,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainPlay" type="Button" parent="Center"]
+[node name="MainPlay" type="Button" parent="Center" unique_id=1148541469]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -193,7 +198,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
 script = ExtResource("5_leunp")
 
-[node name="TextureRect" type="TextureRect" parent="Center/MainPlay"]
+[node name="TextureRect" type="TextureRect" parent="Center/MainPlay" unique_id=1236609145]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -203,9 +208,9 @@ offset_left = -2.0
 offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_hjx7h")
+texture = SubResource("AtlasTexture_h1v62")
 
-[node name="TextureRect2" type="TextureRect" parent="Center/MainPlay"]
+[node name="TextureRect2" type="TextureRect" parent="Center/MainPlay" unique_id=1449898408]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -221,7 +226,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_rs2qu")
 
-[node name="Icons" type="Button" parent="Center"]
+[node name="Icons" type="Button" parent="Center" unique_id=1183086901]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -242,7 +247,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
 script = ExtResource("5_leunp")
 
-[node name="TextureRect" type="TextureRect" parent="Center/Icons"]
+[node name="TextureRect" type="TextureRect" parent="Center/Icons" unique_id=1618423421]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -250,9 +255,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_hjx7h")
+texture = SubResource("AtlasTexture_h1v62")
 
-[node name="TextureRect2" type="TextureRect" parent="Center/Icons"]
+[node name="TextureRect2" type="TextureRect" parent="Center/Icons" unique_id=182102762]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -268,7 +273,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_gh7ve")
 
-[node name="Edit" type="Button" parent="Center"]
+[node name="Edit" type="Button" parent="Center" unique_id=1765598384]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -289,7 +294,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_e7mea")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_px28w")
 script = ExtResource("5_leunp")
 
-[node name="TextureRect" type="TextureRect" parent="Center/Edit"]
+[node name="TextureRect" type="TextureRect" parent="Center/Edit" unique_id=583276739]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -297,9 +302,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_hjx7h")
+texture = SubResource("AtlasTexture_h1v62")
 
-[node name="TextureRect2" type="TextureRect" parent="Center/Edit"]
+[node name="TextureRect2" type="TextureRect" parent="Center/Edit" unique_id=2010623312]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -316,7 +321,7 @@ grow_vertical = 2
 texture = ExtResource("8_cjpdq")
 expand_mode = 1
 
-[node name="Control" type="Control" parent="Center"]
+[node name="Control" type="Control" parent="Center" unique_id=282252561]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -326,7 +331,7 @@ offset_top = -138.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Center/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/Control" unique_id=1628644369]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -335,7 +340,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Settings" type="Button" parent="Center/Control/HBoxContainer"]
+[node name="Settings" type="Button" parent="Center/Control/HBoxContainer" unique_id=507703001]
 texture_filter = 1
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
@@ -349,7 +354,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
 script = ExtResource("5_leunp")
 
-[node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/Settings"]
+[node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/Settings" unique_id=409037539]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -358,7 +363,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_7wema")
 
-[node name="TextureRect" type="TextureRect" parent="Center/Control/HBoxContainer/Settings"]
+[node name="TextureRect" type="TextureRect" parent="Center/Control/HBoxContainer/Settings" unique_id=294231829]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -373,7 +378,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_fus76")
 
-[node name="MusicCredit" type="Button" parent="Center/Control/HBoxContainer"]
+[node name="MusicCredit" type="Button" parent="Center/Control/HBoxContainer" unique_id=257242907]
 texture_filter = 1
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
@@ -387,7 +392,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
 script = ExtResource("5_leunp")
 
-[node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit"]
+[node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit" unique_id=41152862]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -396,7 +401,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_7wema")
 
-[node name="TextureRect" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit"]
+[node name="TextureRect" type="TextureRect" parent="Center/Control/HBoxContainer/MusicCredit" unique_id=197451680]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -411,23 +416,38 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_u7ykm")
 
-[node name="Logo" type="TextureRect" parent="."]
+[node name="Logo" type="TextureRect" parent="." unique_id=301927486]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -370.0
+offset_top = -1.0
 offset_right = 370.0
-offset_bottom = 185.0
+offset_bottom = 184.0
 grow_horizontal = 2
 texture = ExtResource("7_xxn82")
 
-[node name="MusicCredits" type="CanvasLayer" parent="."]
+[node name="Version" type="TextureRect" parent="." unique_id=578908863]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 97.0
+offset_top = 130.0
+offset_right = 259.0
+offset_bottom = 210.0
+grow_horizontal = 2
+texture = ExtResource("14_leunp")
+stretch_mode = 5
+
+[node name="MusicCredits" type="CanvasLayer" parent="." unique_id=752822729]
 layer = 7
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="MusicCredits"]
+[node name="ColorRect" type="ColorRect" parent="MusicCredits" unique_id=1963536134]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -435,7 +455,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.509804)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="MusicCredits"]
+[node name="NinePatchRect" type="NinePatchRect" parent="MusicCredits" unique_id=1136306533]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -456,7 +476,7 @@ patch_margin_top = 125
 patch_margin_right = 125
 patch_margin_bottom = 125
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MusicCredits/NinePatchRect"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MusicCredits/NinePatchRect" unique_id=811876746]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -470,19 +490,19 @@ grow_vertical = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MusicCredits/NinePatchRect/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MusicCredits/NinePatchRect/ScrollContainer" unique_id=737037463]
 custom_minimum_size = Vector2(0, 310)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 
-[node name="MenuMusic" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
+[node name="MenuMusic" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=97801245]
 texture_filter = 2
 custom_minimum_size = Vector2(0, 76.22)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic"]
+[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic" unique_id=641041693]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -494,7 +514,7 @@ grow_vertical = 2
 theme = ExtResource("13_criex")
 text = "Menu Music"
 
-[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic"]
+[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic" unique_id=834655371]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -506,7 +526,7 @@ grow_vertical = 2
 theme = SubResource("Theme_uk6lu")
 text = "by Force64 Music"
 
-[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic"]
+[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/MenuMusic" unique_id=1172376184]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 6
@@ -525,13 +545,13 @@ text = "Open"
 script = ExtResource("5_leunp")
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
-[node name="GloriousMorning" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
+[node name="GloriousMorning" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=66449619]
 texture_filter = 2
 custom_minimum_size = Vector2(0, 76.22)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning"]
+[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning" unique_id=1573728241]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -544,7 +564,7 @@ theme = ExtResource("13_criex")
 theme_override_font_sizes/font_size = 46
 text = "Glorious Morning"
 
-[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning"]
+[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning" unique_id=2055671799]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -556,7 +576,7 @@ grow_vertical = 2
 theme = SubResource("Theme_uk6lu")
 text = "by Waterflame"
 
-[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning"]
+[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/GloriousMorning" unique_id=1411180553]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 6
@@ -575,13 +595,13 @@ text = "Open"
 script = ExtResource("5_leunp")
 metadata/MusicLink = "https://www.youtube.com/watch?v=reyjyJI3ZAc"
 
-[node name="yStep" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer"]
+[node name="yStep" type="Control" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer" unique_id=2024788382]
 texture_filter = 2
 custom_minimum_size = Vector2(0, 76.22)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep"]
+[node name="MusicName" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep" unique_id=643562760]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -593,7 +613,7 @@ grow_vertical = 2
 theme = ExtResource("13_criex")
 text = "yStep"
 
-[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep"]
+[node name="Artist" type="Label" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep" unique_id=385037977]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -605,7 +625,7 @@ grow_vertical = 2
 theme = SubResource("Theme_uk6lu")
 text = "by DJVI"
 
-[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep"]
+[node name="Button" type="Button" parent="MusicCredits/NinePatchRect/ScrollContainer/VBoxContainer/yStep" unique_id=1601650029]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 6
@@ -624,7 +644,7 @@ text = "Open"
 script = ExtResource("5_leunp")
 metadata/MusicLink = "https://www.youtube.com/watch?v=KTQSxSYTGgE"
 
-[node name="Exit" type="TextureButton" parent="MusicCredits"]
+[node name="Exit" type="TextureButton" parent="MusicCredits" unique_id=1973515671]
 texture_filter = 1
 offset_left = 18.0
 offset_top = 19.0
@@ -635,11 +655,11 @@ texture_normal = SubResource("AtlasTexture_inigb")
 stretch_mode = 0
 flip_h = true
 
-[node name="OptionSettings" type="CanvasLayer" parent="."]
+[node name="OptionSettings" type="CanvasLayer" parent="." unique_id=76345811]
 layer = 7
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="OptionSettings"]
+[node name="ColorRect" type="ColorRect" parent="OptionSettings" unique_id=1323494836]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -647,7 +667,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.509804)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="OptionSettings"]
+[node name="NinePatchRect" type="NinePatchRect" parent="OptionSettings" unique_id=576703366]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -668,7 +688,7 @@ patch_margin_top = 125
 patch_margin_right = 125
 patch_margin_bottom = 125
 
-[node name="Volume" type="Control" parent="OptionSettings/NinePatchRect"]
+[node name="Volume" type="Control" parent="OptionSettings/NinePatchRect" unique_id=809229336]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -682,7 +702,7 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 size_flags_vertical = 3
 
-[node name="Music" type="HSlider" parent="OptionSettings/NinePatchRect/Volume"]
+[node name="Music" type="HSlider" parent="OptionSettings/NinePatchRect/Volume" unique_id=720493961]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
@@ -708,7 +728,7 @@ value = 1.0
 script = ExtResource("21_fdnfq")
 bus_name = "Music"
 
-[node name="Label" type="Label" parent="OptionSettings/NinePatchRect/Volume"]
+[node name="Label" type="Label" parent="OptionSettings/NinePatchRect/Volume" unique_id=946069221]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -729,7 +749,7 @@ text = "Music"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SFX" type="HSlider" parent="OptionSettings/NinePatchRect/Volume"]
+[node name="SFX" type="HSlider" parent="OptionSettings/NinePatchRect/Volume" unique_id=473475018]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
@@ -754,7 +774,7 @@ value = 1.0
 script = ExtResource("21_fdnfq")
 bus_name = "SFX"
 
-[node name="Label2" type="Label" parent="OptionSettings/NinePatchRect/Volume"]
+[node name="Label2" type="Label" parent="OptionSettings/NinePatchRect/Volume" unique_id=1393102942]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -775,7 +795,7 @@ text = "Sfx"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Credits" type="Control" parent="OptionSettings/NinePatchRect"]
+[node name="Credits" type="Control" parent="OptionSettings/NinePatchRect" unique_id=2060120203]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -786,7 +806,7 @@ offset_right = -74.0
 offset_bottom = 242.0
 grow_horizontal = 0
 
-[node name="Label" type="Label" parent="OptionSettings/NinePatchRect/Credits"]
+[node name="Label" type="Label" parent="OptionSettings/NinePatchRect/Credits" unique_id=1315884590]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
@@ -794,7 +814,7 @@ theme = ExtResource("13_criex")
 theme_override_font_sizes/font_size = 36
 text = "credits:"
 
-[node name="Label2" type="Label" parent="OptionSettings/NinePatchRect/Credits"]
+[node name="Label2" type="Label" parent="OptionSettings/NinePatchRect/Credits" unique_id=880249969]
 layout_mode = 0
 offset_top = 79.0
 offset_right = 176.0
@@ -806,7 +826,7 @@ text = "Contributors:
 Th8Lolo
 thekirgo"
 
-[node name="Label3" type="Label" parent="OptionSettings/NinePatchRect/Credits"]
+[node name="Label3" type="Label" parent="OptionSettings/NinePatchRect/Credits" unique_id=1916260052]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 32.0
@@ -816,14 +836,14 @@ theme = ExtResource("13_criex")
 theme_override_font_sizes/font_size = 28
 text = "igamer609"
 
-[node name="Control" type="Control" parent="OptionSettings/NinePatchRect"]
+[node name="Control" type="Control" parent="OptionSettings/NinePatchRect" unique_id=1899893633]
 anchors_preset = 0
 offset_left = 75.0
 offset_top = 81.0
 offset_right = 377.0
 offset_bottom = 296.0
 
-[node name="Button" type="Button" parent="OptionSettings/NinePatchRect/Control"]
+[node name="Button" type="Button" parent="OptionSettings/NinePatchRect/Control" unique_id=1201231747]
 layout_mode = 0
 offset_right = 305.0
 offset_bottom = 42.0
@@ -831,7 +851,7 @@ theme = ExtResource("22_y2t2u")
 theme_override_font_sizes/font_size = 31
 text = "Reset Progress"
 
-[node name="Exit" type="TextureButton" parent="OptionSettings"]
+[node name="Exit" type="TextureButton" parent="OptionSettings" unique_id=1427919907]
 texture_filter = 1
 offset_left = 18.0
 offset_top = 19.0
@@ -842,11 +862,11 @@ texture_normal = SubResource("AtlasTexture_inigb")
 stretch_mode = 0
 flip_h = true
 
-[node name="ResetDialogue" type="CanvasLayer" parent="."]
+[node name="ResetDialogue" type="CanvasLayer" parent="." unique_id=49968133]
 layer = 7
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="ResetDialogue"]
+[node name="ColorRect" type="ColorRect" parent="ResetDialogue" unique_id=1664958251]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -854,7 +874,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.509804)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="ResetDialogue"]
+[node name="NinePatchRect" type="NinePatchRect" parent="ResetDialogue" unique_id=1087934574]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -875,7 +895,7 @@ patch_margin_top = 125
 patch_margin_right = 125
 patch_margin_bottom = 125
 
-[node name="Label" type="Label" parent="ResetDialogue/NinePatchRect"]
+[node name="Label" type="Label" parent="ResetDialogue/NinePatchRect" unique_id=1444113807]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -894,7 +914,7 @@ text = "reset all saved
 progress?"
 horizontal_alignment = 1
 
-[node name="CancelReset" type="Button" parent="ResetDialogue/NinePatchRect"]
+[node name="CancelReset" type="Button" parent="ResetDialogue/NinePatchRect" unique_id=176360753]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -912,7 +932,7 @@ theme_override_font_sizes/font_size = 26
 text = "No"
 script = ExtResource("5_leunp")
 
-[node name="Reset" type="Button" parent="ResetDialogue/NinePatchRect"]
+[node name="Reset" type="Button" parent="ResetDialogue/NinePatchRect" unique_id=782287724]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

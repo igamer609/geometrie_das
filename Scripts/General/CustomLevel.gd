@@ -73,6 +73,12 @@ func _get_path_to_level() -> String:
 		for this_level : String  in directory:
 			if int(this_level.get_slice(".", 0)) == level_data["info"]["local_id"]:
 				file_path = "user://created_levels/" + this_level
+	else:
+		var directory : PackedStringArray = DirAccess.get_files_at("user://saved_levels")
+		
+		for this_level : String  in directory:
+			if int(this_level.get_slice(".", 0)) == level_data["info"]["id"]:
+				file_path = "user://saved_levels/" + this_level
 	
 	return file_path
 
@@ -88,6 +94,8 @@ func load_level_data(level_info : Dictionary, restart = false, playtesting = fal
 			GameProgress.current_level_id = level_data["info"]["id"]
 		
 		if level_data.has("objects"):
+			
+			
 			for obj in level_data["objects"]:
 				load_object(obj["obj_id"], obj["uid"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 		if level_data["info"].has("song_id"):
@@ -160,21 +168,17 @@ func player_died():
 
 func player_respawn():
 	end_bg_tweens()
-	
 	GameProgress.play_lvl_music_from_id(0)
-	
 	change_background(start_bg, 0)
 	
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false
 	player.velocity = Vector2.ZERO
 	player.gravity = player.CUBE_GRAVITY
-	
 	player.global_position.x = -64
-	player.global_position.y = -12
+	player.global_position.y = -8
 	
 	ground.global_position = Vector2(player.global_position.x + 3500, 0)
-	
 	player_cam.global_position = Vector2(player.global_position.x, player.global_position.y - 16)
 	
 	follow_cam = true
@@ -292,25 +296,15 @@ func _end_level():
 	player_cam.position_smoothing_enabled = false
 
 func _verify_level():
-	var directory : PackedStringArray = DirAccess.get_files_at("user://saved_levels")
 	level_data["info"]["verified"] = 1
-	
-	for this_level : String  in directory:
-		
-		if int(this_level.get_slice(".", 0)) == level_data["info"]["local_id"]:
-			var file_path : String = "user://saved_levels/" + this_level
-			var lvl_file : FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
-			
-			var lvl_info : String = JSON.stringify(level_data)
-			var success : bool = lvl_file.store_line(lvl_info)
+	var entry_data = ResourceLibrary.entry_data_from_info(level_data["info"], _loaded_path)
+	ResourceLibrary.update_entry_and_main_file(str(level_data["info"]["local_id"]), entry_data , true)
 
 func _restart():
 	GameProgress.stop_lvl_music()
 	get_tree().paused = false
 	
-	for object : GDObject in level.get_children():
-		object.queue_free()
-	
+	ResourceLibrary.free_objects.emit()
 	EditorTransition.load_game(level_data, true, _playtesting, _return_scene)
 
 func change_background(new_colour, fade_time):

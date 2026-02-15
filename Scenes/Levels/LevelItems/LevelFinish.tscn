@@ -13,13 +13,13 @@ shader_parameter/repeat_amount = Vector2(1, 1)
 shader = ExtResource("1_at41l")
 shader_parameter/region_top_left = Vector2(48, 16)
 shader_parameter/region_size = Vector2(16, 16)
-shader_parameter/repeat_amount = Vector2(48, 1)
+shader_parameter/repeat_amount = Vector2(38, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r2bls"]
 shader = ExtResource("1_at41l")
 shader_parameter/region_top_left = Vector2(0, 16)
 shader_parameter/region_size = Vector2(16, 16)
-shader_parameter/repeat_amount = Vector2(48, 14)
+shader_parameter/repeat_amount = Vector2(38, 14)
 
 [node name="LevelFinish" type="Node2D" unique_id=145923703]
 
@@ -39,9 +39,9 @@ z_index = 5
 texture_filter = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_at41l")
-position = Vector2(6.4, 0)
+position = Vector2(10, 0)
 rotation = -1.5707964
-scale = Vector2(2, 0.05)
+scale = Vector2(2, 0.075)
 texture = ExtResource("1_7wt8d")
 region_filter_clip_enabled = true
 
@@ -50,9 +50,9 @@ z_index = 5
 texture_filter = 1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_r2bls")
-position = Vector2(90, -8.1975327e-07)
+position = Vector2(115.6, 0)
 rotation = -1.5707964
-scale = Vector2(2, 0.6)
+scale = Vector2(2, 0.75)
 texture = ExtResource("1_7wt8d")
 region_rect = Rect2(0, 0, 480, 64)
 region_filter_clip_enabled = true

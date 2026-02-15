@@ -1,21 +1,21 @@
 [gd_resource type="ParticleProcessMaterial" format=3 uid="uid://cvjsgjtr136d0"]
 
-[sub_resource type="Curve" id="Curve_4d5cj"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.208145, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_2kjve"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.665158, 0.615385), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_uom4i"]
-curve = SubResource("Curve_4d5cj")
+[sub_resource type="CurveTexture" id="CurveTexture_gx0im"]
+curve = SubResource("Curve_2kjve")
 
-[sub_resource type="Curve" id="Curve_bb84t"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.593407), -0.364285, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_um6l5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99095, 0.516483), -0.364285, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_6v5am"]
-curve = SubResource("Curve_bb84t")
+[sub_resource type="CurveTexture" id="CurveTexture_dy3n3"]
+curve = SubResource("Curve_um6l5")
 
 [resource]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_6v5am")
-alpha_curve = SubResource("CurveTexture_uom4i")
+scale_curve = SubResource("CurveTexture_dy3n3")
+alpha_curve = SubResource("CurveTexture_gx0im")

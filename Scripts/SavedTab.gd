@@ -21,9 +21,10 @@ func find_levels():
 	if number_of_levels > 0:
 		for i in range((page * PAGE_LENGTH), min((page + 1) * PAGE_LENGTH - 1, number_of_levels)):
 			var current_id : String = ResourceLibrary.current_registry["order"][i]
-			var current_lvl : Dictionary = ResourceLibrary.current_registry["levels"][current_id]
 			
-			add_level_template(current_lvl["info"], current_lvl["ref"])
+			if ResourceLibrary.current_registry["levels"].has(current_id):
+				var current_lvl : Dictionary = ResourceLibrary.current_registry["levels"][current_id]
+				add_level_template(current_lvl["info"], current_lvl["ref"])
 		
 	
 	for level in levels:
@@ -54,7 +55,7 @@ func add_level_template(level_info : Dictionary, path : String):
 	if new_lvl.author_label.text == "by ":
 		new_lvl.author_label.text = "by -"
 	
-	new_lvl.song_label.text = GameProgress.music_ids[int(level_info["song_id"])][1]
+	new_lvl.song_label.text = ResourceLibrary.music_ids[int(level_info["song_id"])][1]
 	new_lvl.view_button.pressed.connect(EditorTransition.load_level_edit_menu.bind(level_info, path))
 
 func _ready():

@@ -6,6 +6,8 @@
 
 extends Node2D
 
+signal quit_editor_scene
+
 enum EditorMode {BUILD, EDIT}
 enum SelectionMode {SINGLE, SWIPE}
 
@@ -48,7 +50,7 @@ var edit_mode : EditorMode = EditorMode.BUILD
 var select_mode : SelectionMode = SelectionMode.SINGLE
 var menu_state = false
 
-var _level_data : Dictionary = {"local_id": 0, "title" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1}
+var _level_data : Dictionary = {"local_id": 0, "title" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1, "length" : 0}
 var _level_path : String
 
 var _current_spacial_index : Dictionary[Vector2, Array] = {}
@@ -62,19 +64,22 @@ const TEMPLATE_OBJ_DICT = {
 	"other" : {}
 }
 
-func _ready():
+func _ready() -> void:
 	_initialise_tabs()
 	_initialise_items()
 	_initialise_edit_btn()
 	_initialise_actions()
 	_initialise_top_bar()
 
-func _save_level():
+func _save_level() -> bool:
+	_level_data["verified"] = 0
+	var saved_objects : Array = _get_data_of_objects(level.get_children())
+	
 	var save_data = {
 		"info" : _level_data,
 		"objects" : []
 	}
-	save_data["objects"] = _get_data_of_objects(level.get_children())
+	save_data["objects"] = saved_objects
 	
 	if not DirAccess.dir_exists_absolute("user://created_levels/"):
 		DirAccess.make_dir_absolute("user://created_levels/")
@@ -91,13 +96,25 @@ func _save_level():
 	var success : bool = save_file.store_line(save_string)
 	
 	if success:
+		if ResourceLibrary._current_registry_type != ResourceLibrary.RegistryType.CREATED:
+			ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.CREATED)
+		
 		var entry_data : Dictionary = ResourceLibrary.entry_data_from_info(save_data["info"], _level_path)
 		ResourceLibrary.updade_entry(str(save_data["info"]["local_id"]), entry_data, true)
+		
+		ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.NONE)
 	
 	return success
 
-func _get_data_of_objects(objects : Array[Node]):
+func _get_data_of_objects(objects : Array[Node]) -> Array:
 	objects.sort_custom(func(a : Node, b : Node) : return b.global_position.x > a.global_position.x)
+	
+	if objects.size() > 0:
+		var last_object_x = objects.back().global_position.x
+		_level_data["length"] =( last_object_x + 348) / 130
+	else:
+		_level_data["length"] = 1
+	
 	var obj_data : Array[Dictionary] = []
 	for obj in objects:
 		
@@ -131,7 +148,7 @@ func _generate_unique_id() -> int:
 	var rand : int = randi() % 10000 + 1
 	return time * 10000 + rand
 
-func _load_level_file():
+func _load_level_file() -> void:
 	var file_dialogue = FileDialog.new()
 	file_dialogue.access = FileDialog.ACCESS_FILESYSTEM
 	file_dialogue.file_mode = FileDialog.FILE_MODE_OPEN_FILE
@@ -147,7 +164,7 @@ func _load_level_file():
 	var file_path = file_dialogue.current_path
 	get_tree().queue_delete(file_dialogue)
 	
-	var lvl_file = FileAccess.open(file_path, FileAccess.READ)
+	var lvl_file = FileAccess.open_compressed(file_path, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
 	var lvl_info = JSON.parse_string(lvl_file.get_line())
 	
 	if lvl_info.has("objects") and lvl_info.has("title") and lvl_info.has("author") and lvl_info.has("local_id"):
@@ -160,14 +177,14 @@ func _load_level_file():
 	else:
 		$Editor_Object/Menu_Layer/AcceptDialog.visible = true
 
-func _load_level(objects):
+func _load_level(objects : Array) -> void:
 	select_all()
 	delete_objects()
 	
 	for obj in objects:
 		_load_obj(obj["obj_id"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
-func load_level_from_info(lvl_info, path):
+func load_level_from_info(lvl_info, path) ->  bool:
 	_level_data = lvl_info["info"]
 	_level_path = path
 	
@@ -243,6 +260,7 @@ func _save_and_exit():
 	_save_level()
 	
 	MenuMusic.start_music()
+	history.clear_history()
 	EditorTransition.load_level_edit_menu(_level_data, _level_path)
 
 func _save_and_play():
@@ -252,9 +270,9 @@ func _save_and_play():
 		"info" : _level_data,
 		"objects" : []
 	}
-
 	save_data["objects"] = _get_data_of_objects(level.get_children())
 	
+	history.clear_history()
 	EditorTransition.load_game(save_data, false, true, "res://Scenes/Menus/LevelEditingMenu.tscn")
 
 func _exit():
@@ -266,6 +284,7 @@ func _exit():
 	var lvl_file = FileAccess.open_compressed(_level_path, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
 	var level_old = JSON.parse_string(lvl_file.get_line())
 	
+	history.clear_history()
 	EditorTransition.load_level_edit_menu(level_old, _level_path)
 
 func _change_editor_mode(new_mode):
@@ -333,7 +352,8 @@ func _unhandled_input(event : InputEvent) -> void:
 			if swiping:
 				swiping = false
 				queue_redraw()
-				_box_select()
+				if edit_mode == EditorMode.EDIT:
+					_box_select()
 	
 	if event is InputEventMouseMotion:
 		if event.button_mask in [MOUSE_BUTTON_MASK_MIDDLE, MOUSE_BUTTON_MASK_RIGHT]:
@@ -407,7 +427,6 @@ func _update_obj_ref_position(obj : GDObject, old_pos : Vector2, pos : Vector2) 
 		_current_spacial_index[pos] = []
 	
 	_current_spacial_index[pos].append(obj)
-	print(_current_spacial_index.size())
 
 func place_object(return_obj = true) -> GDObject:
 	
@@ -502,14 +521,14 @@ func update_selection_center():
 		for object in selected_objects:
 			obj_positions.append([object.global_position.x + 8 * cos(object.global_rotation), object.global_position.y + 8 * cos(object.global_rotation)])
 		
-		var average_x = 0
-		var average_y = 0
+		var average_x : float = 0
+		var average_y : float = 0
 		
 		for vector2 in obj_positions:
-			average_x += (round(vector2[0]) / len(obj_positions))
-			average_y += (round(vector2[1]) / len(obj_positions))
+			average_x += (vector2[0] / len(obj_positions))
+			average_y += (vector2[1] / len(obj_positions))
 		
-		selection_center.global_position = Vector2(snapped(average_x, 1), snapped(average_y, 1))
+		selection_center.global_position = Vector2(average_x, average_y)
 		
 		level.add_child(selection_center)
 	else:
@@ -612,7 +631,6 @@ func rotate_objects(direction):
 		var rot_center : Node2D = Node2D.new()
 		rot_center.global_position = selected_objects[0].get_child(0).global_position
 		level.add_child(rot_center)
-		
 		history.add_undo_property(selected_objects[0], "global_rotation", selected_objects[0].global_rotation)
 		history.add_undo_property(selected_objects[0], "global_position", selected_objects[0].global_position)
 		
@@ -620,6 +638,7 @@ func rotate_objects(direction):
 			selected_objects[0].reparent(rot_center)
 		else:
 			selected_objects[0].parent = rot_center
+		
 		rot_center.rotate(deg_to_rad(direction * 90))
 		var new_pos : Vector2 = selected_objects[0].global_position
 		var new_rot : float = selected_objects[0].global_rotation

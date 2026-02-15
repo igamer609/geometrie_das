@@ -6,11 +6,6 @@
 
 extends CanvasLayer
 
-@onready var music_ids : Dictionary = {
-	1 : [preload("res://Assets/music/Levels/Glorious Morning.mp3"), "Glorious Morning"],
-	2 : [preload("res://Assets/music/Levels/yStep.mp3"), "yStep"]
-}
-
 @export var current_level_song = 0
 @export var current_level_id = 0
 var current_session_attempts = 0
@@ -98,7 +93,7 @@ func update_bar(procent):
 
 func play_lvl_music_from_id(delay):
 	if music_to_load:
-		var audio_to_play = music_ids[music_to_load][0]
+		var audio_to_play = ResourceLibrary.music_ids[music_to_load][0]
 		$AudioStreamPlayer.stream = audio_to_play
 		
 		if delay:

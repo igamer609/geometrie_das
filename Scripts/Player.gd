@@ -256,6 +256,7 @@ func die():
 	orb_queue.clear()
 	can_move = false
 	visible = false
+	velocity = Vector2.ZERO
 	$DeathSFX.play()
 	$Respawn.start()
 

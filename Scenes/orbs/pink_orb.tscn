@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://c5j0pxqvc3byd"]
+[gd_scene format=3 uid="uid://c5j0pxqvc3byd"]
 
 [ext_resource type="Script" uid="uid://cks1jjfj33xpy" path="res://Scripts/Orb.gd" id="1_c2n1u"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_dj7nf"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_ljrke"]
 [ext_resource type="Texture2D" uid="uid://v67lb5n1u634" path="res://Assets/other/particles/ring.png" id="3_6v3rl"]
 [ext_resource type="Material" uid="uid://cvjsgjtr136d0" path="res://Scenes/orbs/orb_ring_process.tres" id="3_clj02"]
+[ext_resource type="Material" uid="uid://d00abhg1t0fy5" path="res://Scenes/orbs/particle_materials/pink.tres" id="4_86wil"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_86wil"]
 shader = ExtResource("2_dj7nf")
@@ -12,120 +13,11 @@ shader = ExtResource("2_dj7nf")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qs08e"]
 size = Vector2(16, 16)
 
-[sub_resource type="Curve" id="Curve_o5hxo"]
-_limits = [0.0, 200.0, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 172.727), -363.579, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_khhyl"]
-curve = SubResource("Curve_o5hxo")
-
-[sub_resource type="Curve" id="Curve_so6pf"]
-_limits = [0.0, 3.0, 0.0, 1.0]
-_data = [Vector2(0, 1.41818), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_uqp1b"]
-curve = SubResource("Curve_so6pf")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8kqoi"]
-particle_flag_disable_z = true
-direction = Vector3(1, 1, 0)
-spread = 180.0
-initial_velocity_min = 25.0
-initial_velocity_max = 25.0
-angular_velocity_min = 10.0
-angular_velocity_max = 10.0
-orbit_velocity_min = 0.5
-orbit_velocity_max = 0.5
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_uqp1b")
-color = Color(0.996078, 0.905882, 1, 0.596078)
-anim_speed_curve = SubResource("CurveTexture_khhyl")
-
-[sub_resource type="Animation" id="Animation_dqb3o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.8, 0.8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Ring:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_uk81k"]
-resource_name = "activate"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06666667, 0.2),
-"transitions": PackedFloat32Array(0.105112, 1.46409, 1),
-"update": 0,
-"values": [Vector2(0.8, 0.8), Vector2(1.2, 1.2), Vector2(0.8, 0.8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:instance_shader_parameters/flash_intensity")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 2.1435468),
-"update": 0,
-"values": [1.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_ngbws"]
-resource_name = "player_enter"
-length = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Ring:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xomch"]
-_data = {
-&"RESET": SubResource("Animation_dqb3o"),
-&"activate": SubResource("Animation_uk81k"),
-&"player_enter": SubResource("Animation_ngbws")
-}
-
-[node name="PinkOrb" type="Area2D" groups=["Orb"]]
+[node name="PinkOrb" type="Area2D" unique_id=1281562670 groups=["Orb"]]
 scale = Vector2(1.2, 1.2)
 script = ExtResource("1_c2n1u")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=6432120]
 texture_filter = 1
 material = SubResource("ShaderMaterial_86wil")
 instance_shader_parameters/flash_intensity = 0.0
@@ -134,23 +26,19 @@ texture = ExtResource("2_ljrke")
 region_enabled = true
 region_rect = Rect2(0.0254173, 13.9179, 13.9184, 14.1887)
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1164313658]
 shape = SubResource("RectangleShape2D_qs08e")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="Particles" type="GPUParticles2D" parent="."]
+[node name="Particles" type="GPUParticles2D" parent="." unique_id=695114815]
 emitting = false
 amount = 16
 speed_scale = 2.0
 fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_8kqoi")
+process_material = ExtResource("4_86wil")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_xomch")
-}
-
-[node name="Ring" type="GPUParticles2D" parent="."]
+[node name="Ring" type="GPUParticles2D" parent="." unique_id=2079270993]
+visible = false
 texture_filter = 1
 emitting = false
 amount = 1

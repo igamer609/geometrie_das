@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ei3jc8f61e8g"]
+[gd_scene format=3 uid="uid://ei3jc8f61e8g"]
 
 [ext_resource type="AudioStream" uid="uid://d22lbedgb1n7e" path="res://Assets/music/menu.mp3" id="1_62pty"]
 [ext_resource type="Script" uid="uid://dipbe48vu0cfd" path="res://MenuMusic.gd" id="2_ii5pr"]
@@ -6,16 +6,16 @@
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="4_8j5im"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_8jkv1"]
 
-[node name="MenuMusic" type="AudioStreamPlayer"]
+[node name="MenuMusic" type="AudioStreamPlayer" unique_id=1208634915]
 stream = ExtResource("1_62pty")
-volume_db = -15.0
+volume_db = -13.0
 bus = &"Music"
 script = ExtResource("2_ii5pr")
 
-[node name="GameStart" type="CanvasLayer" parent="."]
+[node name="GameStart" type="CanvasLayer" parent="." unique_id=1068635981]
 layer = 128
 
-[node name="BG" type="ColorRect" parent="GameStart"]
+[node name="BG" type="ColorRect" parent="GameStart" unique_id=1680254386]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.521569)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="GameStart"]
+[node name="NinePatchRect" type="NinePatchRect" parent="GameStart" unique_id=1819289027]
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,7 +44,7 @@ patch_margin_top = 125
 patch_margin_right = 125
 patch_margin_bottom = 125
 
-[node name="Label" type="Label" parent="GameStart/NinePatchRect"]
+[node name="Label" type="Label" parent="GameStart/NinePatchRect" unique_id=1487086924]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -65,7 +65,7 @@ You can contribute too!"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label2" type="Label" parent="GameStart/NinePatchRect"]
+[node name="Label2" type="Label" parent="GameStart/NinePatchRect" unique_id=31383713]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -83,7 +83,7 @@ theme_override_font_sizes/font_size = 28
 text = "-igamer609"
 horizontal_alignment = 1
 
-[node name="OK" type="Button" parent="GameStart/NinePatchRect"]
+[node name="OK" type="Button" parent="GameStart/NinePatchRect" unique_id=927741140]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

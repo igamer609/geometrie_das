@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxyxl1h3uv4kq"]
+[gd_scene format=3 uid="uid://cxyxl1h3uv4kq"]
 
 [ext_resource type="Script" uid="uid://cjvo87kr5vn5w" path="res://Scripts/General/GameProgress.gd" id="1_sm7sb"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_5q1mc"]
@@ -22,18 +22,19 @@ bg_color = Color(0, 1, 0, 1)
 corner_radius_top_left = 100
 corner_radius_bottom_left = 100
 
-[node name="GameProgress" type="CanvasLayer"]
+[node name="GameProgress" type="CanvasLayer" unique_id=1686518983]
 layer = 6
 script = ExtResource("1_sm7sb")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1210551368]
 process_mode = 1
+volume_db = -7.0
 bus = &"Music"
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1351954966]
 one_shot = true
 
-[node name="Container" type="PanelContainer" parent="."]
+[node name="Container" type="PanelContainer" parent="." unique_id=584167605]
 clip_contents = true
 anchors_preset = 5
 anchor_left = 0.5
@@ -47,7 +48,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_manun")
 
-[node name="Bar" type="ProgressBar" parent="Container"]
+[node name="Bar" type="ProgressBar" parent="Container" unique_id=81092974]
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 1

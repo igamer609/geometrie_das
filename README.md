@@ -1,3 +1,16 @@
+# Geometrie Das 2.0 Beta 3 (and 2)
+- swipe building is now functional
+- fixed memory leak when using VisibleOnScreenEnabler2D
+- remade objects to load new component nodes only when necessary
+- more stable loading and saving
+- added more objects (more decorations, tabs and color management in the future)
+- level registry now unloads when entering the editor or a level
+- delete levels
+- levels completed while playtesting will are now verified, they become unverified when opening the editor again
+- now the level editing menu shows verified status, song used and length of level
+- more refactoring and stuff
+- fixed bugs relating to UndoRedo
+
 # Geometrie Das 2.0 Beta 1 (and 1a)
 - added preloading of resources and scenes (mostly for level loading optimizations)
 - added level editing menu (rename, add a description, edit or playtest the level)

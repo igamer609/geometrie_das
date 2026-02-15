@@ -10,20 +10,13 @@ extends AudioStreamPlayer
 
 func _ready():
 	$GameStart.visible = PlayerData.new
+	start_music()
 
 func stop_music():
-	music_play = false
+	stop()
 
 func start_music():
-	music_play = true
-
-#this method of checking sucks and should absolutely be replaced
-
-func _process(_delta):
-	if music_play and not playing:
-		play()
-	elif not music_play and playing:
-		stop()
+	play()
 
 func _quit_announcement():
 	$GameStart.visible = false

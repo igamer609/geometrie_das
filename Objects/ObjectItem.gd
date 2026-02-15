@@ -10,12 +10,11 @@ class_name GDObject extends StaticBody2D
 @export var in_level : bool = false
 
 var scene : Node2D = null
+var obj_sprite : Sprite2D = null
+var collision : CollisionPolygon2D = null
+var scene_parent : Node2D = null
 
-@onready var vis_notif : VisibleOnScreenNotifier2D = $VisibilityNotifier
-@onready var obj_sprite : Sprite2D = $Sprite
-@onready var scene_parent : Node2D = $SceneParent
 @onready var _selection_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
-@onready var collision : CollisionPolygon2D = $Collision
 
 @export var uid : int
 @export var other : Dictionary
@@ -33,43 +32,55 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	
 	return object
 
-func _ready():
+func _init() -> void:
+	
+	ResourceLibrary.free_objects.connect(delete)
+	
+
+func _ready() -> void:
 	if obj_res:
 		update()
-	
-	vis_notif.screen_entered.connect(_show)
-	vis_notif.screen_exited.connect(_hide)
 
-func update():
+func update() -> void:
+	if not in_level or (not obj_res.is_decoration and in_level and not obj_res.is_scene):
+		collision = CollisionPolygon2D.new()
+		add_child(collision)
+		collision.position = Vector2(8, 8)
+		collision.polygon = obj_res.collision_shape
 	
-	if in_level and obj_res.is_decoration:
-		collision.queue_free()
+	if not obj_res.is_scene:
+		obj_sprite = Sprite2D.new()
+		add_child(obj_sprite)
+		obj_sprite.position = Vector2(8,8)
+	else:
+		scene_parent = Node2D.new()
+		add_child(scene_parent)
 	
-	if obj_res.is_scene:
+	if scene_parent != null:
 		scene = obj_res.scene.instantiate()
 		scene.position = Vector2(8, 8)
 		scene.name = "Scene"
-		collision.polygon = obj_res.collision_shape
-		
 		scene_parent.add_child(scene)
+		
+		z_index = 0
 		
 		if in_level:
 			var particles : GPUParticles2D = scene.find_child("Particles")
 			if(particles):
 				particles.emitting = true
-			collision.queue_free()
-			obj_sprite.queue_free()
 		else:
 			var sprite : Sprite2D = scene.find_child("Sprite")
 			if sprite:
 				sprite.material = _selection_material
-		
 	else:
 		obj_sprite.texture = obj_res.texture
 		obj_sprite.texture.filter_clip = true
+		
 		if not obj_res.is_decoration:
 			collision.polygon = obj_res.collision_shape
-		scene_parent.queue_free()
+		else:
+			z_index = -1
+		
 		if not in_level:
 			obj_sprite.material = _selection_material
 	
@@ -82,21 +93,21 @@ func update():
 		set_collision_layer_value(2, true)
 		set_collision_layer_value(3, false)
 
-func select():
+func select() -> void:
 	if scene:
 		var sprite : Sprite2D = scene.find_child("Sprite")
 		if sprite:
 			sprite.set_instance_shader_parameter("is_selected", true)
 	else:
-		$Sprite.set_instance_shader_parameter("is_selected", true)
+		obj_sprite.set_instance_shader_parameter("is_selected", true)
 
-func deselect():
+func deselect() -> void:
 	if scene:
 		var sprite : Sprite2D = scene.find_child("Sprite")
 		if sprite:
 			sprite.set_instance_shader_parameter("is_selected", false)
 	else:
-		$Sprite.set_instance_shader_parameter("is_selected", false)
+		obj_sprite.set_instance_shader_parameter("is_selected", false)
 
 func get_selection_rect() -> Rect2:
 	var points : PackedVector2Array = collision.polygon
@@ -120,3 +131,6 @@ func _show() -> void:
 		scene_parent.add_child(scene)
 	elif not obj_res.is_scene:
 		obj_sprite.show()
+
+func delete() -> void:
+	queue_free()

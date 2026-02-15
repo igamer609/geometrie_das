@@ -10,6 +10,7 @@ region = Rect2(0, 64, 16, 17)
 size = Vector2(8, 2)
 
 [node name="Spike" type="Area2D" unique_id=1066816316 groups=["Hazard"]]
+z_index = 1
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=382126275]
 texture_filter = 1

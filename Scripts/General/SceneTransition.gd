@@ -49,6 +49,7 @@ func wait(seconds) -> bool:
 	return true
 
 func load_editor(level_info : Dictionary, level_path : String = "") -> void:
+	ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.NONE)
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	
@@ -62,6 +63,8 @@ func load_editor(level_info : Dictionary, level_path : String = "") -> void:
 	$AnimationPlayer.play_backwards("fade")
 
 func load_game(level_info : Dictionary, restart = false, playtesting = false, return_scene : String = "") -> void:
+	ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.NONE)
+	
 	if not restart:
 		$AnimationPlayer.play("fade")
 		await $AnimationPlayer.animation_finished
@@ -79,8 +82,12 @@ func load_game(level_info : Dictionary, restart = false, playtesting = false, re
 		$AnimationPlayer.play_backwards("fade")
 
 func load_level_edit_menu(level_info : Dictionary, level_path : String) -> void:
+	ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.CREATED)
+	
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
+	
+	ResourceLibrary.free_objects.emit()
 	
 	get_tree().change_scene_to_file("res://Scenes/Menus/LevelEditingMenu.tscn")
 	await get_tree().tree_changed

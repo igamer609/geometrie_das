@@ -45,7 +45,7 @@ region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aq6jn"]
 atlas = ExtResource("7_m37bs")
-region = Rect2(32, 3, 32, 18)
+region = Rect2(32, 23, 32, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m37bs"]
 atlas = ExtResource("7_m37bs")
@@ -1223,6 +1223,37 @@ script = ExtResource("7_t5tsa")
 id = 16
 
 [node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Portals/ItemButton8" unique_id=1617812666]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 4
+
+[node name="Decorations" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=715431517]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+columns = 10
+metadata/_tab_index = 4
+
+[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Decorations" unique_id=1317121120]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 38
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Decorations/ItemButton8" unique_id=822257053]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15

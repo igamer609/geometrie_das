@@ -6,11 +6,19 @@
 
 extends Node
 
-enum RegistryType {CREATED, SAVED}
+signal free_objects
+signal change_editor_layer
+
+enum RegistryType {NONE, CREATED, SAVED}
 
 const _REGISTRY_PATHS : Dictionary = {
-	0 : "user://created_levels/created_levels.datreg",
-	1: "user://saved_levels/saved_levels.datreg"
+	1 : "user://created_levels/created_levels.datreg/",
+	2: "user://saved_levels/saved_levels.datreg/"
+}
+
+@onready var music_ids : Dictionary = {
+	1 : [preload("res://Assets/music/Levels/Glorious Morning.mp3"), "Glorious Morning"],
+	2 : [preload("res://Assets/music/Levels/yStep.mp3"), "yStep"]
 }
 
 var library : Dictionary = {}
@@ -20,8 +28,6 @@ var _res_load_queue : Array = []
 var _scene_load_queue : Array = []
 var _is_loading : bool = false
 
-#Current registry structure:
-#{"levels": {"id1" : {....}, "id2" : {...}, ...}, "order" : ["id2", "id1", ...]}
 var current_registry = {}
 var _current_registry_type : RegistryType
 
@@ -105,6 +111,13 @@ func _check_registry_availability(reg_type : RegistryType) -> bool:
 
 func load_registry_to_memory(reg_type : RegistryType) -> void:
 	
+	if reg_type == RegistryType.NONE:
+		if _current_registry_type != reg_type:
+			save_current_registry()
+		_current_registry_type = RegistryType.NONE
+		current_registry.clear()
+		return
+	
 	var is_valid_load : bool = save_current_registry()
 	
 	var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[reg_type], FileAccess.READ, FileAccess.COMPRESSION_ZSTD)
@@ -137,7 +150,7 @@ func create_entry(id : String, data : Dictionary) -> bool:
 func save_current_registry() -> bool:
 	var file_exists : bool = _check_registry_availability(_current_registry_type)
 	
-	if not file_exists:
+	if not file_exists and _current_registry_type != RegistryType.NONE:
 		var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[_current_registry_type], FileAccess.WRITE, FileAccess.COMPRESSION_ZSTD)
 		reg_file.store_line("{}")
 	
@@ -197,5 +210,26 @@ func update_entry_and_main_file(id : String, data : Dictionary, save_after : boo
 			return save_current_registry()
 		else:
 			return true
+	
+	return false
+
+func delete_level(id: String) -> bool:
+	var is_valid : bool = _check_registry_availability(_current_registry_type)
+	
+	if is_valid:
+		if current_registry["levels"].has(id):
+			current_registry["levels"].erase(id)
+			current_registry["order"].erase(id)
+		else:
+			return false
+		
+		var path : String = ""
+		if _current_registry_type == RegistryType.CREATED:
+			path = "user://created_levels/"
+		elif _current_registry_type == RegistryType.SAVED:
+			path = "user://saved_levels/"
+		
+		DirAccess.remove_absolute(path + id + ".gdaslvl")
+		return save_current_registry()
 	
 	return false

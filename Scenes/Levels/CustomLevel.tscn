@@ -172,14 +172,14 @@ death_particle = NodePath("Universal/DeathEffect")
 
 [node name="Player" parent="." unique_id=1199746068 instance=ExtResource("3_tq51e")]
 process_mode = 1
-position = Vector2(-64, -8)
+position = Vector2(-64, -1)
 
 [node name="Universal" type="Node" parent="." unique_id=697846460]
 process_mode = 1
 
 [node name="EndPosition" type="Node2D" parent="Universal" unique_id=1359156096]
 process_mode = 1
-position = Vector2(-592, -39.975)
+position = Vector2(4485, -39.975)
 
 [node name="Node2D" parent="Universal/EndPosition" unique_id=1928431233 instance=ExtResource("4_irpq7")]
 
