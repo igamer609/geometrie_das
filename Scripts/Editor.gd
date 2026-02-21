@@ -279,11 +279,8 @@ func _exit():
 	
 	var lvl_res : LevelData = load(_level_path) as LevelData
 	
-	var lvl_file = FileAccess.open_compressed(_level_path, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
-	var level_old = JSON.parse_string(lvl_file.get_line())
-	
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(level_res.meta, _level_path)
+	EditorTransition.load_level_edit_menu(lvl_res.meta, _level_path)
 
 func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:

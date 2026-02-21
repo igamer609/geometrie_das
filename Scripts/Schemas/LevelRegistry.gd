@@ -9,21 +9,26 @@ const _REGISTRY_PATHS : Dictionary = {
 
 @export var type : RegistryType = RegistryType.NONE
 @export var levels: Dictionary = {}
-@export var order: Array[String] = []
+@export var order: Array = []
 
 static func create_registry(type : RegistryType) -> LevelRegistry:
-	var registry : LevelRegistry = LevelRegistry.new()
+	var registry : LevelRegistry = null
 	
 	if type != RegistryType.NONE:
-		var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[type], FileAccess.READ, FileAccess.COMPRESSION_ZSTD)
-		var reg_string : String = reg_file.get_line()
 		
-		var dict : Dictionary = JSON.parse_string(reg_string)
+		registry = load(_REGISTRY_PATHS[type])
 		
-		for id : String in dict.keys():
-			registry.levels[id] = LevelRegistryEntry.from_raw_dict(dict[id])
+		if not registry:	
+			registry = LevelRegistry.new()
+			var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[type], FileAccess.READ, FileAccess.COMPRESSION_ZSTD)
+			var reg_string : String = reg_file.get_line()
 		
-		registry.order = dict.get("order", [])
+			var dict : Dictionary = JSON.parse_string(reg_string)
+		
+			for id : String in dict["levels"].keys():
+				registry.levels[id] = LevelRegistryEntry.from_raw_dict(dict["levels"][id])
+		
+			registry.order = dict.get("order", [])
 	
 	return registry
 

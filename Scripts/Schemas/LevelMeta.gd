@@ -54,8 +54,5 @@ static func from_dict(data: Dictionary) -> LevelMeta:
 	var meta = LevelMeta.new()
 	for key in data:
 		if key in meta:
-			if key == "bg_color":
-				meta.bg_color = Color(data[key])
-			else:
-				meta.set(key, data[key])
+			meta.set(key, data[key])
 	return meta

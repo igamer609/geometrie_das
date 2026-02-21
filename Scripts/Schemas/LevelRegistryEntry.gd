@@ -16,6 +16,10 @@ func to_dict() -> Dictionary:
 static func from_raw_dict(entry_dict : Dictionary) -> LevelRegistryEntry:
 	var entry : LevelRegistryEntry = LevelRegistryEntry.new()
 	
+	if entry_dict.has("info"):
+		entry_dict["meta"] = entry_dict["info"]
+		entry_dict.erase("info")
+	
 	entry.meta = LevelMeta.from_dict(entry_dict["meta"])
 	entry.ref = entry_dict["ref"]
 	

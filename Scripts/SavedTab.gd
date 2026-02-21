@@ -36,10 +36,6 @@ func add_level_template(level_info : LevelMeta, path : String):
 	$Main/Scroll/Container.add_child(new_lvl)
 	levels.append(new_lvl)
 	
-	if level_info.has("name"):
-		level_info.title = level_info.name
-		level_info.erase("name")
-	
 	if level_info.title != "":
 		new_lvl.name = str(level_info.title)
 	else:

@@ -77,18 +77,14 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	if restart:
 		first_attempt = false
 	
-	if level_data.has("meta"):
-		
-		if not playtesting:
-			GameProgress.current_level_id = level_data.meta.published_id
-		
-		if level_data.has("objects"):
-			for obj in level_data["objects"]:
-				load_object(obj["obj_id"], obj["uid"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
-		if level_data["info"].has("song_id"):
-			GameProgress.music_to_load = level_data["info"]["song_id"]
-		if level_data.has("bg_color"):
-			start_bg = level_data["info"]["bg_color"]
+	if not playtesting:
+		GameProgress.current_level_id = level_data.meta.published_id
+	
+	for obj : LevelObject  in level_data.objects:
+		load_object(obj.obj_id, obj.uid, str_to_var(obj.transform[0]), obj.transform[1], obj.other)
+	
+	GameProgress.music_to_load = level_data.meta.song_id
+	start_bg = level_data.meta.bg_color
 	
 	_playtesting = playtesting
 	_loaded_path = _get_path_to_level()
@@ -268,7 +264,7 @@ func _exit_level():
 	
 	match _return_scene:
 		"res://Scenes/Menus/LevelEditingMenu.tscn":
-			EditorTransition.load_level_edit_menu(level_data.meta, _loaded_path)
+			EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path))
 		_:
 			TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
@@ -292,7 +288,7 @@ func _restart():
 	get_tree().paused = false
 	
 	ResourceLibrary.free_objects.emit()
-	EditorTransition.load_game(level_data, true, _playtesting, _return_scene)
+	EditorTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
 
 func change_background(new_colour, fade_time):
 	
