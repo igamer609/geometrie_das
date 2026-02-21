@@ -50,7 +50,7 @@ var edit_mode : EditorMode = EditorMode.BUILD
 var select_mode : SelectionMode = SelectionMode.SINGLE
 var menu_state = false
 
-var _level_data : Dictionary = {"local_id": 0, "title" : "", "author" : "", "difficulty" : 0, "version" : (str(Engine.get_version_info()["major"]) + "." + str(Engine.get_version_info()["minor"])), "song_id" : 0, "last_uid" : 0, "song_offset" : 0, "verified" : 0, "published_id" : -1, "length" : 0}
+var _level_meta : LevelMeta = LevelMeta.new()
 var _level_path : String
 
 var _current_spacial_index : Dictionary[Vector2, Array] = {}
@@ -72,64 +72,59 @@ func _ready() -> void:
 	_initialise_top_bar()
 
 func _save_level() -> bool:
-	_level_data["verified"] = 0
-	var saved_objects : Array = _get_data_of_objects(level.get_children())
+	_level_meta.verified = 0
+	var saved_objects : Array[LevelObject] = _get_data_of_objects(level.get_children())
 	
-	var save_data = {
-		"info" : _level_data,
+	var save_data = LevelData.from_dict({
+		"meta" : _level_meta,
 		"objects" : []
-	}
-	save_data["objects"] = saved_objects
+	})
+	save_data.objects = saved_objects
 	
 	if not DirAccess.dir_exists_absolute("user://created_levels/"):
 		DirAccess.make_dir_absolute("user://created_levels/")
 	
-	if not save_data["info"].has("local_id"):
-		save_data["info"]["local_id"] = _generate_unique_id()
+	if not save_data.meta.has("local_id"):
+		save_data.meta.local_id = str(_generate_unique_id())
 	
-	if save_data["info"]["title"].is_empty():
-		save_data["info"]["title"] = "Untitled " + save_data["info"]["local_id"]
+	if save_data.meta.title.is_empty():
+		save_data.meta.title = "Untitled " + save_data.meta.local_id
 	
-	var save_file : FileAccess = FileAccess.open_compressed(_level_path, FileAccess.WRITE, FileAccess.COMPRESSION_GZIP)
-	var save_string : String = JSON.stringify(save_data)
+	var error : Error = ResourceSaver.save(save_data, _level_path, ResourceSaver.FLAG_COMPRESS)
 	
-	var success : bool = save_file.store_line(save_string)
-	
-	if success:
-		if ResourceLibrary._current_registry_type != ResourceLibrary.RegistryType.CREATED:
-			ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.CREATED)
+	if error == Error.OK:
+		if ResourceLibrary.current_registry.type != LevelRegistry.RegistryType.CREATED:
+			ResourceLibrary.load_registry( LevelRegistry.RegistryType.CREATED)
 		
-		var entry_data : Dictionary = ResourceLibrary.entry_data_from_info(save_data["info"], _level_path)
-		ResourceLibrary.updade_entry(str(save_data["info"]["local_id"]), entry_data, true)
+		var entry_data : LevelRegistryEntry = LevelRegistryEntry.generate_entry(save_data.meta, _level_path)
+		ResourceLibrary.updade_entry(save_data.meta.local_id, entry_data, true)
 		
 		ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.NONE)
 	
-	return success
+	return error
 
 func _get_data_of_objects(objects : Array[Node]) -> Array:
 	objects.sort_custom(func(a : Node, b : Node) : return b.global_position.x > a.global_position.x)
 	
 	if objects.size() > 0:
 		var last_object_x = objects.back().global_position.x
-		_level_data["length"] =( last_object_x + 348) / 130
+		_level_meta.length =( last_object_x + 348) / 130
 	else:
-		_level_data["length"] = 1
+		_level_meta.length = 1
 	
-	var obj_data : Array[Dictionary] = []
+	var obj_data : Array[LevelObject] = []
 	for obj in objects:
-		
 		if obj.is_class("StaticBody2D"):
-			var obj_info = TEMPLATE_OBJ_DICT.duplicate()
+			var obj_info : LevelObject = LevelObject.new()
 
 			obj_info.obj_id = obj.obj_res.id
 			obj_info.uid = obj.uid
-			obj_info["transform"] = [var_to_str(obj.global_position), obj.global_rotation]
+			obj_info.transform = [var_to_str(obj.global_position), obj.global_rotation]
 
 			if obj.obj_res.is_trigger:
-				obj_info["other"]["trigger_info"] = obj.trigger.get_info()
+				obj_info.other["trigger_info"] = obj.trigger.get_info()
 			
 			obj_data.append(obj_info)
-	
 	return obj_data
 
 func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
@@ -164,15 +159,15 @@ func _load_level_file() -> void:
 	var file_path = file_dialogue.current_path
 	get_tree().queue_delete(file_dialogue)
 	
-	var lvl_file = FileAccess.open_compressed(file_path, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
-	var lvl_info = JSON.parse_string(lvl_file.get_line())
+	var lvl_data : LevelData = load(file_path)
+	_level_path = file_path
 	
-	if lvl_info.has("objects") and lvl_info.has("title") and lvl_info.has("author") and lvl_info.has("local_id"):
-		_load_level(lvl_info["objects"])
-		_level_data = lvl_info
+	if lvl_data.has("objects") and lvl_data.meta.has("title") and lvl_data.meta.has("author") and lvl_data.meta.has("local_id"):
+		_load_level(lvl_data.objects)
+		_level_meta = lvl_data.meta
 		
-		if _level_data["last_uid"] > 0:
-			last_uid = _level_data["last_uid"]
+		if _level_meta.last_uid > 0:
+			last_uid = _level_meta.last_uid
 		
 	else:
 		$Editor_Object/Menu_Layer/AcceptDialog.visible = true
@@ -184,16 +179,16 @@ func _load_level(objects : Array) -> void:
 	for obj in objects:
 		_load_obj(obj["obj_id"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 
-func load_level_from_info(lvl_info, path) ->  bool:
-	_level_data = lvl_info["info"]
+func load_level_from_data(lvl_data : LevelData, path) ->  bool:
+	_level_meta = lvl_data.meta
 	_level_path = path
 	
-	if _level_data.has("title") and _level_data["title"].is_empty():
-		_level_data["title"] = "Untitled " + _level_data["local_id"]
+	if _level_meta.has("title") and _level_meta["title"].is_empty():
+		_level_meta.title = "Untitled " + _level_meta.local_id
 	
-	if lvl_info.has("objects"):
-		_load_level(lvl_info["objects"])
-		lvl_info.erase("objects")
+	if lvl_data.has("objects"):
+		_load_level(lvl_data.objects)
+		lvl_data.erase("objects")
 	
 	_save_level()
 	return true
@@ -261,16 +256,17 @@ func _save_and_exit():
 	
 	MenuMusic.start_music()
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(_level_data, _level_path)
+	EditorTransition.load_level_edit_menu(_level_meta, _level_path)
 
 func _save_and_play():
 	_save_level()
 	
-	var save_data: Dictionary = {
-		"info" : _level_data,
+	var save_data: LevelData = LevelData.from_dict({
+		"info" : _level_meta,
 		"objects" : []
-	}
-	save_data["objects"] = _get_data_of_objects(level.get_children())
+	})
+	
+	save_data.objects = _get_data_of_objects(level.get_children())
 	
 	history.clear_history()
 	EditorTransition.load_game(save_data, false, true, "res://Scenes/Menus/LevelEditingMenu.tscn")
@@ -281,11 +277,13 @@ func _exit():
 	await dialog.confirmed
 	MenuMusic.start_music()
 	
+	var lvl_res : LevelData = load(_level_path) as LevelData
+	
 	var lvl_file = FileAccess.open_compressed(_level_path, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
 	var level_old = JSON.parse_string(lvl_file.get_line())
 	
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(level_old, _level_path)
+	EditorTransition.load_level_edit_menu(level_res.meta, _level_path)
 
 func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:

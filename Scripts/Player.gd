@@ -153,7 +153,7 @@ func _process_cube_physics(delta : float) -> void:
 	if Input.is_action_pressed("Jump") or not is_really_on_surface():
 		$Sprites.rotate(deg_to_rad(1.33 * gravity_multiplier))
 	elif is_really_on_surface() and not Input.is_action_pressed("Jump"):
-		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.2)
+		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.1)
 	
 	if velocity.y > 700:
 		velocity.y = 700
@@ -185,7 +185,7 @@ func _process_ship_physics(delta : float) -> void:
 	if velocity.y > SHIP_MAX_VEL:
 		velocity.y = SHIP_MAX_VEL
 	
-	$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, velocity.y / PI, 0.1)
+	$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, velocity.y / PI, 0.05)
 	
 	if is_on_ledge():
 		snap_to_ledge()

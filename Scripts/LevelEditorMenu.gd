@@ -25,24 +25,8 @@ const level_lengths : Array[String] = ["Tiny", "Short", "Medium", "Long", "XL"]
 
 #=========Default level data=========#
 #can also be replaced by custom RefCounted implementation to allow for easier management
-var default_level_info : Dictionary = {
-		"local_id": _generate_unique_id(),
-		 "title" : "",
-		 "author" : "", 
-		"description" : "",
-		"difficulty" : 0, 
-		"version" : (str(ProjectSettings.get_setting("application/config/version.release"))), 
-		"song_id" : 1, 
-		"last_uid" : 0, 
-		"song_offset" : 0,
-		 "verified" : 0,
-		 "published_id" : -1,
-		"bg_color" : Color("0045e1"),
-		"original_id" : -1,
-		"length" :  0,
-}
 
-var level_info : Dictionary
+var level_meta : LevelMeta
 
 var _is_verified : bool = false
 
@@ -56,7 +40,6 @@ func _generate_unique_id() -> int:
 	return time * 10000 + rand
 
 func _ready() -> void:
-	level_info = default_level_info.duplicate(true)
 	exit_button.pressed.connect(_exit)
 	edit_button.pressed.connect(_load_editor)
 	play_button.pressed.connect(_play_level)
@@ -64,49 +47,39 @@ func _ready() -> void:
 	title_box.text_changed.connect(_change_level_title)
 	description_box.text_changed.connect(_change_level_description)
 
-func load_level_info(loaded_level_info : Dictionary, level_path : String) -> void:
-	level_info = default_level_info.duplicate(true)
-	level_info.merge(loaded_level_info, true)
+func load_level_meta(loaded_level_meta : LevelMeta, level_path : String) -> void:
+	level_meta = loaded_level_meta
 	load_path = level_path
 	
-	if level_info.has("name"):
-		level_info["title"] = level_info["name"]
-		level_info.erase("name")
+	if level_meta.has("name"):
+		level_meta.title = level_meta.name
+		level_meta.erase("name")
 	
-	if level_info.has("version"):
-		level_info["game_version"] = level_info["version"]
+	if not level_meta.has("description"):
+		level_meta.description = ""
 	
-	if not level_info.has("description"):
-		level_info["description"] = ""
+	level_meta.author = PlayerData.get_player_name()
 	
-	level_info["author"] = PlayerData.get_player_name()
+	if level_meta.has("song_id"):
+		song_label.text = ResourceLibrary.music_ids[level_meta.song_id][1]
 	
-	level_info["local_id"] = int(level_info["local_id"])
-	level_info["published_id"] = int(level_info["published_id"])
-	
-	if level_info.has("song_id"):
-		level_info["song_id"] = int(level_info["song_id"])
-		var song_id : int = level_info["song_id"]
-		song_label.text = ResourceLibrary.music_ids[song_id][1]
-	
-	if level_info.has("verified"):
-		level_info["verified"] = int(level_info["verified"])
-		if level_info["verified"] == 1:
+	if level_meta.has("verified"):
+		if level_meta.verified == 1:
 			_is_verified = true
 			status_label.text = "Verified"
 	
-	if not level_info.has("length"):
-		level_info["length"] = 0
+	if not level_meta.has("length"):
+		level_meta.length = 0
 	
-	_update_length_label(level_info["length"])
+	_update_length_label(level_meta.length)
 	
-	title_box.text = level_info["title"]
-	description_box.text = level_info["description"]
+	title_box.text = level_meta.title
+	description_box.text = level_meta.description
 
 func _exit() -> void:
 	if not load_path.is_empty():
-		var entry_data : Dictionary = ResourceLibrary.entry_data_from_info(level_info, load_path)
-		ResourceLibrary.update_entry_and_main_file(str(level_info["local_id"]), entry_data, true)
+		var entry_data : Dictionary = ResourceLibrary.entry_data_from_info(level_meta, load_path)
+		ResourceLibrary.update_entry_and_main_file(str(level_meta.local_id), entry_data, true)
 	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
 func _load_level_from_file(path : String) -> Dictionary:
@@ -116,28 +89,28 @@ func _load_level_from_file(path : String) -> Dictionary:
 	return result
 
 func _load_editor() -> void:
-	if level_info["title"] == "":
-		level_info["title"] = "Untitled " + str(int( level_info["local_id"]))
+	if level_meta.title == "":
+		level_meta.title = "Untitled " + str(int( level_meta.local_id))
 	
 	if load_path.is_empty():
 		var path : String = _create_level()
-		EditorTransition.load_editor(level_info, path)
+		EditorTransition.load_editor(level_meta, path)
 		return
 	
 	var object_data : Array = _load_level_from_file(load_path)["objects"]
-	var level_data : Dictionary = {"info" : level_info, "objects": object_data}
+	var level_data : Dictionary = {"info" : level_meta, "objects": object_data}
 	EditorTransition.load_editor(level_data, load_path)
 
 func _play_level() -> void:
-	if level_info["title"] == "":
-		level_info["title"] = "Untitled " + str(int( level_info["local_id"]))
+	if level_meta.title == "":
+		level_meta.title = "Untitled " + str(int( level_meta.local_id))
 	
 	if load_path.is_empty():
 		var path : String = _create_level()
-		EditorTransition.load_game(level_info, false, true)
+		EditorTransition.load_game(level_meta, false, true)
 	
 	var object_data : Array = _load_level_from_file(load_path)["objects"]
-	var level_data : Dictionary = {"info" : level_info, "objects": object_data}
+	var level_data : Dictionary = {"info" : level_meta, "objects": object_data}
 	EditorTransition.load_game(level_data, false, true, path_to_self)
 
 func _create_level() -> String:
@@ -145,14 +118,14 @@ func _create_level() -> String:
 	if not DirAccess.dir_exists_absolute("user://created_levels/"):
 		DirAccess.make_dir_absolute("user://created_levels/")
 	
-	if not level_info.has("local_id"):
-		level_info["local_id"] = _generate_unique_id()
+	if not level_meta.has("local_id"):
+		level_meta.local_id = str(_generate_unique_id())
 	
-	var path : String = "user://created_levels/" + str(int( level_info["local_id"])) + ".gdaslvl"
-	var level_data : Dictionary = {
-		"info" : level_info,
+	var path : String = "user://created_levels/" + str(int( level_meta.local_id)) + ".gdaslvl"
+	var level_data : LevelData = LevelData.from_dict({
+		"meta" : level_meta,
 		"objects" : []
-	}
+	})
 
 	var save_file : FileAccess = FileAccess.open_compressed(path, FileAccess.WRITE, FileAccess.COMPRESSION_GZIP)
 	var save_string : String = JSON.stringify(level_data)
@@ -160,18 +133,18 @@ func _create_level() -> String:
 	
 	if success:
 		load_path = path
-		var entry_data : Dictionary = ResourceLibrary.entry_data_from_info(level_info, path)
-		ResourceLibrary.create_entry(str(int( level_info["local_id"])), entry_data)
-		level_info = level_data
+		var entry_data : LevelRegistryEntry = LevelRegistryEntry.generate_entry(level_meta, path)
+		ResourceLibrary.current_registry.create_entry(level_meta.local_id, entry_data)
+		level_meta = level_data.meta
 		return path
 	else:
-		level_info = level_data
+		level_meta = level_data.meta
 		return ""
 
 func _delete_level() -> void:
 	if load_path:
 		load_path = ""
-		ResourceLibrary.delete_level(str(level_info["local_id"]))
+		ResourceLibrary.delete_level(str(level_meta.local_id))
 	_exit()
 
 func _update_length_label(length : int) -> void:
@@ -208,7 +181,7 @@ func _check_text(text : String) -> String:
 func _change_level_title(title : String) -> void:
 	var checked_title = _check_text(title)
 	
-	level_info["title"] = checked_title
+	level_meta.title = checked_title
 	
 	if title_box.text != checked_title:
 		title_box.text = checked_title
@@ -217,7 +190,7 @@ func _change_level_title(title : String) -> void:
 func _change_level_description(description : String) -> void:
 	var checked_description = _check_text(description)
 	
-	level_info["description"] = checked_description
+	level_meta.description = checked_description
 	
 	if description_box.text != checked_description:
 		description_box.text = checked_description

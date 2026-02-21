@@ -8,18 +8,7 @@ extends Node2D
 
 signal loaded_level()
 
-var level_data = {
-	"info" : {
-		"id": 0,
-		"name" : "Untitled",
-		"author" : "-",
-		"difficulty" : 0,
-		"version" : 1.1,
-		"song_id" : 1,
-		"bg_color" : Color("0045e1")
-		},
-	"objects" : []
-}
+var level_data : LevelData = LevelData.new()
 
 var _playtesting : bool = false
 var _return_scene : String
@@ -82,20 +71,18 @@ func _get_path_to_level() -> String:
 	
 	return file_path
 
-func load_level_data(level_info : Dictionary, restart = false, playtesting = false, return_scene = "") -> void:
-	level_data = level_info
+func load_level_data(new_level_data : LevelData, restart = false, playtesting = false, return_scene = "") -> void:
+	level_data = new_level_data
 	
 	if restart:
 		first_attempt = false
 	
-	if level_data.has("info"):
+	if level_data.has("meta"):
 		
 		if not playtesting:
-			GameProgress.current_level_id = level_data["info"]["id"]
+			GameProgress.current_level_id = level_data.meta.published_id
 		
 		if level_data.has("objects"):
-			
-			
 			for obj in level_data["objects"]:
 				load_object(obj["obj_id"], obj["uid"], str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
 		if level_data["info"].has("song_id"):
@@ -281,7 +268,7 @@ func _exit_level():
 	
 	match _return_scene:
 		"res://Scenes/Menus/LevelEditingMenu.tscn":
-			EditorTransition.load_level_edit_menu(level_data["info"], _loaded_path)
+			EditorTransition.load_level_edit_menu(level_data.meta, _loaded_path)
 		_:
 			TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
@@ -296,9 +283,9 @@ func _end_level():
 	player_cam.position_smoothing_enabled = false
 
 func _verify_level():
-	level_data["info"]["verified"] = 1
-	var entry_data = ResourceLibrary.entry_data_from_info(level_data["info"], _loaded_path)
-	ResourceLibrary.update_entry_and_main_file(str(level_data["info"]["local_id"]), entry_data , true)
+	level_data.meta.verified = 1
+	var entry_data = LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path)
+	ResourceLibrary.current_registry.update_entry_and_main_file(level_data.meta.local_id, entry_data, true)
 
 func _restart():
 	GameProgress.stop_lvl_music()

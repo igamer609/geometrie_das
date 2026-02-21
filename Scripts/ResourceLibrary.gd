@@ -9,13 +9,6 @@ extends Node
 signal free_objects
 signal change_editor_layer
 
-enum RegistryType {NONE, CREATED, SAVED}
-
-const _REGISTRY_PATHS : Dictionary = {
-	1 : "user://created_levels/created_levels.datreg/",
-	2: "user://saved_levels/saved_levels.datreg/"
-}
-
 @onready var music_ids : Dictionary = {
 	1 : [preload("res://Assets/music/Levels/Glorious Morning.mp3"), "Glorious Morning"],
 	2 : [preload("res://Assets/music/Levels/yStep.mp3"), "yStep"]
@@ -28,8 +21,7 @@ var _res_load_queue : Array = []
 var _scene_load_queue : Array = []
 var _is_loading : bool = false
 
-var current_registry = {}
-var _current_registry_type : RegistryType
+var current_registry : LevelRegistry
 
 func _ready() -> void:
 	_preload_resources()
@@ -84,152 +76,9 @@ func _process(_delta: float) -> void:
 		
 		_is_loading = false
 
-func get_current_registry_type() -> RegistryType:
-	return _current_registry_type
-
-#can be replaced by custom RefCounted based object for easier management
-func entry_data_from_info(info : Dictionary, path_ref : String) -> Dictionary:
-	return {
-		"info" : info,
-		"ref" : path_ref
-	}
-
-func _check_registry_availability(reg_type : RegistryType) -> bool:
-	match reg_type:
-		RegistryType.CREATED: 
-			if not DirAccess.dir_exists_absolute("user://created_levels/"):
-				DirAccess.make_dir_absolute("user://created_levels/")
-				return false
-		RegistryType.SAVED:
-			if not DirAccess.dir_exists_absolute("user://saved_levels/"):
-				DirAccess.make_dir_absolute("user://saved_levels/")
-				return false
-		_:
-			return false
+func load_registry(type : LevelRegistry.RegistryType) -> void:
+	if type == LevelRegistry.RegistryType.NONE:
+		if current_registry.type != type:
+			current_registry.save()
 	
-	return FileAccess.file_exists(_REGISTRY_PATHS[reg_type])
-
-func load_registry_to_memory(reg_type : RegistryType) -> void:
-	
-	if reg_type == RegistryType.NONE:
-		if _current_registry_type != reg_type:
-			save_current_registry()
-		_current_registry_type = RegistryType.NONE
-		current_registry.clear()
-		return
-	
-	var is_valid_load : bool = save_current_registry()
-	
-	var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[reg_type], FileAccess.READ, FileAccess.COMPRESSION_ZSTD)
-	var reg_string : String = reg_file.get_line()
-	
-	if not reg_string.is_empty():
-		current_registry = JSON.parse_string(reg_string)
-	
-	if current_registry.is_empty():
-			current_registry["levels"] = {}
-			current_registry["order"] = []
-	
-	_current_registry_type = reg_type
-
-func create_entry(id : String, data : Dictionary) -> bool:
-	
-	var is_valid : bool = _check_registry_availability(_current_registry_type)
-	
-	if is_valid:
-		if current_registry.is_empty():
-			current_registry["levels"] = {}
-			current_registry["order"] = []
-		
-		current_registry["levels"][id] = data
-		current_registry["order"].push_front(id)
-		return true
-	
-	return false
-
-func save_current_registry() -> bool:
-	var file_exists : bool = _check_registry_availability(_current_registry_type)
-	
-	if not file_exists and _current_registry_type != RegistryType.NONE:
-		var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[_current_registry_type], FileAccess.WRITE, FileAccess.COMPRESSION_ZSTD)
-		reg_file.store_line("{}")
-	
-	if not current_registry.is_empty():
-		var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[_current_registry_type], FileAccess.WRITE, FileAccess.COMPRESSION_ZSTD)
-		var reg_string : String = JSON.stringify(current_registry)
-		var is_valid : bool = reg_file.store_line(reg_string)
-		reg_file.close()
-		
-		if not is_valid:
-			return false
-		return true
-	else: 
-		return false
-
-func updade_entry(id : String, data : Dictionary, save_after : bool = false) -> bool:
-	
-	var is_valid : bool = _check_registry_availability(_current_registry_type)
-	
-	if is_valid:
-		if current_registry.is_empty():
-			current_registry["levels"] = {}
-			current_registry["order"] = []
-			return create_entry(id, data)
-		else:
-			current_registry["levels"][id] = data
-		
-		if save_after:
-			return save_current_registry()
-		else:
-			return true
-	
-	return false
-
-func update_entry_and_main_file(id : String, data : Dictionary, save_after : bool = false) -> bool:
-	
-	var is_valid : bool = _check_registry_availability(_current_registry_type)
-	
-	if is_valid:
-		if current_registry.is_empty():
-			current_registry["levels"] = {}
-			current_registry["order"] = []
-			return create_entry(id, data)
-		else:
-			current_registry["levels"][id] = data
-		
-		var lvl_file : FileAccess = FileAccess.open_compressed(data["ref"], FileAccess.READ, FileAccess.COMPRESSION_GZIP)
-		var lvl_data : Dictionary = JSON.parse_string(lvl_file.get_line())
-		lvl_data["info"] = data["info"]
-		var new_lvl_data = JSON.stringify(lvl_data)
-		lvl_file.close()
-		
-		lvl_file = FileAccess.open_compressed(data["ref"], FileAccess.WRITE, FileAccess.COMPRESSION_GZIP)
-		lvl_file.store_line(new_lvl_data)
-		
-		if save_after:
-			return save_current_registry()
-		else:
-			return true
-	
-	return false
-
-func delete_level(id: String) -> bool:
-	var is_valid : bool = _check_registry_availability(_current_registry_type)
-	
-	if is_valid:
-		if current_registry["levels"].has(id):
-			current_registry["levels"].erase(id)
-			current_registry["order"].erase(id)
-		else:
-			return false
-		
-		var path : String = ""
-		if _current_registry_type == RegistryType.CREATED:
-			path = "user://created_levels/"
-		elif _current_registry_type == RegistryType.SAVED:
-			path = "user://saved_levels/"
-		
-		DirAccess.remove_absolute(path + id + ".gdaslvl")
-		return save_current_registry()
-	
-	return false
+	current_registry = LevelRegistry.create_registry(type)

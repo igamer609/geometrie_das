@@ -48,8 +48,8 @@ func wait(seconds) -> bool:
 	
 	return true
 
-func load_editor(level_info : Dictionary, level_path : String = "") -> void:
-	ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.NONE)
+func load_editor(level_data : LevelData, level_path : String = "") -> void:
+	ResourceLibrary.load_registry(LevelRegistry.RegistryType.NONE)
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	
@@ -59,11 +59,11 @@ func load_editor(level_info : Dictionary, level_path : String = "") -> void:
 	await get_tree().tree_changed
 	
 	var root = get_editor_root()
-	await root.load_level_from_info(level_info, level_path)
+	await root.load_level_from_info(level_data, level_path)
 	$AnimationPlayer.play_backwards("fade")
 
-func load_game(level_info : Dictionary, restart = false, playtesting = false, return_scene : String = "") -> void:
-	ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.NONE)
+func load_game(level_meta : LevelData, restart = false, playtesting = false, return_scene : String = "") -> void:
+	ResourceLibrary.load_registry(ResourceLibrary.NONE)
 	
 	if not restart:
 		$AnimationPlayer.play("fade")
@@ -76,12 +76,12 @@ func load_game(level_info : Dictionary, restart = false, playtesting = false, re
 	
 	var root = get_level_root()
 	
-	root.load_level_data(level_info, restart, playtesting, return_scene)
+	root.load_level_data(level_meta, restart, playtesting, return_scene)
 	
 	if not restart:
 		$AnimationPlayer.play_backwards("fade")
 
-func load_level_edit_menu(level_info : Dictionary, level_path : String) -> void:
+func load_level_edit_menu(level_meta : LevelMeta, level_path : String) -> void:
 	ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.CREATED)
 	
 	$AnimationPlayer.play("fade")
@@ -93,7 +93,7 @@ func load_level_edit_menu(level_info : Dictionary, level_path : String) -> void:
 	await get_tree().tree_changed
 	
 	var root = get_level_edit_menu()
-	root.load_level_info(level_info, level_path)
+	root.load_level_meta(level_meta, level_path)
 	$AnimationPlayer.play_backwards("fade")
 	
 	if get_tree().paused:
