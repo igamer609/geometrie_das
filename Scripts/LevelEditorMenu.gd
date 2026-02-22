@@ -32,8 +32,6 @@ var _is_verified : bool = false
 
 var text_box_limit = ["$", "#", "@", "!", "%", "^", "&", "*", "(", ")", "'", '"']
 
-var load_path : String = ""
-
 func _generate_unique_id() -> int:
 	var time : int = Time.get_unix_time_from_system()
 	var rand : int = randi() % 10000 + 1
@@ -81,7 +79,7 @@ func _load_editor() -> void:
 	if level.meta.title == "":
 		level.meta.title = "Untitled " + level.meta.local_id
 	
-	if load_path.is_empty():
+	if level.ref.is_empty():
 		_create_level()
 		EditorTransition.load_editor(level)
 		return
@@ -107,7 +105,7 @@ func _create_level() -> void:
 	
 	var path : String = "user://created_levels/" +  level.meta.local_id + ".gdaslvl"
 	var level_data : LevelData = LevelData.from_dict({
-		"meta" : level,
+		"meta" : level.meta,
 		"objects" : []
 	})
 
@@ -129,17 +127,18 @@ func _delete_level() -> void:
 
 func _update_length_label(length : int) -> void:
 	
-	if length in range(1, 9):
+	if length < 10:
 		length_label.text = level_lengths[0]
-	elif length in range(9, 30):
+	elif length < 30:
 		length_label.text = level_lengths[1]
-	elif  length in range(30, 60):
+	elif  length < 60:
 		length_label.text = level_lengths[2]
-	elif  length in range(60, 120):
+	elif  length < 120:
 		length_label.text = level_lengths[3]
-	elif length > 120:
+	elif length >= 120:
 		length_label.text = level_lengths[4]
-	
+	else:
+		length_label.text = "NAN"
 	
 func _check_text(text : String) -> String:
 	var text_array = []

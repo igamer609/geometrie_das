@@ -96,7 +96,6 @@ func load_game_from_data(level_data : LevelData, restart = false, playtesting = 
 		$AnimationPlayer.play_backwards("fade")
 
 func load_level_edit_menu(level_entry: LevelRegistryEntry) -> void:
-	ResourceLibrary.load_registry(LevelRegistry.RegistryType.CREATED)
 	
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished

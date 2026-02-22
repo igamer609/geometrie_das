@@ -14,7 +14,8 @@ var levels : Array = []
 
 func find_levels():
 	
-	ResourceLibrary.load_registry(LevelRegistry.RegistryType.CREATED)
+	if ResourceLibrary.current_registry.type != LevelRegistry.RegistryType.CREATED:
+		ResourceLibrary.load_registry(LevelRegistry.RegistryType.CREATED)
 	
 	var number_of_levels : int = ResourceLibrary.current_registry.order.size()
 	
@@ -25,7 +26,9 @@ func find_levels():
 			var current_id : String = ResourceLibrary.current_registry.order[i]
 			
 			if ResourceLibrary.current_registry.levels.has(current_id):
+				
 				var current_lvl : LevelRegistryEntry = ResourceLibrary.current_registry.levels[current_id]
+				print(current_lvl)
 				add_level_template(current_lvl)
 		
 	

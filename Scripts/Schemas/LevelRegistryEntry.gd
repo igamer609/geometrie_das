@@ -19,6 +19,9 @@ func to_dict() -> Dictionary:
 		"ref" : ref
 	}
 
+func _to_string() -> String:
+	return JSON.stringify(to_dict())
+
 static func from_raw_dict(entry_dict : Dictionary) -> LevelRegistryEntry:
 	var entry : LevelRegistryEntry = LevelRegistryEntry.new()
 	

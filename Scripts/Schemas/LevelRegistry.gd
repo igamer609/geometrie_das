@@ -100,10 +100,7 @@ func update_entry_and_main_file(id : String, data : LevelRegistryEntry, save_aft
 	var is_valid : bool = _check_registry_availability()
 	
 	if is_valid:
-		if levels.is_empty():
-			return create_entry(id, data)
-		else:
-			levels[id] = data
+		levels[id] = data
 		
 		var lvl_data : LevelData = ResourceLoader.load(data.ref) as LevelData
 		lvl_data.meta = data.meta
