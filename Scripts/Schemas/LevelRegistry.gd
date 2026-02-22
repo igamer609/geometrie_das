@@ -1,10 +1,16 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609 and Contributors
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
 class_name LevelRegistry extends Resource
 
 enum RegistryType {NONE, CREATED, SAVED}
 
 const _REGISTRY_PATHS : Dictionary = {
-	1 : "user://created_levels/created_levels.datreg/",
-	2: "user://saved_levels/saved_levels.datreg/"
+	1 : "user://created_levels/created_levels.datreg",
+	2: "user://saved_levels/saved_levels.datreg"
 }
 
 @export var type : RegistryType = RegistryType.NONE
@@ -12,23 +18,17 @@ const _REGISTRY_PATHS : Dictionary = {
 @export var order: Array = []
 
 static func create_registry(type : RegistryType) -> LevelRegistry:
-	var registry : LevelRegistry = null
+	var registry : LevelRegistry = LevelRegistry.new()
+	registry.type = type
 	
 	if type != RegistryType.NONE:
+		if registry._check_registry_availability():
+			registry = load(_REGISTRY_PATHS[type])
 		
-		registry = load(_REGISTRY_PATHS[type])
-		
-		if not registry:	
+		if not registry:
 			registry = LevelRegistry.new()
-			var reg_file : FileAccess = FileAccess.open_compressed(_REGISTRY_PATHS[type], FileAccess.READ, FileAccess.COMPRESSION_ZSTD)
-			var reg_string : String = reg_file.get_line()
-		
-			var dict : Dictionary = JSON.parse_string(reg_string)
-		
-			for id : String in dict["levels"].keys():
-				registry.levels[id] = LevelRegistryEntry.from_raw_dict(dict["levels"][id])
-		
-			registry.order = dict.get("order", [])
+			registry.type = type
+			registry._check_registry_availability()
 	
 	return registry
 
@@ -39,57 +39,48 @@ func to_dict() -> Dictionary:
 		level_dictionaries[id] = levels[id].meta.to_dict()
 	
 	return {
-		"levels" : levels,
+		"levels" : level_dictionaries,
 		"order": order
 	}
 
 func _check_registry_availability() -> bool:
+	
 	match type:
 		RegistryType.NONE:
 			return false
 		RegistryType.CREATED: 
 			if not DirAccess.dir_exists_absolute("user://created_levels/"):
 				DirAccess.make_dir_absolute("user://created_levels/")
-				return false
 		RegistryType.SAVED:
 			if not DirAccess.dir_exists_absolute("user://saved_levels/"):
 				DirAccess.make_dir_absolute("user://saved_levels/")
-				return false
 		_:
 			return false
 	
-	return FileAccess.file_exists(_REGISTRY_PATHS[type])
+	if not FileAccess.file_exists(_REGISTRY_PATHS[type]):
+		save()
+	
+	return true
 
-func create_entry(id : String, data : LevelRegistryEntry) -> bool:
+func create_entry(id : String, data : LevelRegistryEntry) -> Error:
 	var is_valid : bool = _check_registry_availability()
 	
 	if is_valid:
 		levels[id] = data
 		order.push_front(id)
-		return true
+		return OK
 	
-	return false
+	return ERR_DATABASE_CANT_WRITE
 
-func save() -> bool:
-	var file_exists : bool = _check_registry_availability()
-	var reg_file : FileAccess
+func save() -> Error:
+	var error : Error = OK
 	
-	if not file_exists and type != RegistryType.NONE:
-		reg_file = FileAccess.open_compressed(_REGISTRY_PATHS[type], FileAccess.WRITE, FileAccess.COMPRESSION_ZSTD)
-		reg_file.store_line(JSON.stringify(to_dict()))
+	if type != RegistryType.NONE:
+		error = ResourceSaver.save(self, _REGISTRY_PATHS[type], ResourceSaver.FLAG_COMPRESS)
 	
-	reg_file = FileAccess.open_compressed(_REGISTRY_PATHS[type], FileAccess.WRITE, FileAccess.COMPRESSION_ZSTD)
-	var reg_string : String = JSON.stringify(to_dict())
-	var is_valid : bool = reg_file.store_line(reg_string)
-	reg_file.close()
-	
-	if not is_valid:
-		return false
-	
-	return true
+	return error
 
-
-func updade_entry(id : String, data : LevelRegistryEntry, save_after : bool = false) -> bool:
+func updade_entry(id : String, data : LevelRegistryEntry, save_after : bool = false) -> Error:
 	var is_valid : bool = _check_registry_availability()
 	
 	if is_valid:
@@ -101,12 +92,11 @@ func updade_entry(id : String, data : LevelRegistryEntry, save_after : bool = fa
 		if save_after:
 			return save()
 		else:
-			return true
+			return OK
 	
-	return false
+	return ERR_DATABASE_CANT_WRITE
 
-func update_entry_and_main_file(id : String, data : LevelRegistryEntry, save_after : bool = false) -> bool:
-	
+func update_entry_and_main_file(id : String, data : LevelRegistryEntry, save_after : bool = false) -> Error:
 	var is_valid : bool = _check_registry_availability()
 	
 	if is_valid:
@@ -115,22 +105,18 @@ func update_entry_and_main_file(id : String, data : LevelRegistryEntry, save_aft
 		else:
 			levels[id] = data
 		
-		var lvl_file : FileAccess = FileAccess.open_compressed(data.ref, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
-		var lvl_data : LevelData = LevelData.from_dict(JSON.parse_string(lvl_file.get_line())) 
+		var lvl_data : LevelData = ResourceLoader.load(data.ref) as LevelData
 		lvl_data.meta = data.meta
-		var new_lvl_data = JSON.stringify(lvl_data.to_dict())
-		lvl_file.close()
-		lvl_file = FileAccess.open_compressed(data.ref, FileAccess.WRITE, FileAccess.COMPRESSION_GZIP)
-		lvl_file.store_line(new_lvl_data)
+		ResourceSaver.save(lvl_data, data.ref)
 		
 		if save_after:
 			return save()
 		else:
-			return true
+			return OK
 	
-	return false
+	return ERR_FILE_CANT_WRITE
 
-func delete_level(id: String) -> bool:
+func delete_level(id: String) -> Error:
 	var is_valid : bool = _check_registry_availability()
 	
 	if is_valid:
@@ -138,7 +124,7 @@ func delete_level(id: String) -> bool:
 			levels.erase(id)
 			order.erase(id)
 		else:
-			return false
+			return ERR_DOES_NOT_EXIST
 		
 		var path : String = ""
 		if type == RegistryType.CREATED:
@@ -149,4 +135,4 @@ func delete_level(id: String) -> bool:
 		DirAccess.remove_absolute(path + id + ".gdaslvl")
 		return save()
 	
-	return false
+	return ERR_FILE_NOT_FOUND

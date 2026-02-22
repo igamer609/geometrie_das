@@ -1,3 +1,9 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609 and Contributors
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
 class_name LevelData extends Resource
 
 @export var meta: LevelMeta
@@ -20,9 +26,9 @@ static func from_dict(data: Dictionary) -> LevelData:
 	var level = LevelData.new()
    
 	if data.has("info"):
-		level.meta = LevelMeta.from_dict(data["info"])
+		level.meta = LevelMeta.from_dict(data["info"].to_dict())
 	elif data.has("meta"):
-		level.meta = LevelMeta.from_dict(data["meta"])
+		level.meta = LevelMeta.from_dict(data["meta"].to_dict())
 	if data.has("objects"):
 		for obj_data in data["objects"]:
 			level.objects.append(LevelObject.from_dict(obj_data))

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------
-#	Copyright (c) 2026 igamer609
+#	Copyright (c) 2026 igamer609 and Contributors
 #	Licensed under the MIT License.
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
@@ -81,25 +81,17 @@ func _save_level() -> bool:
 	})
 	save_data.objects = saved_objects
 	
-	if not DirAccess.dir_exists_absolute("user://created_levels/"):
-		DirAccess.make_dir_absolute("user://created_levels/")
-	
-	if not save_data.meta.has("local_id"):
-		save_data.meta.local_id = str(_generate_unique_id())
-	
 	if save_data.meta.title.is_empty():
 		save_data.meta.title = "Untitled " + save_data.meta.local_id
 	
-	var error : Error = ResourceSaver.save(save_data, _level_path, ResourceSaver.FLAG_COMPRESS)
+	var error : Error = ResourceSaver.save(save_data, _level_path)
 	
 	if error == Error.OK:
 		if ResourceLibrary.current_registry.type != LevelRegistry.RegistryType.CREATED:
 			ResourceLibrary.load_registry( LevelRegistry.RegistryType.CREATED)
 		
 		var entry_data : LevelRegistryEntry = LevelRegistryEntry.generate_entry(save_data.meta, _level_path)
-		ResourceLibrary.updade_entry(save_data.meta.local_id, entry_data, true)
-		
-		ResourceLibrary.load_registry_to_memory(ResourceLibrary.RegistryType.NONE)
+		ResourceLibrary.current_registry.updade_entry(save_data.meta.local_id, entry_data, true)
 	
 	return error
 
@@ -176,19 +168,20 @@ func _load_level(objects : Array) -> void:
 	select_all()
 	delete_objects()
 	
-	for obj in objects:
-		_load_obj(obj["obj_id"] , str_to_var(obj["transform"][0]), obj["transform"][1], obj["other"])
+	for obj : LevelObject in objects:
+		_load_obj(obj.obj_id , str_to_var(obj.transform[0]), obj.transform[1], obj.other)
 
 func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 	_level_meta = lvl_data.meta
 	_level_path = path
 	
-	if _level_meta.has("title") and _level_meta["title"].is_empty():
+	if _level_meta.local_id.is_empty():
+		_level_meta.local_id = str(_generate_unique_id())
+	
+	if _level_meta.title.is_empty():
 		_level_meta.title = "Untitled " + _level_meta.local_id
 	
-	if lvl_data.has("objects"):
-		_load_level(lvl_data.objects)
-		lvl_data.erase("objects")
+	_load_level(lvl_data.objects)
 	
 	_save_level()
 	return true
@@ -256,20 +249,13 @@ func _save_and_exit():
 	
 	MenuMusic.start_music()
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(_level_meta, _level_path)
+	EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
 
 func _save_and_play():
 	_save_level()
 	
-	var save_data: LevelData = LevelData.from_dict({
-		"info" : _level_meta,
-		"objects" : []
-	})
-	
-	save_data.objects = _get_data_of_objects(level.get_children())
-	
 	history.clear_history()
-	EditorTransition.load_game(save_data, false, true, "res://Scenes/Menus/LevelEditingMenu.tscn")
+	EditorTransition.load_game_from_entry(LevelRegistryEntry.generate_entry(_level_meta, _level_path), true, "res://Scenes/Menus/LevelEditingMenu.tscn")
 
 func _exit():
 	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog
@@ -280,7 +266,7 @@ func _exit():
 	var lvl_res : LevelData = load(_level_path) as LevelData
 	
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(lvl_res.meta, _level_path)
+	EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
 
 func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:

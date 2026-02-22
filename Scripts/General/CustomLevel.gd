@@ -1,5 +1,5 @@
 # ----------------------------------------------------------
-#	Copyright (c) 2026 igamer609
+#	Copyright (c) 2026 igamer609 and Contributors
 #	Licensed under the MIT License.
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
@@ -71,7 +71,7 @@ func _get_path_to_level() -> String:
 	
 	return file_path
 
-func load_level_data(new_level_data : LevelData, restart = false, playtesting = false, return_scene = "") -> void:
+func load_level_data(new_level_data : LevelData, restart = false, playtesting = false, level_path : String = "", return_scene = "") -> void:
 	level_data = new_level_data
 	
 	if restart:
@@ -87,11 +87,9 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	start_bg = level_data.meta.bg_color
 	
 	_playtesting = playtesting
-	_loaded_path = _get_path_to_level()
+	_loaded_path = level_path
+	_return_scene = return_scene
 	
-	if not return_scene.is_empty():
-		_return_scene = return_scene
-		
 	exit_button.pressed.connect(_exit_level)
 	restart_button.pressed.connect(_restart)
 	
@@ -102,12 +100,12 @@ func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other) -> 
 	
 	level.call_deferred("add_child", object)
 
-func _ready():
+func _ready() -> void:
 	initiate()
 
-func initiate():
+func initiate() -> void:
 	await loaded_level
-	$Universal/PauseUI/Control/Rect/LevelName.text = level_data["info"]["title"]
+	$Universal/PauseUI/Control/Rect/LevelName.text = level_data.meta.title
 	
 	GameProgress.in_game = true
 	GameProgress.run_music = true
@@ -140,7 +138,7 @@ func initiate():
 	for trigger in $BG_triggers.get_children():
 		trigger.bg_change.connect(change_background)
 
-func player_died():
+func player_died() -> void:
 	follow_cam = false
 	GameProgress.run_music = false
 	
@@ -149,7 +147,7 @@ func player_died():
 	death_particle.global_position = player.global_position
 	death_particle.emitting = true
 
-func player_respawn():
+func player_respawn() -> void:
 	end_bg_tweens()
 	GameProgress.play_lvl_music_from_id(0)
 	change_background(start_bg, 0)
@@ -166,7 +164,7 @@ func player_respawn():
 	
 	follow_cam = true
 
-func on_gamemode_change(portal, gamemode):
+func on_gamemode_change(portal, gamemode) -> void:
 	if portal:
 		if gamemode in ["cube"]:
 			ceiling.visible = false
@@ -217,8 +215,7 @@ func on_gamemode_change(portal, gamemode):
 			ground.global_position.y = 0
 			ceiling.global_position.y = ground.global_position.y - 112
 
-func _process(delta):
-	
+func _process(delta) -> void:
 	if obtain_endpos:
 		_get_endpos()
 		obtain_endpos = false

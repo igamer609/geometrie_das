@@ -1,5 +1,5 @@
 # ----------------------------------------------------------
-#	Copyright (c) 2026 igamer609
+#	Copyright (c) 2026 igamer609 and Contributors
 #	Licensed under the MIT License.
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
@@ -49,7 +49,6 @@ func wait(seconds) -> bool:
 	return true
 
 func load_editor(level_entry: LevelRegistryEntry) -> void:
-	ResourceLibrary.load_registry(LevelRegistry.RegistryType.NONE)
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	
@@ -60,11 +59,10 @@ func load_editor(level_entry: LevelRegistryEntry) -> void:
 	
 	var root = get_editor_root()
 	var loaded_level : LevelData = load(level_entry.ref)
-	await root.load_level_from_info(loaded_level, level_entry.ref)
+	await root.load_level_from_data(loaded_level, level_entry.ref)
 	$AnimationPlayer.play_backwards("fade")
 
-func load_game_from_entry(level_entry : LevelRegistryEntry) -> void:
-	ResourceLibrary.load_registry(LevelRegistry.RegistryType.NONE)
+func load_game_from_entry(level_entry : LevelRegistryEntry, playtest : bool = false, return_path : String = "") -> void:
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	
@@ -75,10 +73,11 @@ func load_game_from_entry(level_entry : LevelRegistryEntry) -> void:
 	
 	var root = get_level_root()
 	var loaded_level : LevelData = load(level_entry.ref)
-	root.load_level_data(loaded_level, level_entry.ref)
+	root.load_level_data(loaded_level, false, playtest, level_entry.ref, return_path)
+	
+	$AnimationPlayer.play_backwards("fade")
 
 func load_game_from_data(level_data : LevelData, restart = false, playtesting = false, level_path : String = "", return_scene : String = "") -> void:
-	ResourceLibrary.load_registry(ResourceLibrary.NONE)
 	
 	if not restart:
 		$AnimationPlayer.play("fade")
@@ -108,7 +107,7 @@ func load_level_edit_menu(level_entry: LevelRegistryEntry) -> void:
 	await get_tree().tree_changed
 	
 	var root = get_level_edit_menu()
-	root.load_level_meta(level_entry.meta, level_entry.ref)
+	root.load_level(level_entry)
 	$AnimationPlayer.play_backwards("fade")
 	
 	if get_tree().paused:

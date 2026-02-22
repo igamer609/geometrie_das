@@ -1,5 +1,5 @@
 # ----------------------------------------------------------
-#	Copyright (c) 2026 igamer609
+#	Copyright (c) 2026 igamer609 and Contributors
 #	Licensed under the MIT License.
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
@@ -67,7 +67,7 @@ func load_level(loaded_level : LevelRegistryEntry) -> void:
 	description_box.text = level.meta.description
 
 func _exit() -> void:
-	if not load_path.is_empty():
+	if not level.ref.is_empty():
 		ResourceLibrary.current_registry.update_entry_and_main_file(level.meta.local_id, level, true)
 	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
@@ -92,11 +92,11 @@ func _play_level() -> void:
 	if level.meta.title == "":
 		level.meta.title = "Untitled " +  level.meta.local_id
 	
-	if load_path.is_empty():
+	if level.ref.is_empty():
 		_create_level()
-		EditorTransition.load_game_from_entry(level)
+		EditorTransition.load_game_from_entry(level, true, path_to_self)
 	
-	EditorTransition.load_game_from_entry(level)
+	EditorTransition.load_game_from_entry(level, true, path_to_self)
 
 func _create_level() -> void:
 	
@@ -114,16 +114,16 @@ func _create_level() -> void:
 	var error : Error = ResourceSaver.save(level_data, path, ResourceSaver.FLAG_COMPRESS)
 	
 	if error == OK:
-		load_path = path
 		var entry_data : LevelRegistryEntry = LevelRegistryEntry.generate_entry(level_data.meta, path)
 		ResourceLibrary.current_registry.create_entry(level.meta.local_id, entry_data)
 		level.ref = path
 	else:
+		error_string(error)
 		level.ref = path
 
 func _delete_level() -> void:
-	if load_path:
-		load_path = ""
+	if level.ref:
+		level.ref = ""
 		ResourceLibrary.current_registry.delete_level(level.meta.local_id)
 	_exit()
 

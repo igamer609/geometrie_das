@@ -45,6 +45,10 @@ window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=3
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GDasFormat/plugin.cfg")
+
 [global_group]
 
 Hazard=""

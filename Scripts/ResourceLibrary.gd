@@ -1,5 +1,5 @@
 # ----------------------------------------------------------
-#	Copyright (c) 2026 igamer609
+#	Copyright (c) 2026 igamer609 and Contributors
 #	Licensed under the MIT License.
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
@@ -22,6 +22,9 @@ var _scene_load_queue : Array = []
 var _is_loading : bool = false
 
 var current_registry : LevelRegistry
+
+func _init() -> void:
+	current_registry = LevelRegistry.new()
 
 func _ready() -> void:
 	_preload_resources()
@@ -77,8 +80,5 @@ func _process(_delta: float) -> void:
 		_is_loading = false
 
 func load_registry(type : LevelRegistry.RegistryType) -> void:
-	if type == LevelRegistry.RegistryType.NONE:
-		if current_registry.type != type:
-			current_registry.save()
-	
+	current_registry.save()
 	current_registry = LevelRegistry.create_registry(type)
