@@ -21,7 +21,7 @@ var scene_parent : Node2D = null
 
 static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary, in_level : bool = false) -> GDObject:
 	var res : GDObjectResource = ResourceLibrary.library[obj_id]
-	var object : GDObject = ResourceLibrary.scenes["GDObject"].instantiate()
+	var object : GDObject = GDObject.new()
 	
 	object.obj_res = res
 	object.uid = n_uid
@@ -33,9 +33,8 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	return object
 
 func _init() -> void:
-	
 	ResourceLibrary.free_objects.connect(delete)
-	
+	ResourceLibrary.change_editor_layer.connect(check_editor_layer)
 
 func _ready() -> void:
 	if obj_res:
@@ -108,6 +107,10 @@ func deselect() -> void:
 			sprite.set_instance_shader_parameter("is_selected", false)
 	else:
 		obj_sprite.set_instance_shader_parameter("is_selected", false)
+
+func check_editor_layer(new_layer : int) -> void:
+	if new_layer == other.get("e_l", 0):
+		pass
 
 func get_selection_rect() -> Rect2:
 	var points : PackedVector2Array = collision.polygon

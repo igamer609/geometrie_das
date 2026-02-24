@@ -90,7 +90,7 @@ func load_game_from_data(level_data : LevelData, restart = false, playtesting = 
 	
 	var root = get_level_root()
 	var loaded_level : LevelData = load(level_path)
-	root.load_level_data(loaded_level, restart, playtesting, return_scene)
+	root.load_level_data(loaded_level, restart, playtesting, level_path, return_scene)
 	
 	if not restart:
 		$AnimationPlayer.play_backwards("fade")
