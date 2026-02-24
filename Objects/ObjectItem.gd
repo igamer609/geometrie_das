@@ -14,14 +14,17 @@ var obj_sprite : Sprite2D = null
 var collision : CollisionPolygon2D = null
 var scene_parent : Node2D = null
 
+
 @onready var _selection_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
 
 @export var uid : int
 @export var other : Dictionary
+var trigger : Trigger = null
 
 static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary, in_level : bool = false) -> GDObject:
 	var res : GDObjectResource = ResourceLibrary.library[obj_id]
 	var object : GDObject = GDObject.new()
+	object.add_to_group("Object")
 	
 	object.obj_res = res
 	object.uid = n_uid
@@ -70,6 +73,7 @@ func update() -> void:
 		else:
 			var sprite : Sprite2D = scene.find_child("Sprite")
 			if sprite:
+				obj_sprite = sprite
 				sprite.material = _selection_material
 	else:
 		obj_sprite.texture = obj_res.texture
@@ -91,21 +95,17 @@ func update() -> void:
 		set_collision_layer_value(1, false)
 		set_collision_layer_value(2, true)
 		set_collision_layer_value(3, false)
+	
+	if obj_res.trigger_id != 0:
+		trigger = Trigger.create_trigger(obj_res.trigger_id, other["trigger"])
+	
 
 func select() -> void:
-	if scene:
-		var sprite : Sprite2D = scene.find_child("Sprite")
-		if sprite:
-			sprite.set_instance_shader_parameter("is_selected", true)
-	else:
+	if obj_sprite:
 		obj_sprite.set_instance_shader_parameter("is_selected", true)
 
 func deselect() -> void:
-	if scene:
-		var sprite : Sprite2D = scene.find_child("Sprite")
-		if sprite:
-			sprite.set_instance_shader_parameter("is_selected", false)
-	else:
+	if obj_sprite:
 		obj_sprite.set_instance_shader_parameter("is_selected", false)
 
 func check_editor_layer(new_layer : int) -> void:

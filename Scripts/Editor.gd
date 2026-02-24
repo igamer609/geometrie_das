@@ -105,18 +105,17 @@ func _get_data_of_objects(objects : Array[Node]) -> Array:
 		_level_meta.length = 1
 	
 	var obj_data : Array[LevelObject] = []
-	for obj in objects:
-		if obj.is_class("StaticBody2D"):
-			var obj_info : LevelObject = LevelObject.new()
+	for obj : GDObject in objects:
+		var obj_info : LevelObject = LevelObject.new()
 
-			obj_info.obj_id = obj.obj_res.id
-			obj_info.uid = obj.uid
-			obj_info.transform = [var_to_str(obj.global_position), obj.global_rotation]
+		obj_info.obj_id = obj.obj_res.id
+		obj_info.uid = obj.uid
+		obj_info.transform = [var_to_str(obj.global_position), obj.global_rotation]
 
-			if obj.obj_res.is_trigger:
-				obj_info.other["trigger_info"] = obj.trigger.get_info()
-			
-			obj_data.append(obj_info)
+		if obj.trigger:
+			obj_info.other["trigger"] = obj.trigger.get_info()
+		
+		obj_data.append(obj_info)
 	return obj_data
 
 func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
@@ -316,6 +315,8 @@ func _unhandled_input(event : InputEvent) -> void:
 						last_click_pos = click_pos
 					
 					var selection : Array = get_objects_at_point(click_pos)
+					
+					print(selection)
 					
 					if  len(selection) == 0:
 						deselect()

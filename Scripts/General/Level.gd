@@ -193,6 +193,7 @@ func exit_level():
 	
 	GameProgress.music_to_load = 0
 
+	GameProgress.stop_lvl_music()
 	MenuMusic.start_music()
 	
 	TransitionScene.change_scene("res://Scenes/Menus/LevelMenu.tscn")

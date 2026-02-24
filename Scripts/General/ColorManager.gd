@@ -1,19 +1,72 @@
-class_name ColorManager extends Resource
+class_name ColorManager extends Node
 
 const max_channels : int = 16
 
-const main_channels : Dictionary = {
-	0: "BG",
-	1: "OBJ",
-	2: "LINE",
-	3: "G1"
+var pallete_image : Image
+var pallete_texture : ImageTexture
+
+var _texture_update_queued : bool = false
+
+const MAIN_CHANNELS : Dictionary = {
+	"BG" : 0,
+	"OBJ" : 1,
+	"G1" : 2,
+	"LINE" : 3
 }
 
 func _ready() -> void:
-	
 	var image : Image = Image.create_empty(max_channels, 1, false, Image.FORMAT_ETC2_RGB8)
 	var texture : ImageTexture = ImageTexture.create_from_image(image)
 	RenderingServer.global_shader_parameter_add("color_texture", RenderingServer.GLOBAL_VAR_TYPE_SAMPLER2D, texture)
 
-func change_color_channel(channel_id, target_color : Color, trans_time : float = 0, ease_type : Tween.EaseType = Tween.EaseType.EASE_IN, trans_type : Tween.TransitionType = Tween.TransitionType.TRANS_LINEAR) -> void:
-	pass
+func _change_color_channel(channel_id, target_color : Color) -> void:
+	var index : int
+	
+	if channel_id is String:
+		index = MAIN_CHANNELS[channel_id]
+	else:
+		index = channel_id + MAIN_CHANNELS.size()
+	
+	pallete_image.set_pixel(index, 0, target_color)
+	_texture_update_queued = true
+
+func _get_color_channel(channel_id) -> Color:
+	var index : int
+	
+	if channel_id is String:
+		index = MAIN_CHANNELS[channel_id]
+	else:
+		index = channel_id + MAIN_CHANNELS.size()
+	
+	var pallete_color : Color = pallete_image.get_pixel(index, 0)
+	return pallete_color
+
+func _process(_delta: float) -> void:
+	if _texture_update_queued:
+		pallete_texture.update(pallete_image)
+
+func fade_color(channel_id, final_color : Color, fade_time : float = 0) -> void:
+	
+	var tween : Tween = create_tween()
+	
+	tween.tween_method(
+		func(c : Color): _change_color_channel.bind(channel_id, c),
+		_get_color_channel.bind(channel_id), final_color, fade_time
+	).set_trans(Tween.TRANS_LINEAR)
+
+func pulse_color(channel_id, final_color : Color, fade_in : float, fade_out: float, hold : float) -> void:
+	
+	var initial_color : Color = _get_color_channel(channel_id)
+	var tween : Tween = create_tween()
+	
+	tween.tween_method(
+		func(c : Color): _change_color_channel.bind(channel_id, c),
+		initial_color, final_color, fade_in
+	).set_trans(Tween.TRANS_LINEAR)
+	
+	tween.tween_interval(hold)
+	
+	tween.tween_method(
+		func(c : Color): _change_color_channel.bind(channel_id, c),
+		final_color, initial_color, fade_out
+	).set_trans(Tween.TRANS_LINEAR)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://doffclckq21vl"]
+[gd_scene format=3 uid="uid://doffclckq21vl"]
 
 [ext_resource type="Script" uid="uid://nem2xjfsxn8l" path="res://Scripts/General/BgTrigger.gd" id="1_qfrks"]
 
@@ -6,10 +6,10 @@
 a = Vector2(0, 2000)
 b = Vector2(0, -2000)
 
-[node name="bg_trigger" type="Area2D"]
+[node name="bg_trigger" type="Area2D" unique_id=898900625]
 script = ExtResource("1_qfrks")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1107992640]
 shape = SubResource("SegmentShape2D_7vy0s")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -27,10 +27,10 @@ var progress_to_update = false
 func _ready():
 	update_bar(0)
 
-func _process(delta: float) -> void:
-	if music_to_load == 0 and $AudioStreamPlayer.playing:
-		stop_lvl_music()
-		run_music = false
+#func _process(_delta: float) -> void:
+	#if music_to_load == 0 and $AudioStreamPlayer.playing:
+		#stop_lvl_music()
+		#run_music = false
 
 func add_attempt() -> void:
 	_current_level_attempts += 1
