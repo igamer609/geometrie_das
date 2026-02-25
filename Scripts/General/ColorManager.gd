@@ -1,6 +1,12 @@
-class_name ColorManager extends Node
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609 and Contributors
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
 
-const max_channels : int = 16
+extends Node
+
+const max_channels : int = 20
 
 var pallete_image : Image
 var pallete_texture : ImageTexture
@@ -10,14 +16,14 @@ var _texture_update_queued : bool = false
 const MAIN_CHANNELS : Dictionary = {
 	"BG" : 0,
 	"OBJ" : 1,
-	"G1" : 2,
+	"G" : 2,
 	"LINE" : 3
 }
 
 func _ready() -> void:
 	var image : Image = Image.create_empty(max_channels, 1, false, Image.FORMAT_ETC2_RGB8)
 	var texture : ImageTexture = ImageTexture.create_from_image(image)
-	RenderingServer.global_shader_parameter_add("color_texture", RenderingServer.GLOBAL_VAR_TYPE_SAMPLER2D, texture)
+	RenderingServer.global_shader_parameter_set("color_texture", texture)
 
 func _change_color_channel(channel_id, target_color : Color) -> void:
 	var index : int

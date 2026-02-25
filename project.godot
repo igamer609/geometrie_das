@@ -32,6 +32,7 @@ GameProgress="*res://Scenes/Menus/GameProgress.tscn"
 MenuMusic="*res://Scenes/managers/MenuMusic.tscn"
 EditorTransition="*res://Scenes/Transition/EditorTransition.tscn"
 ResourceLibrary="*res://Scenes/Loader.tscn"
+ColorManager="*uid://clwlbd7mkksi0"
 
 [debug]
 
@@ -146,5 +147,13 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_environment="res://default_env.tres"
+
+[shader_globals]
+
+color_texture={
+"type": "sampler2D",
+"value": ""
+}

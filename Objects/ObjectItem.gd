@@ -8,12 +8,12 @@ class_name GDObject extends StaticBody2D
 
 @export var obj_res : GDObjectResource
 @export var in_level : bool = false
+@export var editor_layer : int = -1
 
 var scene : Node2D = null
 var obj_sprite : Sprite2D = null
 var collision : CollisionPolygon2D = null
 var scene_parent : Node2D = null
-
 
 @onready var _selection_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
 

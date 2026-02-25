@@ -420,9 +420,10 @@ grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
-current_tab = 0
+current_tab = 1
 
 [node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=1017700827]
+visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
@@ -889,7 +890,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=41072254]
-visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
