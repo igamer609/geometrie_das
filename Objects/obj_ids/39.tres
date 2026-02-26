@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://tkvfma2sfxfc"]
+
+[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="1_xjn7w"]
+
+[resource]
+script = ExtResource("1_xjn7w")
+id = 39

@@ -4,9 +4,9 @@
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
 
-extends Node2D
+#might need some refactoring and division into smaller components
 
-signal quit_editor_scene
+extends Node2D
 
 enum EditorMode {BUILD, EDIT}
 enum SelectionMode {SINGLE, SWIPE}
@@ -212,10 +212,10 @@ func _initialise_tabs():
 func _initialise_items():
 	var btn_group = ButtonGroup.new()
 	
-	for container in item_tab.get_children():
-		for button in container.get_children():
-			button.button_group = btn_group
-			button.select_item.connect(select_item_id.bind(button))
+	for button in item_tab.find_children("*", "Button"):
+		print(button.id)
+		button.button_group = btn_group
+		button.select_item.connect(select_item_id.bind(button))
 
 func _initialise_edit_btn():
 	for move_group : Control in move_container.get_children():
@@ -631,11 +631,6 @@ func rotate_objects(direction):
 		
 		history.add_do_property(selected_objects[0], "global_rotation", selected_objects[0].global_rotation)
 		history.add_do_property(selected_objects[0], "global_position", selected_objects[0].global_position)
-		
-		if selected_objects[0].obj_res.is_trigger:
-			for child in selected_objects[0].get_children():
-				if child.name == "embedded_scene":
-					child.global_rotation = 0
 	
 	history.commit_action()
 

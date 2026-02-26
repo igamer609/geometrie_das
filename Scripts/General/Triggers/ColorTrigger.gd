@@ -21,7 +21,7 @@ static func create_color_trigger(trigger_info : Dictionary, in_editor : bool) ->
 	return trigger
 
 func _activate() -> void:
-	pass
+	ColorManager.fade_color(target_id, target_color, fade_time)
 
 func get_info() -> Dictionary:
 	return {

@@ -420,16 +420,26 @@ grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
-current_tab = 1
+current_tab = 0
 
-[node name="Blocks" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=1017700827]
-visible = false
+[node name="Blocks" type="ScrollContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=125994459]
+custom_minimum_size = Vector2(780, 190)
 layout_mode = 2
-theme_override_constants/v_separation = 0
-columns = 10
+scroll_horizontal_custom_step = 780.0
+horizontal_scroll_mode = 4
+vertical_scroll_mode = 0
+scroll_deadzone = 1
 metadata/_tab_index = 0
 
-[node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=913764980]
+[node name="BlockTabContainer" type="HBoxContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=812174954]
+layout_mode = 2
+
+[node name="1" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer" unique_id=988247913]
+custom_minimum_size = Vector2(780, 0)
+layout_mode = 2
+columns = 10
+
+[node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=913764980]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -439,7 +449,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 1
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton" unique_id=528362769]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton" unique_id=528362769]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -452,7 +462,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1651342954]
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1651342954]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -462,7 +472,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 3
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton3" unique_id=934089837]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton3" unique_id=934089837]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -475,7 +485,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=475822366]
+[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=475822366]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -485,7 +495,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 5
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton4" unique_id=660067062]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton4" unique_id=660067062]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -498,7 +508,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1691825200]
+[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1691825200]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -508,7 +518,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 6
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton5" unique_id=827939105]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton5" unique_id=827939105]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -521,7 +531,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1135217071]
+[node name="ItemButton6" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1135217071]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -531,7 +541,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 7
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton6" unique_id=924416431]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton6" unique_id=924416431]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -544,7 +554,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1872679310]
+[node name="ItemButton7" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1872679310]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -554,7 +564,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 8
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton7" unique_id=1345434268]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton7" unique_id=1345434268]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -567,7 +577,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=471097646]
+[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=471097646]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -577,7 +587,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 9
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton8" unique_id=1275395378]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton8" unique_id=1275395378]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -590,7 +600,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=180507593]
+[node name="ItemButton9" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=180507593]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -600,7 +610,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 10
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton9" unique_id=887077265]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton9" unique_id=887077265]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -613,7 +623,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=968604678]
+[node name="ItemButton10" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=968604678]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -623,7 +633,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 11
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton10" unique_id=647148484]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton10" unique_id=647148484]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -636,7 +646,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton11" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1163117584]
+[node name="ItemButton11" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1163117584]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -646,7 +656,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 23
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton11" unique_id=274352698]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton11" unique_id=274352698]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -659,7 +669,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton12" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=539135048]
+[node name="ItemButton12" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=539135048]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -669,7 +679,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 24
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton12" unique_id=1905650021]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton12" unique_id=1905650021]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -682,7 +692,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton13" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1051754551]
+[node name="ItemButton13" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1051754551]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -692,7 +702,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 25
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton13" unique_id=1777578559]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton13" unique_id=1777578559]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -705,7 +715,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton14" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1068783827]
+[node name="ItemButton14" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1068783827]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -715,7 +725,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 26
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton14" unique_id=110695656]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton14" unique_id=110695656]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -728,7 +738,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton15" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1546670701]
+[node name="ItemButton15" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1546670701]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -738,7 +748,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 27
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton15" unique_id=1177451630]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton15" unique_id=1177451630]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -751,7 +761,30 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton16" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1799228486]
+[node name="ItemButton16" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1799228486]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 28
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton16" unique_id=829079722]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton17" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=393845347]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -761,7 +794,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 29
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton16" unique_id=829079722]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton17" unique_id=370143408]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -774,7 +807,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton17" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=393845347]
+[node name="ItemButton18" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1012343839]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -784,7 +817,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 30
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton17" unique_id=370143408]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton18" unique_id=741148514]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -797,7 +830,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton18" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1012343839]
+[node name="ItemButton19" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=443662774]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -807,7 +840,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 31
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton18" unique_id=741148514]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton19" unique_id=603475459]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -820,7 +853,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton19" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=443662774]
+[node name="ItemButton20" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=674173718]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -830,7 +863,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 32
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton19" unique_id=603475459]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton20" unique_id=950768780]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -843,7 +876,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton20" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=674173718]
+[node name="ItemButton21" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1175168838]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -853,7 +886,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 33
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton20" unique_id=950768780]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton21" unique_id=176519510]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -866,7 +899,12 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton21" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks" unique_id=1175168838]
+[node name="2" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer" unique_id=1921001375]
+custom_minimum_size = Vector2(780, 0)
+layout_mode = 2
+columns = 10
+
+[node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=103078700]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -876,7 +914,76 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 34
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/ItemButton21" unique_id=176519510]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2/ItemButton" unique_id=713097738]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=682960732]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 35
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2/ItemButton3" unique_id=1273756422]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton4" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=327669030]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 36
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2/ItemButton4" unique_id=522926004]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=647749522]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 37
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2/ItemButton5" unique_id=1202605930]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -890,6 +997,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=41072254]
+visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
