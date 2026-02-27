@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="18_sgf4h"]
 [ext_resource type="Texture2D" uid="uid://cbrk0jtu1s2ip" path="res://Assets/other/level_complete.png" id="19_akev4"]
 [ext_resource type="Texture2D" uid="uid://dek6vb4ctnvw6" path="res://Assets/other/particles/circle.png" id="20_fq7st"]
+[ext_resource type="Shader" uid="uid://bqgrmylj0hhs7" path="res://Scenes/shader/LevelBackground.gdshader" id="20_trony"]
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="21_1gw2q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6nsj"]
@@ -151,6 +152,9 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_5v3uq")
 alpha_curve = SubResource("CurveTexture_k3lcr")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8f4cq"]
+shader = ExtResource("20_trony")
+
 [node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "end_effects", "end_animation", "death_particle")]
 process_mode = 3
 script = ExtResource("1_jl4xf")
@@ -172,7 +176,7 @@ death_particle = NodePath("Universal/DeathEffect")
 
 [node name="Player" parent="." unique_id=1199746068 instance=ExtResource("3_tq51e")]
 process_mode = 1
-position = Vector2(-64, -1)
+position = Vector2(-64, -9)
 
 [node name="Universal" type="Node" parent="." unique_id=697846460]
 process_mode = 1
@@ -552,8 +556,8 @@ motion_scale = Vector2(0.45, 0.375)
 motion_mirroring = Vector2(2000, 1500)
 
 [node name="BGSprite" type="Sprite2D" parent="Universal/BG/BGLayer" unique_id=1530112024]
-modulate = Color(0, 0.533333, 1, 1)
 texture_filter = 1
+material = SubResource("ShaderMaterial_8f4cq")
 scale = Vector2(2, 2)
 texture = ExtResource("21_1gw2q")
 

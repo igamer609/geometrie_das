@@ -6,21 +6,22 @@
 
 class_name ColorTrigger extends Trigger
 
-@export var target_color : Color
-@export var fade_time : float
+@export var target_color : Color = Color.WHITE
+@export var fade_time : float = 0.50
 
 static func create_color_trigger(trigger_info : Dictionary, in_editor : bool) -> ColorTrigger:
 	
 	var trigger : ColorTrigger = ColorTrigger.new()
 	trigger.trigger_id = 1
-	trigger.target_id = trigger_info.get("target_id")
+	trigger.target_id = trigger_info.get("target_id", 0)
 	trigger.target_color = trigger_info.get("target_color", Color.WHITE)
-	trigger.fade_time = trigger_info.get("fade_time", 0.0)
+	trigger.fade_time = trigger_info.get("fade_time", 0.5)
 	trigger._in_editor = in_editor
 	
 	return trigger
 
 func _activate() -> void:
+	print("hello")
 	ColorManager.fade_color(target_id, target_color, fade_time)
 
 func get_info() -> Dictionary:
@@ -29,4 +30,12 @@ func get_info() -> Dictionary:
 		"target_id" : target_id,
 		"target_color" : target_color,
 		"fade_time" : fade_time
+	}
+
+static func default_info() -> Dictionary:
+	return {
+		"id" : 1,
+		"target_id" : 0,
+		"target_color" : Color.WHITE,
+		"fade_time" : 0.50
 	}

@@ -157,3 +157,7 @@ color_texture={
 "type": "sampler2D",
 "value": ""
 }
+max_channels={
+"type": "int",
+"value": 20
+}

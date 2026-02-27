@@ -8,6 +8,7 @@ class_name GDObject extends StaticBody2D
 
 @export var obj_res : GDObjectResource
 @export var in_level : bool = false
+@export var group_ids : Array = []
 @export var editor_layer : int = -1
 
 var scene : Node2D = null
@@ -30,6 +31,8 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	object.uid = n_uid
 	object.global_position = pos
 	object.global_rotation = rot
+	object.group_ids = n_other.get("group_ids", [])
+	object.editor_layer = n_other.get("editor_layer", 0)
 	object.other = n_other
 	object.in_level = in_level
 	
@@ -51,9 +54,10 @@ func update() -> void:
 		collision.polygon = obj_res.collision_shape
 	
 	if not obj_res.is_scene:
-		obj_sprite = Sprite2D.new()
-		add_child(obj_sprite)
-		obj_sprite.position = Vector2(8,8)
+		if not (in_level and obj_res.trigger_id != 0):
+			obj_sprite = Sprite2D.new()
+			add_child(obj_sprite)
+			obj_sprite.position = Vector2(8,8)
 	else:
 		scene_parent = Node2D.new()
 		add_child(scene_parent)
@@ -76,8 +80,9 @@ func update() -> void:
 				obj_sprite = sprite
 				sprite.material = _selection_material
 	else:
-		obj_sprite.texture = obj_res.texture
-		obj_sprite.texture.filter_clip = true
+		if obj_sprite:
+			obj_sprite.texture = obj_res.texture
+			obj_sprite.texture.filter_clip = true
 		
 		if not obj_res.is_decoration:
 			collision.polygon = obj_res.collision_shape
@@ -97,8 +102,8 @@ func update() -> void:
 		set_collision_layer_value(3, false)
 	
 	if obj_res.trigger_id != 0:
-		trigger = Trigger.create_trigger(obj_res.trigger_id, other["trigger"])
-	
+		trigger = Trigger.create_trigger(obj_res.trigger_id, other, !in_level)
+		add_child(trigger)
 
 func select() -> void:
 	if obj_sprite:

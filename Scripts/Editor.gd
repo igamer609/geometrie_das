@@ -213,7 +213,6 @@ func _initialise_items():
 	var btn_group = ButtonGroup.new()
 	
 	for button in item_tab.find_children("*", "Button"):
-		print(button.id)
 		button.button_group = btn_group
 		button.select_item.connect(select_item_id.bind(button))
 
@@ -315,9 +314,6 @@ func _unhandled_input(event : InputEvent) -> void:
 						last_click_pos = click_pos
 					
 					var selection : Array = get_objects_at_point(click_pos)
-					
-					print(selection)
-					
 					if  len(selection) == 0:
 						deselect()
 						return
@@ -410,7 +406,7 @@ func _update_obj_ref_position(obj : GDObject, old_pos : Vector2, pos : Vector2) 
 	
 	_current_spacial_index[pos].append(obj)
 
-func place_object(return_obj = true) -> GDObject:
+func place_object(return_obj : bool = true) -> GDObject:
 	
 	var pos : Vector2 = get_global_mouse_position()
 	pos.x = snapped(pos.x - 8, 16)
@@ -449,7 +445,9 @@ func place_object(return_obj = true) -> GDObject:
 	else:
 		history.create_action("Place object")
 		
-		var object : Node2D = _load_obj(current_id, pos, 0, {})
+		var other : Dictionary = {}
+		
+		var object : Node2D = _load_obj(current_id, pos, 0, other)
 		
 		history.add_do_method(_add_object_to_level.bind(object))
 		history.add_do_reference(object)

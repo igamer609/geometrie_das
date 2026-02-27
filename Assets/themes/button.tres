@@ -8,6 +8,7 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
 atlas = ExtResource("2_nbxjy")
 region = Rect2(0, 0, 32, 32)
+filter_clip = true
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7qsd"]
 content_margin_left = 1.0

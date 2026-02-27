@@ -9,6 +9,9 @@ class_name LevelObject extends Resource
 @export var obj_id: int = 0
 @export var uid: int = 0
 @export var transform: Array = []
+@export var group_ids : Array[int] = []
+@export var editor_layer : int =  0
+
 @export var other: Dictionary = {}
 
 func to_dict() -> Dictionary:
@@ -16,7 +19,11 @@ func to_dict() -> Dictionary:
 		"obj_id": obj_id,
 		"uid": uid,
 		"transform": transform,
-		"other": other
+		"other": {
+			"group_ids": group_ids,
+			"editor_layer": editor_layer,
+			"trigger": other.get("trigger", {})
+		}
 	}
 
 static func from_dict(data: Dictionary) -> LevelObject:

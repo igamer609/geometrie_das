@@ -19,8 +19,6 @@ func find_levels():
 	
 	var number_of_levels : int = ResourceLibrary.current_registry.order.size()
 	
-	print(ResourceLibrary.current_registry)
-	
 	if number_of_levels > 0:
 		for i in range((page * PAGE_LENGTH), min((page + 1) * PAGE_LENGTH - 1, number_of_levels)):
 			var current_id : String = ResourceLibrary.current_registry.order[i]
@@ -28,10 +26,7 @@ func find_levels():
 			if ResourceLibrary.current_registry.levels.has(current_id):
 				
 				var current_lvl : LevelRegistryEntry = ResourceLibrary.current_registry.levels[current_id]
-				print(current_lvl)
 				add_level_template(current_lvl)
-		
-	
 	for level in levels:
 		level.visible = true
 

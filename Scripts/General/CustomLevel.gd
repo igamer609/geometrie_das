@@ -133,7 +133,7 @@ func initiate() -> void:
 	elif player_cam:
 		follow_cam = true
 	
-	change_background(start_bg, 0)
+	ColorManager.change_color_channel("BG", start_bg)
 
 	for trigger in $BG_triggers.get_children():
 		trigger.bg_change.connect(change_background)
@@ -150,7 +150,7 @@ func player_died() -> void:
 func player_respawn() -> void:
 	end_bg_tweens()
 	GameProgress.play_lvl_music_from_id(0)
-	change_background(start_bg, 0)
+	ColorManager.change_color_channel("BG", start_bg)
 	
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false

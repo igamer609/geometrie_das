@@ -330,7 +330,7 @@ texture = ExtResource("1_ojbeb")
 
 [node name="GridSprite" type="Sprite2D" parent="Grid" unique_id=887804]
 modulate = Color(0, 0, 0, 0.3764706)
-z_index = -5
+z_index = -10
 texture_filter = 1
 texture_repeat = 2
 scale = Vector2(0.5, -0.5)
@@ -973,29 +973,6 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton5" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=647749522]
-custom_minimum_size = Vector2(70, 70)
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 2
-theme = ExtResource("6_x4tf7")
-toggle_mode = true
-script = ExtResource("7_t5tsa")
-id = 37
-
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2/ItemButton5" unique_id=1202605930]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 11.0
-offset_top = 11.0
-offset_right = -12.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=41072254]
 visible = false
 layout_mode = 2
@@ -1362,6 +1339,37 @@ script = ExtResource("7_t5tsa")
 id = 38
 
 [node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Decorations/ItemButton8" unique_id=822257053]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 4
+
+[node name="Triggers" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=871898737]
+visible = false
+layout_mode = 2
+theme_override_constants/v_separation = 0
+columns = 10
+metadata/_tab_index = 5
+
+[node name="ItemButton8" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Triggers" unique_id=1405217008]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 39
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Triggers/ItemButton8" unique_id=300365924]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15

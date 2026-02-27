@@ -17,4 +17,5 @@ class_name GDObjectResource
 
 @export var is_solid : bool
 @export var is_decoration : bool
+@export var is_text : bool
 @export var trigger_id : int = 0
