@@ -16,7 +16,7 @@ var obj_sprite : Sprite2D = null
 var collision : CollisionPolygon2D = null
 var scene_parent : Node2D = null
 
-@onready var _selection_material : ShaderMaterial = preload("res://Objects/SelectedMaterial.tres")
+@onready var _selection_material : ShaderMaterial = preload("res://Assets/materials/ObjectMaterial.tres")
 
 @export var uid : int
 @export var other : Dictionary
@@ -76,21 +76,22 @@ func update() -> void:
 				particles.emitting = true
 		else:
 			var sprite : Sprite2D = scene.find_child("Sprite")
-			if sprite:
-				obj_sprite = sprite
-				sprite.material = _selection_material
+		
+		var sprite : Sprite2D = scene.find_child("Sprite")
+		if sprite:
+			obj_sprite = sprite
+			sprite.material = _selection_material
+		
 	else:
 		if obj_sprite:
 			obj_sprite.texture = obj_res.texture
 			obj_sprite.texture.filter_clip = true
+			obj_sprite.material = _selection_material
 		
 		if not obj_res.is_decoration:
 			collision.polygon = obj_res.collision_shape
 		else:
 			z_index = -1
-		
-		if not in_level:
-			obj_sprite.material = _selection_material
 	
 	if not obj_res.is_solid:
 		set_collision_layer_value(1, false)

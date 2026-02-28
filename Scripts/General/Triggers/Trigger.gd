@@ -48,7 +48,10 @@ func _create_collision() -> void:
 		add_child(preview_line)
 		preview_line.global_position.x = global_position.x + 8
 
-func _on_body_entered(body):
+func reset() -> void:
+	enabled = true
+
+func _on_body_entered(body) -> void:
 	if body.is_in_group("Player") and enabled:
 		_activate()
 		enabled = false

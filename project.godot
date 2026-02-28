@@ -161,3 +161,7 @@ max_channels={
 "type": "int",
 "value": 20
 }
+current_editor_layer={
+"type": "int",
+"value": 0
+}

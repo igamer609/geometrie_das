@@ -1845,6 +1845,23 @@ text = "de
 select"
 script = ExtResource("6_aq6jn")
 
+[node name="ColorPicker" type="ColorPicker" parent="Editor_Object/UI_Layer/Actions" unique_id=971808810]
+layout_mode = 0
+offset_left = 1087.9999
+offset_top = 316.0
+offset_right = 1351.9999
+offset_bottom = 580.0
+scale = Vector2(0.615, 0.615)
+edit_alpha = false
+edit_intensity = false
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
 [node name="TopBar" type="Control" parent="Editor_Object/UI_Layer" unique_id=607141345]
 layout_mode = 3
 anchors_preset = 15
@@ -2117,3 +2134,5 @@ size = Vector2i(580, 80)
 unresizable = true
 popup_window = true
 dialog_text = "Selected .gdaslvl file has an invalid format. Check for possible corruption."
+
+[connection signal="color_changed" from="Editor_Object/UI_Layer/Actions/ColorPicker" to="." method="_on_color_picker_color_changed"]

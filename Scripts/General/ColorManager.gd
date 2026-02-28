@@ -22,8 +22,16 @@ const MAIN_CHANNELS : Dictionary = {
 
 func _ready() -> void:
 	pallete_image = Image.create_empty(max_channels, 1, false, Image.FORMAT_RGB8)
+	for index in range(0, max_channels - 1):
+		pallete_image.set_pixel(index, 0, Color.WHITE)
 	pallete_texture = ImageTexture.create_from_image(pallete_image)
 	RenderingServer.global_shader_parameter_set("color_texture", pallete_texture)
+
+func _end_current_tweens(channel_id) -> void:
+	for prev_tween : Tween in get_tree().get_processed_tweens():
+		if prev_tween.has_meta("channel_id"):
+			if prev_tween.get_meta("channel_id") == channel_id:
+				prev_tween.kill()
 
 func change_color_channel(channel_id, target_color : Color) -> void:
 	var index : int
@@ -31,9 +39,7 @@ func change_color_channel(channel_id, target_color : Color) -> void:
 	if channel_id is String:
 		index = MAIN_CHANNELS[channel_id]
 	else:
-		index = channel_id #+ MAIN_CHANNELS.size()
-	
-	print("changing background!!")
+		index = channel_id
 	
 	pallete_image.set_pixel(index, 0, target_color)
 	_texture_update_queued = true
@@ -44,7 +50,7 @@ func get_color_channel(channel_id) -> Color:
 	if channel_id is String:
 		index = MAIN_CHANNELS[channel_id]
 	else:
-		index = channel_id + MAIN_CHANNELS.size()
+		index = channel_id
 	
 	var pallete_color : Color = pallete_image.get_pixel(index, 0)
 	return pallete_color
@@ -55,7 +61,14 @@ func _process(_delta: float) -> void:
 
 func fade_color(channel_id, final_color : Color, fade_time : float = 0) -> void:
 	
+	_end_current_tweens(channel_id)
+	
+	if fade_time <= 0:
+		change_color_channel(channel_id, final_color)
+		return
+	
 	var tween : Tween = create_tween()
+	tween.set_meta("channel_id", channel_id)
 	var initial_color : Color = get_color_channel(channel_id)
 	
 	tween.tween_method(
@@ -64,6 +77,8 @@ func fade_color(channel_id, final_color : Color, fade_time : float = 0) -> void:
 	).set_trans(Tween.TRANS_LINEAR)
 
 func pulse_color(channel_id, final_color : Color, fade_in : float, fade_out: float, hold : float) -> void:
+	
+	_end_current_tweens(channel_id)
 	
 	var initial_color : Color = get_color_channel(channel_id)
 	var tween : Tween = create_tween()

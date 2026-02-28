@@ -19,3 +19,5 @@ class_name GDObjectResource
 @export var is_decoration : bool
 @export var is_text : bool
 @export var trigger_id : int = 0
+
+@export var default_channel : int = 1

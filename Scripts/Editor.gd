@@ -776,3 +776,6 @@ func _remove_object_from_level(object : Node2D):
 		level.remove_child(object)
 	else:
 		pass
+
+func _on_color_picker_color_changed(color: Color) -> void:
+	ColorManager.change_color_channel(1, color)

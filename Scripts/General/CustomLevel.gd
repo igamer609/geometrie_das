@@ -84,6 +84,7 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 		load_object(obj.obj_id, obj.uid, str_to_var(obj.transform[0]), obj.transform[1], obj.other)
 	
 	GameProgress.music_to_load = level_data.meta.song_id
+	ColorManager._end_current_tweens(0)
 	start_bg = level_data.meta.bg_color
 	
 	_playtesting = playtesting
@@ -97,7 +98,6 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 
 func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other) -> void:
 	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other, true)
-	
 	level.call_deferred("add_child", object)
 
 func _ready() -> void:
@@ -135,9 +135,6 @@ func initiate() -> void:
 	
 	ColorManager.change_color_channel("BG", start_bg)
 
-	for trigger in $BG_triggers.get_children():
-		trigger.bg_change.connect(change_background)
-
 func player_died() -> void:
 	follow_cam = false
 	GameProgress.run_music = false
@@ -148,9 +145,12 @@ func player_died() -> void:
 	death_particle.emitting = true
 
 func player_respawn() -> void:
-	end_bg_tweens()
 	GameProgress.play_lvl_music_from_id(0)
 	ColorManager.change_color_channel("BG", start_bg)
+	
+	for object : GDObject in level.get_children():
+		if object.trigger:
+			object.trigger.enabled = true
 	
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false
@@ -286,19 +286,3 @@ func _restart():
 	
 	ResourceLibrary.free_objects.emit()
 	EditorTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
-
-func change_background(new_colour, fade_time):
-	
-	end_bg_tweens()
-	
-	if fade_time > 0:
-		var tween = get_tree().create_tween()
-		tween.set_meta("trigger", "bg")
-		tween.tween_property($Universal/BG/BGLayer/BGSprite, "modulate", new_colour, fade_time)
-	else:
-		$Universal/BG/BGLayer/BGSprite.modulate = new_colour
-
-func end_bg_tweens():
-	for tween in get_tree().get_processed_tweens():
-		if tween.get_meta("trigger", "bg"):
-			tween.stop()
