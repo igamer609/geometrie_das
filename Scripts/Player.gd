@@ -25,9 +25,9 @@ signal respawned()
 @onready var surface_hitbox : CollisionShape2D = $SurfaceHitbox
 @onready var head_hitbox : CollisionShape2D = $HeadHitbox
 
-const SCALE_MULTIPLIER : float = 10
+const SCALE_MULTIPLIER : float = 11
 
-const CUBE_JUMP_VELOCITY : float = 25 * SCALE_MULTIPLIER
+const CUBE_JUMP_VELOCITY : float = 24 * SCALE_MULTIPLIER
 
 const SHIP_MAX_VEL : int = 180
 const SHIP_THRUST : float = 4

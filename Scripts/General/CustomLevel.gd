@@ -107,6 +107,8 @@ func initiate() -> void:
 	await loaded_level
 	$Universal/PauseUI/Control/Rect/LevelName.text = level_data.meta.title
 	
+	RenderingServer.global_shader_parameter_set("current_editor_layer", -1)
+	
 	GameProgress.in_game = true
 	GameProgress.run_music = true
 	

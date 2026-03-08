@@ -24,7 +24,7 @@ void fragment() {
 		}
 	 }
 	
-	if(editor_layer == current_editor_layer){
+	if(editor_layer == current_editor_layer || current_editor_layer < 0){
 		COLOR = vec4(object_color, texture_color.a);
 	} else {
 		COLOR = vec4(object_color, texture_color.a * 0.4);

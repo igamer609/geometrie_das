@@ -17,6 +17,7 @@ var clipboard : Array = []
 var swiping : bool = false
 var swipe_start : Vector2
 var swipe_rect : Rect2
+var current_editor_layer : int
 
 var obj_base = ResourceLibrary.scenes["GDObject"]
 
@@ -35,7 +36,14 @@ var obj_base = ResourceLibrary.scenes["GDObject"]
 @onready var swipe_toggle : Button = $Editor_Object/UI_Layer/Actions/Viewport/QuickOptions/Swipe
 
 @onready var action_grid = $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid
-@onready var action_buttons = [$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Copy, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Paste, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Duplicate, $Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Deselect, $Editor_Object/UI_Layer/TopBar/Delete]
+@onready var action_buttons = [
+	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Copy, 
+	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Paste, 
+	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Duplicate, 
+	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Deselect, 
+	$Editor_Object/UI_Layer/TopBar/Delete
+]
+@onready var editor_layer_spinbox = $Editor_Object/UI_Layer/Actions/ObjectActions/EditorLayerInput
 
 var last_uid : int = 0
 
@@ -55,7 +63,7 @@ var _level_path : String
 
 var _current_spacial_index : Dictionary[Vector2, Array] = {}
 
-var selection_center = null
+var selection_center : Node2D = null
 
 const TEMPLATE_OBJ_DICT = {
 	"obj_id" : 1,
@@ -105,20 +113,21 @@ func _get_data_of_objects(objects : Array[Node]) -> Array:
 		_level_meta.length = 1
 	
 	var obj_data : Array[LevelObject] = []
-	for obj : GDObject in objects:
-		var obj_info : LevelObject = LevelObject.new()
+	for obj  in objects:
+		if obj.is_in_group("Object"):
+			var obj_info : LevelObject = LevelObject.new()
 
-		obj_info.obj_id = obj.obj_res.id
-		obj_info.uid = obj.uid
-		obj_info.transform = [var_to_str(obj.global_position), obj.global_rotation]
-
-		if obj.trigger:
-			obj_info.other["trigger"] = obj.trigger.get_info()
-		
-		obj_data.append(obj_info)
+			obj_info.obj_id = obj.obj_res.id
+			obj_info.uid = obj.uid
+			obj_info.transform = [var_to_str(obj.global_position), obj.global_rotation]
+			obj_info.other["group_ids"] = obj.group_ids
+			obj_info.other["editor_layer"] = obj.editor_layer
+			if obj.trigger:
+				obj_info.other["trigger"] = obj.trigger.get_info()
+			obj_data.append(obj_info)
 	return obj_data
 
-func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) -> Node2D: 
+func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) -> GDObject: 
 	last_uid += 1
 	var object : GDObject = GDObject.create_object(obj_id, last_uid, pos, rot, other)
 	
@@ -164,9 +173,6 @@ func _load_level_file() -> void:
 		$Editor_Object/Menu_Layer/AcceptDialog.visible = true
 
 func _load_level(objects : Array) -> void:
-	select_all()
-	delete_objects()
-	
 	for obj : LevelObject in objects:
 		_load_obj(obj.obj_id , str_to_var(obj.transform[0]), obj.transform[1], obj.other)
 
@@ -283,6 +289,8 @@ func _initialise_actions():
 			"Paste": button.pressed.connect(paste_objects);
 			"Duplicate": button.pressed.connect(duplicate_objects);
 			"Deselect": button.pressed.connect(deselect);
+	
+	editor_layer_spinbox.value_changed.connect(_set_editor_layer)
 
 func get_objects_at_point(pos : Vector2):
 	var space : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
@@ -291,9 +299,10 @@ func get_objects_at_point(pos : Vector2):
 	var results : Array[Dictionary] = space.intersect_point(query_parameters)
 	
 	var objects : Array = []
-	for result in results:
+	for result : Dictionary in results:
 		if result["collider"].is_in_group("Object"):
-			objects.append(result["collider"])
+			if _is_on_editor_layer(result["collider"] as GDObject): 
+				objects.append(result["collider"])
 	
 	return objects
 
@@ -354,22 +363,27 @@ func _draw() -> void:
 	if swiping && edit_mode == EditorMode.EDIT:
 		draw_rect(swipe_rect, Color(0, 1, 0, 1), false)
 
-func _zoom(amount : float):
+func _zoom(amount : float) -> void:
 	zoom_multiplier += amount
 	zoom_multiplier = clamp(zoom_multiplier, 0.3, 2.1)
-	
 	#TransitionScene.show_message("x" + str(zoom_multiplier))
-	
 	camera.zoom = Vector2(3 * zoom_multiplier, 3 * zoom_multiplier)
 	update_grid_position()
 
-func _box_select():
+func _box_select() -> void:
 	for object in level.get_children():
 		if object.is_in_group("Object"):
 			var obj_rect : Rect2 = object.get_selection_rect().abs()
 			swipe_rect = swipe_rect.abs()
-			if swipe_rect.intersects(obj_rect):
+			if swipe_rect.intersects(obj_rect) and _is_on_editor_layer(object):
 				select_object(object)
+
+func _is_on_editor_layer(object : GDObject) -> bool:
+	return object.editor_layer == current_editor_layer or current_editor_layer < 0
+
+func _set_editor_layer(new_layer : int) -> void:
+	current_editor_layer = new_layer
+	RenderingServer.global_shader_parameter_set("current_editor_layer", new_layer)
 
 func select_item_id(new_id : int, button : Button):
 	if new_id and new_id != current_id:
@@ -418,7 +432,13 @@ func place_object(return_obj : bool = true) -> GDObject:
 	if selected_objects.size() == 1 and selected_objects[0].obj_res.id == current_id:
 		history.create_action("Place object")
 		
-		var object : Node2D = _load_obj(current_id, pos,  0,  selected_objects[0].other)
+		var new_other : Dictionary = selected_objects[0].other.duplicate(true)
+		if current_editor_layer >= 0:
+			new_other["editor_layer"] = current_editor_layer
+		else: 
+			new_other["editor_layer"] = 0
+
+		var object : Node2D = _load_obj(current_id, pos,  0,  new_other)
 		
 		var rot_center : Node2D = Node2D.new()
 		rot_center.global_position = object.get_child(0).global_position
@@ -445,7 +465,12 @@ func place_object(return_obj : bool = true) -> GDObject:
 	else:
 		history.create_action("Place object")
 		
-		var other : Dictionary = {}
+		var other : Dictionary = {
+			"editor_layer" : current_editor_layer
+		}
+		
+		if current_editor_layer < 0:
+			other["editor_layer"] = 0
 		
 		var object : Node2D = _load_obj(current_id, pos, 0, other)
 		
@@ -496,20 +521,15 @@ func update_selection_center():
 		
 		selection_center = Node2D.new()
 		
-		var obj_positions = ([])
+		var sum_x : float = 0
+		var sum_y : float = 0
 		
 		for object in selected_objects:
-			obj_positions.append([object.global_position.x + 8 * cos(object.global_rotation), object.global_position.y + 8 * cos(object.global_rotation)])
+			sum_x += object.global_position.x + 8
+			sum_y += object.global_position.y + 8
 		
-		var average_x : float = 0
-		var average_y : float = 0
-		
-		for vector2 in obj_positions:
-			average_x += (vector2[0] / len(obj_positions))
-			average_y += (vector2[1] / len(obj_positions))
-		
-		selection_center.global_position = Vector2(average_x, average_y)
-		
+		selection_center.global_position = Vector2(sum_x / selected_objects.size(), sum_y / selected_objects.size())
+		selection_center.remove_from_group("Object")
 		level.add_child(selection_center)
 	else:
 		if selection_center:
@@ -776,6 +796,3 @@ func _remove_object_from_level(object : Node2D):
 		level.remove_child(object)
 	else:
 		pass
-
-func _on_color_picker_color_changed(color: Color) -> void:
-	ColorManager.change_color_channel(1, color)

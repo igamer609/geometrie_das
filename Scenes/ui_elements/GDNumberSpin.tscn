@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://dosivc1qldsu1"]
+
+[ext_resource type="Script" uid="uid://p47v4tspphpn" path="res://Scripts/General/UIElements/GDNumberSpin.gd" id="1_kod7g"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="2_30veq"]
+[ext_resource type="Texture2D" uid="uid://cuq858oxl1684" path="res://Scenes/ui_elements/resources/arrow.atlastex" id="2_kod7g"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="4_eyjlq"]
+
+[node name="GDNumberSpin" type="Control" unique_id=746026580]
+custom_minimum_size = Vector2(128, 70)
+layout_mode = 3
+anchor_right = 0.1
+anchor_bottom = 0.07
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kod7g")
+
+[node name="Decrement" type="TextureButton" parent="." unique_id=891387438]
+modulate = Color(0.4145053, 0.8423327, 1, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 29.0
+grow_vertical = 2
+texture_normal = ExtResource("2_kod7g")
+stretch_mode = 5
+flip_h = true
+script = ExtResource("2_30veq")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="Increment" type="TextureButton" parent="." unique_id=774959488]
+modulate = Color(0.4145053, 0.8423327, 1, 1)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("2_kod7g")
+stretch_mode = 5
+script = ExtResource("2_30veq")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=1100662364]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.40625
+offset_top = 9.0
+offset_right = 35.40625
+offset_bottom = -9.400002
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_eyjlq")
+placeholder_text = "..."
+alignment = 1
+max_length = 3
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+flat = true
+select_all_on_focus = true

@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="9_5bivf"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="10_m37bs"]
 [ext_resource type="Texture2D" uid="uid://cqkg76guhq3bl" path="res://Assets/buttons/pause.png" id="11_hkpmq"]
+[ext_resource type="Script" uid="uid://p47v4tspphpn" path="res://Scripts/General/UIElements/GDNumberSpin.gd" id="11_khu03"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="12_khu03"]
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
 
@@ -68,41 +69,29 @@ texture_margin_bottom = 15.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4ti0"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kribn"]
-bg_color = Color(0.4, 0, 0.388235, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aq6jn"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(32, 64, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqiym"]
-bg_color = Color(0.960784, 0, 0.929412, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_khu03"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(32, 64, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_204el"]
-bg_color = Color(0.17, 0, 0.164333, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u5kxy"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(32, 64, 32, 32)
 
 [sub_resource type="Theme" id="Theme_5y5ev"]
 Button/colors/font_color = Color(1, 1, 1, 1)
@@ -111,9 +100,9 @@ Button/constants/outline_size = 6
 Button/font_sizes/font_size = 22
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
-Button/styles/hover = SubResource("StyleBoxFlat_kribn")
-Button/styles/normal = SubResource("StyleBoxFlat_kqiym")
-Button/styles/pressed = SubResource("StyleBoxFlat_204el")
+Button/styles/hover = SubResource("StyleBoxTexture_aq6jn")
+Button/styles/normal = SubResource("StyleBoxTexture_khu03")
+Button/styles/pressed = SubResource("StyleBoxTexture_u5kxy")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayx8r"]
 bg_color = Color(0, 0.12549, 0.4, 1)
@@ -420,9 +409,10 @@ grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
-current_tab = 0
+current_tab = 2
 
 [node name="Blocks" type="ScrollContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=125994459]
+visible = false
 custom_minimum_size = Vector2(780, 190)
 layout_mode = 2
 scroll_horizontal_custom_step = 780.0
@@ -1050,7 +1040,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Gameplay" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=716978703]
-visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 0
 columns = 10
@@ -1797,7 +1786,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1062.0
 offset_top = 120.0
-offset_bottom = -320.0
+offset_bottom = -227.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -1809,6 +1798,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 0.006000519
 offset_right = 5.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 10
@@ -1845,22 +1835,17 @@ text = "de
 select"
 script = ExtResource("6_aq6jn")
 
-[node name="ColorPicker" type="ColorPicker" parent="Editor_Object/UI_Layer/Actions" unique_id=971808810]
-layout_mode = 0
-offset_left = 1087.9999
-offset_top = 316.0
-offset_right = 1351.9999
-offset_bottom = 580.0
-scale = Vector2(0.615, 0.615)
-edit_alpha = false
-edit_intensity = false
-picker_shape = 1
-can_add_swatches = false
-sampler_visible = false
-color_modes_visible = false
-sliders_visible = false
-hex_visible = false
-presets_visible = false
+[node name="EditorLayerInput" type="Control" parent="Editor_Object/UI_Layer/Actions/ObjectActions" unique_id=446543713]
+custom_minimum_size = Vector2(128, 50)
+anchors_preset = 0
+offset_left = 37.0
+offset_top = 295.0
+offset_right = 165.0
+offset_bottom = 345.0
+script = ExtResource("11_khu03")
+generic_term_text = "All"
+arrow_color = Color(0.42765832, 0.89650047, 1, 1)
+metadata/_custom_type_script = "uid://p47v4tspphpn"
 
 [node name="TopBar" type="Control" parent="Editor_Object/UI_Layer" unique_id=607141345]
 layout_mode = 3
@@ -2134,5 +2119,3 @@ size = Vector2i(580, 80)
 unresizable = true
 popup_window = true
 dialog_text = "Selected .gdaslvl file has an invalid format. Check for possible corruption."
-
-[connection signal="color_changed" from="Editor_Object/UI_Layer/Actions/ColorPicker" to="." method="_on_color_picker_color_changed"]

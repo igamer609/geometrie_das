@@ -33,14 +33,18 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	object.global_rotation = rot
 	object.group_ids = n_other.get("group_ids", [])
 	object.editor_layer = n_other.get("editor_layer", 0)
-	object.other = n_other
+	if object.editor_layer < 0:
+		object.editor_layer = 0
+	var updated_other : Dictionary = n_other.duplicate(true)
+	updated_other.set("group_ids", object.group_ids)
+	updated_other.set("editor_layer", object.editor_layer)
+	object.other = updated_other
 	object.in_level = in_level
 	
 	return object
 
 func _init() -> void:
 	ResourceLibrary.free_objects.connect(delete)
-	ResourceLibrary.change_editor_layer.connect(check_editor_layer)
 
 func _ready() -> void:
 	if obj_res:
@@ -74,24 +78,25 @@ func update() -> void:
 			var particles : GPUParticles2D = scene.find_child("Particles")
 			if(particles):
 				particles.emitting = true
-		else:
-			var sprite : Sprite2D = scene.find_child("Sprite")
 		
 		var sprite : Sprite2D = scene.find_child("Sprite")
 		if sprite:
 			obj_sprite = sprite
-			sprite.material = _selection_material
 		
 	else:
 		if obj_sprite:
 			obj_sprite.texture = obj_res.texture
 			obj_sprite.texture.filter_clip = true
-			obj_sprite.material = _selection_material
 		
 		if not obj_res.is_decoration:
 			collision.polygon = obj_res.collision_shape
 		else:
 			z_index = -1
+	
+	if obj_sprite:
+		obj_sprite.material = _selection_material
+		if not in_level:
+			obj_sprite.set_instance_shader_parameter("editor_layer", editor_layer)
 	
 	if not obj_res.is_solid:
 		set_collision_layer_value(1, false)

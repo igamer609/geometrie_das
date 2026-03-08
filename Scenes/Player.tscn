@@ -18,7 +18,7 @@ custom_solver_bias = 0.15
 a = Vector2(-8, 7.9)
 b = Vector2(8, 7.9)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=218381096 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=218381096 groups=["Player"]]
 texture_filter = 1
 collision_mask = 2
 floor_snap_length = 2.0

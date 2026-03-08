@@ -7,7 +7,6 @@
 extends Node
 
 signal free_objects
-signal change_editor_layer
 
 @onready var music_ids : Dictionary = {
 	1 : [preload("res://Assets/music/Levels/Glorious Morning.mp3"), "Glorious Morning"],

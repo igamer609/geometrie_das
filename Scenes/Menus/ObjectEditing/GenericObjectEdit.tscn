@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://b6apr14wwugvn"]
+
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="1_yxfic"]
+[ext_resource type="Script" uid="uid://p47v4tspphpn" path="res://Scripts/General/UIElements/GDNumberSpin.gd" id="2_dglsf"]
+
+[node name="ObjectEdit" type="Control" unique_id=1942192426]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=770067664]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.2509804)
+
+[node name="Panel" type="Panel" parent="." unique_id=2085358030]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -240.0
+offset_right = 315.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yxfic")
+
+[node name="TabContainer" type="TabContainer" parent="Panel" unique_id=355048225]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = 613.0
+offset_bottom = 468.0
+theme = ExtResource("1_yxfic")
+current_tab = 0
+
+[node name="Layer 1" type="HBoxContainer" parent="Panel/TabContainer" unique_id=1409252777]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GDNumberSpin" type="Control" parent="." unique_id=2063612998]
+custom_minimum_size = Vector2(128, 50)
+anchors_preset = 0
+offset_left = 319.0
+offset_top = 342.0
+offset_right = 447.0
+offset_bottom = 392.0
+script = ExtResource("2_dglsf")
+generic_term_text = "All"
+metadata/_custom_type_script = "uid://p47v4tspphpn"

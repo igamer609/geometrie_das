@@ -1,0 +1,70 @@
+[gd_resource type="Theme" format=3 uid="uid://crg1unud2nqan"]
+
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="1_scoup"]
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_432tu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scoup"]
+atlas = ExtResource("1_scoup")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_432tu"]
+atlas = ExtResource("1_scoup")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecq2p"]
+atlas = ExtResource("1_scoup")
+region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scoup"]
+texture = ExtResource("1_scoup")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(128, 64, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_432tu"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74w2m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecq2p"]
+texture = ExtResource("1_scoup")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 96, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_74w2m"]
+texture = ExtResource("1_scoup")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(96, 64, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yprag"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+
+[resource]
+default_font = ExtResource("2_432tu")
+CheckBox/font_sizes/font_size = 16
+CheckBox/icons/checked = SubResource("AtlasTexture_scoup")
+CheckBox/icons/unchecked = SubResource("AtlasTexture_432tu")
+CheckBox/icons/unchecked_disabled = SubResource("AtlasTexture_ecq2p")
+Panel/styles/panel = SubResource("StyleBoxTexture_scoup")
+TabContainer/colors/font_selected_color = Color(0.9774086, 0.9774086, 0.9774086, 1)
+TabContainer/colors/font_unselected_color = Color(1, 1, 1, 1)
+TabContainer/constants/tab_separation = 10
+TabContainer/font_sizes/font_size = 26
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_432tu")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxEmpty_74w2m")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_ecq2p")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_74w2m")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxEmpty_yprag")
