@@ -8,8 +8,9 @@ point_count = 3
 curve = SubResource("Curve_2kjve")
 
 [sub_resource type="Curve" id="Curve_um6l5"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99095, 0.516483), -0.364285, 0.0, 0, 0]
-point_count = 2
+_limits = [0.0, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.17579909, 0.29423243), 0.5508233, 0.5508233, 0, 0, Vector2(1, 0.5), -0.028712077, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_dy3n3"]
 curve = SubResource("Curve_um6l5")

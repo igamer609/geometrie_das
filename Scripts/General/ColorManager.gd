@@ -6,18 +6,22 @@
 
 extends Node
 
-const max_channels : int = 20
-
-var pallete_image : Image
-var pallete_texture : ImageTexture
-
-var _texture_update_queued : bool = false
-
+const max_channels : int = 21
 const MAIN_CHANNELS : Dictionary = {
 	"BG" : 0,
 	"OBJ" : 1,
 	"G" : 2,
-	"LINE" : 3
+	"LINE" : 3,
+	"LBG" : 4,
+}
+
+var pallete_image : Image
+var pallete_texture : ImageTexture
+var _texture_update_queued : bool = false
+
+##Defines if the respective channel copies another channel, and if it has any transformations applied to it.
+var relationships : Dictionary = {
+	0 : [{4 : Color(5.0, 5.0, 5.0, 1.0)}]
 }
 
 func _ready() -> void:
@@ -40,6 +44,7 @@ func change_color_channel(channel_id, target_color : Color) -> void:
 		index = MAIN_CHANNELS[channel_id]
 	else:
 		index = channel_id
+	
 	
 	pallete_image.set_pixel(index, 0, target_color)
 	_texture_update_queued = true

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://ccpojtrr1b3u4"]
+
+[ext_resource type="Script" uid="uid://omitqekyxa71" path="res://Scripts/General/UIElements/GDColorButton.gd" id="1_xj7lf"]
+[ext_resource type="Texture2D" uid="uid://d0m24hlfx6pup" path="res://Scenes/ui_elements/resources/color_square.atlastex" id="2_vum1y"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="3_hh188"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="4_lngso"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="5_yjiay"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aynlt"]
+atlas = ExtResource("5_yjiay")
+region = Rect2(65, 96, 32, 32)
+
+[node name="ColorChannelButton" type="Control" unique_id=1078577959]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xj7lf")
+
+[node name="Button" type="TextureButton" parent="." unique_id=2031516806]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+pivot_offset = Vector2(20, 20)
+texture_normal = ExtResource("2_vum1y")
+stretch_mode = 5
+script = ExtResource("3_hh188")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="Label" type="Label" parent="Button" unique_id=1486354149]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("4_lngso")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectionRect" type="TextureRect" parent="." unique_id=2078417920]
+visible = false
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = SubResource("AtlasTexture_aynlt")

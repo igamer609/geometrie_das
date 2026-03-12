@@ -52,12 +52,19 @@ content_margin_left = 25.0
 content_margin_top = 25.0
 content_margin_right = 25.0
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_scoup"]
+color = Color(0.87904537, 0.5668507, 0.33440048, 1)
+thickness = 2
+vertical = true
+
 [resource]
 default_font = ExtResource("2_432tu")
 CheckBox/font_sizes/font_size = 16
 CheckBox/icons/checked = SubResource("AtlasTexture_scoup")
 CheckBox/icons/unchecked = SubResource("AtlasTexture_432tu")
 CheckBox/icons/unchecked_disabled = SubResource("AtlasTexture_ecq2p")
+GridContainer/constants/h_separation = 60
+GridContainer/constants/v_separation = 60
 Panel/styles/panel = SubResource("StyleBoxTexture_scoup")
 TabContainer/colors/font_selected_color = Color(0.9774086, 0.9774086, 0.9774086, 1)
 TabContainer/colors/font_unselected_color = Color(1, 1, 1, 1)
@@ -68,3 +75,5 @@ TabContainer/styles/tab_disabled = SubResource("StyleBoxEmpty_74w2m")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_ecq2p")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_74w2m")
 TabContainer/styles/tabbar_background = SubResource("StyleBoxEmpty_yprag")
+VSeparator/constants/separation = 20
+VSeparator/styles/separator = SubResource("StyleBoxLine_scoup")

@@ -25,9 +25,9 @@ signal respawned()
 @onready var surface_hitbox : CollisionShape2D = $SurfaceHitbox
 @onready var head_hitbox : CollisionShape2D = $HeadHitbox
 
-const SCALE_MULTIPLIER : float = 11
+const SCALE_MULTIPLIER : float = 10.8
 
-const CUBE_JUMP_VELOCITY : float = 24 * SCALE_MULTIPLIER
+const CUBE_JUMP_VELOCITY : float = 23.5 * SCALE_MULTIPLIER
 
 const SHIP_MAX_VEL : int = 180
 const SHIP_THRUST : float = 4
@@ -145,13 +145,13 @@ func _process_cube_physics(delta : float) -> void:
 				if is_really_on_surface():
 					velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier
 					if consecutive_jumps > 1:
-						velocity.y -= (SCALE_MULTIPLIER - 2) * gravity_multiplier
+						velocity.y -= (SCALE_MULTIPLIER + 3) * gravity_multiplier
 					consecutive_jumps += 1
 		else:
 			consecutive_jumps = 0
 	
 	if Input.is_action_pressed("Jump") or not is_really_on_surface():
-		$Sprites.rotate(deg_to_rad(1.33 * gravity_multiplier))
+		$Sprites.rotate(deg_to_rad(1.42 * gravity_multiplier))
 	elif is_really_on_surface() and not Input.is_action_pressed("Jump"):
 		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.1)
 	
@@ -285,9 +285,10 @@ func snap_to_ledge() -> void:
 	params.collision_mask = 2
 	var result : Dictionary = space.intersect_ray(params)
 	
-	if(result):
+	if(result and velocity.y * gravity_multiplier >= 10):
 		var platform_offset = global_position.y +( 8 * gravity_multiplier) - result.position.y
 		global_position.y -= platform_offset * gravity_multiplier
+		velocity.y = 0
 
 func is_on_ledge() -> bool:
 	return bottom_raycast.is_colliding() and not ledge_raycast.is_colliding()

@@ -1,0 +1,1 @@
+class_name GDColorPalette extends Resource

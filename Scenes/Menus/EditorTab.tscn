@@ -1,14 +1,9 @@
 [gd_scene format=3 uid="uid://c07frehibtpco"]
 
-[ext_resource type="Script" uid="uid://dpi8io8fm88in" path="res://Scripts/EditorTab.gd" id="1_nusqu"]
+[ext_resource type="Script" uid="uid://dpi8io8fm88in" path="res://Scripts/EditTab.gd" id="1_nusqu"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_lrw8v"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="2_rmdpf"]
-[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="3_7f0cn"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="3_m6ubn"]
-[ext_resource type="Texture2D" uid="uid://b0doevgxrotyq" path="res://Assets/buttons/editor tabs/edit.png" id="4_ws4t1"]
-[ext_resource type="Texture2D" uid="uid://cu2acjt586g03" path="res://Assets/level/editor_difficulty.png" id="5_yv0px"]
-[ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_uehhm"]
-[ext_resource type="Texture2D" uid="uid://btdeswgogatgd" path="res://Assets/buttons/Play_button.png" id="8_k5inn"]
 [ext_resource type="Theme" uid="uid://h56k7qdjefl1" path="res://Assets/themes/editor_tab.tres" id="9_w0xc0"]
 [ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="12_80pvi"]
 
@@ -37,33 +32,17 @@ events = [SubResource("InputEventKey_pa3jt")]
 atlas = ExtResource("2_lrw8v")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ckp0p"]
-atlas = ExtResource("5_yv0px")
-region = Rect2(0, 0, 31, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vh2qw"]
-atlas = ExtResource("2_lrw8v")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u5mj4"]
-atlas = ExtResource("2_lrw8v")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0xc0"]
+atlas = ExtResource("12_80pvi")
+region = Rect2(0, 0, 37, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ir8y0"]
 atlas = ExtResource("12_80pvi")
 region = Rect2(0, 86, 48, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w0xc0"]
-atlas = ExtResource("12_80pvi")
-region = Rect2(0, 0, 37, 34)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_tos4a"]
 atlas = ExtResource("12_80pvi")
 region = Rect2(0, 38, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8ygfu"]
-atlas = ExtResource("12_80pvi")
-region = Rect2(48, 38, 48, 48)
 
 [node name="EditTab" type="Control" unique_id=1954766971]
 layout_mode = 3
@@ -157,410 +136,27 @@ stretch_mode = 0
 flip_h = true
 script = ExtResource("3_m6ubn")
 
-[node name="LevelDisplay" type="Control" parent="." unique_id=1547666416]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 688.0
-offset_top = 62.0
-offset_right = -82.0
-offset_bottom = -59.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Unloaded" type="Label" parent="LevelDisplay" unique_id=549751373]
+[node name="TabContainer" type="GridContainer" parent="." unique_id=708755522]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_rmdpf")
-theme_override_font_sizes/font_size = 36
-text = "Create or load level"
-horizontal_alignment = 1
-
-[node name="Create" type="Control" parent="LevelDisplay" unique_id=1317056699]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Title" type="LineEdit" parent="LevelDisplay/Create" unique_id=2038919003]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 60.0
-offset_bottom = 134.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("3_7f0cn")
-theme_override_font_sizes/font_size = 31
-placeholder_text = "Title"
-alignment = 1
-max_length = 22
-
-[node name="Author" type="LineEdit" parent="LevelDisplay/Create" unique_id=1034212541]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 150.0
-offset_bottom = 203.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("3_7f0cn")
-theme_override_font_sizes/font_size = 24
-placeholder_text = "Author"
-alignment = 1
-max_length = 22
-
-[node name="Difficulty" type="TextureRect" parent="LevelDisplay/Create" unique_id=1986739334]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -141.0
-offset_top = -59.5
-offset_right = -50.0
-offset_bottom = 31.5
-grow_horizontal = 0
-grow_vertical = 2
-texture = SubResource("AtlasTexture_ckp0p")
-stretch_mode = 4
-
-[node name="Edit" type="TextureButton" parent="LevelDisplay/Create" unique_id=695207066]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = 72.0
-offset_right = 90.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_vh2qw")
-stretch_mode = 0
-
-[node name="Texture" type="TextureRect" parent="LevelDisplay/Create/Edit" unique_id=2137214468]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -51.5
-offset_top = -46.5
-offset_right = 51.5
-offset_bottom = 46.5
+offset_left = -210.0
+offset_top = -210.0
+offset_right = 210.0
+offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_ws4t1")
-
-[node name="DifficultyRadio" type="GridContainer" parent="LevelDisplay/Create" unique_id=1053318969]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -216.0
-offset_top = -57.5
-offset_right = 108.0
-offset_bottom = 30.5
-grow_horizontal = 2
-grow_vertical = 2
-columns = 3
-
-[node name="0" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=1868097198]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-theme = ExtResource("6_uehhm")
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 23
-toggle_mode = true
-text = "0"
-
-[node name="1" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=428181823]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-theme = ExtResource("6_uehhm")
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 23
-toggle_mode = true
-text = "1"
-
-[node name="2" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=363406801]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-theme = ExtResource("6_uehhm")
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 23
-toggle_mode = true
-text = "2"
-
-[node name="3" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=1149779277]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-theme = ExtResource("6_uehhm")
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 23
-toggle_mode = true
-text = "3
-"
-
-[node name="4" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=7023731]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-theme = ExtResource("6_uehhm")
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 23
-toggle_mode = true
-text = "4"
-
-[node name="5" type="Button" parent="LevelDisplay/Create/DifficultyRadio" unique_id=83847704]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-theme = ExtResource("6_uehhm")
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 23
-toggle_mode = true
-text = "5"
-
-[node name="Load" type="Control" parent="LevelDisplay" unique_id=684203508]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Title" type="Label" parent="LevelDisplay/Load" unique_id=917632045]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 39.0
-offset_bottom = 78.0
-grow_horizontal = 2
-theme = ExtResource("2_rmdpf")
-text = "Name"
-horizontal_alignment = 1
-
-[node name="Author" type="Label" parent="LevelDisplay/Load" unique_id=991287871]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 100.0
-offset_bottom = 139.0
-grow_horizontal = 2
-theme = ExtResource("2_rmdpf")
-theme_override_font_sizes/font_size = 46
-text = "by User"
-horizontal_alignment = 1
-
-[node name="MusicLabel" type="Label" parent="LevelDisplay/Load" unique_id=238055543]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 47.0
-offset_top = 230.0
-offset_right = -203.0
-offset_bottom = 323.0
-grow_horizontal = 2
-theme = ExtResource("2_rmdpf")
-theme_override_constants/line_spacing = 10
-theme_override_font_sizes/font_size = 46
-text = "Glorious Morning"
-autowrap_mode = 1
-
-[node name="Difficulty" type="TextureRect" parent="LevelDisplay/Load" unique_id=1358603481]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -141.0
-offset_top = -87.5
-offset_right = -50.0
-offset_bottom = 3.5
-grow_horizontal = 0
-grow_vertical = 2
-texture = SubResource("AtlasTexture_ckp0p")
-stretch_mode = 4
-
-[node name="DifficultyLabel" type="Label" parent="LevelDisplay/Load/Difficulty" unique_id=336691410]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -69.5
-offset_top = 56.5
-offset_right = 67.5
-offset_bottom = 95.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_rmdpf")
-theme_override_font_sizes/font_size = 26
-text = "N/A"
-horizontal_alignment = 1
-
-[node name="Play" type="TextureButton" parent="LevelDisplay/Load" unique_id=730433724]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -5.0
-offset_top = 79.5
-offset_right = 145.0
-offset_bottom = 227.5
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_u5mj4")
-stretch_mode = 0
-
-[node name="Texture" type="TextureRect" parent="LevelDisplay/Load/Play" unique_id=105213013]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = 32.0
-offset_right = -23.0
-offset_bottom = -30.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_k5inn")
-
-[node name="Edit" type="TextureButton" parent="LevelDisplay/Load" unique_id=1870250883]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -155.0
-offset_top = 87.5
-offset_right = -18.0
-offset_bottom = 221.5
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_vh2qw")
-stretch_mode = 0
-
-[node name="Texture" type="TextureRect" parent="LevelDisplay/Load/Edit" unique_id=1121104009]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 29.0
-offset_right = -30.0
-offset_bottom = -29.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("4_ws4t1")
-
-[node name="TabContainer" type="Control" parent="." unique_id=1335659718]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Saved" type="Button" parent="TabContainer" unique_id=2142474448]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 335.0
-offset_top = 196.0
-offset_right = -780.0
-offset_bottom = -359.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_w0xc0")
-text = "
-"
-text_overrun_behavior = 2
-icon_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Saved" unique_id=593103041]
-custom_minimum_size = Vector2(40.27, 100.545)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 18.0
-offset_top = -1.0
-offset_right = -17.0
-offset_bottom = -31.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_ir8y0")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="TabContainer/Saved" unique_id=542044380]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = 42.5
-offset_right = 52.0
-offset_bottom = 65.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_rmdpf")
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 30
-text = "Saved"
-horizontal_alignment = 1
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
 
 [node name="Create" type="Button" parent="TabContainer" unique_id=1207546443]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 120.0
-offset_top = 196.0
-offset_right = -995.0
-offset_bottom = -359.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
 theme = ExtResource("9_w0xc0")
 text = "
 "
@@ -602,17 +198,53 @@ theme_override_font_sizes/font_size = 30
 text = "Create"
 horizontal_alignment = 1
 
-[node name="Featured" type="Button" parent="TabContainer" unique_id=1323912798]
+[node name="Saved" type="Button" parent="TabContainer" unique_id=2142474448]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("9_w0xc0")
+text = "
+"
+text_overrun_behavior = 2
+icon_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Saved" unique_id=593103041]
+custom_minimum_size = Vector2(40.27, 100.545)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 121.0
-offset_top = 407.0
-offset_right = -994.0
-offset_bottom = -148.0
+offset_left = 18.0
+offset_top = -1.0
+offset_right = -17.0
+offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_ir8y0")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="TabContainer/Saved" unique_id=542044380]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = 42.5
+offset_right = 52.0
+offset_bottom = 65.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_rmdpf")
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "Saved"
+horizontal_alignment = 1
+
+[node name="Featured" type="Button" parent="TabContainer" unique_id=1323912798]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
 theme = ExtResource("9_w0xc0")
 text = "
 "
@@ -652,58 +284,6 @@ theme = ExtResource("2_rmdpf")
 theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 28
 text = "Featured"
-horizontal_alignment = 1
-
-[node name="Load" type="Button" parent="TabContainer" unique_id=74981972]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 334.0
-offset_top = 407.0
-offset_right = -781.0
-offset_bottom = -148.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("9_w0xc0")
-text = "
-"
-text_overrun_behavior = 2
-icon_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Load" unique_id=33634361]
-custom_minimum_size = Vector2(40.27, 100.545)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 12.0
-offset_right = -31.0
-offset_bottom = -40.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_8ygfu")
-stretch_mode = 4
-
-[node name="Label" type="Label" parent="TabContainer/Load" unique_id=194541190]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = 42.5
-offset_right = 52.0
-offset_bottom = 65.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_rmdpf")
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 30
-text = "Load"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
