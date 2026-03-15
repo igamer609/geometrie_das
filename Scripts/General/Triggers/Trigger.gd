@@ -53,8 +53,9 @@ func reset() -> void:
 
 func _on_body_entered(body) -> void:
 	if body.is_in_group("Player") and enabled:
-		_activate()
-		enabled = false
+		if body.can_move:
+			_activate()
+			enabled = false
 
 func _activate() -> void:
 	pass

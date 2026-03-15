@@ -12,14 +12,12 @@ enum EditorMode {BUILD, EDIT}
 enum SelectionMode {SINGLE, SWIPE}
 
 var current_id : int = 0
-var selected_objects : Array = []
+var selected_objects : Array[GDObject] = []
 var clipboard : Array = []
 var swiping : bool = false
 var swipe_start : Vector2
 var swipe_rect : Rect2
 var current_editor_layer : int
-
-var obj_base = ResourceLibrary.scenes["GDObject"]
 
 @onready var camera : Camera2D = $Camera
 @onready var level : Node2D = $Level
@@ -41,7 +39,9 @@ var obj_base = ResourceLibrary.scenes["GDObject"]
 	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Paste, 
 	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Duplicate, 
 	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/Deselect, 
-	$Editor_Object/UI_Layer/TopBar/Delete
+	$Editor_Object/UI_Layer/TopBar/Delete,
+	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/EditLayer,
+	$Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid/EditObj,
 ]
 @onready var editor_layer_spinbox = $Editor_Object/UI_Layer/Actions/ObjectActions/EditorLayerInput
 
@@ -78,15 +78,15 @@ func _ready() -> void:
 	_initialise_edit_btn()
 	_initialise_actions()
 	_initialise_top_bar()
+	
+	ColorManager.channel_changed.connect(_update_palette)
 
 func _save_level() -> bool:
 	_level_meta.verified = 0
 	var saved_objects : Array[LevelObject] = _get_data_of_objects(level.get_children())
 	
-	var save_data = LevelData.from_dict({
-		"meta" : _level_meta,
-		"objects" : []
-	})
+	var save_data = LevelData.new()
+	save_data.meta = _level_meta
 	save_data.objects = saved_objects
 	
 	if save_data.meta.title.is_empty():
@@ -122,6 +122,7 @@ func _get_data_of_objects(objects : Array[Node]) -> Array:
 			obj_info.transform = [var_to_str(obj.global_position), obj.global_rotation]
 			obj_info.other["group_ids"] = obj.group_ids
 			obj_info.other["editor_layer"] = obj.editor_layer
+			obj_info.other["channel_id"] = obj.color_channel
 			if obj.trigger:
 				obj_info.other["trigger"] = obj.trigger.get_info()
 			obj_data.append(obj_info)
@@ -186,9 +187,12 @@ func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 	if _level_meta.title.is_empty():
 		_level_meta.title = "Untitled " + _level_meta.local_id
 	
-	_load_level(lvl_data.objects)
+	if(_level_meta.color_palette.color_palette.is_empty()):
+		_level_meta.color_palette = GDColorPalette.default_palette(ColorManager.max_channels)
 	
-	_save_level()
+	ColorManager.load_palette(_level_meta.color_palette)
+	
+	_load_level(lvl_data.objects)
 	return true
 
 func _initialise_top_bar():
@@ -289,6 +293,7 @@ func _initialise_actions():
 			"Paste": button.pressed.connect(paste_objects);
 			"Duplicate": button.pressed.connect(duplicate_objects);
 			"Deselect": button.pressed.connect(deselect);
+			"EditObj": button.pressed.connect(_create_object_edit_menu)
 	
 	editor_layer_spinbox.value_changed.connect(_set_editor_layer)
 
@@ -712,11 +717,15 @@ func check_actions():
 		action_buttons[2].disabled = false
 		action_buttons[3].disabled = false
 		action_buttons[4].disabled = false
+		action_buttons[5].disabled = false
+		action_buttons[6].disabled = false
 	else:
 		action_buttons[0].disabled = true
 		action_buttons[2].disabled = true
 		action_buttons[3].disabled = true
 		action_buttons[4].disabled = true
+		action_buttons[5].disabled = true
+		action_buttons[6].disabled = true
 	
 	if len(clipboard) > 0:
 		action_buttons[1].disabled = false
@@ -724,7 +733,6 @@ func check_actions():
 		action_buttons[1].disabled = true
 
 func _process(_delta):
-	
 	if Input.is_action_just_pressed("RotateLeft"):
 		rotate_objects(-1)
 	if Input.is_action_just_pressed("RotateRight"):
@@ -796,3 +804,19 @@ func _remove_object_from_level(object : Node2D):
 		level.remove_child(object)
 	else:
 		pass
+
+func _update_palette(channel_id : int, color : Color) -> void:
+	_level_meta.color_palette.set_channel(channel_id, color)
+
+# ---------------- Open sub-menus -------------------------
+
+func _create_object_edit_menu() -> void:
+	var all_regular : bool = true
+	for object : GDObject in selected_objects:
+		if(object.trigger):
+			all_regular = false; break
+	
+	if(all_regular):
+		var obj_edit_menu = ResourceLibrary.scenes["GenericObjectEdit"].instantiate()
+		obj_edit_menu.target_objects = selected_objects
+		ui.add_child(obj_edit_menu)

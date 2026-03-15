@@ -10,6 +10,7 @@ class_name GDObject extends StaticBody2D
 @export var in_level : bool = false
 @export var group_ids : Array = []
 @export var editor_layer : int = -1
+@export var color_channel : int = 1
 
 var scene : Node2D = null
 var obj_sprite : Sprite2D = null
@@ -22,7 +23,7 @@ var scene_parent : Node2D = null
 @export var other : Dictionary
 var trigger : Trigger = null
 
-static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary, in_level : bool = false) -> GDObject:
+static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary, _in_level : bool = false) -> GDObject:
 	var res : GDObjectResource = ResourceLibrary.library[obj_id]
 	var object : GDObject = GDObject.new()
 	object.add_to_group("Object")
@@ -33,13 +34,15 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	object.global_rotation = rot
 	object.group_ids = n_other.get("group_ids", [])
 	object.editor_layer = n_other.get("editor_layer", 0)
+	object.color_channel = n_other.get("channel_id", res.default_channel)
 	if object.editor_layer < 0:
 		object.editor_layer = 0
 	var updated_other : Dictionary = n_other.duplicate(true)
 	updated_other.set("group_ids", object.group_ids)
 	updated_other.set("editor_layer", object.editor_layer)
+	updated_other.set("channel_id", object.color_channel)
 	object.other = updated_other
-	object.in_level = in_level
+	object.in_level = _in_level
 	
 	return object
 
@@ -82,7 +85,6 @@ func update() -> void:
 		var sprite : Sprite2D = scene.find_child("Sprite")
 		if sprite:
 			obj_sprite = sprite
-		
 	else:
 		if obj_sprite:
 			obj_sprite.texture = obj_res.texture
@@ -97,6 +99,8 @@ func update() -> void:
 		obj_sprite.material = _selection_material
 		if not in_level:
 			obj_sprite.set_instance_shader_parameter("editor_layer", editor_layer)
+		
+		obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
 	
 	if not obj_res.is_solid:
 		set_collision_layer_value(1, false)
@@ -122,6 +126,10 @@ func deselect() -> void:
 func check_editor_layer(new_layer : int) -> void:
 	if new_layer == other.get("e_l", 0):
 		pass
+
+func update_color_channel() -> void:
+	if(obj_sprite):
+		obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
 
 func get_selection_rect() -> Rect2:
 	var points : PackedVector2Array = collision.polygon

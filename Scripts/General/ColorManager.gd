@@ -6,6 +6,8 @@
 
 extends Node
 
+signal channel_changed(channel_id : int, new_color : Color)
+
 const max_channels : int = 21
 const MAIN_CHANNELS : Dictionary = {
 	"BG" : 0,
@@ -37,6 +39,15 @@ func _end_current_tweens(channel_id) -> void:
 			if prev_tween.get_meta("channel_id") == channel_id:
 				prev_tween.kill()
 
+func _end_all_tweens() -> void:
+	for i in range(0, max_channels - 1):
+		_end_current_tweens(i)
+
+func load_palette(palette : GDColorPalette) -> void:
+	_end_all_tweens()
+	for i in range(0, palette.length - 1):
+		change_color_channel(i, palette.color_palette[i])
+
 func change_color_channel(channel_id, target_color : Color) -> void:
 	var index : int
 	
@@ -45,8 +56,8 @@ func change_color_channel(channel_id, target_color : Color) -> void:
 	else:
 		index = channel_id
 	
-	
 	pallete_image.set_pixel(index, 0, target_color)
+	channel_changed.emit(index, target_color)
 	_texture_update_queued = true
 
 func get_color_channel(channel_id) -> Color:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://ckpaschokpbxc"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://ckpaschokpbxc"]
 
 [ext_resource type="PackedScene" uid="uid://xdkdyyfvcgfg" path="res://Scenes/portals/ball_port.tscn" id="1_0ld67"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_6mdn3"]

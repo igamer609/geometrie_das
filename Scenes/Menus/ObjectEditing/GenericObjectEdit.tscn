@@ -1,15 +1,54 @@
 [gd_scene format=3 uid="uid://b6apr14wwugvn"]
 
+[ext_resource type="Script" uid="uid://di08tr8c4ug3b" path="res://Scripts/General/UIElements/ObjectEditMenus/GenericObjectEditMenu.gd" id="1_dgqat"]
 [ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="1_yxfic"]
-[ext_resource type="PackedScene" uid="uid://ccpojtrr1b3u4" path="res://Scenes/ui_elements/ColorChannelButton.tscn" id="2_dglsf"]
+[ext_resource type="PackedScene" uid="uid://ccpojtrr1b3u4" path="res://Scenes/ui_elements/GDColorChannelButton.tscn" id="2_dglsf"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="3_5sbgd"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_s2sv4"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="6_6b2rc"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="7_yli06"]
 
-[node name="ObjectEdit" type="Control" unique_id=1942192426]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("6_6b2rc")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2sv4"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6b2rc"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[node name="ObjectEdit" type="Control" unique_id=1942192426 node_paths=PackedStringArray("special_channel_container", "normal_channel_container", "selected_color_button", "default_channel_button", "selected_channel_label", "ok_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dgqat")
+special_channel_container = NodePath("Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels")
+normal_channel_container = NodePath("Panel/TabContainer/Layer 1/Channels/Channels")
+selected_color_button = NodePath("Panel/TabContainer/Layer 1/ColorChannelButton")
+default_channel_button = NodePath("Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels/DefaultChannel")
+selected_channel_label = NodePath("Panel/TabContainer/Layer 1/Label")
+ok_button = NodePath("Panel/OK")
 
 [node name="Background" type="ColorRect" parent="." unique_id=770067664]
 layout_mode = 1
@@ -18,7 +57,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.2509804)
+color = Color(0, 0, 0, 0.5019608)
 
 [node name="Panel" type="Panel" parent="." unique_id=2085358030]
 layout_mode = 1
@@ -44,16 +83,26 @@ offset_bottom = 468.0
 theme = ExtResource("1_yxfic")
 current_tab = 0
 
-[node name="Layer 1" type="HBoxContainer" parent="Panel/TabContainer" unique_id=1409252777]
+[node name="Layer 1" type="Control" parent="Panel/TabContainer" unique_id=116567291]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Special" type="VBoxContainer" parent="Panel/TabContainer/Layer 1" unique_id=734356551]
+[node name="Channels" type="HBoxContainer" parent="Panel/TabContainer/Layer 1" unique_id=467273022]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Special" type="VBoxContainer" parent="Panel/TabContainer/Layer 1/Channels" unique_id=734356551]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Panel/TabContainer/Layer 1/Special" unique_id=2146206746]
+[node name="Title" type="Label" parent="Panel/TabContainer/Layer 1/Channels/Special" unique_id=2146206746]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -61,103 +110,175 @@ text = "Special
 Channels"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Panel/TabContainer/Layer 1/Special" unique_id=1833757492]
+[node name="SpecialChannels" type="GridContainer" parent="Panel/TabContainer/Layer 1/Channels/Special" unique_id=1833757492]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme = ExtResource("1_yxfic")
+columns = 2
 
-[node name="ColorChannelButton" parent="Panel/TabContainer/Layer 1/Special/GridContainer" unique_id=1078577959 instance=ExtResource("2_dglsf")]
+[node name="DefaultChannel" parent="Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels" unique_id=1078577959 instance=ExtResource("2_dglsf")]
+modulate = Color(1, 1, 1, 0.5019608)
+layout_mode = 2
+channel_name = "Def"
+selectable = false
+editable = false
+
+[node name="ColorChannelButton" parent="Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels" unique_id=1781022637 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_name = "BG"
+selected = true
 
-[node name="ColorChannelButton2" parent="Panel/TabContainer/Layer 1/Special/GridContainer" unique_id=522399763 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton2" parent="Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels" unique_id=522399763 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 1
 channel_name = "Obj"
+selected = true
 
-[node name="ColorChannelButton3" parent="Panel/TabContainer/Layer 1/Special/GridContainer" unique_id=1406411357 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton3" parent="Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels" unique_id=1406411357 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 2
-channel_name = "Line"
-
-[node name="ColorChannelButton4" parent="Panel/TabContainer/Layer 1/Special/GridContainer" unique_id=476650702 instance=ExtResource("2_dglsf")]
-layout_mode = 2
-channel_id = 3
 channel_name = "G"
+selected = true
 
-[node name="ColorChannelButton5" parent="Panel/TabContainer/Layer 1/Special/GridContainer" unique_id=1800241811 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton4" parent="Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels" unique_id=476650702 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 3
-channel_name = "LBG"
+channel_name = "Line"
+selected = true
 
-[node name="VSeparator" type="VSeparator" parent="Panel/TabContainer/Layer 1" unique_id=1374508193]
+[node name="ColorChannelButton5" parent="Panel/TabContainer/Layer 1/Channels/Special/SpecialChannels" unique_id=1800241811 instance=ExtResource("2_dglsf")]
+layout_mode = 2
+channel_id = 4
+channel_name = "LBG"
+selected = true
+editable = false
+
+[node name="VSeparator" type="VSeparator" parent="Panel/TabContainer/Layer 1/Channels" unique_id=1374508193]
 layout_mode = 2
 theme = ExtResource("1_yxfic")
 
-[node name="GridContainer2" type="GridContainer" parent="Panel/TabContainer/Layer 1" unique_id=1825772361]
+[node name="Channels" type="GridContainer" parent="Panel/TabContainer/Layer 1/Channels" unique_id=1825772361]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme = ExtResource("1_yxfic")
 columns = 5
 
-[node name="ColorChannelButton" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=2040173651 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=2040173651 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 5
+selected = true
 
-[node name="ColorChannelButton2" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1923956530 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton2" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1923956530 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 6
+selected = true
 
-[node name="ColorChannelButton3" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1282114401 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton3" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1282114401 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 7
+selected = true
 
-[node name="ColorChannelButton4" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1543116373 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton4" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1543116373 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 8
+selected = true
 
-[node name="ColorChannelButton5" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=765863867 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton5" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=765863867 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 9
+selected = true
 
-[node name="ColorChannelButton6" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1634137082 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton6" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1634137082 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 10
+selected = true
 
-[node name="ColorChannelButton7" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1705309163 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton7" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1705309163 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 11
+selected = true
 
-[node name="ColorChannelButton8" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1243218768 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton8" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1243218768 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 12
+selected = true
 
-[node name="ColorChannelButton9" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=639530847 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton9" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=639530847 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 13
+selected = true
 
-[node name="ColorChannelButton10" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=658137152 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton10" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=658137152 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 14
+selected = true
 
-[node name="ColorChannelButton11" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=24636600 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton11" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=24636600 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 15
+selected = true
 
-[node name="ColorChannelButton12" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1815669824 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton12" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1815669824 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 16
+selected = true
 
-[node name="ColorChannelButton13" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1137403853 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton13" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1137403853 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 17
+selected = true
 
-[node name="ColorChannelButton14" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=7758946 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton14" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=7758946 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 18
+selected = true
 
-[node name="ColorChannelButton15" parent="Panel/TabContainer/Layer 1/GridContainer2" unique_id=1826287565 instance=ExtResource("2_dglsf")]
+[node name="ColorChannelButton15" parent="Panel/TabContainer/Layer 1/Channels/Channels" unique_id=1826287565 instance=ExtResource("2_dglsf")]
 layout_mode = 2
 channel_id = 19
+selected = true
+
+[node name="ColorChannelButton" parent="Panel/TabContainer/Layer 1" unique_id=2136026060 instance=ExtResource("2_dglsf")]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 306.0
+offset_right = 511.0
+offset_bottom = 306.0
+channel_name = " "
+
+[node name="Label" type="Label" parent="Panel/TabContainer/Layer 1" unique_id=1866817743]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 301.0
+offset_right = 459.0
+offset_bottom = 317.0
+theme = ExtResource("3_5sbgd")
+theme_override_colors/font_color = Color(1, 0.85685813, 0.4145053, 1)
+theme_override_colors/font_outline_color = Color(0.23036289, 0.1195544, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "1"
+horizontal_alignment = 2
+
+[node name="OK" type="Button" parent="Panel" unique_id=2125008186]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -88.0
+offset_right = 54.5
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_s2sv4")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 22
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s2sv4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6b2rc")
+text = "OK"
+script = ExtResource("7_yli06")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"

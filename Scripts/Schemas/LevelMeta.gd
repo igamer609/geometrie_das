@@ -26,7 +26,8 @@ class_name LevelMeta extends Resource
 @export var feature_level : int = 0
 
 @export_category("Editor")
-@export var bg_color: Color = Color("0045e1")
+
+@export var color_palette : GDColorPalette = GDColorPalette.default_palette(ColorManager.max_channels)
 @export var last_uid: int = 0
 @export var song_offset: float = 0.0
 @export var verified: int = 0
@@ -50,7 +51,7 @@ func to_dict() -> Dictionary:
 		"rating": rating,
 		"feature_level": feature_level,
 
-		"bg_color": bg_color.to_html(), 
+		"color_palette": color_palette.to_dict(), 
 		"last_uid": last_uid,
 		"song_offset": song_offset,
 		"verified": verified

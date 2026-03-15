@@ -36,7 +36,7 @@ texture_margin_bottom = 15.0
 content_margin_left = 10.0
 content_margin_top = 20.0
 content_margin_right = 10.0
-content_margin_bottom = 10.0
+content_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xjyem"]
 
@@ -48,11 +48,27 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("7_m37bs")
 region = Rect2(32, 23, 32, 18)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4jul"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(33, 0, 30, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncyry"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(33, 0, 30, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11kwi"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(33, 0, 30, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86bbm"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(33, 0, 30, 21)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_m37bs"]
 atlas = ExtResource("7_m37bs")
 region = Rect2(1, 35, 31, 28)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygdoy"]
 atlas = ExtResource("5_m37bs")
 region = Rect2(0, 0, 32, 32)
 
@@ -61,7 +77,7 @@ content_margin_left = 1.0
 content_margin_top = 1.0
 content_margin_right = 1.0
 content_margin_bottom = 1.0
-texture = SubResource("AtlasTexture_xil16")
+texture = SubResource("AtlasTexture_ygdoy")
 texture_margin_left = 15.0
 texture_margin_top = 15.0
 texture_margin_right = 15.0
@@ -104,41 +120,29 @@ Button/styles/hover = SubResource("StyleBoxTexture_aq6jn")
 Button/styles/normal = SubResource("StyleBoxTexture_khu03")
 Button/styles/pressed = SubResource("StyleBoxTexture_u5kxy")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayx8r"]
-bg_color = Color(0, 0.12549, 0.4, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ypo3h"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(32, 64, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipg81"]
-bg_color = Color(0, 0.305882, 0.960784, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_um3un"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(64, 64, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkkei"]
-bg_color = Color(0, 0.0538334, 0.17, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rqgy1"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(64, 64, 32, 32)
 
 [sub_resource type="Theme" id="Theme_4w7du"]
 Button/colors/font_color = Color(1, 1, 1, 1)
@@ -147,45 +151,33 @@ Button/constants/outline_size = 7
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
-Button/styles/hover = SubResource("StyleBoxFlat_ayx8r")
-Button/styles/normal = SubResource("StyleBoxFlat_ipg81")
-Button/styles/pressed = SubResource("StyleBoxFlat_kkkei")
+Button/styles/hover = SubResource("StyleBoxTexture_ypo3h")
+Button/styles/normal = SubResource("StyleBoxTexture_um3un")
+Button/styles/pressed = SubResource("StyleBoxTexture_rqgy1")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dpax"]
-bg_color = Color(0, 0.4, 0.388235, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t2ba8"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 32, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka5ne"]
-bg_color = Color(0, 0.96, 0.928, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g6r6n"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 32, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hrof"]
-bg_color = Color(0, 0.17, 0.164333, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_po6up"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 32, 32, 32)
 
 [sub_resource type="Theme" id="Theme_ajxdj"]
 Button/colors/font_color = Color(1, 1, 1, 1)
@@ -194,45 +186,54 @@ Button/constants/outline_size = 6
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
-Button/styles/hover = SubResource("StyleBoxFlat_1dpax")
-Button/styles/normal = SubResource("StyleBoxFlat_ka5ne")
-Button/styles/pressed = SubResource("StyleBoxFlat_2hrof")
+Button/styles/hover = SubResource("StyleBoxTexture_t2ba8")
+Button/styles/normal = SubResource("StyleBoxTexture_g6r6n")
+Button/styles/pressed = SubResource("StyleBoxTexture_po6up")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbcj4"]
-bg_color = Color(0.0823529, 0.396078, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ygdoy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1yyfo"]
-bg_color = Color(0.25098, 0.964706, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ncyry"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(96, 96, 32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibjao"]
-bg_color = Color(0.0196078, 0.168627, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="Theme" id="Theme_11kwi"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 6
+Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("8_u03d0")
+Button/styles/focus = SubResource("StyleBoxEmpty_ygdoy")
+Button/styles/hover = SubResource("StyleBoxTexture_ncyry")
+Button/styles/normal = SubResource("StyleBoxTexture_ncyry")
+Button/styles/pressed = SubResource("StyleBoxTexture_ncyry")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s1emi"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_758p6"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x3xft"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 0, 32, 32)
 
 [sub_resource type="Theme" id="Theme_3njmh"]
 Button/colors/font_color = Color(1, 1, 1, 1)
@@ -241,9 +242,28 @@ Button/constants/outline_size = 6
 Button/font_sizes/font_size = 18
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
-Button/styles/hover = SubResource("StyleBoxFlat_dbcj4")
-Button/styles/normal = SubResource("StyleBoxFlat_1yyfo")
-Button/styles/pressed = SubResource("StyleBoxFlat_ibjao")
+Button/styles/hover = SubResource("StyleBoxTexture_s1emi")
+Button/styles/normal = SubResource("StyleBoxTexture_758p6")
+Button/styles/pressed = SubResource("StyleBoxTexture_x3xft")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c4jul"]
+texture = ExtResource("5_m37bs")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(128, 96, 32, 32)
+
+[sub_resource type="Theme" id="Theme_ncyry"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 6
+Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("8_u03d0")
+Button/styles/focus = SubResource("StyleBoxEmpty_ygdoy")
+Button/styles/hover = SubResource("StyleBoxTexture_c4jul")
+Button/styles/normal = SubResource("StyleBoxTexture_c4jul")
+Button/styles/pressed = SubResource("StyleBoxTexture_c4jul")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s1emi"]
 atlas = ExtResource("10_m37bs")
@@ -356,7 +376,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 502.0
+offset_top = 515.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0901961, 0.0901961, 0.0901961, 0.811765)
@@ -402,18 +422,18 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 288.0
-offset_top = -32.0
+offset_top = -31.0
 offset_right = -192.0
+offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
-current_tab = 2
+current_tab = 0
 
 [node name="Blocks" type="ScrollContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=125994459]
-visible = false
-custom_minimum_size = Vector2(780, 190)
+custom_minimum_size = Vector2(780, 100)
 layout_mode = 2
 scroll_horizontal_custom_step = 780.0
 horizontal_scroll_mode = 4
@@ -427,6 +447,8 @@ layout_mode = 2
 [node name="1" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer" unique_id=988247913]
 custom_minimum_size = Vector2(780, 0)
 layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 10
 
 [node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=913764980]
@@ -892,6 +914,8 @@ grow_vertical = 2
 [node name="2" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer" unique_id=1921001375]
 custom_minimum_size = Vector2(780, 0)
 layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 10
 
 [node name="ItemButton" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=103078700]
@@ -966,7 +990,8 @@ grow_vertical = 2
 [node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=41072254]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 10
 metadata/_tab_index = 1
 
@@ -1040,8 +1065,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Gameplay" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=716978703]
+visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 10
 metadata/_tab_index = 2
 
@@ -1186,7 +1213,8 @@ grow_vertical = 2
 [node name="Portals" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=1220355625]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 10
 metadata/_tab_index = 3
 
@@ -1313,7 +1341,8 @@ stretch_mode = 4
 [node name="Decorations" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=715431517]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 10
 metadata/_tab_index = 4
 
@@ -1344,7 +1373,8 @@ stretch_mode = 4
 [node name="Triggers" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=871898737]
 visible = false
 layout_mode = 2
-theme_override_constants/v_separation = 0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
 columns = 10
 metadata/_tab_index = 5
 
@@ -1390,15 +1420,15 @@ offset_bottom = 40.0
 
 [node name="16Unit" type="Control" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons" unique_id=232617572]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 25.0
+offset_bottom = 24.0
 
 [node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=249429000 groups=["16_unit"]]
 layout_mode = 0
-offset_left = 85.0
-offset_top = 17.0
-offset_right = 145.0
-offset_bottom = 77.0
+offset_left = 77.00021
+offset_top = 7.0
+offset_right = 137.00021
+offset_bottom = 67.0
 theme = ExtResource("5_vdfow")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Up" unique_id=1407744070]
@@ -1417,10 +1447,10 @@ texture = SubResource("AtlasTexture_qb8vd")
 
 [node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=1825532020 groups=["16_unit"]]
 layout_mode = 0
-offset_left = 85.0
-offset_top = 147.0
-offset_right = 145.0
-offset_bottom = 207.0
+offset_left = 77.00021
+offset_top = 137.0
+offset_right = 137.00021
+offset_bottom = 197.0
 theme = ExtResource("5_vdfow")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit/Down" unique_id=1933415390]
@@ -1440,10 +1470,10 @@ flip_v = true
 
 [node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=280072670 groups=["16_unit"]]
 layout_mode = 0
-offset_left = 210.0
-offset_top = 82.0
-offset_right = 270.0
-offset_bottom = 142.0
+offset_left = 202.00021
+offset_top = 72.0
+offset_right = 262.0002
+offset_bottom = 132.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
@@ -1463,10 +1493,10 @@ texture = SubResource("AtlasTexture_qb8vd")
 
 [node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/16Unit" unique_id=98594762 groups=["16_unit"]]
 layout_mode = 0
-offset_left = 80.0
-offset_top = 82.0
-offset_right = 140.0
-offset_bottom = 142.0
+offset_left = 72.00021
+offset_top = 72.0
+offset_right = 132.00021
+offset_bottom = 132.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
@@ -1494,10 +1524,10 @@ offset_bottom = 41.0
 
 [node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=479078285 groups=["8_unit"]]
 layout_mode = 0
-offset_left = 85.00021
-offset_top = 17.0
-offset_right = 145.00021
-offset_bottom = 77.0
+offset_left = 79.00021
+offset_top = 5.0
+offset_right = 139.00021
+offset_bottom = 65.0
 theme = ExtResource("5_vdfow")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Up" unique_id=107119270]
@@ -1517,10 +1547,10 @@ stretch_mode = 5
 
 [node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=1085236972 groups=["8_unit"]]
 layout_mode = 0
-offset_left = 85.00021
-offset_top = 147.0
-offset_right = 145.00021
-offset_bottom = 207.0
+offset_left = 79.00021
+offset_top = 135.0
+offset_right = 139.00021
+offset_bottom = 195.0
 theme = ExtResource("5_vdfow")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit/Down" unique_id=2131424843]
@@ -1541,10 +1571,10 @@ flip_v = true
 
 [node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=1751360692 groups=["8_unit"]]
 layout_mode = 0
-offset_left = 210.00021
-offset_top = 82.0
-offset_right = 270.0002
-offset_bottom = 142.0
+offset_left = 204.00021
+offset_top = 70.0
+offset_right = 264.0002
+offset_bottom = 130.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
@@ -1565,10 +1595,10 @@ stretch_mode = 5
 
 [node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/8Unit" unique_id=1182926702 groups=["8_unit"]]
 layout_mode = 0
-offset_left = 80.00021
-offset_top = 82.0
-offset_right = 140.00021
-offset_bottom = 142.0
+offset_left = 74.00021
+offset_top = 70.0
+offset_right = 134.00021
+offset_bottom = 130.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
@@ -1598,9 +1628,9 @@ offset_bottom = 41.0
 [node name="Up" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=1817130539 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 85.00021
-offset_top = 17.0
+offset_top = 6.0
 offset_right = 145.00021
-offset_bottom = 77.0
+offset_bottom = 66.0
 theme = ExtResource("5_vdfow")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Up" unique_id=681990533]
@@ -1615,15 +1645,15 @@ offset_right = -10.000244
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_aq6jn")
+texture = SubResource("AtlasTexture_c4jul")
 stretch_mode = 3
 
 [node name="Down" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=1514060145 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 85.00021
-offset_top = 147.0
+offset_top = 136.0
 offset_right = 145.00021
-offset_bottom = 207.0
+offset_bottom = 196.0
 theme = ExtResource("5_vdfow")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit/Down" unique_id=1191505563]
@@ -1638,16 +1668,16 @@ offset_right = -10.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_aq6jn")
+texture = SubResource("AtlasTexture_ncyry")
 stretch_mode = 3
 flip_v = true
 
 [node name="Right" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=98168662 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 210.00021
-offset_top = 82.0
+offset_top = 71.0
 offset_right = 270.0002
-offset_bottom = 142.0
+offset_bottom = 131.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
@@ -1663,15 +1693,15 @@ offset_right = -10.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_aq6jn")
+texture = SubResource("AtlasTexture_11kwi")
 stretch_mode = 3
 
 [node name="Left" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons/1Unit" unique_id=2012975401 groups=["1_unit"]]
 layout_mode = 0
 offset_left = 80.00021
-offset_top = 82.0
+offset_top = 71.0
 offset_right = 140.00021
-offset_bottom = 142.0
+offset_bottom = 131.0
 rotation = 1.5708
 theme = ExtResource("5_vdfow")
 
@@ -1687,7 +1717,7 @@ offset_right = -10.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_aq6jn")
+texture = SubResource("AtlasTexture_86bbm")
 stretch_mode = 3
 flip_v = true
 
@@ -1796,9 +1826,9 @@ anchors_preset = -1
 anchor_left = 0.133
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.006000519
-offset_right = 5.0
-offset_bottom = 2.0
+offset_left = -21.994
+offset_right = -21.0
+offset_bottom = -113.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 10
@@ -1808,31 +1838,71 @@ columns = 2
 [node name="Copy" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=894373126]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 6
 theme = SubResource("Theme_5y5ev")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
 text = "Copy"
 script = ExtResource("6_aq6jn")
 
 [node name="Paste" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=805062073]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 6
 theme = SubResource("Theme_4w7du")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
 text = "Paste"
 script = ExtResource("6_aq6jn")
 
 [node name="Duplicate" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=394892213]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 6
 theme = SubResource("Theme_ajxdj")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
 text = "Copy+
 paste"
+script = ExtResource("6_aq6jn")
+
+[node name="EditLayer" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=1349451625]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 6
+theme = SubResource("Theme_11kwi")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
+text = "Edit
+Layer"
 script = ExtResource("6_aq6jn")
 
 [node name="Deselect" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=1319992746]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 6
 theme = SubResource("Theme_3njmh")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
 text = "de
 select"
+script = ExtResource("6_aq6jn")
+
+[node name="EditObj" type="Button" parent="Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid" unique_id=1059606565]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 6
+theme = SubResource("Theme_ncyry")
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
+text = "Edit
+Object"
 script = ExtResource("6_aq6jn")
 
 [node name="EditorLayerInput" type="Control" parent="Editor_Object/UI_Layer/Actions/ObjectActions" unique_id=446543713]
@@ -1840,7 +1910,7 @@ custom_minimum_size = Vector2(128, 50)
 anchors_preset = 0
 offset_left = 37.0
 offset_top = 295.0
-offset_right = 165.0
+offset_right = 167.0
 offset_bottom = 345.0
 script = ExtResource("11_khu03")
 generic_term_text = "All"

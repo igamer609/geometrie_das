@@ -16,3 +16,4 @@ is_scene = true
 scene = ExtResource("1_f0ltl")
 texture = SubResource("AtlasTexture_m7qgn")
 collision_shape = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
+default_channel = -1

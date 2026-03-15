@@ -13,3 +13,4 @@ id = 38
 texture = SubResource("AtlasTexture_15us1")
 collision_shape = PackedVector2Array(31.5, -8.5, -31.5, -8.5, -31.5, 8.5, 31.5, 8.5)
 is_decoration = true
+default_channel = 4

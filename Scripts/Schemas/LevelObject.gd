@@ -11,6 +11,7 @@ class_name LevelObject extends Resource
 @export var transform: Array = []
 @export var group_ids : Array[int] = []
 @export var editor_layer : int =  0
+@export var channel_id : int = 1
 
 @export var other: Dictionary = {}
 
@@ -22,6 +23,7 @@ func to_dict() -> Dictionary:
 		"other": {
 			"group_ids": group_ids,
 			"editor_layer": editor_layer,
+			"channel_id": channel_id,
 			"trigger": other.get("trigger", {})
 		}
 	}

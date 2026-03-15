@@ -357,7 +357,7 @@ func _on_damage_area_entered(area : Area2D):
 		elif area.jump_type == 1:
 			velocity.y = -jump_types.yellow * 1.15 * gravity_multiplier
 		elif area.jump_type == 2:
-			velocity.y = -150 * gravity_multiplier
+			velocity.y = -225 * gravity_multiplier
 			change_gravity(0)
 
 func _on_detect_area_exited(area : Area2D):

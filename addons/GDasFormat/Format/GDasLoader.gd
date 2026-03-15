@@ -21,5 +21,9 @@ func _load(path: String, original_path: String, use_sub_threads: bool, cache_mod
 	var buffer = file.get_buffer(buffer_size)
 	
 	var raw_bytes = buffer.decompress(buffer_size, FileAccess.COMPRESSION_ZSTD)
+	var resource : Variant = bytes_to_var_with_objects(raw_bytes)
 	
-	return bytes_to_var_with_objects(raw_bytes)
+	if _recognize(resource):
+		return resource
+	
+	return Error.ERR_INVALID_DATA

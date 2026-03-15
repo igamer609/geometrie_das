@@ -41,7 +41,8 @@ func _preload_resources() -> void:
 
 func _preload_scenes() -> void:
 	var scenes_to_be_loaded : Array[String] = [
-		"res://Objects/GDObject.tscn",
+		"res://Scenes/Menus/ObjectEditing/GenericObjectEdit.tscn",
+		"res://Scenes/Menus/ObjectEditing/ChannelEditMenu.tscn",
 	]
 	
 	for file : String in scenes_to_be_loaded:

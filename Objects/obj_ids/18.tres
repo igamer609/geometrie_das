@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://nf2ewjuobndo"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://nf2ewjuobndo"]
 
 [ext_resource type="PackedScene" uid="uid://dtfyfwg6wjpnm" path="res://Scenes/portals/gravity_port_yellow.tscn" id="1_j7cos"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_d84cd"]
@@ -15,3 +15,4 @@ is_scene = true
 scene = ExtResource("1_j7cos")
 texture = SubResource("AtlasTexture_d84cd")
 collision_shape = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
+default_channel = -1

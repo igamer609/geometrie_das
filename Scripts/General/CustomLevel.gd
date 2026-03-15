@@ -13,7 +13,6 @@ var level_data : LevelData = LevelData.new()
 var _playtesting : bool = false
 var _return_scene : String
 var _loaded_path : String
-@onready var obj_base = ResourceLibrary.scenes["GDObject"]
 
 @export var start_bg : Color
 
@@ -85,7 +84,7 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	
 	GameProgress.music_to_load = level_data.meta.song_id
 	ColorManager._end_current_tweens(0)
-	start_bg = level_data.meta.bg_color
+	ColorManager.load_palette(new_level_data.meta.color_palette)
 	
 	_playtesting = playtesting
 	_loaded_path = level_path
@@ -135,24 +134,21 @@ func initiate() -> void:
 	elif player_cam:
 		follow_cam = true
 	
-	ColorManager.change_color_channel("BG", start_bg)
+	ColorManager.load_palette(level_data.meta.color_palette)
 
 func player_died() -> void:
 	follow_cam = false
 	GameProgress.run_music = false
-	
 	GameProgress.stop_lvl_music()
+	
+	ColorManager._end_all_tweens()
 	
 	death_particle.global_position = player.global_position
 	death_particle.emitting = true
 
 func player_respawn() -> void:
 	GameProgress.play_lvl_music_from_id(0)
-	ColorManager.change_color_channel("BG", start_bg)
-	
-	for object : GDObject in level.get_children():
-		if object.trigger:
-			object.trigger.enabled = true
+	ColorManager.load_palette(level_data.meta.color_palette)
 	
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false
@@ -165,6 +161,10 @@ func player_respawn() -> void:
 	player_cam.global_position = Vector2(player.global_position.x, player.global_position.y - 16)
 	
 	follow_cam = true
+	
+	for object : GDObject in level.get_children():
+		if object.trigger:
+			object.trigger.call_deferred("set", "enabled", true)
 
 func on_gamemode_change(portal, gamemode) -> void:
 	if portal:

@@ -15,6 +15,22 @@ region = Rect2(160, 64, 32, 32)
 atlas = ExtResource("1_scoup")
 region = Rect2(160, 96, 32, 32)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_scoup"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_432tu"]
+bg_color = Color(0.23020804, 0.10764139, 7.219613e-08, 0.5647059)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecq2p"]
+bg_color = Color(0.23020804, 0.10764139, 7.219613e-08, 0.5647059)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scoup"]
 texture = ExtResource("1_scoup")
 texture_margin_left = 16.0
@@ -31,14 +47,6 @@ content_margin_bottom = 25.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74w2m"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecq2p"]
-texture = ExtResource("1_scoup")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 16.0
-region_rect = Rect2(0, 96, 32, 32)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_74w2m"]
 texture = ExtResource("1_scoup")
 texture_margin_left = 16.0
@@ -46,6 +54,14 @@ texture_margin_top = 16.0
 texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 region_rect = Rect2(96, 64, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecq2p"]
+texture = ExtResource("1_scoup")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 96, 32, 32)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yprag"]
 content_margin_left = 25.0
@@ -65,6 +81,9 @@ CheckBox/icons/unchecked = SubResource("AtlasTexture_432tu")
 CheckBox/icons/unchecked_disabled = SubResource("AtlasTexture_ecq2p")
 GridContainer/constants/h_separation = 60
 GridContainer/constants/v_separation = 60
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_scoup")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_432tu")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_ecq2p")
 Panel/styles/panel = SubResource("StyleBoxTexture_scoup")
 TabContainer/colors/font_selected_color = Color(0.9774086, 0.9774086, 0.9774086, 1)
 TabContainer/colors/font_unselected_color = Color(1, 1, 1, 1)
@@ -72,8 +91,9 @@ TabContainer/constants/tab_separation = 10
 TabContainer/font_sizes/font_size = 26
 TabContainer/styles/panel = SubResource("StyleBoxEmpty_432tu")
 TabContainer/styles/tab_disabled = SubResource("StyleBoxEmpty_74w2m")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_74w2m")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_ecq2p")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_74w2m")
 TabContainer/styles/tabbar_background = SubResource("StyleBoxEmpty_yprag")
-VSeparator/constants/separation = 20
+VSeparator/constants/separation = 43
 VSeparator/styles/separator = SubResource("StyleBoxLine_scoup")

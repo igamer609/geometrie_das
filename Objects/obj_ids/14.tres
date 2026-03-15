@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GD_Object" format=3 uid="uid://ckaljsd6rgk2c"]
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://ckaljsd6rgk2c"]
 
 [ext_resource type="PackedScene" uid="uid://756i0al4p4q2" path="res://Scenes/portals/cube_port.tscn" id="1_67hfy"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_e4cst"]

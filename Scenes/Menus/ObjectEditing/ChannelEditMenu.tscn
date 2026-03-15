@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://474vcniph6vm"]
+
+[ext_resource type="Script" uid="uid://mlklgf5qxisi" path="res://Scripts/General/UIElements/ObjectEditMenus/ChannelEditMenu.gd" id="1_4ldnb"]
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="1_b4jo2"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="3_pr6q2"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="4_l0kxg"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="5_0j61e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("4_l0kxg")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pr6q2"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0kxg"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[node name="ChannelEditMenu" type="Control" unique_id=763034149 node_paths=PackedStringArray("color_picker", "current_color_rect", "previous_color_rect", "ok_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ldnb")
+color_picker = NodePath("Panel/ColorPicker")
+current_color_rect = NodePath("Panel/CurrentColor")
+previous_color_rect = NodePath("Panel/PreviousColor")
+ok_button = NodePath("Panel/OK")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1944006107]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Panel" type="Panel" parent="." unique_id=46697084]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -240.0
+offset_right = 315.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_b4jo2")
+
+[node name="ColorPicker" type="ColorPicker" parent="Panel" unique_id=1381909297]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.0
+offset_top = -160.0
+offset_right = 130.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin = 12
+edit_alpha = false
+edit_intensity = false
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+presets_visible = false
+
+[node name="CurrentColor" type="ColorRect" parent="Panel" unique_id=1803663671]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 33.0
+offset_right = 88.0
+offset_bottom = 89.0
+
+[node name="PreviousColor" type="ColorRect" parent="Panel" unique_id=1004639691]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 89.0
+offset_right = 88.0
+offset_bottom = 145.0
+
+[node name="OK" type="Button" parent="Panel" unique_id=1547903653]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -88.0
+offset_right = 54.5
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_pr6q2")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 22
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pr6q2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l0kxg")
+text = "OK"
+script = ExtResource("5_0j61e")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"

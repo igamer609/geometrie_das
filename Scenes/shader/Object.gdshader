@@ -17,7 +17,9 @@ void fragment() {
 	if (is_selected) {
 		object_color = texture_color.rgb * selection_color;
 	} else {
-		object_color = texture_color.rgb * texture(color_texture, vec2((float(channel_id) + 0.5) / float(max_channels), 0.5)).rgb;
+		if(channel_id >= 0){
+			object_color = texture_color.rgb * texture(color_texture, vec2((float(channel_id) + 0.5) / float(max_channels), 0.5)).rgb;
+		}
 	
 		if(flash_intensity > 0.001){
 			object_color = object_color.rgb + (vec3(flash_intensity) * texture_color.a);
