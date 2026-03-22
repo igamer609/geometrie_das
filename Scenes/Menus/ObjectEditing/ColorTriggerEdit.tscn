@@ -1,0 +1,211 @@
+[gd_scene format=3 uid="uid://d0gg5u3mk0bq1"]
+
+[ext_resource type="Script" uid="uid://41un4oaorb06" path="res://Scripts/General/UIElements/ObjectEditMenus/ColorTriggerEditMenu.gd" id="1_tmqkw"]
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="2_tmqkw"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="3_yiu6r"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="4_unuw4"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="5_kisgb"]
+[ext_resource type="PackedScene" uid="uid://dp6sm0452cftm" path="res://Scenes/ui_elements/GDPropertySlider.tscn" id="6_tmqkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tmqkw"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yiu6r"]
+atlas = ExtResource("4_unuw4")
+region = Rect2(0, 63, 32, 33)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_unuw4"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_yiu6r")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kisgb"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_yiu6r")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jr7kp"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_yiu6r")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("4_unuw4")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pr6q2"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0kxg"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[node name="ColorTriggerEdit" type="Control" unique_id=763034149 node_paths=PackedStringArray("color_picker", "current_color", "previous_color", "ok_button", "select_channel_button", "fade_time_prop")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tmqkw")
+color_picker = NodePath("Panel/ColorPicker")
+current_color = NodePath("Panel/CurrentColor")
+previous_color = NodePath("Panel/PreviousColor")
+ok_button = NodePath("Panel/OK")
+select_channel_button = NodePath("Panel/SelectChannel")
+fade_time_prop = NodePath("Panel/FadeTimeSlider")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1944006107]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Panel" type="Panel" parent="." unique_id=46697084]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -240.0
+offset_right = 315.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tmqkw")
+
+[node name="ColorPicker" type="ColorPicker" parent="Panel" unique_id=1381909297]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -208.0
+offset_right = -5.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin = 12
+theme_override_constants/sv_width = 196
+theme_override_constants/sv_height = 196
+edit_alpha = false
+edit_intensity = false
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+presets_visible = false
+
+[node name="CurrentColor" type="ColorRect" parent="Panel" unique_id=1803663671]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 33.0
+offset_right = 571.0
+offset_bottom = 89.0
+
+[node name="PreviousColor" type="Button" parent="Panel" unique_id=1016568083]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 89.0
+offset_right = 571.0
+offset_bottom = 145.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_tmqkw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tmqkw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tmqkw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tmqkw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tmqkw")
+
+[node name="SelectChannel" type="Button" parent="Panel" unique_id=756189990]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = -442.0
+offset_right = 161.0
+offset_bottom = -339.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_yiu6r")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxTexture_unuw4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kisgb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jr7kp")
+text = "1"
+script = ExtResource("5_kisgb")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="OK" type="Button" parent="Panel" unique_id=1547903653]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -88.0
+offset_right = 54.5
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_yiu6r")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 22
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pr6q2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l0kxg")
+text = "OK"
+script = ExtResource("5_kisgb")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="FadeTimeSlider" parent="Panel" unique_id=1809489243 instance=ExtResource("6_tmqkw")]
+layout_mode = 1
+offset_left = -272.0
+offset_top = 54.0
+offset_right = 0.0
+offset_bottom = 130.0
+display_name = "Fade Time"

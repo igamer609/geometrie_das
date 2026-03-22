@@ -1,0 +1,10 @@
+[gd_resource type="Theme" format=3 uid="uid://cojon3jj4yuqn"]
+
+[ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="1_5kf80"]
+
+[resource]
+default_font = ExtResource("1_5kf80")
+Label/colors/font_color = Color(1, 0.8393025, 0.34216362, 1)
+Label/colors/font_outline_color = Color(0.15802127, 0.108441904, 0.065500654, 1)
+Label/constants/outline_size = 6
+Label/font_sizes/font_size = 24

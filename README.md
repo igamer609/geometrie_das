@@ -1,3 +1,21 @@
+# Geometrie Das 2.0 Beta 5 (beta 4 never existed ahahahaha)
+- ok, i need a more consistent naming scheme
+- remade level object, level and registry data to use`Resource` type objects
+>this was made so that inconsistencies when converting into JSON to be sent to the server will be avoided and to make implementing future features much easier
+- implemented a custom save/load system using compressed binary blobs
+>does use the unsafe `var_to_bytes_with_objects` method, but these files are not meant to be directly shared.
+- implemented a color channel system that uses an `ImageTexture2D` object shared with the `RenderingServer`. Accessed trough the `ColorManager` singleton.
+- added `Trigger` superclass, used by future implementation of triggers. Contains base properties like `trigger_id` and `target_id`
+- added `ColorTrigger` subclass that has handles changing the color of the channel of index`target_id` to `target_color` over `fade_time`. 
+- added menus to edit the channel of one or more objects, to edit the starting color of a channel and to change the properties of one or more color triggers (can be extended for more triggers)
+- added editor layers
+- unified the shader used by objects both in level and in the editor to support editor layers, color channels, selection color and other effects
+- added more custom UI elements that can be used for future addition
+- other bug fixes and small physics changes
+- other things I might have forgotten about, way too much
+
+Oof, quite a big update... hope the next one comes soon!
+
 # Geometrie Das 2.0 Beta 3 (and 2)
 - swipe building is now functional
 - fixed memory leak when using VisibleOnScreenEnabler2D

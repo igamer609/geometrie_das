@@ -9,10 +9,11 @@ class_name ColorTrigger extends Trigger
 @export var target_color : Color = Color.WHITE
 @export var fade_time : float = 0.50
 
-static func create_color_trigger(trigger_info : Dictionary, in_editor : bool) -> ColorTrigger:
+static func create_color_trigger(obj_info : Dictionary, in_editor : bool) -> ColorTrigger:
 	
 	var trigger : ColorTrigger = ColorTrigger.new()
 	trigger.trigger_id = 1
+	var trigger_info : Dictionary = obj_info.get("trigger", {})
 	trigger.target_id = trigger_info.get("target_id", 0)
 	trigger.target_color = trigger_info.get("target_color", Color.WHITE)
 	trigger.fade_time = trigger_info.get("fade_time", 0.5)

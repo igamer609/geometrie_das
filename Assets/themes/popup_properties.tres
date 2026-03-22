@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="1_scoup"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_432tu"]
+[ext_resource type="Texture2D" uid="uid://clqkp6ffidqc8" path="res://Assets/buttons/sliders.png" id="2_ecq2p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_scoup"]
 atlas = ExtResource("1_scoup")
@@ -15,9 +16,47 @@ region = Rect2(160, 64, 32, 32)
 atlas = ExtResource("1_scoup")
 region = Rect2(160, 96, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_74w2m"]
+atlas = ExtResource("2_ecq2p")
+region = Rect2(0, 41, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yprag"]
+atlas = ExtResource("2_ecq2p")
+region = Rect2(0, 0, 42, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqblp"]
+atlas = ExtResource("2_ecq2p")
+region = Rect2(42, 24, 308, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0o56t"]
+texture = SubResource("AtlasTexture_oqblp")
+texture_margin_top = 17.0
+texture_margin_bottom = 17.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ener"]
+texture = SubResource("AtlasTexture_oqblp")
+texture_margin_top = 17.0
+texture_margin_bottom = 17.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6p8sp"]
+atlas = ExtResource("2_ecq2p")
+region = Rect2(42, 0, 308, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_brnom"]
+texture = SubResource("AtlasTexture_6p8sp")
+texture_margin_left = 17.0
+texture_margin_top = 9.0
+texture_margin_right = 17.0
+texture_margin_bottom = 9.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_scoup"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_432tu"]
+content_margin_left = 5.0
 bg_color = Color(0.23020804, 0.10764139, 7.219613e-08, 0.5647059)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -25,6 +64,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecq2p"]
+content_margin_left = 5.0
 bg_color = Color(0.23020804, 0.10764139, 7.219613e-08, 0.5647059)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -81,6 +121,11 @@ CheckBox/icons/unchecked = SubResource("AtlasTexture_432tu")
 CheckBox/icons/unchecked_disabled = SubResource("AtlasTexture_ecq2p")
 GridContainer/constants/h_separation = 60
 GridContainer/constants/v_separation = 60
+HSlider/icons/grabber = SubResource("AtlasTexture_74w2m")
+HSlider/icons/grabber_highlight = SubResource("AtlasTexture_yprag")
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_0o56t")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_1ener")
+HSlider/styles/slider = SubResource("StyleBoxTexture_brnom")
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_scoup")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_432tu")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_ecq2p")

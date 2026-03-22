@@ -6,6 +6,10 @@
 
 class_name Trigger extends Area2D
 
+enum Types { COLOR = 1, PULSE = 2 }
+
+const COLOR = [Types.COLOR, Types.PULSE]
+
 @export var trigger_id : int = 0
 @export var target_id : int = 0
 @export var enabled = true

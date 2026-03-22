@@ -812,11 +812,23 @@ func _update_palette(channel_id : int, color : Color) -> void:
 
 func _create_object_edit_menu() -> void:
 	var all_regular : bool = true
+	var all_triggers : bool = true
+	var trigger_types : Array[int] = []
+	
 	for object : GDObject in selected_objects:
-		if(object.trigger):
-			all_regular = false; break
+		if(object.trigger): 
+			all_regular = false
+			if(!trigger_types.has(object.trigger.trigger_id)):
+				trigger_types.append(object.trigger.trigger_id)
+		else: all_triggers = false
 	
 	if(all_regular):
 		var obj_edit_menu = ResourceLibrary.scenes["GenericObjectEdit"].instantiate()
 		obj_edit_menu.target_objects = selected_objects
 		ui.add_child(obj_edit_menu)
+	elif(all_triggers):
+		if(trigger_types.size() == 1):
+			if(trigger_types[0] == 1):
+				var obj_edit_menu = ResourceLibrary.scenes["ColorTriggerEdit"].instantiate()
+				obj_edit_menu.target_triggers = selected_objects
+				ui.add_child(obj_edit_menu)

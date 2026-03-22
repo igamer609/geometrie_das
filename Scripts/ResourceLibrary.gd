@@ -43,6 +43,8 @@ func _preload_scenes() -> void:
 	var scenes_to_be_loaded : Array[String] = [
 		"res://Scenes/Menus/ObjectEditing/GenericObjectEdit.tscn",
 		"res://Scenes/Menus/ObjectEditing/ChannelEditMenu.tscn",
+		"res://Scenes/Menus/ObjectEditing/ChannelSelect.tscn",
+		"res://Scenes/Menus/ObjectEditing/ColorTriggerEdit.tscn",
 	]
 	
 	for file : String in scenes_to_be_loaded:

@@ -1,0 +1,243 @@
+[gd_scene format=3 uid="uid://c3xqewasx6bv1"]
+
+[ext_resource type="Script" uid="uid://bhu6omol4lrpw" path="res://Scripts/General/UIElements/ObjectEditMenus/ChannelSelectMenu.gd" id="1_ja6v4"]
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="2_viytn"]
+[ext_resource type="PackedScene" uid="uid://ccpojtrr1b3u4" path="res://Scenes/ui_elements/GDColorChannelButton.tscn" id="3_wvxr0"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="4_fk6tx"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="5_niiwc"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="6_kjwl1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("5_niiwc")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_amp60"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nycld"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[node name="ChannelSelect" type="Control" unique_id=1200949836 node_paths=PackedStringArray("special_channel_container", "normal_channel_container", "ok_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ja6v4")
+special_channel_container = NodePath("Panel/Layer 1/Channels/Special/SpecialChannels")
+normal_channel_container = NodePath("Panel/Layer 1/Channels/Channels")
+ok_button = NodePath("Panel/OK")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1310879532]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Panel" type="Panel" parent="." unique_id=486474420]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -240.0
+offset_right = 315.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_viytn")
+
+[node name="Layer 1" type="Control" parent="Panel" unique_id=394899088]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 53.0
+offset_top = 107.0
+offset_right = -11.0
+offset_bottom = -109.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Channels" type="HBoxContainer" parent="Panel/Layer 1" unique_id=1199419693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = -63.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Special" type="VBoxContainer" parent="Panel/Layer 1/Channels" unique_id=2026129612]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = 45
+
+[node name="Title" type="Label" parent="Panel/Layer 1/Channels/Special" unique_id=1582200741]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Special
+Channels"
+horizontal_alignment = 1
+
+[node name="SpecialChannels" type="GridContainer" parent="Panel/Layer 1/Channels/Special" unique_id=1033860222]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("2_viytn")
+
+[node name="ColorChannelButton" parent="Panel/Layer 1/Channels/Special/SpecialChannels" unique_id=1078577959 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_name = "BG"
+selected = true
+
+[node name="ColorChannelButton2" parent="Panel/Layer 1/Channels/Special/SpecialChannels" unique_id=128885351 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 1
+channel_name = "Obj"
+selected = true
+
+[node name="ColorChannelButton3" parent="Panel/Layer 1/Channels/Special/SpecialChannels" unique_id=1147500006 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 2
+channel_name = "G"
+selected = true
+
+[node name="ColorChannelButton4" parent="Panel/Layer 1/Channels/Special/SpecialChannels" unique_id=2075700869 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 3
+channel_name = "Line"
+selected = true
+
+[node name="VSeparator" type="VSeparator" parent="Panel/Layer 1/Channels" unique_id=994055938]
+layout_mode = 2
+theme = ExtResource("2_viytn")
+
+[node name="Channels" type="GridContainer" parent="Panel/Layer 1/Channels" unique_id=1783851790]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme = ExtResource("2_viytn")
+columns = 3
+
+[node name="ColorChannelButton" parent="Panel/Layer 1/Channels/Channels" unique_id=929477508 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 5
+selected = true
+
+[node name="ColorChannelButton2" parent="Panel/Layer 1/Channels/Channels" unique_id=251054577 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 6
+selected = true
+
+[node name="ColorChannelButton3" parent="Panel/Layer 1/Channels/Channels" unique_id=540111205 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 7
+selected = true
+
+[node name="ColorChannelButton4" parent="Panel/Layer 1/Channels/Channels" unique_id=71490330 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 8
+selected = true
+
+[node name="ColorChannelButton5" parent="Panel/Layer 1/Channels/Channels" unique_id=679381711 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 9
+selected = true
+
+[node name="ColorChannelButton6" parent="Panel/Layer 1/Channels/Channels" unique_id=1175930147 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 10
+selected = true
+
+[node name="ColorChannelButton7" parent="Panel/Layer 1/Channels/Channels" unique_id=2065950703 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 11
+selected = true
+
+[node name="ColorChannelButton8" parent="Panel/Layer 1/Channels/Channels" unique_id=237795600 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 12
+selected = true
+
+[node name="ColorChannelButton9" parent="Panel/Layer 1/Channels/Channels" unique_id=1576455160 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 13
+selected = true
+
+[node name="ColorChannelButton10" parent="Panel/Layer 1/Channels/Channels" unique_id=1205318924 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 14
+selected = true
+
+[node name="ColorChannelButton11" parent="Panel/Layer 1/Channels/Channels" unique_id=1866405694 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 15
+selected = true
+
+[node name="ColorChannelButton12" parent="Panel/Layer 1/Channels/Channels" unique_id=1020898043 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 16
+selected = true
+
+[node name="ColorChannelButton13" parent="Panel/Layer 1/Channels/Channels" unique_id=1307935951 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 17
+selected = true
+
+[node name="ColorChannelButton14" parent="Panel/Layer 1/Channels/Channels" unique_id=1198804587 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 18
+selected = true
+
+[node name="ColorChannelButton15" parent="Panel/Layer 1/Channels/Channels" unique_id=1177331412 instance=ExtResource("3_wvxr0")]
+layout_mode = 2
+channel_id = 19
+selected = true
+
+[node name="OK" type="Button" parent="Panel" unique_id=552691038]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -88.0
+offset_right = 54.5
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_fk6tx")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 22
+theme_override_styles/pressed = SubResource("StyleBoxTexture_amp60")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nycld")
+text = "OK"
+script = ExtResource("6_kjwl1")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"

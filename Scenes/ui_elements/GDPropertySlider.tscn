@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dp6sm0452cftm"]
+
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="1_bu5rp"]
+[ext_resource type="Script" uid="uid://c2fy8hmpnov8o" path="res://Scripts/General/UIElements/GDPropertySlider.gd" id="1_ptyk2"]
+[ext_resource type="Theme" uid="uid://cojon3jj4yuqn" path="res://Assets/themes/gold_label.tres" id="2_bu5rp"]
+
+[node name="PropertySlider" type="Control" unique_id=1809489243 node_paths=PackedStringArray("slider", "label", "input")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = 41.0
+offset_right = 108.0
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_bu5rp")
+script = ExtResource("1_ptyk2")
+slider = NodePath("Slider")
+label = NodePath("Label")
+input = NodePath("Input")
+
+[node name="Slider" type="HSlider" parent="." unique_id=307087222]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+step = 0.01
+allow_greater = true
+
+[node name="Label" type="Label" parent="." unique_id=905986812]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 16.0
+offset_right = 153.0
+offset_bottom = 34.0
+theme = ExtResource("2_bu5rp")
+text = "Prop name: "
+
+[node name="Input" type="LineEdit" parent="." unique_id=1935969109]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_top = 9.0
+offset_right = -7.0
+offset_bottom = 38.0
+grow_horizontal = 0
+placeholder_text = "0.00"
+virtual_keyboard_type = 3
