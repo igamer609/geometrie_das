@@ -1,4 +1,8 @@
 # Geometrie Das 2.0 Beta 5 (beta 4 never existed ahahahaha)
+
+> *Note:* to open the project, it is recommended you update all UID's using `Project>Tools>Upgrade Project Files`. I use Godot 4.6. Probably UID's got corrupted when I merged from the `dev` branch.
+> `2.0-beta.5a` fixes import/UID corruption, now works as expected
+
 - ok, i need a more consistent naming scheme
 - remade level object, level and registry data to use`Resource` type objects
 >this was made so that inconsistencies when converting into JSON to be sent to the server will be avoided and to make implementing future features much easier

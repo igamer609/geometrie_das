@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://70v10gk4dvig"]
+[gd_scene format=3 uid="uid://70v10gk4dvig"]
 
 [ext_resource type="Texture2D" uid="uid://d1ciusy8i88tx" path="res://Assets/level/difficulty.png" id="1_uj4at"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="2_ljxiq"]
@@ -35,7 +35,7 @@ corner_radius_bottom_left = 30
 atlas = ExtResource("3_h7dvc")
 region = Rect2(0, 0, 32, 32)
 
-[node name="Level" type="Control"]
+[node name="Level" type="Control" unique_id=920730646]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,7 @@ offset_bottom = -102.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Information" type="ColorRect" parent="."]
+[node name="Information" type="ColorRect" parent="." unique_id=1558211728]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -62,7 +62,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.545098)
 
-[node name="Difficulty" type="TextureRect" parent="Information"]
+[node name="Difficulty" type="TextureRect" parent="Information" unique_id=408353332]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -78,7 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_iu0fl")
 
-[node name="Label" type="Label" parent="Information"]
+[node name="Label" type="Label" parent="Information" unique_id=511207825]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -100,7 +100,7 @@ text = "TestLevelName"
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Progress" type="ColorRect" parent="."]
+[node name="Progress" type="ColorRect" parent="." unique_id=782726682]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -115,7 +115,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.545098)
 
-[node name="NormalProgress" type="ProgressBar" parent="Progress"]
+[node name="NormalProgress" type="ProgressBar" parent="Progress" unique_id=1638380623]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -136,7 +136,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_hvr5b")
 step = 1.0
 value = 90.0
 
-[node name="NormalLabel" type="Label" parent="Progress"]
+[node name="NormalLabel" type="Label" parent="Progress" unique_id=1562206939]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -159,7 +159,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="PracticeProgress" type="ProgressBar" parent="Progress"]
+[node name="PracticeProgress" type="ProgressBar" parent="Progress" unique_id=306642931]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -179,7 +179,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_3g8t8")
 theme_override_styles/fill = SubResource("StyleBoxFlat_dbhjt")
 step = 1.0
 
-[node name="PracticeLabel" type="Label" parent="Progress"]
+[node name="PracticeLabel" type="Label" parent="Progress" unique_id=918900537]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -202,7 +202,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Play" type="TextureButton" parent="."]
+[node name="Play" type="TextureButton" parent="." unique_id=577622724]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -220,7 +220,7 @@ texture_normal = SubResource("AtlasTexture_0q2vj")
 stretch_mode = 0
 script = ExtResource("4_bt4ry")
 
-[node name="Texture" type="TextureRect" parent="Play"]
+[node name="Texture" type="TextureRect" parent="Play" unique_id=1606927161]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
