@@ -46,6 +46,28 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	
 	return object
 
+static func duplicate_object(original_obj : GDObject, n_uid : int, new_pos : Vector2, new_rot : float) -> GDObject:
+	var object : GDObject = GDObject.new()
+	object.add_to_group("Object")
+	
+	object.obj_res = original_obj.obj_res
+	object.uid = n_uid
+	object.global_position = new_pos
+	object.global_rotation = new_rot
+	object.group_ids = original_obj.group_ids
+	object.editor_layer = original_obj.editor_layer
+	object.color_channel = original_obj.color_channel
+	if object.editor_layer < 0:
+		object.editor_layer = 0
+	var updated_other : Dictionary = original_obj.other.duplicate(true)
+	updated_other.set("group_ids", object.group_ids)
+	updated_other.set("editor_layer", object.editor_layer)
+	updated_other.set("channel_id", object.color_channel)
+	object.other = updated_other
+	object.in_level = original_obj.in_level
+	
+	return object
+
 func _init() -> void:
 	ResourceLibrary.free_objects.connect(delete)
 

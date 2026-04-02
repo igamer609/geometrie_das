@@ -139,6 +139,17 @@ func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) ->
 	level.add_child(object)
 	return object
 
+func _duplicate_obj(obj : GDObject, new_pos : Vector2, new_rot : float) -> GDObject:
+	last_uid += 1
+	var object : GDObject = GDObject.duplicate_object(obj, last_uid, new_pos, new_rot)
+	
+	if not _current_spacial_index.has(new_pos):
+		_current_spacial_index[new_pos] = []
+	_current_spacial_index[new_pos].append(object)
+	
+	level.add_child(object)
+	return object
+
 func _generate_unique_id() -> int:
 	var time : int =int(Time.get_unix_time_from_system())
 	var rand : int = randi() % 10000 + 1
@@ -660,11 +671,12 @@ func rotate_objects(direction):
 func copy_objects():
 	clipboard.clear()
 	
-	for object in selected_objects:
+	for object : GDObject in selected_objects:
 		var obj_pos = camera.to_local(object.global_position)
 		var obj_rot = object.global_rotation
+		var  obj_other = object.other
 		
-		clipboard.append([object, obj_pos, obj_rot])
+		clipboard.append([object, obj_pos, obj_rot, obj_other])
 
 func paste_objects():
 	if len(clipboard) >= 1:
@@ -676,7 +688,8 @@ func paste_objects():
 		var pasted_objects = []
 		
 		for object in clipboard:
-			var new_object : GDObject = _load_obj(object[0].obj_res.id, Vector2(snapped((camera.to_global(object[1])).x, 16) , snapped((camera.to_global(object[1])).y, 16) ), object[2], object[3])
+			var projected_pos : Vector2 = Vector2(snapped((camera.to_global(object[1])).x, 16) , snapped((camera.to_global(object[1])).y, 16))
+			var new_object : GDObject = _duplicate_obj(object[0], projected_pos, object[2])
 			
 			pasted_objects.append(new_object)
 			
@@ -698,7 +711,7 @@ func duplicate_objects():
 	
 	for obj : GDObject in objects_to_duplicate:
 		
-		var object = _load_obj(obj.obj_res.id, obj.global_position, obj.global_rotation, obj.other)
+		var object = _duplicate_obj(obj, obj.global_position, obj.global_rotation)
 
 		select_object(object, true)
 		

@@ -26,7 +26,6 @@ class_name LevelMeta extends Resource
 @export var feature_level : int = 0
 
 @export_category("Editor")
-
 @export var color_palette : GDColorPalette = GDColorPalette.default_palette(ColorManager.max_channels)
 @export var last_uid: int = 0
 @export var song_offset: float = 0.0
