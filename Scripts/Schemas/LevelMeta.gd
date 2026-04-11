@@ -11,6 +11,7 @@ class_name LevelMeta extends Resource
 @export var description: String = ""
 @export var song_id: int = 1
 @export var length: float = 0.0
+@export var rate_req: int = 0
 
 @export_category("Internal")
 @export var local_id: String = ""
@@ -34,26 +35,12 @@ class_name LevelMeta extends Resource
 func to_dict() -> Dictionary:
 	return {
 		"title": title,
-		"author": author,
 		"description": description,
 		"song_id": song_id,
 		"length": length,
-
-		"local_id": local_id,
-		"published_id": published_id,
+		"rate_req": rate_req,
 		"original_id": original_id,
 		"version": version,
-
-		"downloads": downloads,
-		"likes": likes,
-		"avg_rating": avg_rating,
-		"rating": rating,
-		"feature_level": feature_level,
-
-		"color_palette": color_palette.to_dict(), 
-		"last_uid": last_uid,
-		"song_offset": song_offset,
-		"verified": verified
 	}
 
 static func from_dict(data: Dictionary) -> LevelMeta:

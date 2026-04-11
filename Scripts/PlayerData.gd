@@ -6,6 +6,8 @@
 
 extends Node
 
+signal account_updated(username : String, user_id : int)
+
 @export var cube_id : int = 0
 @export var ship_id : int = 0
 @export var ball_id : int = 0
@@ -15,6 +17,11 @@ var new : bool = false
 var uid : int = 0
 var _progress : Dictionary = {
 	"levels":[],
+	"account":{
+		"username": "",
+		"user_id": "",
+		"token": ""
+	},
 	"completions":[],
 	"saved_levels":[],
 	"published_levels":[],
@@ -42,6 +49,22 @@ func _new_level(id : String, normal_progress : int = 0, practice_progress : int 
 
 func _ready():
 	load_save()
+
+func _update_account(username : String, user_id : int, token : String) -> void:
+	_progress["account"].set("username", username)
+	_progress["account"].set("user_id", user_id)
+	_progress["account"].set("token", token)
+	
+	account_updated.emit(username, user_id)
+
+func _log_out() -> void:
+	var last_username : String = String(_progress["account"].get("username", "Player"))
+	if(last_username):
+		_progress["account"].set("username", last_username)
+		_progress["account"].set("user_id", 0)
+		_progress["account"].set("token", "")
+		
+		account_updated.emit(last_username, 0)
 
 func save():
 	var save_data = {
@@ -89,7 +112,6 @@ func load_save():
 					"ball" : ball_id = _progress["icon_kit"][item];
 		else:
 			return
-		
 
 func change_progress(new_progress : Dictionary) -> void:
 	var level_id : String = str( new_progress["id"])

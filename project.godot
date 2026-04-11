@@ -27,11 +27,12 @@ config/version.release="2.0"
 [autoload]
 
 PlayerData="*res://Scenes/managers/PlayerData.tscn"
+ResourceLibrary="*res://Scenes/Loader.tscn"
+API="*uid://c13kiunr8pxj3"
 TransitionScene="*res://Scenes/Transition/SceneTransition.tscn"
 GameProgress="*res://Scenes/Menus/GameProgress.tscn"
 MenuMusic="*res://Scenes/managers/MenuMusic.tscn"
 EditorTransition="*res://Scenes/Transition/EditorTransition.tscn"
-ResourceLibrary="*res://Scenes/Loader.tscn"
 ColorManager="*uid://clwlbd7mkksi0"
 
 [debug]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c13kiunr8pxj3"]
+
+[ext_resource type="Script" uid="uid://cftqiveaiyfwl" path="res://Scripts/Networking/API.gd" id="1_viqpv"]
+
+[node name="API" type="Node" unique_id=204679562]
+script = ExtResource("1_viqpv")
