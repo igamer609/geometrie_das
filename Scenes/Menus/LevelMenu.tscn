@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmwm74ihme4tf"]
+[gd_scene format=3 uid="uid://bmwm74ihme4tf"]
 
 [ext_resource type="Script" uid="uid://dm6tfw47ajn5b" path="res://Scenes/Menus/LevelMenu.gd" id="1_pejut"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="1_vqb1s"]
@@ -33,7 +33,7 @@ events = [SubResource("InputEventKey_pa3jt")]
 atlas = ExtResource("1_vqb1s")
 region = Rect2(64, 0, 32, 32)
 
-[node name="Levels" type="Control"]
+[node name="Levels" type="Control" unique_id=621527540]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +42,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pejut")
 
-[node name="Background" type="Control" parent="."]
+[node name="Background" type="Control" parent="." unique_id=1640207516]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,7 +50,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Gradient" type="TextureRect" parent="Background"]
+[node name="Gradient" type="TextureRect" parent="Background" unique_id=184939837]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +59,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_qfx3x")
 
-[node name="Corner" type="TextureRect" parent="Background"]
+[node name="Corner" type="TextureRect" parent="Background" unique_id=868082666]
 clip_children = 2
 texture_filter = 1
 layout_mode = 0
@@ -69,7 +69,7 @@ offset_bottom = 162.0
 rotation = 1.5708
 texture = SubResource("AtlasTexture_s256y")
 
-[node name="Corner2" type="TextureRect" parent="Background"]
+[node name="Corner2" type="TextureRect" parent="Background" unique_id=1548970804]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -83,7 +83,7 @@ grow_horizontal = 0
 rotation = 3.14159
 texture = SubResource("AtlasTexture_s256y")
 
-[node name="Corner3" type="TextureRect" parent="Background"]
+[node name="Corner3" type="TextureRect" parent="Background" unique_id=179824137]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -95,7 +95,7 @@ offset_right = 162.0
 grow_vertical = 0
 texture = SubResource("AtlasTexture_s256y")
 
-[node name="Corner4" type="TextureRect" parent="Background"]
+[node name="Corner4" type="TextureRect" parent="Background" unique_id=1937476974]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -112,7 +112,7 @@ grow_vertical = 0
 rotation = 4.71239
 texture = SubResource("AtlasTexture_s256y")
 
-[node name="ScrollLeft" type="TextureButton" parent="."]
+[node name="ScrollLeft" type="TextureButton" parent="." unique_id=892638984]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 4
@@ -129,7 +129,7 @@ stretch_mode = 0
 flip_h = true
 script = ExtResource("3_b3ixn")
 
-[node name="ScrollRight" type="TextureButton" parent="."]
+[node name="ScrollRight" type="TextureButton" parent="." unique_id=394344042]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 6
@@ -147,7 +147,7 @@ texture_normal = SubResource("AtlasTexture_dohx5")
 stretch_mode = 0
 script = ExtResource("3_b3ixn")
 
-[node name="Exit" type="TextureButton" parent="."]
+[node name="Exit" type="TextureButton" parent="." unique_id=1034611911]
 self_modulate = Color(1, 0.894118, 0.890196, 1)
 texture_filter = 1
 layout_mode = 1

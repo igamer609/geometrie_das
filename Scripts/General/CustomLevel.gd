@@ -124,6 +124,9 @@ func initiate() -> void:
 		player.died.connect(player_died)
 		player.respawned.connect(player_respawn)
 		
+		player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
+		player.change_gravity(level_data.meta.starting_gravity)
+		
 		player_cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	
 	ground.global_position = Vector2(40, 0)
@@ -153,7 +156,10 @@ func player_respawn() -> void:
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false
 	player.velocity = Vector2.ZERO
-	player.gravity = player.CUBE_GRAVITY
+	
+	player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
+	player.change_gravity(level_data.meta.starting_gravity)
+	
 	player.global_position.x = -64
 	player.global_position.y = -8
 	
@@ -166,56 +172,59 @@ func player_respawn() -> void:
 		if object.trigger:
 			object.trigger.call_deferred("set", "enabled", true)
 
-func on_gamemode_change(portal, gamemode) -> void:
+func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 	if portal:
-		if gamemode in ["cube"]:
-			ceiling.visible = false
-			
-			ground.global_position = Vector2(player.global_position.x + 3500, 0)
-			ceiling.global_position = Vector2(player.global_position.x + 3500, 1000)
-		elif gamemode in ["ship"]:
-			ceiling.visible = true
-			
-			var ground_pos : Vector2 = Vector2(player.global_position.x + 3500, portal.global_position.y + 88)
-			if ground_pos.y > 0:
-				ground_pos.y = 0
-			
-			ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-			ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-			
-			ground.global_position = ground_pos
-			ceiling.global_position = Vector2(player.global_position.x + 3500, ground.global_position.y - 176)
-			
-			ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
-			ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
-			
-			player_cam.global_position.y = ground.global_position.y - 88
-		elif gamemode in ["ball"]:
-			ceiling.visible = true
-			
-			ground.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y + 72)
-			ceiling.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y - 72)
-			
-			
-			if ground.global_position.y > 0:
-				ground.global_position.y = 0
-				ceiling.global_position.y = ground.global_position.y - 144
-			
-			player_cam.global_position.y = ground.global_position.y - 72
+		match gamemode:
+			0:  # cube
+				ceiling.visible = false
+				ground.global_position = Vector2(player.global_position.x + 3500, 0)
+				ceiling.global_position = Vector2(player.global_position.x + 3500, 1000)
+			1: # ship
+				ceiling.visible = true
+				
+				var ground_pos : Vector2 = Vector2(player.global_position.x + 3500, portal.global_position.y + 88)
+				if ground_pos.y > 0:
+					ground_pos.y = 0
+				
+				ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+				ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+				
+				ground.global_position = ground_pos
+				ceiling.global_position = Vector2(player.global_position.x + 3500, ground.global_position.y - 176)
+				
+				ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+				ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+				
+				player_cam.global_position.y = ground.global_position.y - 88
+			2:  # ball
+				ceiling.visible = true
+				
+				ground.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y + 72)
+				ceiling.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y - 72)
+				
+				if ground.global_position.y > 0:
+					ground.global_position.y = 0
+					ceiling.global_position.y = ground.global_position.y - 144
+				
+				player_cam.global_position.y = ground.global_position.y - 72
 	else:
-		if gamemode in ["cube"]:
-			ground.global_position = Vector2(3500, 0)
-			ceiling.global_position = Vector2(3500, 1000)
-		elif gamemode in ["ship"]:
-			ceiling.visible = true
-			
-			ground.global_position.y = 0
-			ceiling.global_position.y = ground.global_position.y - 176
-		elif gamemode in ["ball"]:
-			ceiling.visible = true
-			
-			ground.global_position.y = 0
-			ceiling.global_position.y = ground.global_position.y - 112
+		match gamemode:
+			0:  # cube
+				ground.global_position = Vector2(3500, 0)
+				ceiling.global_position = Vector2(3500, 1000)
+			1:  # ship
+				ceiling.visible = true
+				
+				ground.global_position.y = 0
+				ceiling.global_position.y = ground.global_position.y - 176
+				
+				player_cam.global_position.y = ground.global_position.y - 88
+			2:  # ball
+				ceiling.visible = true
+				
+				ground.global_position.y = 0
+				ceiling.global_position.y = ground.global_position.y - 112
+				player_cam.global_position.y = ground.global_position.y - 56
 
 func _process(delta) -> void:
 	if obtain_endpos:
@@ -234,7 +243,7 @@ func _process(delta) -> void:
 		
 		endpos.global_position.y = player_cam.global_position.y
 		
-		if player.gamemode in ["cube"]:
+		if player.gamemode == Player.GamemodeTypes.CUBE:
 			player_cam.global_position.y = player.global_position.y - 16
 	
 	GameProgress.update_bar((player.global_position.x / endpos.global_position.x) * 100)
@@ -263,9 +272,9 @@ func _exit_level():
 	
 	match _return_scene:
 		"res://Scenes/Menus/LevelEditingMenu.tscn":
-			EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path))
+			SceneTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path))
 		_:
-			TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
+			SceneTransition.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
 func _end_level():
 	if _playtesting:
@@ -287,4 +296,4 @@ func _restart():
 	get_tree().paused = false
 	
 	ResourceLibrary.free_objects.emit()
-	EditorTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
+	SceneTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)

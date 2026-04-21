@@ -8,6 +8,7 @@ class_name LevelMeta extends Resource
 
 @export var title: String = ""
 @export var author: String = ""
+@export var author_id: int = -1
 @export var description: String = ""
 @export var song_id: int = 1
 @export var length: float = 0.0
@@ -28,6 +29,8 @@ class_name LevelMeta extends Resource
 
 @export_category("Editor")
 @export var color_palette : GDColorPalette = GDColorPalette.default_palette(ColorManager.max_channels)
+@export var starting_gamemode : int = 0
+@export var starting_gravity : int = 1
 @export var last_uid: int = 0
 @export var song_offset: float = 0.0
 @export var verified: int = 0

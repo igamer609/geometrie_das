@@ -5,7 +5,7 @@
 #	"Love you, RubRub" - igamer
 # ----------------------------------------------------------
 
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 signal changed_gamemode(last_portal, mode)
 signal died()
 signal respawned()
@@ -27,12 +27,12 @@ signal respawned()
 
 const SCALE_MULTIPLIER : float = 10.8
 
-const CUBE_JUMP_VELOCITY : float = 23.5 * SCALE_MULTIPLIER
+const CUBE_JUMP_VELOCITY : float = 24 * SCALE_MULTIPLIER
 
 const SHIP_MAX_VEL : int = 180
 const SHIP_THRUST : float = 4
 
-const CUBE_GRAVITY : float = 93 * SCALE_MULTIPLIER
+const CUBE_GRAVITY : float = 92.25 * SCALE_MULTIPLIER
 const SHIP_GRAVITY : float = 1.7
 const BALL_GRAVITY : float = 4
 
@@ -41,14 +41,15 @@ const WALL_RAY_MARGIN : float = 0.5
 
 enum jump_types {pink = 200, yellow = 275}
 
-var speed : int = 130
+var speed : float = 127.35
 
 @export var gravity_reverse : bool = true
 var gravity_multiplier : int = 1
 @export var gravity : int = 50
 
+const GAMEMODE_NAMES : Array[String] = ["cube", "ship", 'ball']
 enum GamemodeTypes {CUBE, SHIP, BALL}
-@export var gamemode : String = "cube"
+@export var gamemode : GamemodeTypes = GamemodeTypes.CUBE
 
 var can_move : bool = true
 var consecutive_jumps : int = 0
@@ -61,7 +62,6 @@ var orb_buffer : bool = false
 
 func _ready():
 	_check_icons()
-	change_gravity(1)
 	#Engine.time_scale = 0.2
 
 func _check_icons():
@@ -76,6 +76,7 @@ func _check_icons():
 				sprite.region_rect = Rect2(PlayerData.ball_id * 16, 0, 16, 16)
 
 func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
+	
 	if new_gamemode == 0:
 		if gravity_multiplier != 1:
 			velocity.y = velocity.y * 0.75
@@ -86,24 +87,24 @@ func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
 		change_gravity(-1)
 	elif new_gamemode == 2:
 		head_hitbox.set_deferred("disabled", true)
-		gamemode = "cube"
+		gamemode = GamemodeTypes.CUBE
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 3:
 		head_hitbox.set_deferred("disabled", false)
-		gamemode = "ship"
+		gamemode = GamemodeTypes.SHIP
 		$Sprites.rotation_degrees = velocity.y / PI
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 4:
 		head_hitbox.set_deferred("disabled", false)
 		
-		if gamemode == "cube" and (velocity.y * gravity_multiplier < -10 or Input.is_action_just_pressed("Jump")):
+		if gamemode == GamemodeTypes.CUBE and (velocity.y * gravity_multiplier < -10 or Input.is_action_pressed("Jump")):
 			velocity.y -= SCALE_MULTIPLIER * 5 * gravity_multiplier
 		
-		gamemode = "ball"
+		gamemode = GamemodeTypes.BALL
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	
 	for sprite in $Sprites.get_children():
-			if sprite.name != gamemode:
+			if sprite.name != GAMEMODE_NAMES[gamemode]:
 				sprite.visible = false
 			else:
 				sprite.visible = true
@@ -117,19 +118,19 @@ func _physics_process(delta : float) -> void:
 		if not is_on_floor() and Input.is_action_just_pressed("Jump"):
 			orb_buffer = true
 
-		if gamemode == "cube":
+		if gamemode == GamemodeTypes.CUBE:
 			_process_cube_physics(delta)
-		elif gamemode == "ship":
+		elif gamemode == GamemodeTypes.SHIP:
 			_process_ship_physics(delta)
-		elif gamemode == "ball":
+		elif gamemode == GamemodeTypes.BALL:
 			_process_ball_physics(delta)
 		
 		move_and_slide()
 		
-		if gamemode == "cube":
+		if gamemode == GamemodeTypes.CUBE:
 			if is_really_on_surface():
 				snap_to_surface()
-		elif gamemode == "ship" or gamemode == "ball":
+		elif gamemode == GamemodeTypes.SHIP or gamemode == GamemodeTypes.BALL:
 			if not Input.is_action_pressed("Jump"):
 				snap_to_surface()
 	else:
@@ -153,7 +154,7 @@ func _process_cube_physics(delta : float) -> void:
 	if Input.is_action_pressed("Jump") or not is_really_on_surface():
 		$Sprites.rotate(deg_to_rad(1.42 * gravity_multiplier))
 	elif is_really_on_surface() and not Input.is_action_pressed("Jump"):
-		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.1)
+		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.085)
 	
 	if velocity.y > 700:
 		velocity.y = 700

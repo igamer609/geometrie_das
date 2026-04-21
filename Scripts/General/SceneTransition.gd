@@ -9,6 +9,26 @@ extends CanvasLayer
 @onready var editor = "res://Objects/Editor.tscn"
 @onready var template_level = "res://Scenes/Levels/CustomLevel.tscn"
 
+var is_in_transition : bool = false
+
+func change_scene(scene_path) -> void:
+	
+	if(is_in_transition):
+		return
+	
+	is_in_transition = true
+	$AnimationPlayer.play("fade_hide_label")
+	await $AnimationPlayer.animation_finished
+	
+	get_tree().change_scene_to_file(scene_path)
+	
+	if get_tree().paused:
+		get_tree().paused = false
+	
+	$AnimationPlayer.play_backwards("fade_hide_label")
+	await $AnimationPlayer.animation_finished
+	is_in_transition = false
+
 func get_editor_root() -> Node:
 	var root = get_tree().root
 	var editor_root = null
@@ -49,8 +69,14 @@ func wait(seconds) -> bool:
 	return true
 
 func load_editor(level_entry: LevelRegistryEntry) -> void:
+	
+	if(is_in_transition):
+		return
+	
+	is_in_transition = true
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
+	is_in_transition = false
 	
 	MenuMusic.stop_music()
 	get_tree().change_scene_to_file(editor)
@@ -63,6 +89,10 @@ func load_editor(level_entry: LevelRegistryEntry) -> void:
 	$AnimationPlayer.play_backwards("fade")
 
 func load_game_from_entry(level_entry : LevelRegistryEntry, playtest : bool = false, return_path : String = "") -> void:
+	if(is_in_transition):
+		return
+	
+	is_in_transition = true
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	
@@ -76,10 +106,16 @@ func load_game_from_entry(level_entry : LevelRegistryEntry, playtest : bool = fa
 	root.load_level_data(loaded_level, false, playtest, level_entry.ref, return_path)
 	
 	$AnimationPlayer.play_backwards("fade")
+	await $AnimationPlayer.animation_finished
+	is_in_transition = false
 
 func load_game_from_data(level_data : LevelData, restart = false, playtesting = false, level_path : String = "", return_scene : String = "") -> void:
 	
 	if not restart:
+		if(is_in_transition):
+			return
+	
+		is_in_transition = true
 		$AnimationPlayer.play("fade")
 		await $AnimationPlayer.animation_finished
 	
@@ -94,9 +130,15 @@ func load_game_from_data(level_data : LevelData, restart = false, playtesting = 
 	
 	if not restart:
 		$AnimationPlayer.play_backwards("fade")
+		await $AnimationPlayer.animation_finished
+		is_in_transition = false
 
 func load_level_edit_menu(level_entry: LevelRegistryEntry) -> void:
 	
+	if(is_in_transition):
+		return
+	
+	is_in_transition = true
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	
@@ -107,7 +149,10 @@ func load_level_edit_menu(level_entry: LevelRegistryEntry) -> void:
 	
 	var root = get_level_edit_menu()
 	root.load_level(level_entry)
+	
 	$AnimationPlayer.play_backwards("fade")
+	await $AnimationPlayer.animation_finished
+	is_in_transition = false
 	
 	if get_tree().paused:
 		get_tree().paused = false

@@ -1,9 +1,20 @@
 [gd_scene format=3 uid="uid://do6glt1s5okc7"]
 
 [ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="1_h4twi"]
+[ext_resource type="Script" uid="uid://c0ae6fuwvjc05" path="res://Scripts/General/UIElements/SettingsMenus/LevelSettings.gd" id="1_v38wk"]
+[ext_resource type="Script" uid="uid://chvmjof6fqwei" path="res://Scripts/Schemas/LevelMeta.gd" id="2_egy7i"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="2_yhvg5"]
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="3_v38wk"]
 [ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="4_vq4a3"]
+[ext_resource type="PackedScene" uid="uid://ccpojtrr1b3u4" path="res://Scenes/ui_elements/GDColorChannelButton.tscn" id="5_yhvg5"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="7_5ywf1"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="8_egy7i"]
+[ext_resource type="Texture2D" uid="uid://br36bnl0j1uvc" path="res://Assets/other/mini_icons_white.png" id="9_lq4dh"]
+
+[sub_resource type="Resource" id="Resource_egy7i"]
+script = ExtResource("2_egy7i")
+version = null
+metadata/_custom_type_script = "uid://chvmjof6fqwei"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
 atlas = ExtResource("3_v38wk")
@@ -32,6 +43,47 @@ texture_margin_top = 15.0
 texture_margin_right = 15.0
 texture_margin_bottom = 15.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffnmn"]
+bg_color = Color(0.5294118, 0.3137255, 0.14901961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ckbm"]
+atlas = ExtResource("7_5ywf1")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ywf1"]
+atlas = ExtResource("7_5ywf1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dvpa"]
+atlas = ExtResource("9_lq4dh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egy7i"]
+atlas = ExtResource("7_5ywf1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65beo"]
+atlas = ExtResource("9_lq4dh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj32s"]
+atlas = ExtResource("9_lq4dh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffnmn"]
+atlas = ExtResource("7_5ywf1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_egy7i"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
 [node name="LevelSettings" type="Control" unique_id=545683348]
 layout_mode = 3
 anchors_preset = 15
@@ -39,6 +91,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_v38wk")
+level = SubResource("Resource_egy7i")
 
 [node name="Background" type="ColorRect" parent="." unique_id=574940612]
 layout_mode = 1
@@ -85,3 +139,276 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_5ywf1")
 text = "OK"
 script = ExtResource("4_vq4a3")
 metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="PropBG2" type="Panel" parent="Panel" unique_id=520618115]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -84.0
+offset_right = 255.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffnmn")
+
+[node name="PropBG1" type="Panel" parent="Panel" unique_id=228450043]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -164.0
+offset_right = 255.0
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffnmn")
+
+[node name="MainChannels" type="HBoxContainer" parent="Panel" unique_id=1924093584]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -131.0
+offset_right = 244.0
+offset_bottom = -91.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 70
+alignment = 1
+
+[node name="ColorChannelButton" parent="Panel/MainChannels" unique_id=1078577959 instance=ExtResource("5_yhvg5")]
+layout_mode = 2
+channel_name = "BG"
+
+[node name="ColorChannelButton2" parent="Panel/MainChannels" unique_id=335133630 instance=ExtResource("5_yhvg5")]
+layout_mode = 2
+channel_id = 1
+channel_name = "Obj"
+
+[node name="ColorChannelButton3" parent="Panel/MainChannels" unique_id=2068872338 instance=ExtResource("5_yhvg5")]
+layout_mode = 2
+channel_id = 2
+channel_name = "G"
+
+[node name="ColorChannelButton4" parent="Panel/MainChannels" unique_id=679283604 instance=ExtResource("5_yhvg5")]
+layout_mode = 2
+channel_id = 3
+channel_name = "Line"
+
+[node name="Gamemode" type="HBoxContainer" parent="Panel" unique_id=559513036]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -77.0
+offset_right = 244.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CubeTab" type="TextureButton" parent="Panel/Gamemode" unique_id=228020592]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_7ckbm")
+texture_pressed = SubResource("AtlasTexture_5ywf1")
+stretch_mode = 5
+script = ExtResource("8_egy7i")
+
+[node name="TextureButton" type="TextureRect" parent="Panel/Gamemode/CubeTab" unique_id=2145337952]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_4dvpa")
+
+[node name="ShipTab" type="TextureButton" parent="Panel/Gamemode" unique_id=514275699]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_7ckbm")
+texture_pressed = SubResource("AtlasTexture_egy7i")
+stretch_mode = 5
+script = ExtResource("8_egy7i")
+
+[node name="TextureButton" type="TextureRect" parent="Panel/Gamemode/ShipTab" unique_id=1453232419]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_65beo")
+
+[node name="BallTab" type="TextureButton" parent="Panel/Gamemode" unique_id=1746221821]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_7ckbm")
+texture_pressed = SubResource("AtlasTexture_egy7i")
+stretch_mode = 5
+script = ExtResource("8_egy7i")
+
+[node name="TextureButton" type="TextureRect" parent="Panel/Gamemode/BallTab" unique_id=981022484]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jj32s")
+
+[node name="SongPicker" type="Panel" parent="Panel" unique_id=1944924761]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = 3.0
+offset_right = 255.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffnmn")
+
+[node name="Prev" type="TextureButton" parent="Panel/SongPicker" unique_id=713090106]
+self_modulate = Color(1, 0.894118, 0.890196, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -20.0
+offset_right = 42.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_ffnmn")
+stretch_mode = 0
+flip_h = true
+script = ExtResource("8_egy7i")
+
+[node name="Next" type="TextureButton" parent="Panel/SongPicker" unique_id=1070566766]
+self_modulate = Color(1, 0.894118, 0.890196, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -20.0
+offset_right = -10.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_ffnmn")
+stretch_mode = 0
+script = ExtResource("8_egy7i")
+
+[node name="Label" type="Label" parent="Panel/SongPicker" unique_id=781494138]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.5
+offset_top = -21.0
+offset_right = 84.5
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 18
+text = "1. Glorious Morning"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Other" type="Panel" parent="Panel" unique_id=147702947]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -274.0
+offset_top = -165.0
+offset_right = -75.0
+offset_bottom = 126.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffnmn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/Other" unique_id=395397767]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_egy7i")
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Other/ScrollContainer" unique_id=573082829]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="flipped_gravity" type="CheckBox" parent="Panel/Other/ScrollContainer/VBoxContainer" unique_id=1687181084]
+layout_mode = 2
+text = "Flipped Gravity"
+
+[node name="secret" type="CheckBox" parent="Panel/Other/ScrollContainer/VBoxContainer" unique_id=1619557726]
+layout_mode = 2
+text = "???"
+
+[node name="Label" type="Label" parent="Panel/Other/ScrollContainer/VBoxContainer" unique_id=1691715894]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Coming soon..."
+horizontal_alignment = 1
+autowrap_mode = 2

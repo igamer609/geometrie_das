@@ -46,4 +46,4 @@ func _ball_tab():
 	change_tab("Ball")
 
 func _on_exit():
-	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")
+	SceneTransition.change_scene("res://Scenes/MainMenu.tscn")

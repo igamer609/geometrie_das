@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://qoofnu672pi1"]
+[gd_scene format=3 uid="uid://qoofnu672pi1"]
 
-[ext_resource type="Script" uid="uid://d22b4jfmpj4f8" path="res://Scripts/Portal.gd" id="1_oqnnb"]
+[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/Portal.gd" id="1_oqnnb"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_k3vns"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_pnifl"]
 
@@ -10,12 +10,12 @@ shader = ExtResource("2_pnifl")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qs08e"]
 size = Vector2(6.66667, 21.3333)
 
-[node name="Normal Gravity" type="Area2D" groups=["gamemode_portal"]]
+[node name="Normal Gravity" type="Area2D" unique_id=453926578 groups=["gamemode_portal"]]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_oqnnb")
 portal_type = 0
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=362855747]
 texture_filter = 1
 material = SubResource("ShaderMaterial_t06y3")
 scale = Vector2(0.8, 0.8)
@@ -23,7 +23,7 @@ texture = ExtResource("2_k3vns")
 region_enabled = true
 region_rect = Rect2(61, 33, 11, 27)
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=2015829302]
 position = Vector2(-0.666667, -4.76837e-07)
 shape = SubResource("RectangleShape2D_qs08e")
 debug_color = Color(0, 0.6, 0.701961, 0)

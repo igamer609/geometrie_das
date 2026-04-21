@@ -1,18 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://chycrjh8crlqb"]
+[gd_scene format=3 uid="uid://chycrjh8crlqb"]
 
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_w2swe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxpeg"]
 size = Vector2(4, 4)
 
-[node name="Spike" type="Area2D"]
+[node name="Spike" type="Area2D" unique_id=28158136]
 rotation = 3.14159
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1893987449]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_jxpeg")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=994316410]
 texture_filter = 1
 texture = ExtResource("2_w2swe")
 region_enabled = true

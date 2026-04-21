@@ -93,7 +93,7 @@ func update_bar(procent):
 
 func play_lvl_music_from_id(delay):
 	if music_to_load:
-		var audio_to_play = ResourceLibrary.music_ids[music_to_load][0]
+		var audio_to_play = ResourceLibrary.song_ids[music_to_load][0]
 		$AudioStreamPlayer.stream = audio_to_play
 		
 		if delay:

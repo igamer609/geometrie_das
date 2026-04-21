@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b3ucus1aap11v"]
+[gd_scene format=3 uid="uid://b3ucus1aap11v"]
 
 [ext_resource type="Script" uid="uid://b8k5mfx22apsw" path="res://Scripts/General/JumpPad.gd" id="1_0imgw"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_e2nbf"]
@@ -50,12 +50,12 @@ scale_max = 2.2
 scale_curve = SubResource("CurveTexture_rx6cy")
 color = Color(0.85098, 1, 0.996078, 0.419608)
 
-[node name="BluePad" type="Area2D" groups=["JumpPad"]]
+[node name="BluePad" type="Area2D" unique_id=854275980 groups=["JumpPad"]]
 rotation = 3.14159
 script = ExtResource("1_0imgw")
 jump_type = 2
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=2139366861]
 texture_filter = 1
 material = SubResource("ShaderMaterial_y2dc7")
 position = Vector2(0, -2.38419e-07)
@@ -64,12 +64,12 @@ texture = ExtResource("2_e2nbf")
 region_enabled = true
 region_rect = Rect2(36, 27, 16, 15)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1588054134]
 position = Vector2(4.64932e-07, 6)
 shape = SubResource("RectangleShape2D_1lyxv")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2026122672]
 position = Vector2(0, 7)
 amount = 11
 lifetime = 0.9

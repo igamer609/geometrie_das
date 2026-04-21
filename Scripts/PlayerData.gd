@@ -22,9 +22,8 @@ var _progress : Dictionary = {
 		"user_id": "",
 		"token": ""
 	},
-	"completions":[],
-	"saved_levels":[],
-	"published_levels":[],
+	"completions":{},
+	"saved_levels":{},
 	"stats":{
 		"stars" : 0,
 		"builder_points" : 0,

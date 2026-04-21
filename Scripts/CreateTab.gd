@@ -43,13 +43,13 @@ func add_level_template(level_entry : LevelRegistryEntry):
 	
 	new_lvl.name_label.text = level_entry.meta.title
 	
-	new_lvl.song_label.text = ResourceLibrary.music_ids[int(level_entry.meta.song_id)][1]
-	new_lvl.view_button.pressed.connect(EditorTransition.load_level_edit_menu.bind(level_entry))
+	new_lvl.song_label.text = ResourceLibrary.song_ids[int(level_entry.meta.song_id)][1]
+	new_lvl.view_button.pressed.connect(SceneTransition.load_level_edit_menu.bind(level_entry))
 
 func _ready():
 	find_levels()
 	
-	$Create.pressed.connect(EditorTransition.load_level_edit_menu.bind(LevelRegistryEntry.new()))
+	$Create.pressed.connect(SceneTransition.load_level_edit_menu.bind(LevelRegistryEntry.new()))
 
 func _on_exit_pressed() -> void:
-	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
+	SceneTransition.change_scene("res://Scenes/Menus/EditorTab.tscn")

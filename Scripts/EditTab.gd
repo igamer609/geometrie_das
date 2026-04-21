@@ -12,9 +12,9 @@ func _ready():
 func setup_tab_buttons():
 	for button in $TabContainer.get_children():
 		if button.name == "Create":
-			button.pressed.connect(TransitionScene.change_scene.bind("res://Scenes/Menus/CreateTab.tscn"))
+			button.pressed.connect(SceneTransition.change_scene.bind("res://Scenes/Menus/CreateTab.tscn"))
 		if button.name == "Saved":
-			button.pressed.connect(TransitionScene.change_scene.bind("res://Scenes/Menus/CreateTab.tscn"))
+			button.pressed.connect(SceneTransition.change_scene.bind("res://Scenes/Menus/CreateTab.tscn"))
 
 func _on_exit_pressed():
-	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")
+	SceneTransition.change_scene("res://Scenes/MainMenu.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3c30rvd0wfbc"]
+[gd_scene format=3 uid="uid://b3c30rvd0wfbc"]
 
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="1_hkqv4"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="2_jgflu"]
@@ -16,7 +16,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="Actions" type="Control"]
+[node name="Actions" type="Control" unique_id=729474700]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Viewport" type="ColorRect" parent="."]
+[node name="Viewport" type="ColorRect" parent="." unique_id=493110906]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.529412)
 
-[node name="Tabs" type="VBoxContainer" parent="Viewport"]
+[node name="Tabs" type="VBoxContainer" parent="Viewport" unique_id=125743677]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -75
 
-[node name="Build" type="Button" parent="Viewport/Tabs"]
+[node name="Build" type="Button" parent="Viewport/Tabs" unique_id=1490049847]
 custom_minimum_size = Vector2(225, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -55,7 +55,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
 toggle_mode = true
 text = "Build"
 
-[node name="Edit" type="Button" parent="Viewport/Tabs"]
+[node name="Edit" type="Button" parent="Viewport/Tabs" unique_id=1443036814]
 custom_minimum_size = Vector2(225, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -66,7 +66,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
 toggle_mode = true
 text = "Edit"
 
-[node name="Delete" type="Button" parent="Viewport/Tabs"]
+[node name="Delete" type="Button" parent="Viewport/Tabs" unique_id=1527829697]
 custom_minimum_size = Vector2(225, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -77,7 +77,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_w78n2")
 toggle_mode = true
 text = "Delete"
 
-[node name="GridContainer" type="GridContainer" parent="Viewport"]
+[node name="GridContainer" type="GridContainer" parent="Viewport" unique_id=53526087]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,7 +90,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 10
 
-[node name="ItemButton" type="Button" parent="Viewport/GridContainer"]
+[node name="ItemButton" type="Button" parent="Viewport/GridContainer" unique_id=1380109574]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -100,7 +100,7 @@ toggle_mode = true
 script = ExtResource("3_gdv30")
 id = 1
 
-[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton"]
+[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton" unique_id=1662213405]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -113,7 +113,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton2" type="Button" parent="Viewport/GridContainer"]
+[node name="ItemButton2" type="Button" parent="Viewport/GridContainer" unique_id=442941432]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -123,7 +123,7 @@ toggle_mode = true
 script = ExtResource("3_gdv30")
 id = 2
 
-[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton2"]
+[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton2" unique_id=675946124]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -136,7 +136,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemButton3" type="Button" parent="Viewport/GridContainer"]
+[node name="ItemButton3" type="Button" parent="Viewport/GridContainer" unique_id=203224522]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -146,7 +146,7 @@ toggle_mode = true
 script = ExtResource("3_gdv30")
 id = 3
 
-[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton3"]
+[node name="Sprite" type="TextureRect" parent="Viewport/GridContainer/ItemButton3" unique_id=1042862716]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15

@@ -208,18 +208,14 @@ func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 
 func _initialise_top_bar():
 	for button in top_bar.get_children():
-		if button.name == "Delete":
-			button.pressed.connect(delete_objects)
-		elif button.name == "Menu":
-			button.pressed.connect(_change_menu_state)
-		elif button.name == "Undo":
-			button.pressed.connect(history.undo)
-		elif button.name == "Redo":
-			button.pressed.connect(history.redo)
-		elif button.name == "ZoomIn":
-			button.pressed.connect(_zoom.bind(0.3))
-		elif button.name == "ZoomOut":
-			button.pressed.connect(_zoom.bind(-0.3))
+		match button.name:
+			"Delete": button.pressed.connect(delete_objects)
+			"Menu": button.pressed.connect(_change_menu_state)
+			"LevelSettings": button.pressed.connect(_open_level_settings)
+			"Undo": button.pressed.connect(history.undo)
+			"Redo": button.pressed.connect(history.redo)
+			"ZoomIn": button.pressed.connect(_zoom.bind(0.3))
+			"ZoomOut": button.pressed.connect(_zoom.bind(-0.3))
 
 func _initialise_tabs():
 	var tab_group = ButtonGroup.new()
@@ -268,13 +264,13 @@ func _save_and_exit():
 	
 	MenuMusic.start_music()
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
+	SceneTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
 
 func _save_and_play():
 	_save_level()
 	
 	history.clear_history()
-	EditorTransition.load_game_from_entry(LevelRegistryEntry.generate_entry(_level_meta, _level_path), true, "res://Scenes/Menus/LevelEditingMenu.tscn")
+	SceneTransition.load_game_from_entry(LevelRegistryEntry.generate_entry(_level_meta, _level_path), true, "res://Scenes/Menus/LevelEditingMenu.tscn")
 
 func _exit():
 	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog
@@ -285,7 +281,7 @@ func _exit():
 	var lvl_res : LevelData = load(_level_path) as LevelData
 	
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
+	SceneTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
 
 func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:
@@ -845,3 +841,8 @@ func _create_object_edit_menu() -> void:
 				var obj_edit_menu = ResourceLibrary.scenes["ColorTriggerEdit"].instantiate()
 				obj_edit_menu.target_triggers = selected_objects
 				ui.add_child(obj_edit_menu)
+
+func _open_level_settings() -> void:
+	var settings_menu = ResourceLibrary.scenes["LevelSettings"].instantiate()
+	settings_menu.level = _level_meta
+	ui.add_child(settings_menu)

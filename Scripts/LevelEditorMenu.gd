@@ -53,7 +53,7 @@ func load_level(loaded_level : LevelRegistryEntry) -> void:
 	
 	level.meta.author = PlayerData.get_player_name()
 	
-	song_label.text = ResourceLibrary.music_ids[level.meta.song_id][1]
+	song_label.text = ResourceLibrary.song_ids[level.meta.song_id][1]
 	
 	if level.meta.verified == 1:
 		_is_verified = true
@@ -67,7 +67,7 @@ func load_level(loaded_level : LevelRegistryEntry) -> void:
 func _exit() -> void:
 	if not level.ref.is_empty():
 		ResourceLibrary.current_registry.update_entry_and_main_file(level.meta.local_id, level, true)
-	TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
+	SceneTransition.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
 func _load_level_from_file(path : String) -> Dictionary:
 	var save_file : FileAccess = FileAccess.open_compressed(path, FileAccess.READ, FileAccess.COMPRESSION_GZIP)
@@ -81,10 +81,10 @@ func _load_editor() -> void:
 	
 	if level.ref.is_empty():
 		_create_level()
-		EditorTransition.load_editor(level)
+		SceneTransition.load_editor(level)
 		return
 	
-	EditorTransition.load_editor(level)
+	SceneTransition.load_editor(level)
 
 func _play_level() -> void:
 	if level.meta.title == "":
@@ -92,9 +92,9 @@ func _play_level() -> void:
 	
 	if level.ref.is_empty():
 		_create_level()
-		EditorTransition.load_game_from_entry(level, true, path_to_self)
+		SceneTransition.load_game_from_entry(level, true, path_to_self)
 	
-	EditorTransition.load_game_from_entry(level, true, path_to_self)
+	SceneTransition.load_game_from_entry(level, true, path_to_self)
 
 func _create_level() -> void:
 	

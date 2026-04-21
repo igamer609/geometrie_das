@@ -8,12 +8,19 @@ extends Node
 
 signal free_objects
 
-@onready var music_ids : Dictionary = {
+const GAMEMODES : Array[String] = ["Cube", "Ship", "Ball"]
+
+## Stores the resource and the name of all main songs.
+## [Resource, Name]
+@onready var song_ids : Dictionary = {
 	1 : [preload("res://Assets/music/Levels/Glorious Morning.mp3"), "Glorious Morning"],
 	2 : [preload("res://Assets/music/Levels/yStep.mp3"), "yStep"]
 }
 
 var library : Dictionary = {}
+
+## Contains preloaded scenes for menus and other elements.
+## Currently has [code]GenericObjectEditMenu[/code],  [code]ChannelEditMenu[/code],  [code]ChannelSelect[/code] and  [code]ColorTriggerEdit[/code].
 var scenes : Dictionary = {}
 
 var _res_load_queue : Array = []
@@ -45,6 +52,7 @@ func _preload_scenes() -> void:
 		"res://Scenes/Menus/ObjectEditing/ChannelEditMenu.tscn",
 		"res://Scenes/Menus/ObjectEditing/ChannelSelect.tscn",
 		"res://Scenes/Menus/ObjectEditing/ColorTriggerEdit.tscn",
+		"res://Scenes/Menus/LevelSettings.tscn",
 	]
 	
 	for file : String in scenes_to_be_loaded:

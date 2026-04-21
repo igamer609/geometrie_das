@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="4_eyjlq"]
 
 [node name="GDNumberSpin" type="Control" unique_id=746026580]
-custom_minimum_size = Vector2(128, 70)
+custom_minimum_size = Vector2(128, 50)
 layout_mode = 3
 anchor_right = 0.1
 anchor_bottom = 0.07

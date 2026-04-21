@@ -102,11 +102,11 @@ func load_level(scene_path : String, id : int, song_id : int) -> void:
 	
 	GameProgress.music_offset = main_levels[str(current_level)]["MusicOffset"]
 	GameProgress.music_to_load =  main_levels[str(current_level)]["MusicID"]
-	TransitionScene.change_scene(scene_path)
+	SceneTransition.change_scene(scene_path)
 
 func _on_scroll_right():
 	update_tab(1)
 
 func exit():
-	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")
+	SceneTransition.change_scene("res://Scenes/MainMenu.tscn")
 	GameProgress.quit_menu()
