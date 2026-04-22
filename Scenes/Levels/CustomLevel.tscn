@@ -158,7 +158,6 @@ shader = ExtResource("20_trony")
 [node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "end_effects", "end_animation", "death_particle")]
 process_mode = 3
 script = ExtResource("1_jl4xf")
-start_bg = Color(0, 0.270588, 0.882353, 1)
 player_parent = NodePath("Player")
 ceiling = NodePath("Universal/Ceiling")
 ground = NodePath("Universal/Ground")
@@ -176,7 +175,7 @@ death_particle = NodePath("Universal/DeathEffect")
 
 [node name="Player" parent="." unique_id=1199746068 instance=ExtResource("3_tq51e")]
 process_mode = 1
-position = Vector2(-64, -9)
+position = Vector2(-180, -9)
 
 [node name="Universal" type="Node" parent="." unique_id=697846460]
 process_mode = 1

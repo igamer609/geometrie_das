@@ -14,8 +14,6 @@ var _playtesting : bool = false
 var _return_scene : String
 var _loaded_path : String
 
-@export var start_bg : Color
-
 @export var player_parent : Node
 @export var ceiling : Node
 @export var ground : Node
@@ -41,6 +39,7 @@ var first_attempt = true
 var follow_cam = false
 var level_ended = false
 var obtain_endpos = true
+var _smoothing_delay : int = 1
 
 func _get_endpos() -> void:
 	var last_x = 0
@@ -75,6 +74,7 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	
 	if restart:
 		first_attempt = false
+		follow_cam = true
 	
 	if not playtesting:
 		GameProgress.current_level_id = level_data.meta.published_id
@@ -126,16 +126,10 @@ func initiate() -> void:
 		
 		player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
 		player.change_gravity(level_data.meta.starting_gravity)
-		
 		player_cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+		player_cam.position_smoothing_enabled = false
 	
 	ground.global_position = Vector2(40, 0)
-	
-	if player_cam and first_attempt:
-		player_cam.global_position.x = player.global_position.x + 200
-		player_cam.global_position.y = player.global_position.y - 16
-	elif player_cam:
-		follow_cam = true
 	
 	ColorManager.load_palette(level_data.meta.color_palette)
 
@@ -164,8 +158,8 @@ func player_respawn() -> void:
 	player.global_position.y = -8
 	
 	ground.global_position = Vector2(player.global_position.x + 3500, 0)
-	player_cam.global_position = Vector2(player.global_position.x, player.global_position.y - 16)
 	
+	_smoothing_delay = 1
 	follow_cam = true
 	
 	for object : GDObject in level.get_children():
@@ -218,13 +212,14 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 				ground.global_position.y = 0
 				ceiling.global_position.y = ground.global_position.y - 176
 				
-				player_cam.global_position.y = ground.global_position.y - 88
+				player_cam.global_position = Vector2(32, ground.global_position.y - 88)
 			2:  # ball
 				ceiling.visible = true
 				
 				ground.global_position.y = 0
 				ceiling.global_position.y = ground.global_position.y - 112
-				player_cam.global_position.y = ground.global_position.y - 56
+				
+				player_cam.global_position = Vector2(32, ground.global_position.y - 56)
 
 func _process(delta) -> void:
 	if obtain_endpos:
@@ -232,6 +227,7 @@ func _process(delta) -> void:
 		obtain_endpos = false
 	
 	if first_attempt:
+		follow_cam = false
 		if player.global_position.x >= player_cam.global_position.x:
 			first_attempt = false
 			follow_cam = true
@@ -239,12 +235,21 @@ func _process(delta) -> void:
 	if follow_cam:
 		GameProgress.run_music = true
 		player_cam.global_position.x = player.global_position.x
-		player_cam.position_smoothing_enabled = true
+		
+		if(_smoothing_delay > 0):
+			_smoothing_delay -= 1
+		else:
+			player_cam.position_smoothing_enabled = true
+		
+		match player.gamemode:
+			Player.GamemodeTypes.CUBE:
+				player_cam.global_position.y = player.global_position.y - 16
+			Player.GamemodeTypes.SHIP:
+				player_cam.global_position.y = ground.global_position.y - 88
+			Player.GamemodeTypes.BALL:
+				player_cam.global_position.y = ground.global_position.y - 56
 		
 		endpos.global_position.y = player_cam.global_position.y
-		
-		if player.gamemode == Player.GamemodeTypes.CUBE:
-			player_cam.global_position.y = player.global_position.y - 16
 	
 	GameProgress.update_bar((player.global_position.x / endpos.global_position.x) * 100)
 	

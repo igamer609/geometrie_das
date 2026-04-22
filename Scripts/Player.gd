@@ -368,8 +368,6 @@ func _on_detect_area_exited(area : Area2D):
 			orb_queue.remove_at(orb_index)
 
 func _on_respawn_timeout():
-	change_gamemode(2, null)
-	change_gravity(1)
 	$Sprites.global_rotation_degrees = 0
 	visible = true
 	can_move = true
