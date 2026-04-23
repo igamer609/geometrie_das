@@ -89,7 +89,12 @@ func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
 		change_gravity(-1)
 	elif new_gamemode == 2:
 		head_hitbox.set_deferred("disabled", true)
+		
+		if(gamemode != GamemodeTypes.CUBE):
+			time_in_air = 0
+		
 		gamemode = GamemodeTypes.CUBE
+		
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 3:
 		head_hitbox.set_deferred("disabled", false)
@@ -265,6 +270,7 @@ func die():
 	orb_buffer = false
 	orb_queue.clear()
 	can_move = false
+	time_in_air = 0
 	visible = false
 	velocity = Vector2.ZERO
 	$DeathSFX.play()
