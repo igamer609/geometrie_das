@@ -14,7 +14,7 @@ func setup_tab_buttons():
 		if button.name == "Create":
 			button.pressed.connect(SceneTransition.change_scene.bind("res://Scenes/Menus/CreateTab.tscn"))
 		if button.name == "Saved":
-			button.pressed.connect(SceneTransition.change_scene.bind("res://Scenes/Menus/CreateTab.tscn"))
+			button.pressed.connect(SceneTransition.change_scene.bind("res://Scenes/Menus/SavedTab.tscn"))
 
 func _on_exit_pressed():
 	SceneTransition.change_scene("res://Scenes/MainMenu.tscn")

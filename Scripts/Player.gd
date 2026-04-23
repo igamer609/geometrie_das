@@ -28,6 +28,7 @@ signal respawned()
 const SCALE_MULTIPLIER : float = 10.8
 
 const CUBE_JUMP_VELOCITY : float = 24 * SCALE_MULTIPLIER
+const AIR_TIME_LIMIT : int =  4
 
 const SHIP_MAX_VEL : int = 180
 const SHIP_THRUST : float = 4
@@ -52,6 +53,7 @@ enum GamemodeTypes {CUBE, SHIP, BALL}
 @export var gamemode : GamemodeTypes = GamemodeTypes.CUBE
 
 var can_move : bool = true
+var invulnerable : bool = false
 var consecutive_jumps : int = 0
 var time_in_air : float = 0
 
@@ -139,12 +141,15 @@ func _physics_process(delta : float) -> void:
 func _process_cube_physics(delta : float) -> void:
 	
 	velocity.y += CUBE_GRAVITY * gravity_multiplier * delta
+	time_in_air += delta
 	var hit_orb : bool = _check_orbs()
 	
 	if not hit_orb:
 		if Input.is_action_pressed("Jump"):
 				if is_really_on_surface():
+					time_in_air = 0
 					velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier
+					
 					if consecutive_jumps > 1:
 						velocity.y -= (SCALE_MULTIPLIER + 3) * gravity_multiplier
 					consecutive_jumps += 1
@@ -154,6 +159,7 @@ func _process_cube_physics(delta : float) -> void:
 	if Input.is_action_pressed("Jump") or not is_really_on_surface():
 		$Sprites.rotate(deg_to_rad(1.42 * gravity_multiplier))
 	elif is_really_on_surface() and not Input.is_action_pressed("Jump"):
+		time_in_air = 0
 		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.085)
 	
 	if velocity.y > 700:
@@ -168,8 +174,11 @@ func _process_cube_physics(delta : float) -> void:
 		surface_hitbox.disabled = true
 	elif not is_headed_into_wall():
 		surface_hitbox.disabled = false
+	
+	if(floor(time_in_air) >= AIR_TIME_LIMIT && !invulnerable):
+		die()
 
-func _process_ship_physics(delta : float) -> void:
+func _process_ship_physics(_delta : float) -> void:
 	
 	velocity.y += SHIP_GRAVITY * gravity_multiplier
 	orb_buffer = false
@@ -201,7 +210,7 @@ func _process_ship_physics(delta : float) -> void:
 	else:
 		surface_hitbox.disabled = false
 
-func _process_ball_physics(delta : float) -> void:
+func _process_ball_physics(_delta : float) -> void:
 	
 	velocity.y += BALL_GRAVITY * gravity_multiplier
 	var hit_orb : bool = _check_orbs()
@@ -370,6 +379,7 @@ func _on_detect_area_exited(area : Area2D):
 func _on_respawn_timeout():
 	$Sprites.global_rotation_degrees = 0
 	visible = true
+	invulnerable = false
 	can_move = true
 	emit_signal("respawned")
 

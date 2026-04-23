@@ -1,12 +1,10 @@
-[gd_scene format=3 uid="uid://1hej4pddofsm"]
+[gd_scene format=3 uid="uid://dgi8f0m6t37v5"]
 
-[ext_resource type="Script" uid="uid://cyqv2dhk0mcwj" path="res://Scripts/CreateTab.gd" id="1_26jw6"]
-[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_w4wcw"]
-[ext_resource type="Texture2D" uid="uid://ck2m8uuj1ey40" path="res://Assets/menu_textures/menu2.png" id="3_gllmg"]
-[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_f6eml"]
-[ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="5_26jw6"]
-[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="6_2bmhj"]
-[ext_resource type="Texture2D" uid="uid://c4rbj4m7l8xxt" path="res://Assets/icon_sheet_1.png" id="7_guh2l"]
+[ext_resource type="Script" uid="uid://iyn63wg3v3wa" path="res://Scripts/SavedTab.gd" id="1_6spvj"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="2_u74eg"]
+[ext_resource type="Texture2D" uid="uid://ck2m8uuj1ey40" path="res://Assets/menu_textures/menu2.png" id="3_4cobf"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_6w3d3"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="6_firmt"]
 
 [sub_resource type="Gradient" id="Gradient_dobci"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -19,7 +17,7 @@ metadata/_snap_enabled = true
 metadata/_snap_count = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fqb0t"]
-atlas = ExtResource("2_w4wcw")
+atlas = ExtResource("2_u74eg")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
@@ -30,29 +28,17 @@ keycode = 4194305
 events = [SubResource("InputEventKey_pa3jt")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sgw2h"]
-atlas = ExtResource("2_w4wcw")
+atlas = ExtResource("2_u74eg")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uoj5x"]
-atlas = ExtResource("2_w4wcw")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2bmhj"]
-atlas = ExtResource("5_26jw6")
-region = Rect2(0, 0, 37.056, 33.782)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r474e"]
-atlas = ExtResource("7_guh2l")
-region = Rect2(32, 3, 32, 18)
-
-[node name="CreateTab" type="Control" unique_id=1758738328]
+[node name="SavedTab" type="Control" unique_id=1758738328]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_26jw6")
+script = ExtResource("1_6spvj")
 
 [node name="Background" type="Control" parent="." unique_id=33443975]
 layout_mode = 1
@@ -139,7 +125,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(208, 172)
-texture = ExtResource("3_gllmg")
+texture = ExtResource("3_4cobf")
 patch_margin_left = 58
 patch_margin_top = 58
 patch_margin_right = 58
@@ -175,46 +161,9 @@ shortcut = SubResource("Shortcut_qr8xq")
 texture_normal = SubResource("AtlasTexture_sgw2h")
 stretch_mode = 0
 flip_h = true
-script = ExtResource("4_f6eml")
-
-[node name="Create" type="TextureButton" parent="." unique_id=2011495479]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 469.0
-offset_top = 199.0
-offset_right = 607.5
-offset_bottom = 337.5
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_uoj5x")
-stretch_mode = 0
-script = ExtResource("4_f6eml")
-
-[node name="Texture" type="TextureRect" parent="Create" unique_id=626752850]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -52.731995
-offset_top = -49.0625
-offset_right = 52.731995
-offset_bottom = 49.0625
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("AtlasTexture_2bmhj")
-stretch_mode = 5
+script = ExtResource("4_6w3d3")
 
 [node name="Empty" type="Control" parent="." unique_id=204198794]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -236,32 +185,14 @@ offset_right = 250.5
 offset_bottom = 19.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_2bmhj")
+theme = ExtResource("6_firmt")
 theme_override_constants/line_spacing = 8
 theme_override_font_sizes/font_size = 40
-text = "No creations found.
+text = "No saved levels yet :(
 
-Click the edit button
-to create a level :)"
+Downloaded levels will
+appear here."
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="Empty" unique_id=392406403]
-modulate = Color(1, 0.64910877, 0.6315303, 1)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -174.0
-offset_right = 33.579834
-offset_bottom = -135.15771
-grow_horizontal = 0
-grow_vertical = 0
-rotation = 3.1415927
-mouse_filter = 2
-texture = SubResource("AtlasTexture_r474e")
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

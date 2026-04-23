@@ -14,6 +14,9 @@ var _playtesting : bool = false
 var _return_scene : String
 var _loaded_path : String
 
+var _debugging : bool
+@export var debug_properties : Control
+
 @export var player_parent : Node
 @export var ceiling : Node
 @export var ground : Node
@@ -100,7 +103,12 @@ func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other) -> 
 	level.call_deferred("add_child", object)
 
 func _ready() -> void:
-	initiate()
+	await initiate()
+	
+	_debugging = OS.has_feature("editor")
+	
+	if(_debugging):
+		_init_debug_labels()
 
 func initiate() -> void:
 	await loaded_level
@@ -119,13 +127,19 @@ func initiate() -> void:
 		if child.name == "Camera2D":
 			player_cam = child
 	
-	if player:
+	if(player):
 		player.changed_gamemode.connect(on_gamemode_change)
 		player.died.connect(player_died)
 		player.respawned.connect(player_respawn)
 		
+		player.global_position.x = -64
+		player.global_position.y = -8
+		
 		player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
 		player.change_gravity(level_data.meta.starting_gravity)
+	
+	if(player_cam):
+		
 		player_cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 		player_cam.position_smoothing_enabled = false
 	
@@ -206,6 +220,10 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 			0:  # cube
 				ground.global_position = Vector2(3500, 0)
 				ceiling.global_position = Vector2(3500, 1000)
+				
+				if(first_attempt):
+					player_cam.global_position = Vector2(128, -24)
+				
 			1:  # ship
 				ceiling.visible = true
 				
@@ -221,7 +239,7 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 				
 				player_cam.global_position = Vector2(32, ground.global_position.y - 56)
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	if obtain_endpos:
 		_get_endpos()
 		obtain_endpos = false
@@ -258,6 +276,7 @@ func _process(delta) -> void:
 	
 	if is_finishing():
 		follow_cam = false
+		player.invulnerable = true
 		player.gravity = 10
 		player.velocity.y = -50
 		player.speed += 5
@@ -302,3 +321,11 @@ func _restart():
 	
 	ResourceLibrary.free_objects.emit()
 	SceneTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
+
+func _init_debug_labels() -> void:
+	
+	debug_properties.visible = true
+	
+	if(player):
+		for label : DebugPropertyLabel in debug_properties.get_children():
+			label.target = player

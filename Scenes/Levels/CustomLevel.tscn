@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dek6vb4ctnvw6" path="res://Assets/other/particles/circle.png" id="20_fq7st"]
 [ext_resource type="Shader" uid="uid://bqgrmylj0hhs7" path="res://Scenes/shader/LevelBackground.gdshader" id="20_trony"]
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="21_1gw2q"]
+[ext_resource type="Script" uid="uid://dr48wpirbm22r" path="res://Scripts/General/UIElements/Debug/DebugPropertyDisplayLabel.gd" id="22_8f4cq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6nsj"]
 bg_color = Color(0, 0, 0, 0.576471)
@@ -155,9 +156,10 @@ alpha_curve = SubResource("CurveTexture_k3lcr")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8f4cq"]
 shader = ExtResource("20_trony")
 
-[node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "end_effects", "end_animation", "death_particle")]
+[node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("debug_properties", "player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "end_effects", "end_animation", "death_particle")]
 process_mode = 3
 script = ExtResource("1_jl4xf")
+debug_properties = NodePath("Debug/Control/Properties")
 player_parent = NodePath("Player")
 ceiling = NodePath("Universal/Ceiling")
 ground = NodePath("Universal/Ground")
@@ -560,7 +562,60 @@ material = SubResource("ShaderMaterial_8f4cq")
 scale = Vector2(2, 2)
 texture = ExtResource("21_1gw2q")
 
-[node name="BG_triggers" type="Node" parent="." unique_id=334104004]
+[node name="Debug" type="CanvasLayer" parent="." unique_id=1638594149]
+
+[node name="Control" type="Control" parent="Debug" unique_id=1619274848]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Properties" type="VBoxContainer" parent="Debug/Control" unique_id=549083050]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="player_speed" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=220439350]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "speed"
+
+[node name="player_pos_y" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=620850593]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "global_position:y"
+
+[node name="player_pos_x" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=1353948169]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "global_position:x"
+
+[node name="player_air_time" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=1469859871]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "time_in_air"
+
+[node name="player_in_orb" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=212159211]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 2
+prop_name = "in_orb"
+
+[node name="player_can_move" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=1483512754]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 2
+prop_name = "can_move"
 
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Exit" to="." method="_exit_level"]
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Restart" to="." method="_restart"]

@@ -8,7 +8,7 @@ extends CanvasLayer
 
 #to be replaced by more efficient methods
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	if get_tree().paused:
 		visible = true
 	else:
