@@ -27,11 +27,11 @@ func change_tab(gamemode):
 func _update_icons():
 	for icon in $DisplayIcons.get_children():
 		if icon.name == "CubeDisplay":
-			icon.texture.region = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
 		if icon.name == "ShipDisplay":
-			icon.texture.region = Rect2(PlayerData.ship_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.data.ship_id * 16, 0, 16, 16)
 		if icon.name == "BallDisplay":
-			icon.texture.region = Rect2(PlayerData.ball_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.data.ball_id * 16, 0, 16, 16)
 
 func _process(_delta: float) -> void:
 	_update_icons()

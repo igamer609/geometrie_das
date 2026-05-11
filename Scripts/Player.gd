@@ -69,13 +69,13 @@ func _ready():
 func _check_icons():
 	for sprite in $Sprites.get_children():
 			if sprite.name == "cube":
-				sprite.region_rect = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
 			elif sprite.name == "ship":
-				sprite.region_rect = Rect2(PlayerData.ship_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.ship_id * 16, 0, 16, 16)
 				for child in sprite.get_children():
-					child.region_rect = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
+					child.region_rect = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
 			elif sprite.name == "ball":
-				sprite.region_rect = Rect2(PlayerData.ball_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.ball_id * 16, 0, 16, 16)
 
 func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
 	
@@ -167,8 +167,8 @@ func _process_cube_physics(delta : float) -> void:
 		time_in_air = 0
 		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.085)
 	
-	if velocity.y > 700:
-		velocity.y = 700
+	if velocity.y > 500:
+		velocity.y = 500
 	elif velocity.y < -500:
 		velocity.y = -500
 	

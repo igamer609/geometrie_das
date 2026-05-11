@@ -582,6 +582,13 @@ script = ExtResource("22_8f4cq")
 display_type = 1
 prop_name = "speed"
 
+[node name="player_vel_y" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=845723378]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "velocity:y"
+
 [node name="player_pos_y" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=620850593]
 custom_minimum_size = Vector2(324.24, 24.21)
 layout_mode = 2

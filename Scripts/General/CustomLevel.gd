@@ -14,6 +14,9 @@ var _playtesting : bool = false
 var _return_scene : String
 var _loaded_path : String
 
+@export_category("Config Values")
+@export var CAMERA_MOVE_OFFSET : float = 1.5
+
 var _debugging : bool
 @export var debug_properties : Control
 
@@ -202,8 +205,6 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 				
 				ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 				ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
-				
-				player_cam.global_position.y = ground.global_position.y - 88
 			2:  # ball
 				ceiling.visible = true
 				
@@ -213,16 +214,13 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 				if ground.global_position.y > 0:
 					ground.global_position.y = 0
 					ceiling.global_position.y = ground.global_position.y - 144
-				
-				player_cam.global_position.y = ground.global_position.y - 72
 	else:
 		match gamemode:
 			0:  # cube
 				ground.global_position = Vector2(3500, 0)
 				ceiling.global_position = Vector2(3500, 1000)
 				
-				if(first_attempt):
-					player_cam.global_position = Vector2(128, -24)
+				player_cam.global_position = Vector2(128, -24)
 				
 			1:  # ship
 				ceiling.visible = true
@@ -261,11 +259,14 @@ func _process(_delta) -> void:
 		
 		match player.gamemode:
 			Player.GamemodeTypes.CUBE:
-				player_cam.global_position.y = player.global_position.y - 16
+				var offset : float = player.global_position.y - player_cam.global_position.y
+				print(offset, " ", CAMERA_MOVE_OFFSET)
+				if(abs(offset) > CAMERA_MOVE_OFFSET * 16):
+					player_cam.global_position.y = lerp(player_cam.global_position.y, player.global_position.y, 0.1)
 			Player.GamemodeTypes.SHIP:
 				player_cam.global_position.y = ground.global_position.y - 88
 			Player.GamemodeTypes.BALL:
-				player_cam.global_position.y = ground.global_position.y - 56
+				player_cam.global_position.y = ground.global_position.y - 72
 		
 		endpos.global_position.y = player_cam.global_position.y
 	

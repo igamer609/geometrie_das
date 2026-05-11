@@ -19,9 +19,9 @@ func _process(delta):
 		visible = true
 		if Input.is_action_just_pressed("ui_cancel"):
 			
-			var progress : Array = GameProgress.get_current_level_progress()
+			var progress : LevelProgress = GameProgress.get_current_level_progress()
 			
-			$Control/Rect/Progress.value = progress[0]
-			$Control/Rect/Practice.value = progress[1]
+			$Control/Rect/Progress.value = progress.normal_progress
+			$Control/Rect/Practice.value = progress.practice_progress
 	else:
 		visible = false
