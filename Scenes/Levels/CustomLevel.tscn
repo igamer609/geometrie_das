@@ -624,5 +624,12 @@ script = ExtResource("22_8f4cq")
 display_type = 2
 prop_name = "can_move"
 
+[node name="player_alive" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=151739568]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 2
+prop_name = "is_alive"
+
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Exit" to="." method="_exit_level"]
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Restart" to="." method="_restart"]

@@ -6,16 +6,6 @@
 
 extends CanvasLayer
 
-func change_scene(scene_path) -> void:
-	$AnimationPlayer.play("fade")
-	await $AnimationPlayer.animation_finished
-	get_tree().change_scene_to_file(scene_path)
-	
-	if get_tree().paused:
-		get_tree().paused = false
-	
-	$AnimationPlayer.play_backwards("fade")
-
 ## Displays a message of varying importance. Message is formated based on it's severity.
 ## `severity` - 0 is a critical error, 1 is a warning and anything greater is feedback.
 func show_message(msg : String, severity : int = 0) -> void:

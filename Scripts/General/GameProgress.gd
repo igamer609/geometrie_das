@@ -25,11 +25,6 @@ var progress_to_update = false
 func _ready() -> void:
 	update_bar(0)
 
-#func _process(_delta: float) -> void:
-	#if music_to_load == 0 and $AudioStreamPlayer.playing:
-		#stop_lvl_music()
-		#run_music = false
-
 func get_current_level_progress() -> LevelProgress:
 	return _current_level_progress
 
@@ -76,6 +71,8 @@ func play_lvl_music_from_id(delay):
 			get_tree().queue_delete(timer)
 		
 		$AudioStreamPlayer.play()
+		run_music = true
 
 func stop_lvl_music():
+	run_music = false
 	$AudioStreamPlayer.stop()

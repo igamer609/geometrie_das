@@ -41,7 +41,6 @@ func save():
 	var error : Error = ResourceSaver.save(data, "user://playerdata.save")
 	
 	if(error != OK):
-		print(error_string(error))
 		push_error("Failed to save player data!")
 
 func load_save() -> void:

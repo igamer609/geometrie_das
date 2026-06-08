@@ -119,10 +119,7 @@ func initiate() -> void:
 	
 	RenderingServer.global_shader_parameter_set("current_editor_layer", -1)
 	
-	GameProgress.in_game = true
-	GameProgress.run_music = true
-	
-	GameProgress.play_lvl_music_from_id(0)
+	GameProgress.stop_lvl_music()
 	
 	for child in player_parent.get_children():
 		if child.is_in_group("Player"):
@@ -152,7 +149,6 @@ func initiate() -> void:
 
 func player_died() -> void:
 	follow_cam = false
-	GameProgress.run_music = false
 	GameProgress.stop_lvl_music()
 	
 	ColorManager._end_all_tweens()
@@ -161,7 +157,6 @@ func player_died() -> void:
 	death_particle.emitting = true
 
 func player_respawn() -> void:
-	GameProgress.play_lvl_music_from_id(0)
 	ColorManager.load_palette(level_data.meta.color_palette)
 	
 	end_animation.play("RESET")
@@ -248,8 +243,13 @@ func _process(_delta) -> void:
 			first_attempt = false
 			follow_cam = true
 	
-	if follow_cam:
+	print(GameProgress.run_music)
+	
+	if (is_after_beginning() && GameProgress.run_music == false && player.is_alive):
 		GameProgress.run_music = true
+		GameProgress.play_lvl_music_from_id(0)
+	
+	if follow_cam:
 		player_cam.global_position.x = player.global_position.x
 		
 		if(_smoothing_delay > 0):
@@ -260,7 +260,6 @@ func _process(_delta) -> void:
 		match player.gamemode:
 			Player.GamemodeTypes.CUBE:
 				var offset : float = player.global_position.y - player_cam.global_position.y
-				print(offset, " ", CAMERA_MOVE_OFFSET)
 				if(abs(offset) > CAMERA_MOVE_OFFSET * 16):
 					player_cam.global_position.y = lerp(player_cam.global_position.y, player.global_position.y, 0.1)
 			Player.GamemodeTypes.SHIP:
@@ -289,8 +288,10 @@ func _process(_delta) -> void:
 func is_finishing() -> bool:
 	return player.global_position.x >= rect_x + 152
 
+func is_after_beginning() -> bool:
+	return player.global_position.x >= 0
+
 func _exit_level():
-	GameProgress.in_game = false
 	GameProgress.music_to_load = 0
 	GameProgress.stop_lvl_music()
 	MenuMusic.start_music()
@@ -324,7 +325,6 @@ func _restart():
 	SceneTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
 
 func _init_debug_labels() -> void:
-	
 	debug_properties.visible = true
 	
 	if(player):

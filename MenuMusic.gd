@@ -18,7 +18,5 @@ func stop_music():
 func start_music():
 	play()
  
-
-
 func _quit_announcement():
 	$GameStart.visible = false

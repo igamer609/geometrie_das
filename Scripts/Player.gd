@@ -52,6 +52,8 @@ const GAMEMODE_NAMES : Array[String] = ["cube", "ship", 'ball']
 enum GamemodeTypes {CUBE, SHIP, BALL}
 @export var gamemode : GamemodeTypes = GamemodeTypes.CUBE
 
+var is_alive : bool = true
+
 var can_move : bool = true
 var invulnerable : bool = false
 var consecutive_jumps : int = 0
@@ -266,13 +268,18 @@ func _check_orbs() -> bool:
 	return false
 
 func die():
+	is_alive = false
 	emit_signal("died")
+	
 	orb_buffer = false
 	orb_queue.clear()
-	can_move = false
 	time_in_air = 0
+	
 	visible = false
+	
+	can_move = false
 	velocity = Vector2.ZERO
+	
 	$DeathSFX.play()
 	$Respawn.start()
 
@@ -385,9 +392,12 @@ func _on_detect_area_exited(area : Area2D):
 func _on_respawn_timeout():
 	$Sprites.global_rotation_degrees = 0
 	visible = true
+	
 	invulnerable = false
 	can_move = true
+	
 	emit_signal("respawned")
+	is_alive = true
 
 func _on_platform_collision(_body: Node2D) -> void:
 	die()
