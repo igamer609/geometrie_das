@@ -20,21 +20,25 @@ var _loaded_path : String
 var _debugging : bool
 @export var debug_properties : Control
 
+@export_category("Level Nodes")
 @export var player_parent : Node
 @export var ceiling : Node
 @export var ground : Node
 @export var level : Node
 @export var endpos : Node
 
+@export_category("UI Nodes")
 @export var pause_ui : Node
 @export var end_ui : Node
 @export var restart_button : TextureButton
 @export var exit_button : TextureButton
+@export var resume_button : TextureButton
+@export var edit_button : TextureButton
 
+@export_category("Effects")
 @export var end_effects : EndEffects
-@export var end_animation : Node
-
-@export var death_particle : Node
+@export var end_animation : AnimationPlayer
+@export var death_particle : GPUParticles2D
 
 var player : CharacterBody2D = null
 var player_cam : Camera2D = null
@@ -98,6 +102,10 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	
 	exit_button.pressed.connect(_exit_level)
 	restart_button.pressed.connect(_restart)
+	resume_button.pressed.connect(_unpause)
+	if(playtesting):
+		edit_button.visible = true
+		edit_button.pressed.connect(_edit_level)
 	
 	emit_signal("loaded_level")
 
@@ -132,7 +140,7 @@ func initiate() -> void:
 		player.died.connect(player_died)
 		player.respawned.connect(player_respawn)
 		
-		player.global_position.x = -64
+		player.global_position.x = -128
 		player.global_position.y = -8
 		
 		player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
@@ -149,6 +157,7 @@ func initiate() -> void:
 
 func player_died() -> void:
 	follow_cam = false
+	first_attempt = false
 	GameProgress.stop_lvl_music()
 	
 	ColorManager._end_all_tweens()
@@ -243,8 +252,6 @@ func _process(_delta) -> void:
 			first_attempt = false
 			follow_cam = true
 	
-	print(GameProgress.run_music)
-	
 	if (is_after_beginning() && GameProgress.run_music == false && player.is_alive):
 		GameProgress.run_music = true
 		GameProgress.play_lvl_music_from_id(0)
@@ -272,7 +279,10 @@ func _process(_delta) -> void:
 	GameProgress.update_bar((player.global_position.x / endpos.global_position.x) * 100)
 	
 	if Input.is_action_just_pressed("ui_cancel") and not is_finishing():
-		get_tree().paused = !get_tree().paused
+		if(!get_tree().paused):
+			_pause()
+		else:
+			_exit_level()
 	
 	if is_finishing():
 		follow_cam = false
@@ -292,6 +302,7 @@ func is_after_beginning() -> bool:
 	return player.global_position.x >= 0
 
 func _exit_level():
+	pause_ui.visible = false
 	GameProgress.music_to_load = 0
 	GameProgress.stop_lvl_music()
 	MenuMusic.start_music()
@@ -317,12 +328,28 @@ func _verify_level():
 	var entry_data = LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path)
 	ResourceLibrary.current_registry.update_entry_and_main_file(level_data.meta.local_id, entry_data, true)
 
+func _pause():
+	pause_ui.visible = true
+	get_tree().paused = true
+
+func _unpause():
+	get_tree().paused = false
+	pause_ui.visible=false
+
 func _restart():
 	GameProgress.stop_lvl_music()
 	get_tree().paused = false
 	
 	ResourceLibrary.free_objects.emit()
 	SceneTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
+
+func _edit_level() -> void:
+	pause_ui.visible = false
+	GameProgress.music_to_load = 0
+	GameProgress.stop_lvl_music()
+	
+	if(_playtesting):
+		SceneTransition.load_editor(LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path))
 
 func _init_debug_labels() -> void:
 	debug_properties.visible = true

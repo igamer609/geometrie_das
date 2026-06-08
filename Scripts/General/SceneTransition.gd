@@ -86,6 +86,9 @@ func load_editor(level_entry: LevelRegistryEntry) -> void:
 	var root = get_editor_root()
 	var loaded_level : LevelData = load(level_entry.ref)
 	await root.load_level_from_data(loaded_level, level_entry.ref)
+	
+	get_tree().paused = false
+	
 	$AnimationPlayer.play_backwards("fade")
 
 func load_game_from_entry(level_entry : LevelRegistryEntry, playtest : bool = false, return_path : String = "") -> void:
