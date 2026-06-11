@@ -185,15 +185,14 @@ func _hide() -> void:
 func _show() -> void:
 	if obj_res.is_scene and scene != null and scene.get_parent() == null:
 		scene_parent.add_child(scene)
-	elif not obj_res.is_scene:
-		if(obj_sprite):
-			
-			obj_sprite.material = _selection_material
-			if not in_level:
-				obj_sprite.set_instance_shader_parameter("editor_layer", editor_layer)
-			obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
-			
-			obj_sprite.show()
+	
+	if(obj_sprite):
+		obj_sprite.material = _selection_material
+		if not in_level:
+			obj_sprite.set_instance_shader_parameter("editor_layer", editor_layer)
+		obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
+		
+		obj_sprite.show()
 		
 		if(collision):
 			collision.disabled = false
