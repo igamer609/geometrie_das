@@ -33,6 +33,7 @@ class_name LevelMeta extends Resource
 @export var starting_gravity : int = 1
 @export var last_uid: int = 0
 @export var song_offset: float = 0.0
+@export var last_cam_pos : Vector2 = Vector2.ZERO
 @export var verified: int = 0
 
 func to_dict() -> Dictionary:

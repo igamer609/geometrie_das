@@ -95,6 +95,7 @@ static func parse_from_api_body(res_body : Dictionary) -> LevelData:
 			level.meta.song_offset = float(inner_data.get("song_offset", 0.0))
 			level.meta.starting_gamemode = int(inner_data.get("starting_gamemode", 0))
 			level.meta.starting_gravity = int(inner_data.get("starting_gravity", 1))
+			level.meta.last_cam_pos = Vector2(inner_data.get("last_cam_pos", Vector2.ZERO))
 
 			var palette_dict : Dictionary = inner_data.get("color_palette", {})
 			if(!palette_dict.is_empty()):

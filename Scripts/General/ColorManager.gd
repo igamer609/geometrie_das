@@ -16,18 +16,21 @@ const MAIN_CHANNELS : Dictionary = {
 	"LINE" : 3,
 	"LBG" : 4,
 }
+const ON_LOAD_IGNORED_CHANNELS : Array[int] = [
+	4,
+]
 
 var pallete_image : Image
 var pallete_texture : ImageTexture
 var _texture_update_queued : bool = false
 
 ##Defines if the respective channel copies another channel, and if it has any transformations applied to it.
-var relationships : Dictionary = {
-	0 : [{4 : Color(5.0, 5.0, 5.0, 1.0)}]
-}
+var relationships : Array[Array] = [
+	[0, 4, Color(3.5, 3.5, 3.5, 0.90)]
+]
 
 func _ready() -> void:
-	pallete_image = Image.create_empty(max_channels, 1, false, Image.FORMAT_RGB8)
+	pallete_image = Image.create_empty(max_channels, 1, false, Image.FORMAT_RGBA8)
 	for index in range(0, max_channels - 1):
 		pallete_image.set_pixel(index, 0, Color.WHITE)
 	pallete_texture = ImageTexture.create_from_image(pallete_image)
@@ -46,7 +49,8 @@ func _end_all_tweens() -> void:
 func load_palette(palette : GDColorPalette) -> void:
 	_end_all_tweens()
 	for i in range(0, palette.length - 1):
-		change_color_channel(i, palette.color_palette[i])
+		if(i not in ON_LOAD_IGNORED_CHANNELS):
+			change_color_channel(i, palette.color_palette[i])
 
 func change_color_channel(channel_id, target_color : Color) -> void:
 	var index : int
@@ -55,6 +59,12 @@ func change_color_channel(channel_id, target_color : Color) -> void:
 		index = MAIN_CHANNELS[channel_id]
 	else:
 		index = channel_id
+	
+	for relationship : Array in relationships:
+		if(relationship[0] == index):
+			var relative_color : Color = target_color * relationship[2]
+			pallete_image.set_pixel(relationship[1], 0, relative_color)
+			channel_changed.emit(relationship[1], relative_color)
 	
 	pallete_image.set_pixel(index, 0, target_color)
 	channel_changed.emit(index, target_color)

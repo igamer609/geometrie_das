@@ -4,7 +4,7 @@ render_mode unshaded;
 global uniform sampler2D color_texture;
 global uniform int max_channels;
 global uniform int current_editor_layer;
-instance uniform vec3 selection_color = vec3(0.0, 0.9, 0.0);
+global uniform vec3 selection_color;
 instance uniform bool is_selected = false;
 instance uniform int editor_layer = 0;
 instance uniform int channel_id = 1;

@@ -201,6 +201,9 @@ func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 	if(_level_meta.color_palette.color_palette.is_empty()):
 		_level_meta.color_palette = GDColorPalette.default_palette(ColorManager.max_channels)
 	
+	camera.global_position = _level_meta.last_cam_pos
+	update_grid_position()
+	
 	ColorManager.load_palette(_level_meta.color_palette)
 	
 	_load_level(lvl_data.objects)
@@ -264,6 +267,7 @@ func _save_and_exit():
 	
 	MenuMusic.start_music()
 	history.clear_history()
+	
 	SceneTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
 
 func _save_and_play():
@@ -787,7 +791,7 @@ func _process(_delta):
 func update_grid_position():
 	var camera_pos : Vector2 = camera.global_position
 	var target_grid_position : Vector2 = Vector2(snapped(camera_pos.x  - (grid.region_rect.size.x / 4), 16), snapped(camera_pos.y + (grid.region_rect.size.y / 4), 16))
-	
+	_level_meta.last_cam_pos = camera_pos
 	var camera_rect : Vector2 = get_viewport_rect().size * 3 / camera.zoom
 	grid.region_rect.size = camera_rect
 	

@@ -78,6 +78,7 @@ func load_editor(level_entry: LevelRegistryEntry) -> void:
 	await $AnimationPlayer.animation_finished
 	is_in_transition = false
 	
+	ResourceLibrary.free_objects.emit()
 	MenuMusic.stop_music()
 	get_tree().change_scene_to_file(editor)
 	
@@ -99,6 +100,7 @@ func load_game_from_entry(level_entry : LevelRegistryEntry, playtest : bool = fa
 	$AnimationPlayer.play("fade")
 	await $AnimationPlayer.animation_finished
 	
+	ResourceLibrary.free_objects.emit()
 	MenuMusic.stop_music()
 	get_tree().change_scene_to_file(template_level)
 	
@@ -122,6 +124,7 @@ func load_game_from_data(level_data : LevelData, restart = false, playtesting = 
 		$AnimationPlayer.play("fade")
 		await $AnimationPlayer.animation_finished
 	
+	ResourceLibrary.free_objects.emit()
 	MenuMusic.stop_music()
 	get_tree().change_scene_to_file(template_level)
 	

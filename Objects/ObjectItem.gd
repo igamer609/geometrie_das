@@ -16,6 +16,7 @@ var scene : Node2D = null
 var obj_sprite : Sprite2D = null
 var collision : CollisionPolygon2D = null
 var scene_parent : Node2D = null
+var visibility_enabler : VisibleOnScreenNotifier2D = null
 
 @onready var _selection_material : ShaderMaterial = preload("res://Assets/materials/ObjectMaterial.tres")
 
@@ -68,12 +69,24 @@ static func duplicate_object(original_obj : GDObject, n_uid : int, new_pos : Vec
 	
 	return object
 
-func _init() -> void:
-	ResourceLibrary.free_objects.connect(delete)
-
 func _ready() -> void:
 	if obj_res:
 		update()
+	
+		ResourceLibrary.free_objects.connect(delete)
+		
+		if(!visibility_enabler):
+			visibility_enabler = VisibleOnScreenNotifier2D.new()
+			visibility_enabler.rect = Rect2i(8, 8, 20, 20)
+			
+			visibility_enabler.screen_entered.connect(_show)
+			visibility_enabler.screen_exited.connect(_hide)
+			add_child(visibility_enabler)
+			
+			if(!visibility_enabler.is_on_screen()):
+				_hide()
+			else:
+				_show()
 
 func update() -> void:
 	if not in_level or (not obj_res.is_decoration and in_level and not obj_res.is_scene):
@@ -116,13 +129,6 @@ func update() -> void:
 			collision.polygon = obj_res.collision_shape
 		else:
 			z_index = -1
-	
-	if obj_sprite:
-		obj_sprite.material = _selection_material
-		if not in_level:
-			obj_sprite.set_instance_shader_parameter("editor_layer", editor_layer)
-		
-		obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
 	
 	if not obj_res.is_solid:
 		set_collision_layer_value(1, false)
@@ -168,13 +174,41 @@ func _hide() -> void:
 	if obj_res.is_scene and scene != null:
 		scene_parent.remove_child(scene)
 	elif not obj_res.is_scene:
-		obj_sprite.hide()
+		if(obj_sprite):
+			obj_sprite.hide()
+		if(collision):
+			collision.disabled = true
+	
+	if(obj_sprite):
+			obj_sprite.set_deferred("material", null)
 
 func _show() -> void:
 	if obj_res.is_scene and scene != null and scene.get_parent() == null:
 		scene_parent.add_child(scene)
 	elif not obj_res.is_scene:
-		obj_sprite.show()
+		if(obj_sprite):
+			
+			obj_sprite.material = _selection_material
+			if not in_level:
+				obj_sprite.set_instance_shader_parameter("editor_layer", editor_layer)
+			obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
+			
+			obj_sprite.show()
+		
+		if(collision):
+			collision.disabled = false
+
+## Returns the vector that holds the channel, editor layer, selection state and z layer of the object (in this order)
+func _get_obj_shader_prop() -> Color:
+	if(obj_sprite):
+		var data : Color = obj_sprite.get_instance_shader_parameter("obj_properties")
+		print(data)
+		return obj_sprite.get_instance_shader_parameter("obj_properties")
+	return Color(0.0 , 1.0, 0.0, 0.0)
 
 func delete() -> void:
+	if(scene_parent):
+		scene.queue_free()
+	if(obj_sprite):
+		obj_sprite.queue_free()
 	queue_free()
