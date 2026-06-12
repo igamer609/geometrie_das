@@ -20,7 +20,7 @@ const GAMEMODES : Array[String] = ["Cube", "Ship", "Ball"]
 var library : Dictionary = {}
 
 ## Contains preloaded scenes for menus and other elements.
-## Currently has [code]GenericObjectEditMenu[/code],  [code]ChannelEditMenu[/code],  [code]ChannelSelect[/code] and  [code]ColorTriggerEdit[/code].
+## Currently holds [code]GenericObjectEditMenu[/code],  [code]ChannelEditMenu[/code],  [code]ChannelSelect[/code] and  [code]ColorTriggerEdit[/code].
 var scenes : Dictionary = {}
 
 var _res_load_queue : Array = []

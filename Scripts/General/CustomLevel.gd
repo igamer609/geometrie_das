@@ -44,6 +44,7 @@ var player : CharacterBody2D = null
 var player_cam : Camera2D = null
 
 var rect_x = 0
+var material_cache : MaterialCache = MaterialCache.new()
 
 var first_attempt = true
 var follow_cam = false
@@ -110,7 +111,7 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	emit_signal("loaded_level")
 
 func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other) -> void:
-	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other, true)
+	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other, material_cache, true)
 	level.call_deferred("add_child", object)
 
 func _ready() -> void:

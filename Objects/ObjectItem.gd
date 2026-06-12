@@ -6,25 +6,29 @@
 
 class_name GDObject extends StaticBody2D
 
+@export_category("Object Data")
 @export var obj_res : GDObjectResource
+
+@export_category("Runtime Properties")
+@export var uid : int
+@export var other : Dictionary
 @export var in_level : bool = false
 @export var group_ids : Array = []
 @export var editor_layer : int = -1
 @export var color_channel : int = 1
+@export var is_selected : bool = false
+
+var material_cache : MaterialCache
 
 var scene : Node2D = null
 var obj_sprite : Sprite2D = null
 var collision : CollisionPolygon2D = null
 var scene_parent : Node2D = null
-var visibility_enabler : VisibleOnScreenNotifier2D = null
+var visibility_notifier : VisibleOnScreenNotifier2D = null
 
-@onready var _selection_material : ShaderMaterial = preload("res://Assets/materials/ObjectMaterial.tres")
-
-@export var uid : int
-@export var other : Dictionary
 var trigger : Trigger = null
 
-static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary, _in_level : bool = false) -> GDObject:
+static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float, n_other : Dictionary, n_material_cache, _in_level : bool = false) -> GDObject:
 	var res : GDObjectResource = ResourceLibrary.library[obj_id]
 	var object : GDObject = GDObject.new()
 	object.add_to_group("Object")
@@ -44,6 +48,8 @@ static func create_object(obj_id : int, n_uid : int, pos : Vector2, rot : float,
 	updated_other.set("channel_id", object.color_channel)
 	object.other = updated_other
 	object.in_level = _in_level
+	
+	object.material_cache = n_material_cache
 	
 	return object
 
@@ -67,6 +73,8 @@ static func duplicate_object(original_obj : GDObject, n_uid : int, new_pos : Vec
 	object.other = updated_other
 	object.in_level = original_obj.in_level
 	
+	object.material_cache = original_obj.material_cache
+	
 	return object
 
 func _ready() -> void:
@@ -75,15 +83,15 @@ func _ready() -> void:
 	
 		ResourceLibrary.free_objects.connect(delete)
 		
-		if(!visibility_enabler):
-			visibility_enabler = VisibleOnScreenNotifier2D.new()
-			visibility_enabler.rect = Rect2i(8, 8, 20, 20)
+		if(!visibility_notifier):
+			visibility_notifier = VisibleOnScreenNotifier2D.new()
+			visibility_notifier.rect = Rect2i(8, 8, 10, 10)
 			
-			visibility_enabler.screen_entered.connect(_show)
-			visibility_enabler.screen_exited.connect(_hide)
-			add_child(visibility_enabler)
+			visibility_notifier.screen_entered.connect(_show)
+			visibility_notifier.screen_exited.connect(_hide)
+			add_child(visibility_notifier)
 			
-			if(!visibility_enabler.is_on_screen()):
+			if(!visibility_notifier.is_on_screen()):
 				_hide()
 			else:
 				_show()
@@ -144,12 +152,16 @@ func update() -> void:
 		add_child(trigger)
 
 func select() -> void:
-	if obj_sprite:
-		obj_sprite.set_instance_shader_parameter("is_selected", true)
+	is_selected = true
+	if(obj_sprite && obj_sprite.material):
+		var selection_material : ShaderMaterial = obj_sprite.material.duplicate()
+		selection_material.set_shader_parameter("is_selected", true)
+		obj_sprite.material = selection_material
 
 func deselect() -> void:
+	is_selected = false
 	if obj_sprite:
-		obj_sprite.set_instance_shader_parameter("is_selected", false)
+		obj_sprite.material = material_cache.get_material(color_channel, editor_layer)
 
 func check_editor_layer(new_layer : int) -> void:
 	if new_layer == other.get("e_l", 0):
@@ -157,7 +169,7 @@ func check_editor_layer(new_layer : int) -> void:
 
 func update_color_channel() -> void:
 	if(obj_sprite):
-		obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
+		obj_sprite.material = material_cache.get_material(color_channel, editor_layer)
 
 func get_selection_rect() -> Rect2:
 	var points : PackedVector2Array = collision.polygon
@@ -171,39 +183,40 @@ func get_selection_rect() -> Rect2:
 	return collision.get_global_transform() * rect.abs()
  
 func _hide() -> void:
+	
+	if(obj_sprite):
+			obj_sprite.hide()
+			obj_sprite.material = null
+	
 	if obj_res.is_scene and scene != null:
 		scene_parent.remove_child(scene)
 	elif not obj_res.is_scene:
 		if(obj_sprite):
-			obj_sprite.hide()
+			call_deferred("remove_child", obj_sprite)
 		if(collision):
 			collision.disabled = true
-	
-	if(obj_sprite):
-			obj_sprite.set_deferred("material", null)
 
 func _show() -> void:
 	if obj_res.is_scene and scene != null and scene.get_parent() == null:
 		scene_parent.add_child(scene)
+	elif(obj_sprite):
+		call_deferred("add_child", obj_sprite)
 	
 	if(obj_sprite):
-		obj_sprite.material = _selection_material
 		if not in_level:
-			obj_sprite.set_instance_shader_parameter("editor_layer", editor_layer)
-		obj_sprite.set_instance_shader_parameter("channel_id", color_channel)
+			obj_sprite.material = material_cache.get_material(color_channel, 0)
+		else:
+			obj_sprite.material = material_cache.get_material(color_channel, editor_layer)
+		
+		if(is_selected):
+			var selection_material : ShaderMaterial = obj_sprite.material.duplicate()
+			selection_material.set_shader_parameter("is_selected", true)
+			obj_sprite.material = selection_material
 		
 		obj_sprite.show()
 		
 		if(collision):
 			collision.disabled = false
-
-## Returns the vector that holds the channel, editor layer, selection state and z layer of the object (in this order)
-func _get_obj_shader_prop() -> Color:
-	if(obj_sprite):
-		var data : Color = obj_sprite.get_instance_shader_parameter("obj_properties")
-		print(data)
-		return obj_sprite.get_instance_shader_parameter("obj_properties")
-	return Color(0.0 , 1.0, 0.0, 0.0)
 
 func delete() -> void:
 	if(scene_parent):

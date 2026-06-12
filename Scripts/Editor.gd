@@ -19,6 +19,8 @@ var swipe_start : Vector2
 var swipe_rect : Rect2
 var current_editor_layer : int
 
+var obj_count : int = 0
+
 @onready var camera : Camera2D = $Camera
 @onready var level : Node2D = $Level
 @onready var ui : CanvasLayer = $Editor_Object/UI_Layer
@@ -62,6 +64,7 @@ var _level_meta : LevelMeta = LevelMeta.new()
 var _level_path : String
 
 var _current_spacial_index : Dictionary[Vector2, Array] = {}
+var material_cache : MaterialCache = MaterialCache.new()
 
 var selection_center : Node2D = null
 
@@ -130,7 +133,8 @@ func _get_data_of_objects(objects : Array[Node]) -> Array:
 
 func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) -> GDObject: 
 	last_uid += 1
-	var object : GDObject = GDObject.create_object(obj_id, last_uid, pos, rot, other)
+	obj_count += 1
+	var object : GDObject = GDObject.create_object(obj_id, last_uid, pos, rot, other, material_cache)
 	
 	if not _current_spacial_index.has(pos):
 		_current_spacial_index[pos] = []
@@ -141,6 +145,7 @@ func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) ->
 
 func _duplicate_obj(obj : GDObject, new_pos : Vector2, new_rot : float) -> GDObject:
 	last_uid += 1
+	obj_count += 1
 	var object : GDObject = GDObject.duplicate_object(obj, last_uid, new_pos, new_rot)
 	
 	if not _current_spacial_index.has(new_pos):
@@ -187,6 +192,8 @@ func _load_level_file() -> void:
 func _load_level(objects : Array) -> void:
 	for obj : LevelObject in objects:
 		_load_obj(obj.obj_id , str_to_var(obj.transform[0]), obj.transform[1], obj.other)
+	
+	print(obj_count)
 
 func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 	_level_meta = lvl_data.meta
@@ -477,6 +484,7 @@ func place_object(return_obj : bool = true) -> GDObject:
 		
 		select_single(object)
 		if return_obj:
+			print(obj_count)
 			return object
 	else:
 		history.create_action("Place object")
@@ -498,6 +506,7 @@ func place_object(return_obj : bool = true) -> GDObject:
 		select_single(object)
 		
 		if return_obj:
+			print(obj_count)
 			return object
 	
 	return
@@ -804,8 +813,9 @@ func update_grid_position():
 
 func _add_object_to_level(object : Node2D):
 	if object.get_parent() != level:
+		object._show()
 		level.add_child(object)
-		
+		obj_count += 1
 		_current_spacial_index[object.global_position].append(object)
 
 func _remove_object_from_level(object : Node2D):
@@ -814,7 +824,9 @@ func _remove_object_from_level(object : Node2D):
 	if _current_spacial_index.has(object.global_position):
 		_current_spacial_index[object.global_position].erase(object)
 	if object.get_parent() == level:
+		object._hide()
 		level.remove_child(object)
+		obj_count -= 1
 	else:
 		pass
 

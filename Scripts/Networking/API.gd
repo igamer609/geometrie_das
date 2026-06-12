@@ -4,6 +4,8 @@
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
 
+#Work in progress!!!
+
 #Note: responses given by the HTTPRequest node come in a strict structure, so res[3] will always be the body of the response.
 
 extends Node
