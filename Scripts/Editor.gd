@@ -192,8 +192,6 @@ func _load_level_file() -> void:
 func _load_level(objects : Array) -> void:
 	for obj : LevelObject in objects:
 		_load_obj(obj.obj_id , str_to_var(obj.transform[0]), obj.transform[1], obj.other)
-	
-	print(obj_count)
 
 func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 	_level_meta = lvl_data.meta
@@ -391,7 +389,7 @@ func _zoom(amount : float) -> void:
 	zoom_multiplier = clamp(zoom_multiplier, 0.3, 2.1)
 	#TransitionScene.show_message("x" + str(zoom_multiplier))
 	camera.zoom = Vector2(3 * zoom_multiplier, 3 * zoom_multiplier)
-	update_grid_position()
+	call_deferred("update_grid_position")
 
 func _box_select() -> void:
 	for object in level.get_children():
@@ -484,7 +482,6 @@ func place_object(return_obj : bool = true) -> GDObject:
 		
 		select_single(object)
 		if return_obj:
-			print(obj_count)
 			return object
 	else:
 		history.create_action("Place object")
@@ -506,7 +503,6 @@ func place_object(return_obj : bool = true) -> GDObject:
 		select_single(object)
 		
 		if return_obj:
-			print(obj_count)
 			return object
 	
 	return
@@ -801,7 +797,7 @@ func update_grid_position():
 	var camera_pos : Vector2 = camera.global_position
 	var target_grid_position : Vector2 = Vector2(snapped(camera_pos.x  - (grid.region_rect.size.x / 4), 16), snapped(camera_pos.y + (grid.region_rect.size.y / 4), 16))
 	_level_meta.last_cam_pos = camera_pos
-	var camera_rect : Vector2 = get_viewport_rect().size * 3 / camera.zoom
+	var camera_rect : Vector2 = get_viewport_rect().size * 3  / camera.zoom
 	grid.region_rect.size = camera_rect
 	
 	if target_grid_position.x < 0:
