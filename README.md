@@ -1,7 +1,7 @@
 # Geometrie Das 2.0 Beta 6
 First actual relatively stable version of Geometrie Das
 > Main levels are still completely broken, but next update will include the last features required for proper level making
-> Player data has been remade. Levels will remain intact as they are not part of the player data save file.
+> Player data has been remade, all progress and icon selections will be lost (not that there is much to actually be saved). Levels will remain intact as they are not part of the player data save file.
 - Fixed paste and duplicate (copy+paste) functionality
 - Updated how objects are created
 - Remade how objects use shaders (instead of instance uniforms, they use a cache of different shader materials with the appropiate properties) as instance uniforms were too limited.
@@ -15,7 +15,7 @@ First actual relatively stable version of Geometrie Das
 - Added debug labels that display properties of the player (to be extended to other things) during gameplay. Only shows when playing from the Godot Editor or from a debug build.
 - Level music now starts only when the player reaches x = 0
 - Camera position in the editor saved
-- Added a way to set a color channel to copy aother one
+- Added a way to set a color channel to copy another one
 
 # Geometrie Das 2.0 Beta 5 (beta 4 never existed ahahahaha)
 - ok, i need a more consistent naming scheme
