@@ -7,15 +7,18 @@
 class_name GDasLoader extends ResourceFormatLoader
 
 func _recognize(resource: Resource) -> bool:
-	return resource is LevelData || resource is LevelRegistry
+	return resource is LevelData || resource is LevelRegistry || resource is PlayerSaveData
 
 func _get_recognized_extensions() -> PackedStringArray:
-	return PackedStringArray(["gdaslvl", "datreg"])
+	return PackedStringArray(["gdaslvl", "datreg", "save"])
 
 func _load(path: String, original_path: String, use_sub_threads: bool, cache_mode: int) -> Variant:
 	var file : FileAccess = FileAccess.open(path, FileAccess.READ)
-	if not file:
-		return file.get_open_error()
+	if(!file):
+		file = FileAccess.open(path + ".old", FileAccess.READ)
+		
+		if(!file):
+			return FileAccess.get_open_error()
 	
 	var buffer_size : int = file.get_32()
 	var buffer = file.get_buffer(buffer_size)

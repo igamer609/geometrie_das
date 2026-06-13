@@ -1,5 +1,5 @@
 # ----------------------------------------------------------
-#	Copyright (c) 2026 igamer609
+#	Copyright (c) 2026 igamer609 and Contributors
 #	Licensed under the MIT License.
 #	See the LICENSE file in the project root for full license information
 # ----------------------------------------------------------
@@ -27,11 +27,11 @@ func change_tab(gamemode):
 func _update_icons():
 	for icon in $DisplayIcons.get_children():
 		if icon.name == "CubeDisplay":
-			icon.texture.region = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
 		if icon.name == "ShipDisplay":
-			icon.texture.region = Rect2(PlayerData.ship_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.data.ship_id * 16, 0, 16, 16)
 		if icon.name == "BallDisplay":
-			icon.texture.region = Rect2(PlayerData.ball_id * 16, 0, 16, 16)
+			icon.texture.region = Rect2(PlayerData.data.ball_id * 16, 0, 16, 16)
 
 func _process(_delta: float) -> void:
 	_update_icons()
@@ -46,4 +46,4 @@ func _ball_tab():
 	change_tab("Ball")
 
 func _on_exit():
-	TransitionScene.change_scene("res://Scenes/MainMenu.tscn")
+	SceneTransition.change_scene("res://Scenes/MainMenu.tscn")

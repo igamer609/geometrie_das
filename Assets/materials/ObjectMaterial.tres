@@ -4,3 +4,6 @@
 
 [resource]
 shader = ExtResource("1_h56j6")
+shader_parameter/channel_id = 1
+shader_parameter/is_selected = false
+shader_parameter/editor_layer = 0

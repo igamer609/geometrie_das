@@ -7,15 +7,15 @@
 shader = ExtResource("1_68muu")
 shader_parameter/Shift_Hue = 0.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" unique_id=742828601]
+[node name="ParallaxBackground" type="ParallaxBackground" unique_id=663258453]
 scale = Vector2(0.5, 0.5)
 transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 
-[node name="BackgroundLayer" type="ParallaxLayer" parent="." unique_id=500886537]
+[node name="BackgroundLayer" type="ParallaxLayer" parent="." unique_id=286620515]
 motion_scale = Vector2(0.45, 0.375)
 motion_mirroring = Vector2(2000.65, 1499.4)
 
-[node name="BGSprite" type="Sprite2D" parent="BackgroundLayer" unique_id=423389991]
+[node name="BGSprite" type="Sprite2D" parent="BackgroundLayer" unique_id=2062011522]
 texture_filter = 1
 material = SubResource("ShaderMaterial_nsxuu")
 scale = Vector2(2, 2)

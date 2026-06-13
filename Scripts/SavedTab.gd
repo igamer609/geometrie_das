@@ -7,6 +7,7 @@
 extends Control
 
 @onready var lvl_template = preload("res://Scenes/Menus/saved_lvl_template/level_template.tscn")
+@onready var empty_message : Control = $Empty
 
 const PAGE_LENGTH = 10
 var page = 0
@@ -14,12 +15,15 @@ var levels : Array = []
 
 func find_levels():
 	
-	if ResourceLibrary.current_registry.type != LevelRegistry.RegistryType.CREATED:
-		ResourceLibrary.load_registry(LevelRegistry.RegistryType.CREATED)
+	if ResourceLibrary.current_registry.type != LevelRegistry.RegistryType.SAVED:
+		ResourceLibrary.load_registry(LevelRegistry.RegistryType.SAVED)
 	
 	var number_of_levels : int = ResourceLibrary.current_registry.order.size()
 	
 	if number_of_levels > 0:
+		
+		empty_message.visible = false
+		
 		for i in range((page * PAGE_LENGTH), min((page + 1) * PAGE_LENGTH - 1, number_of_levels)):
 			var current_id : String = ResourceLibrary.current_registry.order[i]
 			
@@ -27,6 +31,9 @@ func find_levels():
 				
 				var current_lvl : LevelRegistryEntry = ResourceLibrary.current_registry.levels[current_id]
 				add_level_template(current_lvl)
+	else:
+		empty_message.visible = true
+	
 	for level in levels:
 		level.visible = true
 
@@ -43,13 +50,11 @@ func add_level_template(level_entry : LevelRegistryEntry):
 	
 	new_lvl.name_label.text = level_entry.meta.title
 	
-	new_lvl.song_label.text = ResourceLibrary.music_ids[int(level_entry.meta.song_id)][1]
-	new_lvl.view_button.pressed.connect(EditorTransition.load_level_edit_menu.bind(level_entry))
+	new_lvl.song_label.text = ResourceLibrary.song_ids[int(level_entry.meta.song_id)][1]
+	new_lvl.view_button.pressed.connect(SceneTransition.load_level_edit_menu.bind(level_entry))
 
 func _ready():
 	find_levels()
-	
-	$Create.pressed.connect(EditorTransition.load_level_edit_menu.bind(LevelRegistryEntry.new()))
 
 func _on_exit_pressed() -> void:
-	TransitionScene.change_scene("res://Scenes/Menus/EditorTab.tscn")
+	SceneTransition.change_scene("res://Scenes/Menus/EditorTab.tscn")

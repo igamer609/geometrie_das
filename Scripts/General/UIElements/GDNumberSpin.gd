@@ -57,7 +57,8 @@ func _ready() -> void:
 	call_deferred("_setup_internal")
 
 func _setup_internal() -> void:
-	_decrement_button.size.x = 40; _increment_button.size.x = 40; _decrement_button.self_modulate = arrow_color; _increment_button.self_modulate = arrow_color
+	#_decrement_button.size.x = 40; _increment_button.size.x = 40;
+	_decrement_button.self_modulate = arrow_color; _increment_button.self_modulate = arrow_color
 	_decrement_button.pressed.connect(decrement); _increment_button.pressed.connect(increment)
 	_line_edit.set_size(Vector2(70.8, 32), true); _line_edit.text_submitted.connect(set_value)
 	_line_edit.anchor_left = 0.2; _line_edit.anchor_right = 0.2; _line_edit.anchor_top = 0.2; _line_edit.anchor_bottom = 0.3

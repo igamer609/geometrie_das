@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://10ip4e4fo6i7" path="res://Scripts/General/CustomLevel.gd" id="1_jl4xf"]
 [ext_resource type="PackedScene" uid="uid://bfkbo56nphh1i" path="res://Scenes/player_full.tscn" id="3_tq51e"]
 [ext_resource type="PackedScene" uid="uid://b741ehrnqe0e3" path="res://Scenes/Levels/LevelItems/LevelFinish.tscn" id="4_irpq7"]
-[ext_resource type="Script" uid="uid://dktn2ch0f3dqj" path="res://Scripts/General/EditorLevelPauseUI.gd" id="5_noxto"]
 [ext_resource type="PackedScene" uid="uid://cgld1lybn1bwd" path="res://Scenes/Ground.tscn" id="5_vb1ue"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="7_trony"]
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="7_xgy81"]
@@ -14,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bwinen8ft4rtu" path="res://Assets/buttons/slider textures/slider_background.png" id="12_skbfn"]
 [ext_resource type="Texture2D" uid="uid://ddilw3gvjglgf" path="res://Assets/buttons/slider textures/slider_fill.png" id="13_1d4n8"]
 [ext_resource type="Script" uid="uid://crqxuhvgwmvno" path="res://Scripts/General/SoundSlider.gd" id="14_07gf6"]
+[ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="14_rcrvo"]
 [ext_resource type="PackedScene" uid="uid://cfdt0mdpbxvon" path="res://Scenes/Levels/LevelItems/EndEffects.tscn" id="16_vo7p4"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="17_p3r8p"]
 [ext_resource type="Texture2D" uid="uid://b8loxb2ph7r2r" path="res://Assets/buttons/restart_icon.png" id="18_sgf4h"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dek6vb4ctnvw6" path="res://Assets/other/particles/circle.png" id="20_fq7st"]
 [ext_resource type="Shader" uid="uid://bqgrmylj0hhs7" path="res://Scenes/shader/LevelBackground.gdshader" id="20_trony"]
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="21_1gw2q"]
+[ext_resource type="Script" uid="uid://dr48wpirbm22r" path="res://Scripts/General/UIElements/Debug/DebugPropertyDisplayLabel.gd" id="22_8f4cq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6nsj"]
 bg_color = Color(0, 0, 0, 0.576471)
@@ -28,10 +29,6 @@ corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_80ntc"]
-atlas = ExtResource("7_xgy81")
-region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1yoqp"]
 texture = ExtResource("12_skbfn")
@@ -45,6 +42,34 @@ texture_margin_left = 25.0
 texture_margin_top = 24.0
 texture_margin_bottom = 24.0
 axis_stretch_horizontal = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80ntc"]
+atlas = ExtResource("7_xgy81")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rot7d"]
+atlas = ExtResource("14_rcrvo")
+region = Rect2(158, 32, 32, 32)
+
+[sub_resource type="InputEventKey" id="InputEventKey_rcrvo"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_rot7d"]
+events = [SubResource("InputEventKey_rcrvo")]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m106"]
+atlas = ExtResource("14_rcrvo")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyunc"]
+atlas = ExtResource("14_rcrvo")
+region = Rect2(139, 65, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f4cq"]
+atlas = ExtResource("14_rcrvo")
+region = Rect2(98, 65, 38, 38)
 
 [sub_resource type="Animation" id="Animation_ws4a1"]
 length = 0.001
@@ -155,10 +180,10 @@ alpha_curve = SubResource("CurveTexture_k3lcr")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8f4cq"]
 shader = ExtResource("20_trony")
 
-[node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "end_effects", "end_animation", "death_particle")]
+[node name="LevelRoot" type="Node2D" unique_id=923184425 node_paths=PackedStringArray("debug_properties", "player_parent", "ceiling", "ground", "level", "endpos", "pause_ui", "end_ui", "restart_button", "exit_button", "resume_button", "edit_button", "end_effects", "end_animation", "death_particle")]
 process_mode = 3
 script = ExtResource("1_jl4xf")
-start_bg = Color(0, 0.270588, 0.882353, 1)
+debug_properties = NodePath("Debug/Control/Properties")
 player_parent = NodePath("Player")
 ceiling = NodePath("Universal/Ceiling")
 ground = NodePath("Universal/Ground")
@@ -166,8 +191,10 @@ level = NodePath("Level")
 endpos = NodePath("Universal/EndPosition")
 pause_ui = NodePath("Universal/PauseUI")
 end_ui = NodePath("Universal/EndAnimation/EndUI")
-restart_button = NodePath("Universal/PauseUI/Control/Rect/Restart")
-exit_button = NodePath("Universal/PauseUI/Control/Rect/Exit")
+restart_button = NodePath("Universal/PauseUI/Control/Rect/ActionButtons/Restart")
+exit_button = NodePath("Universal/PauseUI/Control/Rect/ActionButtons/Exit")
+resume_button = NodePath("Universal/PauseUI/Control/Rect/ActionButtons/Resume")
+edit_button = NodePath("Universal/PauseUI/Control/Rect/ActionButtons/Edit")
 end_effects = NodePath("Universal/EndAnimation/EndEffect")
 end_animation = NodePath("Universal/EndAnimation/EndAnimation")
 death_particle = NodePath("Universal/DeathEffect")
@@ -176,7 +203,6 @@ death_particle = NodePath("Universal/DeathEffect")
 
 [node name="Player" parent="." unique_id=1199746068 instance=ExtResource("3_tq51e")]
 process_mode = 1
-position = Vector2(-64, -9)
 
 [node name="Universal" type="Node" parent="." unique_id=697846460]
 process_mode = 1
@@ -200,7 +226,6 @@ rotation = 3.14159
 process_mode = 3
 layer = 8
 visible = false
-script = ExtResource("5_noxto")
 
 [node name="Control" type="Control" parent="Universal/PauseUI" unique_id=631814322]
 layout_mode = 3
@@ -222,68 +247,6 @@ offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h6nsj")
-
-[node name="Restart" type="TextureButton" parent="Universal/PauseUI/Control/Rect" unique_id=891207455]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -176.54501
-offset_top = -92.0
-offset_right = -26.543945
-offset_bottom = 58.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_80ntc")
-stretch_mode = 0
-script = ExtResource("7_trony")
-
-[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Restart" unique_id=1713291764]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 31.0
-offset_top = 30.0
-offset_right = -31.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("18_sgf4h")
-
-[node name="Exit" type="TextureButton" parent="Universal/PauseUI/Control/Rect" unique_id=1377007631]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 25.0
-offset_top = -96.0
-offset_right = 175.0
-offset_bottom = 54.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = SubResource("AtlasTexture_80ntc")
-stretch_mode = 0
-script = ExtResource("7_trony")
-
-[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/Exit" unique_id=1151378517]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 29.0
-offset_top = 28.0
-offset_right = -27.0
-offset_bottom = -28.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_y3fcr")
 
 [node name="LevelName" type="Label" parent="Universal/PauseUI/Control/Rect" unique_id=876695465]
 layout_mode = 1
@@ -396,20 +359,126 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 128.0
-offset_top = -144.0
-offset_right = 274.0
-offset_bottom = -112.0
+offset_left = 126.0
+offset_top = -148.0
+offset_right = 272.0
+offset_bottom = -105.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("9_v5nhe")
-theme_override_font_sizes/font_size = 50
-text = "SFX
-"
+theme_override_font_sizes/font_size = 52
+text = "SFX"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ActionButtons" type="HBoxContainer" parent="Universal/PauseUI/Control/Rect" unique_id=982275882]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -341.0
+offset_top = -87.5
+offset_right = 341.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Restart" type="TextureButton" parent="Universal/PauseUI/Control/Rect/ActionButtons" unique_id=1010512453]
+texture_filter = 1
+custom_minimum_size = Vector2(145, 145)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 5
+script = ExtResource("7_trony")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/ActionButtons/Restart" unique_id=1713291764]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 45.0
+offset_right = -26.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_rot7d")
+
+[node name="Resume" type="TextureButton" parent="Universal/PauseUI/Control/Rect/ActionButtons" unique_id=831397162]
+texture_filter = 1
+custom_minimum_size = Vector2(175, 175)
+layout_mode = 2
+shortcut = SubResource("Shortcut_rot7d")
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 5
+script = ExtResource("7_trony")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/ActionButtons/Resume" unique_id=1510987678]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = 30.0
+offset_right = -31.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8m106")
+
+[node name="Exit" type="TextureButton" parent="Universal/PauseUI/Control/Rect/ActionButtons" unique_id=295418265]
+texture_filter = 1
+custom_minimum_size = Vector2(145, 145)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 5
+script = ExtResource("7_trony")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/ActionButtons/Exit" unique_id=1151378517]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 53.0
+offset_right = -32.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jyunc")
+
+[node name="Edit" type="TextureButton" parent="Universal/PauseUI/Control/Rect/ActionButtons" unique_id=593946293]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(145, 145)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_80ntc")
+stretch_mode = 5
+script = ExtResource("7_trony")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="TextureRect" type="TextureRect" parent="Universal/PauseUI/Control/Rect/ActionButtons/Edit" unique_id=934419200]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = 39.5
+offset_right = -25.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8f4cq")
+stretch_mode = 5
 
 [node name="EndAnimation" type="Node2D" parent="Universal" unique_id=724575211]
 
@@ -561,7 +630,74 @@ material = SubResource("ShaderMaterial_8f4cq")
 scale = Vector2(2, 2)
 texture = ExtResource("21_1gw2q")
 
-[node name="BG_triggers" type="Node" parent="." unique_id=334104004]
+[node name="Debug" type="CanvasLayer" parent="." unique_id=1638594149]
+
+[node name="Control" type="Control" parent="Debug" unique_id=1619274848]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Properties" type="VBoxContainer" parent="Debug/Control" unique_id=549083050]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="player_speed" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=220439350]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "speed"
+
+[node name="player_vel_y" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=845723378]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "velocity:y"
+
+[node name="player_pos_y" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=620850593]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "global_position:y"
+
+[node name="player_pos_x" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=1353948169]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "global_position:x"
+
+[node name="player_air_time" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=1469859871]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 1
+prop_name = "time_in_air"
+
+[node name="player_in_orb" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=212159211]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 2
+prop_name = "in_orb"
+
+[node name="player_can_move" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=1483512754]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 2
+prop_name = "can_move"
+
+[node name="player_alive" type="RichTextLabel" parent="Debug/Control/Properties" unique_id=151739568]
+custom_minimum_size = Vector2(324.24, 24.21)
+layout_mode = 2
+script = ExtResource("22_8f4cq")
+display_type = 2
+prop_name = "is_alive"
 
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Exit" to="." method="_exit_level"]
 [connection signal="pressed" from="Universal/EndAnimation/EndUI/NinePatchRect/Restart" to="." method="_restart"]

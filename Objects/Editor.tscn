@@ -120,14 +120,6 @@ Button/styles/hover = SubResource("StyleBoxTexture_aq6jn")
 Button/styles/normal = SubResource("StyleBoxTexture_khu03")
 Button/styles/pressed = SubResource("StyleBoxTexture_u5kxy")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ypo3h"]
-texture = ExtResource("5_m37bs")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 16.0
-region_rect = Rect2(32, 64, 32, 32)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_um3un"]
 texture = ExtResource("5_m37bs")
 texture_margin_left = 16.0
@@ -151,7 +143,7 @@ Button/constants/outline_size = 7
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("8_u03d0")
 Button/styles/focus = SubResource("StyleBoxEmpty_q4ti0")
-Button/styles/hover = SubResource("StyleBoxTexture_ypo3h")
+Button/styles/hover = SubResource("StyleBoxTexture_um3un")
 Button/styles/normal = SubResource("StyleBoxTexture_um3un")
 Button/styles/pressed = SubResource("StyleBoxTexture_rqgy1")
 
@@ -349,7 +341,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1280, 720)
 
 [node name="Line2D" type="Line2D" parent="Grid" unique_id=1826259718]
-points = PackedVector2Array(0, 94, 0, -7.226206, 0, -9874)
+points = PackedVector2Array(0, 1050.54, 0, -7.226206, 0, -9874)
 width = 2.0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=659548559]

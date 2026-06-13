@@ -14,33 +14,43 @@ var _playtesting : bool = false
 var _return_scene : String
 var _loaded_path : String
 
-@export var start_bg : Color
+@export_category("Config Values")
+@export var CAMERA_MOVE_OFFSET : float = 1.5
 
+var _debugging : bool
+@export var debug_properties : Control
+
+@export_category("Level Nodes")
 @export var player_parent : Node
 @export var ceiling : Node
 @export var ground : Node
 @export var level : Node
 @export var endpos : Node
 
+@export_category("UI Nodes")
 @export var pause_ui : Node
 @export var end_ui : Node
 @export var restart_button : TextureButton
 @export var exit_button : TextureButton
+@export var resume_button : TextureButton
+@export var edit_button : TextureButton
 
+@export_category("Effects")
 @export var end_effects : EndEffects
-@export var end_animation : Node
-
-@export var death_particle : Node
+@export var end_animation : AnimationPlayer
+@export var death_particle : GPUParticles2D
 
 var player : CharacterBody2D = null
 var player_cam : Camera2D = null
 
 var rect_x = 0
+var material_cache : MaterialCache = MaterialCache.new()
 
 var first_attempt = true
 var follow_cam = false
 var level_ended = false
 var obtain_endpos = true
+var _smoothing_delay : int = 1
 
 func _get_endpos() -> void:
 	var last_x = 0
@@ -75,6 +85,7 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	
 	if restart:
 		first_attempt = false
+		follow_cam = true
 	
 	if not playtesting:
 		GameProgress.current_level_id = level_data.meta.published_id
@@ -92,15 +103,24 @@ func load_level_data(new_level_data : LevelData, restart = false, playtesting = 
 	
 	exit_button.pressed.connect(_exit_level)
 	restart_button.pressed.connect(_restart)
+	resume_button.pressed.connect(_unpause)
+	if(playtesting):
+		edit_button.visible = true
+		edit_button.pressed.connect(_edit_level)
 	
 	emit_signal("loaded_level")
 
 func load_object(obj_id : int, uid : int, pos : Vector2, rot : float, other) -> void:
-	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other, true)
+	var object : GDObject = GDObject.create_object(obj_id, uid, pos, rot, other, material_cache, true)
 	level.call_deferred("add_child", object)
 
 func _ready() -> void:
-	initiate()
+	await initiate()
+	
+	_debugging = OS.has_feature("editor")
+	
+	if(_debugging):
+		_init_debug_labels()
 
 func initiate() -> void:
 	await loaded_level
@@ -108,10 +128,7 @@ func initiate() -> void:
 	
 	RenderingServer.global_shader_parameter_set("current_editor_layer", -1)
 	
-	GameProgress.in_game = true
-	GameProgress.run_music = true
-	
-	GameProgress.play_lvl_music_from_id(0)
+	GameProgress.stop_lvl_music()
 	
 	for child in player_parent.get_children():
 		if child.is_in_group("Player"):
@@ -119,26 +136,29 @@ func initiate() -> void:
 		if child.name == "Camera2D":
 			player_cam = child
 	
-	if player:
+	if(player):
 		player.changed_gamemode.connect(on_gamemode_change)
 		player.died.connect(player_died)
 		player.respawned.connect(player_respawn)
 		
+		player.global_position.x = -128
+		player.global_position.y = -8
+		
+		player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
+		player.change_gravity(level_data.meta.starting_gravity)
+	
+	if(player_cam):
+		
 		player_cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+		player_cam.position_smoothing_enabled = false
 	
 	ground.global_position = Vector2(40, 0)
-	
-	if player_cam and first_attempt:
-		player_cam.global_position.x = player.global_position.x + 200
-		player_cam.global_position.y = player.global_position.y - 16
-	elif player_cam:
-		follow_cam = true
 	
 	ColorManager.load_palette(level_data.meta.color_palette)
 
 func player_died() -> void:
 	follow_cam = false
-	GameProgress.run_music = false
+	first_attempt = false
 	GameProgress.stop_lvl_music()
 	
 	ColorManager._end_all_tweens()
@@ -147,103 +167,127 @@ func player_died() -> void:
 	death_particle.emitting = true
 
 func player_respawn() -> void:
-	GameProgress.play_lvl_music_from_id(0)
 	ColorManager.load_palette(level_data.meta.color_palette)
 	
 	end_animation.play("RESET")
 	player_cam.position_smoothing_enabled = false
 	player.velocity = Vector2.ZERO
-	player.gravity = player.CUBE_GRAVITY
+	
+	player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
+	player.change_gravity(level_data.meta.starting_gravity)
+	
 	player.global_position.x = -64
 	player.global_position.y = -8
 	
 	ground.global_position = Vector2(player.global_position.x + 3500, 0)
-	player_cam.global_position = Vector2(player.global_position.x, player.global_position.y - 16)
 	
+	_smoothing_delay = 1
 	follow_cam = true
 	
 	for object : GDObject in level.get_children():
 		if object.trigger:
 			object.trigger.call_deferred("set", "enabled", true)
 
-func on_gamemode_change(portal, gamemode) -> void:
+func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 	if portal:
-		if gamemode in ["cube"]:
-			ceiling.visible = false
-			
-			ground.global_position = Vector2(player.global_position.x + 3500, 0)
-			ceiling.global_position = Vector2(player.global_position.x + 3500, 1000)
-		elif gamemode in ["ship"]:
-			ceiling.visible = true
-			
-			var ground_pos : Vector2 = Vector2(player.global_position.x + 3500, portal.global_position.y + 88)
-			if ground_pos.y > 0:
-				ground_pos.y = 0
-			
-			ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-			ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-			
-			ground.global_position = ground_pos
-			ceiling.global_position = Vector2(player.global_position.x + 3500, ground.global_position.y - 176)
-			
-			ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
-			ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
-			
-			player_cam.global_position.y = ground.global_position.y - 88
-		elif gamemode in ["ball"]:
-			ceiling.visible = true
-			
-			ground.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y + 72)
-			ceiling.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y - 72)
-			
-			
-			if ground.global_position.y > 0:
-				ground.global_position.y = 0
-				ceiling.global_position.y = ground.global_position.y - 144
-			
-			player_cam.global_position.y = ground.global_position.y - 72
+		match gamemode:
+			0:  # cube
+				ceiling.visible = false
+				ground.global_position = Vector2(player.global_position.x + 3500, 0)
+				ceiling.global_position = Vector2(player.global_position.x + 3500, 1000)
+			1: # ship
+				ceiling.visible = true
+				
+				var ground_pos : Vector2 = Vector2(player.global_position.x + 3500, portal.global_position.y + 88)
+				if ground_pos.y > 0:
+					ground_pos.y = 0
+				
+				ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+				ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+				
+				ground.global_position = ground_pos
+				ceiling.global_position = Vector2(player.global_position.x + 3500, ground.global_position.y - 176)
+				
+				ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+				ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
+			2:  # ball
+				ceiling.visible = true
+				
+				ground.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y + 72)
+				ceiling.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y - 72)
+				
+				if ground.global_position.y > 0:
+					ground.global_position.y = 0
+					ceiling.global_position.y = ground.global_position.y - 144
 	else:
-		if gamemode in ["cube"]:
-			ground.global_position = Vector2(3500, 0)
-			ceiling.global_position = Vector2(3500, 1000)
-		elif gamemode in ["ship"]:
-			ceiling.visible = true
-			
-			ground.global_position.y = 0
-			ceiling.global_position.y = ground.global_position.y - 176
-		elif gamemode in ["ball"]:
-			ceiling.visible = true
-			
-			ground.global_position.y = 0
-			ceiling.global_position.y = ground.global_position.y - 112
+		match gamemode:
+			0:  # cube
+				ground.global_position = Vector2(3500, 0)
+				ceiling.global_position = Vector2(3500, 1000)
+				
+				player_cam.global_position = Vector2(128, -24)
+				
+			1:  # ship
+				ceiling.visible = true
+				
+				ground.global_position.y = 0
+				ceiling.global_position.y = ground.global_position.y - 176
+				
+				player_cam.global_position = Vector2(32, ground.global_position.y - 88)
+			2:  # ball
+				ceiling.visible = true
+				
+				ground.global_position.y = 0
+				ceiling.global_position.y = ground.global_position.y - 112
+				
+				player_cam.global_position = Vector2(32, ground.global_position.y - 56)
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	if obtain_endpos:
 		_get_endpos()
 		obtain_endpos = false
 	
 	if first_attempt:
+		follow_cam = false
 		if player.global_position.x >= player_cam.global_position.x:
 			first_attempt = false
 			follow_cam = true
 	
-	if follow_cam:
+	if (is_after_beginning() && GameProgress.run_music == false && player.is_alive):
 		GameProgress.run_music = true
+		GameProgress.play_lvl_music_from_id(0)
+	
+	if follow_cam:
 		player_cam.global_position.x = player.global_position.x
-		player_cam.position_smoothing_enabled = true
+		
+		if(_smoothing_delay > 0):
+			_smoothing_delay -= 1
+		else:
+			player_cam.position_smoothing_enabled = true
+		
+		match player.gamemode:
+			Player.GamemodeTypes.CUBE:
+				var offset : float = player.global_position.y - player_cam.global_position.y
+				if(abs(offset) > CAMERA_MOVE_OFFSET * 16):
+					player_cam.global_position.y = lerp(player_cam.global_position.y, player.global_position.y, 0.1)
+			Player.GamemodeTypes.SHIP:
+				player_cam.global_position.y = ground.global_position.y - 88
+			Player.GamemodeTypes.BALL:
+				player_cam.global_position.y = ground.global_position.y - 72
 		
 		endpos.global_position.y = player_cam.global_position.y
-		
-		if player.gamemode in ["cube"]:
-			player_cam.global_position.y = player.global_position.y - 16
 	
 	GameProgress.update_bar((player.global_position.x / endpos.global_position.x) * 100)
 	
 	if Input.is_action_just_pressed("ui_cancel") and not is_finishing():
-		get_tree().paused = !get_tree().paused
+		if(!get_tree().paused):
+			_pause()
+		else:
+			_exit_level()
 	
 	if is_finishing():
 		follow_cam = false
+		player.invulnerable = true
 		player.gravity = 10
 		player.velocity.y = -50
 		player.speed += 5
@@ -255,17 +299,20 @@ func _process(delta) -> void:
 func is_finishing() -> bool:
 	return player.global_position.x >= rect_x + 152
 
+func is_after_beginning() -> bool:
+	return player.global_position.x >= 0
+
 func _exit_level():
-	GameProgress.in_game = false
+	pause_ui.visible = false
 	GameProgress.music_to_load = 0
 	GameProgress.stop_lvl_music()
 	MenuMusic.start_music()
 	
 	match _return_scene:
 		"res://Scenes/Menus/LevelEditingMenu.tscn":
-			EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path))
+			SceneTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path))
 		_:
-			TransitionScene.change_scene("res://Scenes/Menus/CreateTab.tscn")
+			SceneTransition.change_scene("res://Scenes/Menus/CreateTab.tscn")
 
 func _end_level():
 	if _playtesting:
@@ -282,9 +329,32 @@ func _verify_level():
 	var entry_data = LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path)
 	ResourceLibrary.current_registry.update_entry_and_main_file(level_data.meta.local_id, entry_data, true)
 
+func _pause():
+	pause_ui.visible = true
+	get_tree().paused = true
+
+func _unpause():
+	get_tree().paused = false
+	pause_ui.visible=false
+
 func _restart():
 	GameProgress.stop_lvl_music()
 	get_tree().paused = false
 	
 	ResourceLibrary.free_objects.emit()
-	EditorTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
+	SceneTransition.load_game_from_data(level_data, true, _playtesting, _loaded_path, _return_scene)
+
+func _edit_level() -> void:
+	pause_ui.visible = false
+	GameProgress.music_to_load = 0
+	GameProgress.stop_lvl_music()
+	
+	if(_playtesting):
+		SceneTransition.load_editor(LevelRegistryEntry.generate_entry(level_data.meta, _loaded_path))
+
+func _init_debug_labels() -> void:
+	debug_properties.visible = true
+	
+	if(player):
+		for label : DebugPropertyLabel in debug_properties.get_children():
+			label.target = player

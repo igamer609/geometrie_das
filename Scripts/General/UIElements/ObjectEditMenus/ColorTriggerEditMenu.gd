@@ -47,6 +47,11 @@ func _ready() -> void:
 	
 	var color : Color = target_triggers[0].trigger.target_color
 	
+	if(current_channel < ColorManager.MAIN_CHANNELS.size()):
+		select_channel_button.text = ColorManager.MAIN_CHANNELS.find_key(current_channel)
+	else:
+		select_channel_button.text = str(current_channel - ColorManager.MAIN_CHANNELS.size() + 1)
+	
 	color_picker.color = color; current_color.color = color; previous_color.self_modulate = color
 	previous_color.pressed.connect(_update_color.bind(previous_color.self_modulate))
 	color_picker.color_changed.connect(_update_color)

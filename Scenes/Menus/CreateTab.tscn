@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://ck2m8uuj1ey40" path="res://Assets/menu_textures/menu2.png" id="3_gllmg"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="4_f6eml"]
 [ext_resource type="Texture2D" uid="uid://dvundmpl4njod" path="res://Assets/buttons/editor_tab_icons_sheet.png" id="5_26jw6"]
+[ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="6_2bmhj"]
+[ext_resource type="Texture2D" uid="uid://c4rbj4m7l8xxt" path="res://Assets/icon_sheet_1.png" id="7_guh2l"]
 
 [sub_resource type="Gradient" id="Gradient_dobci"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -38,6 +40,10 @@ region = Rect2(96, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2bmhj"]
 atlas = ExtResource("5_26jw6")
 region = Rect2(0, 0, 37.056, 33.782)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r474e"]
+atlas = ExtResource("7_guh2l")
+region = Rect2(32, 3, 32, 18)
 
 [node name="CreateTab" type="Control" unique_id=1758738328]
 layout_mode = 3
@@ -159,7 +165,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Exit" type="TextureButton" parent="." unique_id=1433520157]
-self_modulate = Color(1, 0.894118, 0.890196, 1)
 texture_filter = 1
 layout_mode = 0
 offset_left = 11.0
@@ -207,5 +212,56 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_2bmhj")
 stretch_mode = 5
+
+[node name="Empty" type="Control" parent="." unique_id=204198794]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Empty" unique_id=286854062]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.5
+offset_top = -19.0
+offset_right = 250.5
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_2bmhj")
+theme_override_constants/line_spacing = 8
+theme_override_font_sizes/font_size = 40
+text = "No creations found.
+
+Click the edit button
+to create a level :)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Empty" unique_id=392406403]
+modulate = Color(1, 0.64910877, 0.6315303, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -174.0
+offset_right = 33.579834
+offset_bottom = -135.15771
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 3.1415927
+mouse_filter = 2
+texture = SubResource("AtlasTexture_r474e")
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

@@ -5,14 +5,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxpeg"]
 size = Vector2(4, 7)
 
-[node name="Spike" type="Area2D" unique_id=1364647730]
+[node name="Spike" type="Area2D" unique_id=144647633]
 rotation = -1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1196476584]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=8132015]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_jxpeg")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=434712314]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=409011663]
 texture_filter = 1
 texture = ExtResource("2_gcy5k")
 region_enabled = true

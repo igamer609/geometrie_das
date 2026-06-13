@@ -10,12 +10,12 @@ shader = ExtResource("2_pnifl")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qs08e"]
 size = Vector2(6.66667, 21.3333)
 
-[node name="Normal Gravity" type="Area2D" unique_id=1829035375 groups=["gamemode_portal"]]
+[node name="Normal Gravity" type="Area2D" unique_id=453926578 groups=["gamemode_portal"]]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_oqnnb")
 portal_type = 0
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=511243457]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=362855747]
 texture_filter = 1
 material = SubResource("ShaderMaterial_t06y3")
 scale = Vector2(0.8, 0.8)
@@ -23,7 +23,7 @@ texture = ExtResource("2_k3vns")
 region_enabled = true
 region_rect = Rect2(61, 33, 11, 27)
 
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=861098406]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=2015829302]
 position = Vector2(-0.666667, -4.76837e-07)
 shape = SubResource("RectangleShape2D_qs08e")
 debug_color = Color(0, 0.6, 0.701961, 0)

@@ -8,9 +8,11 @@ class_name LevelMeta extends Resource
 
 @export var title: String = ""
 @export var author: String = ""
+@export var author_id: int = -1
 @export var description: String = ""
 @export var song_id: int = 1
 @export var length: float = 0.0
+@export var rate_req: int = 0
 
 @export_category("Internal")
 @export var local_id: String = ""
@@ -26,35 +28,23 @@ class_name LevelMeta extends Resource
 @export var feature_level : int = 0
 
 @export_category("Editor")
-
 @export var color_palette : GDColorPalette = GDColorPalette.default_palette(ColorManager.max_channels)
+@export var starting_gamemode : int = 0
+@export var starting_gravity : int = 1
 @export var last_uid: int = 0
 @export var song_offset: float = 0.0
+@export var last_cam_pos : Vector2 = Vector2.ZERO
 @export var verified: int = 0
 
 func to_dict() -> Dictionary:
 	return {
 		"title": title,
-		"author": author,
 		"description": description,
 		"song_id": song_id,
 		"length": length,
-
-		"local_id": local_id,
-		"published_id": published_id,
+		"rate_req": rate_req,
 		"original_id": original_id,
 		"version": version,
-
-		"downloads": downloads,
-		"likes": likes,
-		"avg_rating": avg_rating,
-		"rating": rating,
-		"feature_level": feature_level,
-
-		"color_palette": color_palette.to_dict(), 
-		"last_uid": last_uid,
-		"song_offset": song_offset,
-		"verified": verified
 	}
 
 static func from_dict(data: Dictionary) -> LevelMeta:

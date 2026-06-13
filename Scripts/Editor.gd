@@ -19,6 +19,8 @@ var swipe_start : Vector2
 var swipe_rect : Rect2
 var current_editor_layer : int
 
+var obj_count : int = 0
+
 @onready var camera : Camera2D = $Camera
 @onready var level : Node2D = $Level
 @onready var ui : CanvasLayer = $Editor_Object/UI_Layer
@@ -62,6 +64,7 @@ var _level_meta : LevelMeta = LevelMeta.new()
 var _level_path : String
 
 var _current_spacial_index : Dictionary[Vector2, Array] = {}
+var material_cache : MaterialCache = MaterialCache.new()
 
 var selection_center : Node2D = null
 
@@ -130,11 +133,24 @@ func _get_data_of_objects(objects : Array[Node]) -> Array:
 
 func _load_obj(obj_id : int,  pos : Vector2, rot : float, other : Dictionary) -> GDObject: 
 	last_uid += 1
-	var object : GDObject = GDObject.create_object(obj_id, last_uid, pos, rot, other)
+	obj_count += 1
+	var object : GDObject = GDObject.create_object(obj_id, last_uid, pos, rot, other, material_cache)
 	
 	if not _current_spacial_index.has(pos):
 		_current_spacial_index[pos] = []
 	_current_spacial_index[pos].append(object)
+	
+	level.add_child(object)
+	return object
+
+func _duplicate_obj(obj : GDObject, new_pos : Vector2, new_rot : float) -> GDObject:
+	last_uid += 1
+	obj_count += 1
+	var object : GDObject = GDObject.duplicate_object(obj, last_uid, new_pos, new_rot)
+	
+	if not _current_spacial_index.has(new_pos):
+		_current_spacial_index[new_pos] = []
+	_current_spacial_index[new_pos].append(object)
 	
 	level.add_child(object)
 	return object
@@ -190,6 +206,9 @@ func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 	if(_level_meta.color_palette.color_palette.is_empty()):
 		_level_meta.color_palette = GDColorPalette.default_palette(ColorManager.max_channels)
 	
+	camera.global_position = _level_meta.last_cam_pos
+	update_grid_position()
+	
 	ColorManager.load_palette(_level_meta.color_palette)
 	
 	_load_level(lvl_data.objects)
@@ -197,18 +216,14 @@ func load_level_from_data(lvl_data : LevelData, path) ->  bool:
 
 func _initialise_top_bar():
 	for button in top_bar.get_children():
-		if button.name == "Delete":
-			button.pressed.connect(delete_objects)
-		elif button.name == "Menu":
-			button.pressed.connect(_change_menu_state)
-		elif button.name == "Undo":
-			button.pressed.connect(history.undo)
-		elif button.name == "Redo":
-			button.pressed.connect(history.redo)
-		elif button.name == "ZoomIn":
-			button.pressed.connect(_zoom.bind(0.3))
-		elif button.name == "ZoomOut":
-			button.pressed.connect(_zoom.bind(-0.3))
+		match button.name:
+			"Delete": button.pressed.connect(delete_objects)
+			"Menu": button.pressed.connect(_change_menu_state)
+			"LevelSettings": button.pressed.connect(_open_level_settings)
+			"Undo": button.pressed.connect(history.undo)
+			"Redo": button.pressed.connect(history.redo)
+			"ZoomIn": button.pressed.connect(_zoom.bind(0.3))
+			"ZoomOut": button.pressed.connect(_zoom.bind(-0.3))
 
 func _initialise_tabs():
 	var tab_group = ButtonGroup.new()
@@ -257,13 +272,14 @@ func _save_and_exit():
 	
 	MenuMusic.start_music()
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
+	
+	SceneTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
 
 func _save_and_play():
 	_save_level()
 	
 	history.clear_history()
-	EditorTransition.load_game_from_entry(LevelRegistryEntry.generate_entry(_level_meta, _level_path), true, "res://Scenes/Menus/LevelEditingMenu.tscn")
+	SceneTransition.load_game_from_entry(LevelRegistryEntry.generate_entry(_level_meta, _level_path), true, "res://Scenes/Menus/LevelEditingMenu.tscn")
 
 func _exit():
 	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog
@@ -274,7 +290,7 @@ func _exit():
 	var lvl_res : LevelData = load(_level_path) as LevelData
 	
 	history.clear_history()
-	EditorTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
+	SceneTransition.load_level_edit_menu(LevelRegistryEntry.generate_entry(_level_meta, _level_path))
 
 func _change_editor_mode(new_mode):
 	if new_mode != edit_mode:
@@ -373,7 +389,7 @@ func _zoom(amount : float) -> void:
 	zoom_multiplier = clamp(zoom_multiplier, 0.3, 2.1)
 	#TransitionScene.show_message("x" + str(zoom_multiplier))
 	camera.zoom = Vector2(3 * zoom_multiplier, 3 * zoom_multiplier)
-	update_grid_position()
+	call_deferred("update_grid_position")
 
 func _box_select() -> void:
 	for object in level.get_children():
@@ -660,11 +676,12 @@ func rotate_objects(direction):
 func copy_objects():
 	clipboard.clear()
 	
-	for object in selected_objects:
+	for object : GDObject in selected_objects:
 		var obj_pos = camera.to_local(object.global_position)
 		var obj_rot = object.global_rotation
+		var  obj_other = object.other
 		
-		clipboard.append([object, obj_pos, obj_rot])
+		clipboard.append([object, obj_pos, obj_rot, obj_other])
 
 func paste_objects():
 	if len(clipboard) >= 1:
@@ -676,7 +693,8 @@ func paste_objects():
 		var pasted_objects = []
 		
 		for object in clipboard:
-			var new_object : GDObject = _load_obj(object[0].obj_res.id, Vector2(snapped((camera.to_global(object[1])).x, 16) , snapped((camera.to_global(object[1])).y, 16) ), object[2], object[3])
+			var projected_pos : Vector2 = Vector2(snapped((camera.to_global(object[1])).x, 16) , snapped((camera.to_global(object[1])).y, 16))
+			var new_object : GDObject = _duplicate_obj(object[0], projected_pos, object[2])
 			
 			pasted_objects.append(new_object)
 			
@@ -698,7 +716,7 @@ func duplicate_objects():
 	
 	for obj : GDObject in objects_to_duplicate:
 		
-		var object = _load_obj(obj.obj_res.id, obj.global_position, obj.global_rotation, obj.other)
+		var object = _duplicate_obj(obj, obj.global_position, obj.global_rotation)
 
 		select_object(object, true)
 		
@@ -778,8 +796,8 @@ func _process(_delta):
 func update_grid_position():
 	var camera_pos : Vector2 = camera.global_position
 	var target_grid_position : Vector2 = Vector2(snapped(camera_pos.x  - (grid.region_rect.size.x / 4), 16), snapped(camera_pos.y + (grid.region_rect.size.y / 4), 16))
-	
-	var camera_rect : Vector2 = get_viewport_rect().size * 3 / camera.zoom
+	_level_meta.last_cam_pos = camera_pos
+	var camera_rect : Vector2 = get_viewport_rect().size * 3  / camera.zoom
 	grid.region_rect.size = camera_rect
 	
 	if target_grid_position.x < 0:
@@ -791,8 +809,9 @@ func update_grid_position():
 
 func _add_object_to_level(object : Node2D):
 	if object.get_parent() != level:
+		object._show()
 		level.add_child(object)
-		
+		obj_count += 1
 		_current_spacial_index[object.global_position].append(object)
 
 func _remove_object_from_level(object : Node2D):
@@ -801,7 +820,9 @@ func _remove_object_from_level(object : Node2D):
 	if _current_spacial_index.has(object.global_position):
 		_current_spacial_index[object.global_position].erase(object)
 	if object.get_parent() == level:
+		object._hide()
 		level.remove_child(object)
+		obj_count -= 1
 	else:
 		pass
 
@@ -832,3 +853,8 @@ func _create_object_edit_menu() -> void:
 				var obj_edit_menu = ResourceLibrary.scenes["ColorTriggerEdit"].instantiate()
 				obj_edit_menu.target_triggers = selected_objects
 				ui.add_child(obj_edit_menu)
+
+func _open_level_settings() -> void:
+	var settings_menu = ResourceLibrary.scenes["LevelSettings"].instantiate()
+	settings_menu.level = _level_meta
+	ui.add_child(settings_menu)

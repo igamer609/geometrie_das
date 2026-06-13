@@ -1,3 +1,22 @@
+# Geometrie Das 2.0 Beta 6
+First actual relatively stable version of Geometrie Das
+> Main levels are still completely broken, but next update will include the last features required for proper level making
+> Player data has been remade, all progress and icon selections will be lost (not that there is much to actually be saved). Levels will remain intact as they are not part of the player data save file.
+- Fixed paste and duplicate (copy+paste) functionality
+- Updated how objects are created
+- Remade how objects use shaders (instead of instance uniforms, they use a cache of different shader materials with the appropiate properties) as instance uniforms were too limited.
+- Added a basic API management autoload to help provide online functionality in the future (not yet in use)
+- Added setting for levels (starting gamemode. song, main color channels like background or objects, gravity and more to come)
+- Remade camera movement handling in level
+- Added an air time counter to kill the player if they are falling for too long without changing gamemode, hitting an orb or pad etc. (when in any gamemode without a ceiling, like the cube)
+- Updated player data to use custom resources.
+- Added resume (and edit when playtesting) button to levels. Pressing escape while paused will now exit the level.
+- Changed pause menu behaviour to be more deterministic (i think that's the correct term)
+- Added debug labels that display properties of the player (to be extended to other things) during gameplay. Only shows when playing from the Godot Editor or from a debug build.
+- Level music now starts only when the player reaches x = 0
+- Camera position in the editor saved
+- Added a way to set a color channel to copy another one
+
 # Geometrie Das 2.0 Beta 5 (beta 4 never existed ahahahaha)
 
 > *Note:* to open the project, it is recommended you update all UID's using `Project>Tools>Upgrade Project Files`. I use Godot 4.6. Probably UID's got corrupted when I merged from the `dev` branch.

@@ -5,7 +5,7 @@
 #	"Love you, RubRub" - igamer
 # ----------------------------------------------------------
 
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 signal changed_gamemode(last_portal, mode)
 signal died()
 signal respawned()
@@ -27,12 +27,13 @@ signal respawned()
 
 const SCALE_MULTIPLIER : float = 10.8
 
-const CUBE_JUMP_VELOCITY : float = 23.5 * SCALE_MULTIPLIER
+const CUBE_JUMP_VELOCITY : float = 24 * SCALE_MULTIPLIER
+const AIR_TIME_LIMIT : int =  4
 
 const SHIP_MAX_VEL : int = 180
 const SHIP_THRUST : float = 4
 
-const CUBE_GRAVITY : float = 93 * SCALE_MULTIPLIER
+const CUBE_GRAVITY : float = 92.25 * SCALE_MULTIPLIER
 const SHIP_GRAVITY : float = 1.7
 const BALL_GRAVITY : float = 4
 
@@ -41,16 +42,20 @@ const WALL_RAY_MARGIN : float = 0.5
 
 enum jump_types {pink = 200, yellow = 275}
 
-var speed : int = 130
+var speed : float = 127.35
 
 @export var gravity_reverse : bool = true
 var gravity_multiplier : int = 1
 @export var gravity : int = 50
 
+const GAMEMODE_NAMES : Array[String] = ["cube", "ship", 'ball']
 enum GamemodeTypes {CUBE, SHIP, BALL}
-@export var gamemode : String = "cube"
+@export var gamemode : GamemodeTypes = GamemodeTypes.CUBE
+
+var is_alive : bool = true
 
 var can_move : bool = true
+var invulnerable : bool = false
 var consecutive_jumps : int = 0
 var time_in_air : float = 0
 
@@ -61,21 +66,21 @@ var orb_buffer : bool = false
 
 func _ready():
 	_check_icons()
-	change_gravity(1)
 	#Engine.time_scale = 0.2
 
 func _check_icons():
 	for sprite in $Sprites.get_children():
 			if sprite.name == "cube":
-				sprite.region_rect = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
 			elif sprite.name == "ship":
-				sprite.region_rect = Rect2(PlayerData.ship_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.ship_id * 16, 0, 16, 16)
 				for child in sprite.get_children():
-					child.region_rect = Rect2(PlayerData.cube_id * 16, 0, 16, 16)
+					child.region_rect = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
 			elif sprite.name == "ball":
-				sprite.region_rect = Rect2(PlayerData.ball_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.ball_id * 16, 0, 16, 16)
 
 func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
+	
 	if new_gamemode == 0:
 		if gravity_multiplier != 1:
 			velocity.y = velocity.y * 0.75
@@ -86,24 +91,29 @@ func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
 		change_gravity(-1)
 	elif new_gamemode == 2:
 		head_hitbox.set_deferred("disabled", true)
-		gamemode = "cube"
+		
+		if(gamemode != GamemodeTypes.CUBE):
+			time_in_air = 0
+		
+		gamemode = GamemodeTypes.CUBE
+		
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 3:
 		head_hitbox.set_deferred("disabled", false)
-		gamemode = "ship"
+		gamemode = GamemodeTypes.SHIP
 		$Sprites.rotation_degrees = velocity.y / PI
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	elif new_gamemode == 4:
 		head_hitbox.set_deferred("disabled", false)
 		
-		if gamemode == "cube" and (velocity.y * gravity_multiplier < -10 or Input.is_action_just_pressed("Jump")):
+		if gamemode == GamemodeTypes.CUBE and (velocity.y * gravity_multiplier < -10 or Input.is_action_pressed("Jump")):
 			velocity.y -= SCALE_MULTIPLIER * 5 * gravity_multiplier
 		
-		gamemode = "ball"
+		gamemode = GamemodeTypes.BALL
 		emit_signal("changed_gamemode", last_portal, gamemode)
 	
 	for sprite in $Sprites.get_children():
-			if sprite.name != gamemode:
+			if sprite.name != GAMEMODE_NAMES[gamemode]:
 				sprite.visible = false
 			else:
 				sprite.visible = true
@@ -117,19 +127,19 @@ func _physics_process(delta : float) -> void:
 		if not is_on_floor() and Input.is_action_just_pressed("Jump"):
 			orb_buffer = true
 
-		if gamemode == "cube":
+		if gamemode == GamemodeTypes.CUBE:
 			_process_cube_physics(delta)
-		elif gamemode == "ship":
+		elif gamemode == GamemodeTypes.SHIP:
 			_process_ship_physics(delta)
-		elif gamemode == "ball":
+		elif gamemode == GamemodeTypes.BALL:
 			_process_ball_physics(delta)
 		
 		move_and_slide()
 		
-		if gamemode == "cube":
+		if gamemode == GamemodeTypes.CUBE:
 			if is_really_on_surface():
 				snap_to_surface()
-		elif gamemode == "ship" or gamemode == "ball":
+		elif gamemode == GamemodeTypes.SHIP or gamemode == GamemodeTypes.BALL:
 			if not Input.is_action_pressed("Jump"):
 				snap_to_surface()
 	else:
@@ -138,12 +148,15 @@ func _physics_process(delta : float) -> void:
 func _process_cube_physics(delta : float) -> void:
 	
 	velocity.y += CUBE_GRAVITY * gravity_multiplier * delta
+	time_in_air += delta
 	var hit_orb : bool = _check_orbs()
 	
 	if not hit_orb:
 		if Input.is_action_pressed("Jump"):
 				if is_really_on_surface():
+					time_in_air = 0
 					velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier
+					
 					if consecutive_jumps > 1:
 						velocity.y -= (SCALE_MULTIPLIER + 3) * gravity_multiplier
 					consecutive_jumps += 1
@@ -153,10 +166,11 @@ func _process_cube_physics(delta : float) -> void:
 	if Input.is_action_pressed("Jump") or not is_really_on_surface():
 		$Sprites.rotate(deg_to_rad(1.42 * gravity_multiplier))
 	elif is_really_on_surface() and not Input.is_action_pressed("Jump"):
-		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.1)
+		time_in_air = 0
+		$Sprites.rotation_degrees = lerp($Sprites.rotation_degrees, round($Sprites.rotation_degrees/90) * 90, 0.085)
 	
-	if velocity.y > 700:
-		velocity.y = 700
+	if velocity.y > 500:
+		velocity.y = 500
 	elif velocity.y < -500:
 		velocity.y = -500
 	
@@ -167,8 +181,11 @@ func _process_cube_physics(delta : float) -> void:
 		surface_hitbox.disabled = true
 	elif not is_headed_into_wall():
 		surface_hitbox.disabled = false
+	
+	if(floor(time_in_air) >= AIR_TIME_LIMIT && !invulnerable):
+		die()
 
-func _process_ship_physics(delta : float) -> void:
+func _process_ship_physics(_delta : float) -> void:
 	
 	velocity.y += SHIP_GRAVITY * gravity_multiplier
 	orb_buffer = false
@@ -200,7 +217,7 @@ func _process_ship_physics(delta : float) -> void:
 	else:
 		surface_hitbox.disabled = false
 
-func _process_ball_physics(delta : float) -> void:
+func _process_ball_physics(_delta : float) -> void:
 	
 	velocity.y += BALL_GRAVITY * gravity_multiplier
 	var hit_orb : bool = _check_orbs()
@@ -251,12 +268,18 @@ func _check_orbs() -> bool:
 	return false
 
 func die():
+	is_alive = false
 	emit_signal("died")
+	
 	orb_buffer = false
 	orb_queue.clear()
-	can_move = false
+	time_in_air = 0
+	
 	visible = false
+	
+	can_move = false
 	velocity = Vector2.ZERO
+	
 	$DeathSFX.play()
 	$Respawn.start()
 
@@ -367,12 +390,14 @@ func _on_detect_area_exited(area : Area2D):
 			orb_queue.remove_at(orb_index)
 
 func _on_respawn_timeout():
-	change_gamemode(2, null)
-	change_gravity(1)
 	$Sprites.global_rotation_degrees = 0
 	visible = true
+	
+	invulnerable = false
 	can_move = true
+	
 	emit_signal("respawned")
+	is_alive = true
 
 func _on_platform_collision(_body: Node2D) -> void:
 	die()
