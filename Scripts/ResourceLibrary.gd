@@ -61,6 +61,9 @@ func _preload_scenes() -> void:
 	
 	_is_loading = true
 
+func _remove_all_objects() -> void:
+	free_objects.emit()
+
 func _process(_delta: float) -> void:
 	if not _is_loading:
 		return

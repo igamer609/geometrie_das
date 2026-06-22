@@ -17,7 +17,7 @@ fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
 metadata/_snap_count = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ccc2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7nbq"]
 atlas = ExtResource("2_lrw8v")
 region = Rect2(32, 0, 32, 32)
 
@@ -70,43 +70,44 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_avu8y")
 
-[node name="Corner" type="TextureRect" parent="Background" unique_id=236838222]
+[node name="Corner" type="TextureRect" parent="Background" unique_id=1118243007]
 clip_children = 2
 texture_filter = 1
 layout_mode = 0
-offset_left = 162.0
-offset_right = 324.0
-offset_bottom = 162.0
+offset_left = 120.00015
+offset_top = -0.00015203904
+offset_right = 240.0003
+offset_bottom = 120.0
 rotation = 1.5708
-texture = SubResource("AtlasTexture_5ccc2")
+texture = SubResource("AtlasTexture_d7nbq")
 
-[node name="Corner2" type="TextureRect" parent="Background" unique_id=1181363693]
+[node name="Corner2" type="TextureRect" parent="Background" unique_id=1107294699]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_top = 162.0
-offset_right = 162.0
-offset_bottom = 324.0
+offset_top = 120.0
+offset_right = 120.0
+offset_bottom = 240.00006
 grow_horizontal = 0
 rotation = 3.14159
-texture = SubResource("AtlasTexture_5ccc2")
+texture = SubResource("AtlasTexture_d7nbq")
 
-[node name="Corner3" type="TextureRect" parent="Background" unique_id=1325228950]
+[node name="Corner3" type="TextureRect" parent="Background" unique_id=7069103]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -162.0
-offset_right = 162.0
+offset_top = -120.0
+offset_right = 120.0
 grow_vertical = 0
-texture = SubResource("AtlasTexture_5ccc2")
+texture = SubResource("AtlasTexture_d7nbq")
 
-[node name="Corner4" type="TextureRect" parent="Background" unique_id=564554874]
+[node name="Corner4" type="TextureRect" parent="Background" unique_id=2012958394]
 clip_children = 2
 texture_filter = 1
 layout_mode = 1
@@ -115,13 +116,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -162.0
-offset_top = 1.0
-offset_bottom = 163.0
+offset_left = -120.0
+offset_top = 1.000061
+offset_bottom = 121.00012
 grow_horizontal = 0
 grow_vertical = 0
 rotation = 4.71239
-texture = SubResource("AtlasTexture_5ccc2")
+texture = SubResource("AtlasTexture_d7nbq")
 
 [node name="Exit" type="TextureButton" parent="." unique_id=848518663]
 texture_filter = 1

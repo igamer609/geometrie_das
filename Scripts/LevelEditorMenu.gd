@@ -33,7 +33,7 @@ var _is_verified : bool = false
 var text_box_limit = ["$", "#", "@", "!", "%", "^", "&", "*", "(", ")", "'", '"']
 
 func _generate_unique_id() -> int:
-	var time : int = Time.get_unix_time_from_system()
+	var time : int = int(Time.get_unix_time_from_system() * 10)
 	var rand : int = randi() % 10000 + 1
 	return time * 10000 + rand
 
@@ -59,7 +59,7 @@ func load_level(loaded_level : LevelRegistryEntry) -> void:
 		_is_verified = true
 		status_label.text = "Verified"
 	
-	_update_length_label(level.meta.length)
+	_update_length_label(ceili(level.meta.length))
 	
 	title_box.text = level.meta.title
 	description_box.text = level.meta.description

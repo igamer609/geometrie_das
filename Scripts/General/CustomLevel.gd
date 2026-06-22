@@ -255,7 +255,7 @@ func _process(_delta) -> void:
 	
 	if (is_after_beginning() && GameProgress.run_music == false && player.is_alive):
 		GameProgress.run_music = true
-		GameProgress.play_lvl_music_from_id(0)
+		GameProgress.play_lvl_music_from_id(0, level_data.meta.song_offset)
 	
 	if follow_cam:
 		player_cam.global_position.x = player.global_position.x

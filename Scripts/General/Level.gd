@@ -42,7 +42,7 @@ func initiate():
 	GameProgress.in_game = true
 	GameProgress.run_music = true
 	
-	GameProgress.play_lvl_music_from_id(music_delay)
+	GameProgress.play_lvl_music_from_id(music_delay, 0)
 	
 	for child in player_parent.get_children():
 		if child.is_in_group("Player"):
@@ -87,7 +87,7 @@ func player_died():
 	GameProgress.check_progress((player.global_position.x / endpos.global_position.x) * 100)
 
 func player_respawn():
-	GameProgress.play_lvl_music_from_id(music_delay)
+	GameProgress.play_lvl_music_from_id(music_delay, 0)
 	
 	for trigger in $BG_triggers.get_children():
 		trigger.enabled = true

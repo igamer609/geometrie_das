@@ -86,7 +86,7 @@ func load_editor(level_entry: LevelRegistryEntry) -> void:
 	
 	var root = get_editor_root()
 	var loaded_level : LevelData = load(level_entry.ref)
-	await root.load_level_from_data(loaded_level, level_entry.ref)
+	root.initialize_level_data(loaded_level, level_entry.ref)
 	
 	get_tree().paused = false
 	

@@ -56,7 +56,7 @@ func update_bar(procent):
 		visible = false
 		$Container/Bar.value = 0
 
-func play_lvl_music_from_id(delay):
+func play_lvl_music_from_id(delay, start_offset):
 	if music_to_load:
 		var audio_to_play = ResourceLibrary.song_ids[music_to_load][0]
 		$AudioStreamPlayer.stream = audio_to_play
@@ -70,7 +70,7 @@ func play_lvl_music_from_id(delay):
 			await timer.timeout
 			get_tree().queue_delete(timer)
 		
-		$AudioStreamPlayer.play()
+		$AudioStreamPlayer.play(start_offset)
 		run_music = true
 
 func stop_lvl_music():

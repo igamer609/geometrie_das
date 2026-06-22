@@ -17,17 +17,17 @@ const _REGISTRY_PATHS : Dictionary = {
 @export var levels: Dictionary = {}
 @export var order: Array = []
 
-static func create_registry(type : RegistryType) -> LevelRegistry:
+static func create_registry(_type : RegistryType) -> LevelRegistry:
 	var registry : LevelRegistry = LevelRegistry.new()
-	registry.type = type
+	registry.type = _type
 	
-	if type != RegistryType.NONE:
+	if _type != RegistryType.NONE:
 		if registry._check_registry_availability():
-			registry = load(_REGISTRY_PATHS[type])
+			registry = load(_REGISTRY_PATHS[_type])
 		
 		if not registry:
 			registry = LevelRegistry.new()
-			registry.type = type
+			registry.type = _type
 			registry._check_registry_availability()
 	
 	return registry

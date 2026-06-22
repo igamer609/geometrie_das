@@ -168,7 +168,7 @@ func check_editor_layer(new_layer : int) -> void:
 		pass
 
 func update_color_channel() -> void:
-	if(obj_sprite):
+	if(obj_sprite && !is_selected):
 		obj_sprite.material = material_cache.get_material(color_channel, editor_layer)
 
 func get_selection_rect() -> Rect2:
@@ -197,10 +197,11 @@ func _hide() -> void:
 			collision.disabled = true
 
 func _show() -> void:
-	if obj_res.is_scene and scene != null and scene.get_parent() == null:
+	if(obj_res.is_scene && scene && !scene.get_parent()):
 		scene_parent.add_child(scene)
 	elif(obj_sprite):
-		call_deferred("add_child", obj_sprite)
+		if(!obj_sprite.get_parent()):
+			call_deferred("add_child", obj_sprite)
 	
 	if(obj_sprite):
 		if not in_level:

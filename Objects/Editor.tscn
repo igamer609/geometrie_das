@@ -3,7 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://b2kw7xp5t2kvg" path="res://Scenes/editor/grid.png" id="1_0y7rc"]
 [ext_resource type="Script" uid="uid://dqn2hmigqedje" path="res://Scripts/Editor.gd" id="1_id040"]
 [ext_resource type="Texture2D" uid="uid://dwgxugj1r3i07" path="res://Assets/Bg.png" id="1_ojbeb"]
+[ext_resource type="Script" uid="uid://dhj3l0px016p7" path="res://Scripts/Editor/InputController.gd" id="2_g6r6n"]
+[ext_resource type="Script" uid="uid://cb2yfwjfm0pjk" path="res://Scripts/Editor/ObjectSystem.gd" id="2_t2ba8"]
+[ext_resource type="Shader" uid="uid://bmxyj2v0g7jcl" path="res://Scenes/shader/Object.gdshader" id="2_u5kxy"]
+[ext_resource type="Script" uid="uid://dvtjhomgs683a" path="res://Scripts/Editor/UISystem.gd" id="3_g6r6n"]
+[ext_resource type="Script" uid="uid://bgdkf1b1c20ip" path="res://Scripts/Editor/CameraController.gd" id="4_po6up"]
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="5_m37bs"]
+[ext_resource type="Script" uid="uid://bttav5c7n8d6s" path="res://Scripts/Editor/SaveLoadSystem.gd" id="5_s1emi"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_vdfow"]
 [ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="6_aq6jn"]
 [ext_resource type="Theme" uid="uid://dnwaens5txhow" path="res://Assets/themes/editor_item.tres" id="6_x4tf7"]
@@ -16,6 +22,13 @@
 [ext_resource type="Script" uid="uid://p47v4tspphpn" path="res://Scripts/General/UIElements/GDNumberSpin.gd" id="11_khu03"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="12_khu03"]
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
+[ext_resource type="Script" uid="uid://vowryoc212x" path="res://Scripts/Editor/RenderOverlay.gd" id="23_po6up"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ypo3h"]
+shader = ExtResource("2_u5kxy")
+shader_parameter/channel_id = 0
+shader_parameter/is_selected = false
+shader_parameter/editor_layer = -1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3xft"]
 atlas = ExtResource("5_m37bs")
@@ -273,6 +286,26 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("7_m37bs")
 region = Rect2(65, 2, 23, 22)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2ba8"]
+atlas = ExtResource("10_m37bs")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ij458"]
+atlas = ExtResource("10_m37bs")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlmkg"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(70, 39, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n476"]
+atlas = ExtResource("10_m37bs")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ljs1"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(94, 39, 21, 21)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_um3un"]
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
@@ -289,10 +322,6 @@ region = Rect2(128, 0, 32, 32)
 atlas = ExtResource("7_m37bs")
 region = Rect2(77, 26, 9, 10.48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t2ba8"]
-atlas = ExtResource("10_m37bs")
-region = Rect2(96, 0, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_g6r6n"]
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
@@ -301,9 +330,55 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
 
-[node name="Editor" type="Node2D" unique_id=1935897522]
+[node name="Editor" type="Node2D" unique_id=1935897522 node_paths=PackedStringArray("input_controller", "obj_system", "cam_controller", "ui_system")]
 physics_interpolation_mode = 2
 script = ExtResource("1_id040")
+input_controller = NodePath("InputController")
+obj_system = NodePath("ObjectSystem")
+cam_controller = NodePath("CameraController")
+ui_system = NodePath("UISystem")
+
+[node name="InputController" type="Node" parent="." unique_id=46434842 node_paths=PackedStringArray("editor")]
+script = ExtResource("2_g6r6n")
+editor = NodePath("..")
+
+[node name="ObjectSystem" type="Node" parent="." unique_id=440295848 node_paths=PackedStringArray("editor", "input_controller", "level", "camera")]
+script = ExtResource("2_t2ba8")
+editor = NodePath("..")
+input_controller = NodePath("../InputController")
+level = NodePath("../Level")
+camera = NodePath("../Camera")
+
+[node name="UISystem" type="Node" parent="." unique_id=1647001883 node_paths=PackedStringArray("editor", "obj_system", "cam_controller", "ui", "editor_menu", "top_bar", "action_grid", "item_tab", "edit_tab", "editor_tabs", "move_container", "other_edit_buttons", "quick_options", "editor_layer_spinbox")]
+script = ExtResource("3_g6r6n")
+editor = NodePath("..")
+obj_system = NodePath("../ObjectSystem")
+cam_controller = NodePath("../CameraController")
+ui = NodePath("../Editor_Object/UI_Layer")
+editor_menu = NodePath("../Editor_Object/Menu_Layer/EditorMenu")
+top_bar = NodePath("../Editor_Object/UI_Layer/TopBar")
+action_grid = NodePath("../Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid")
+item_tab = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Items")
+edit_tab = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit")
+editor_tabs = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Tabs")
+move_container = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveButtons")
+other_edit_buttons = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons")
+quick_options = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/QuickOptions")
+editor_layer_spinbox = NodePath("../Editor_Object/UI_Layer/Actions/ObjectActions/EditorLayerInput")
+
+[node name="CameraController" type="Node" parent="." unique_id=1750884450 node_paths=PackedStringArray("editor", "input_controller", "overlay", "camera", "grid")]
+script = ExtResource("4_po6up")
+editor = NodePath("..")
+input_controller = NodePath("../InputController")
+overlay = NodePath("../Overlay")
+camera = NodePath("../Camera")
+grid = NodePath("../Grid/GridSprite")
+
+[node name="SaveLoadSystem" type="Node" parent="." unique_id=343314491 node_paths=PackedStringArray("editor", "obj_system", "level")]
+script = ExtResource("5_s1emi")
+editor = NodePath("..")
+obj_system = NodePath("../ObjectSystem")
+level = NodePath("../Level")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=196500545]
 scroll_ignore_camera_zoom = true
@@ -313,18 +388,22 @@ modulate = Color(0.0056164735, 0.49120545, 0.99996215, 1)
 motion_mirroring = Vector2(1000, 750)
 
 [node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=931789907]
+material = SubResource("ShaderMaterial_ypo3h")
 position = Vector2(0, 750)
 texture = ExtResource("1_ojbeb")
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=165998765]
+material = SubResource("ShaderMaterial_ypo3h")
 position = Vector2(1000, 0)
 texture = ExtResource("1_ojbeb")
 
 [node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1614490137]
+material = SubResource("ShaderMaterial_ypo3h")
 position = Vector2(1000, 750)
 texture = ExtResource("1_ojbeb")
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=325260504]
+material = SubResource("ShaderMaterial_ypo3h")
 texture = ExtResource("1_ojbeb")
 
 [node name="Grid" type="Node2D" parent="." unique_id=1190300967]
@@ -341,7 +420,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1280, 720)
 
 [node name="Line2D" type="Line2D" parent="Grid" unique_id=1826259718]
-points = PackedVector2Array(0, 1050.54, 0, -7.226206, 0, -9874)
+points = PackedVector2Array(0, 10000, 0, -10000)
 width = 2.0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=659548559]
@@ -1835,6 +1914,7 @@ size_flags_vertical = 6
 theme = SubResource("Theme_5y5ev")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 15
+disabled = true
 text = "Copy"
 script = ExtResource("6_aq6jn")
 
@@ -1846,6 +1926,7 @@ size_flags_vertical = 6
 theme = SubResource("Theme_4w7du")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 15
+disabled = true
 text = "Paste"
 script = ExtResource("6_aq6jn")
 
@@ -1857,6 +1938,7 @@ size_flags_vertical = 6
 theme = SubResource("Theme_ajxdj")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 15
+disabled = true
 text = "Copy+
 paste"
 script = ExtResource("6_aq6jn")
@@ -1869,6 +1951,7 @@ size_flags_vertical = 6
 theme = SubResource("Theme_11kwi")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 15
+disabled = true
 text = "Edit
 Layer"
 script = ExtResource("6_aq6jn")
@@ -1881,6 +1964,7 @@ size_flags_vertical = 6
 theme = SubResource("Theme_3njmh")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 15
+disabled = true
 text = "de
 select"
 script = ExtResource("6_aq6jn")
@@ -1893,6 +1977,7 @@ size_flags_vertical = 6
 theme = SubResource("Theme_ncyry")
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 15
+disabled = true
 text = "Edit
 Object"
 script = ExtResource("6_aq6jn")
@@ -1967,6 +2052,80 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_khu03")
 stretch_mode = 5
 
+[node name="Redo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=553427624]
+texture_filter = 1
+layout_mode = 0
+offset_left = 104.0
+offset_top = 23.0
+offset_right = 189.0
+offset_bottom = 108.0
+texture_normal = SubResource("AtlasTexture_t2ba8")
+stretch_mode = 0
+script = ExtResource("12_khu03")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Redo" unique_id=290712308]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.051723
+offset_top = 17.0
+offset_right = -20.120697
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_khu03")
+stretch_mode = 5
+flip_h = true
+
+[node name="PlaySong" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=1746422679]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 236.0
+offset_right = 104.0
+offset_bottom = 316.0
+texture_normal = SubResource("AtlasTexture_ij458")
+stretch_mode = 0
+script = ExtResource("12_khu03")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/PlaySong" unique_id=1112804777]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 17.0
+offset_right = -14.073166
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_xlmkg")
+stretch_mode = 5
+
+[node name="Playtest" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=322071658]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 152.0
+offset_right = 104.0
+offset_bottom = 232.0
+texture_normal = SubResource("AtlasTexture_0n476")
+stretch_mode = 0
+script = ExtResource("12_khu03")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Playtest" unique_id=20493801]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 17.0
+offset_right = -14.073166
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_4ljs1")
+stretch_mode = 5
+
 [node name="ZoomIn" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=427214192]
 layout_mode = 0
 offset_left = 24.0
@@ -2014,32 +2173,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_ypo3h")
 stretch_mode = 5
-
-[node name="Redo" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=553427624]
-texture_filter = 1
-layout_mode = 0
-offset_left = 104.0
-offset_top = 23.0
-offset_right = 189.0
-offset_bottom = 108.0
-texture_normal = SubResource("AtlasTexture_t2ba8")
-stretch_mode = 0
-script = ExtResource("12_khu03")
-
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Redo" unique_id=290712308]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.051723
-offset_top = 17.0
-offset_right = -20.120697
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_khu03")
-stretch_mode = 5
-flip_h = true
 
 [node name="Menu" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=237923277]
 layout_mode = 0
@@ -2181,3 +2314,10 @@ size = Vector2i(580, 80)
 unresizable = true
 popup_window = true
 dialog_text = "Selected .gdaslvl file has an invalid format. Check for possible corruption."
+
+[node name="Overlay" type="Node2D" parent="." unique_id=1120374426 node_paths=PackedStringArray("cam_controller", "editor")]
+script = ExtResource("23_po6up")
+cam_controller = NodePath("../CameraController")
+editor = NodePath("..")
+
+[connection signal="id_selected" from="UISystem" to="ObjectSystem" method="select_item_id"]
