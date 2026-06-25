@@ -1,9 +1,13 @@
+class_name EditorInputController
 extends Node
 
-@export var editor : Node2D
+@export var editor : Editor
+
+var catch_inputs : bool = true
 
 var swiping : bool = false
 var swipe_start : Vector2
+var move_amount : float = 1.0
 
 signal place_pressed
 signal place_swiped
@@ -12,11 +16,21 @@ signal swipe_started(pos : Vector2)
 signal swipe_updated(new_pos : Vector2)
 signal swipe_finished(start_pos : Vector2)
 signal pan_camera(relative : Vector2)
+signal zoom(amount : int)
 signal swipe_key_pressed
 signal swipe_key_released
-signal zoom(sign : int)
+signal move(direction : String, amount : float)
+signal rotate(direction : int)
+
+func _ready() -> void:
+	editor.playtesting_started.connect(_playtesting_started)
+	editor.playtesting_paused.connect(_playtesting_stopped)
+	editor.playtesting_resumed.connect(_playtesting_started)
+	editor.playtesting_stopped.connect(_playtesting_stopped)
 
 func _unhandled_input(event : InputEvent) -> void:
+	if(!catch_inputs): return
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if editor.edit_mode == editor.EditorMode.BUILD:
@@ -43,8 +57,40 @@ func _unhandled_input(event : InputEvent) -> void:
 			swipe_updated.emit(editor.get_global_mouse_position())
 		elif event.button_mask in [MOUSE_BUTTON_LEFT] and swiping and editor.edit_mode == editor.EditorMode.BUILD:
 			place_swiped.emit()
+
+func _input(event: InputEvent) -> void:
+	if(!catch_inputs): return
 	
 	if event.is_action_pressed("Swipe"):
+		move_amount = 0.1
 		swipe_key_pressed.emit()
 	elif event.is_action_released("Swipe"):
+		move_amount = 1.0
 		swipe_key_released.emit()
+	
+	if event.is_action_pressed("MoveUp"):
+		move.emit("Up", move_amount)
+	elif event.is_action_pressed("MoveDown"):
+		move.emit("Down", move_amount)
+	elif event.is_action_pressed("MoveLeft"):
+		move.emit("Left", move_amount)
+	elif event.is_action_pressed("MoveRight"):
+		move.emit("Right", move_amount)
+	
+	if event.is_action_pressed("RotateLeft"):
+		rotate.emit(-1)
+	elif event.is_action_pressed("RotateRight"):
+		rotate.emit(1)
+	
+	if event.is_action_pressed("ZoomIn"):
+		zoom.emit(0.3)
+	elif event.is_action_pressed("ZoomOut"):
+		zoom.emit(-0.3)
+	elif event.is_action_pressed("ZoomReset"):
+		zoom.emit(0)
+
+func _playtesting_started(_player : Player) -> void:
+	catch_inputs = false
+ 
+func _playtesting_stopped() -> void:
+	catch_inputs = true

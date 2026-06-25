@@ -1,14 +1,23 @@
+class_name EditorUISystem
 extends Node
 
 signal id_selected(new_id : int, button : Button)
 signal swipe_toggled(state : bool)
+signal start_song_preview
+signal stop_song_preview
+signal start_playtest_pressed
+signal pause_playtest_pressed
+signal resume_playtest_pressed
+signal stop_playtest_pressed
 
-@export var editor : Node2D
+@export var editor : Editor
 @export var obj_system : Node
-@export var cam_controller : Node
+@export var cam_controller : EditorCameraController
+@export var save_load : Node
 
 @export var ui : CanvasLayer
-@export var editor_menu : Control
+@export var editor_menu : ColorRect
+@export var editor_menu_container : Control
 
 @export var top_bar : Control
 @export var action_grid : GridContainer
@@ -22,10 +31,17 @@ signal swipe_toggled(state : bool)
 
 @export var editor_layer_spinbox : GDNumberSpin
 
+@export_category("Toggle Buttons")
+@export var song_preview_button : TextureButton
+@export var playtest_toggle : TextureButton
+@export var playtest_pause_button : TextureButton 
+
 var menu_state : bool = false
 
 func _ready() -> void:
 	
+	editor.playtesting_started.connect(_start_playtesting)
+	editor.playtesting_started.connect(_stopped_playtesting)
 	obj_system.updated_selection.connect(_update_selection_action_buttons)
 	obj_system.updated_clipboard.connect(_update_clipboard_action_buttons)
 	
@@ -34,6 +50,7 @@ func _ready() -> void:
 	_initialise_items()
 	_initialise_tabs()
 	_initialise_top_bar()
+	_initialise_menu_buttons()
 
 func _initialise_items() -> void:
 	var btn_group = ButtonGroup.new()
@@ -63,7 +80,7 @@ func _initialise_top_bar() -> void:
 			"Redo": button.pressed.connect(obj_system.history.redo)
 			"ZoomIn": button.pressed.connect(cam_controller._zoom.bind(0.3))
 			"ZoomOut": button.pressed.connect(cam_controller._zoom.bind(-0.3))
-			"PlaySong": button.pressed.connect(cam_controller.play_song_preview.bind(button))
+			"PlaySong": button.pressed.connect(_toggle_song_preview)
 
 func select_item_id(new_id : int, button : Button) -> void:
 	id_selected.emit(new_id, button)
@@ -93,13 +110,15 @@ func _initialise_edit_btn():
 			button.pressed.connect(obj_system.rotate_objects.bind(-1))
 	for button : Button in quick_options.get_children():
 		button.toggled.connect(_forward_swipe_toggle)
-	
-	#$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Load.pressed.connect(_load_level_file)
-	#$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Save.pressed.connect(_save_level)
-	#$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Resume.pressed.connect(_change_menu_state)
-	#$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndExit.pressed.connect(_save_and_exit)
-	#$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/SaveAndPlay.pressed.connect(_save_and_play)
-	#$Editor_Object/Menu_Layer/EditorMenu/VBoxContainer/Exit.pressed.connect(_exit)
+
+func _initialise_menu_buttons() -> void:
+	for button : Button in editor_menu_container.get_children():
+		match button.name:
+			"Resume": button.pressed.connect(_change_menu_state)
+			"Save": button.pressed.connect(save_load._save_level)
+			"SaveAndPlay": button.pressed.connect(save_load._save_and_play)
+			"SaveAndExit":button.pressed.connect(save_load._save_and_exit)
+			"Exit": button.pressed.connect(save_load._exit)
 
 func _change_editor_mode(new_mode):
 	if new_mode != editor.edit_mode:
@@ -113,7 +132,7 @@ func _change_editor_mode(new_mode):
 
 func _change_menu_state():
 	menu_state = !menu_state
-	editor_menu.visible = menu_state
+	editor_menu.visible = !editor_menu.visible
 
 func _forward_swipe_toggle(state : bool) -> void:
 	swipe_toggled.emit(state)
@@ -165,3 +184,45 @@ func _update_clipboard_action_buttons(clipboard : Array):
 	for button : Button in action_grid.get_children():
 		match(button.name):
 			"Paste": button.disabled = check
+
+func _toggle_song_preview() -> void:
+	
+	var button_icon : TextureRect = song_preview_button.get_child(0)
+	
+	if(song_preview_button.button_pressed):
+		button_icon.texture.region = Rect2(70.0, 39.0, 21.0, 21.0)
+		button_icon.texture.margin = Rect2(0, 0, 0, 0)
+		song_preview_button.texture_normal.region = Rect2(96, 0, 32, 32)
+		song_preview_button.set_pressed_no_signal(false)
+		stop_song_preview.emit()
+		return
+	
+	button_icon.texture.region = Rect2(116.0, 49.0, 11.0, 11.0)
+	button_icon.texture.margin = Rect2(3, 3, 6, 6)
+	song_preview_button.texture_normal.region = Rect2(0, 0, 32, 32)
+	start_song_preview.emit()
+
+func _toggle_playtest(pressed : bool) -> void:
+	if(pressed):
+		_start_playtesting(null)
+	else:
+		_stopped_playtesting()
+
+func _update_playtest_buttons(is_paused : bool) -> void:
+	
+	var pause_button_icon : TextureRect = playtest_pause_button.get_child(0)
+	
+	if(is_paused):
+		pause_button_icon.texture.rect = Rect2(70, 39, 21, 21)
+	else:
+		pause_button_icon.texture.rect = Rect2(115, 32, 15, 16)
+
+func _start_playtesting(_player : Player) -> void:
+	if(song_preview_button.button_pressed):
+		_toggle_song_preview()
+	
+	playtest_pause_button.show()
+	
+
+func _stopped_playtesting() -> void:
+	playtest_pause_button.hide()

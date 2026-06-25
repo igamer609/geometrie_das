@@ -306,6 +306,14 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("7_m37bs")
 region = Rect2(94, 39, 21, 21)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncxu0"]
+atlas = ExtResource("10_m37bs")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qq0v"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(115, 32, 15, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_um3un"]
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
@@ -349,13 +357,15 @@ input_controller = NodePath("../InputController")
 level = NodePath("../Level")
 camera = NodePath("../Camera")
 
-[node name="UISystem" type="Node" parent="." unique_id=1647001883 node_paths=PackedStringArray("editor", "obj_system", "cam_controller", "ui", "editor_menu", "top_bar", "action_grid", "item_tab", "edit_tab", "editor_tabs", "move_container", "other_edit_buttons", "quick_options", "editor_layer_spinbox")]
+[node name="UISystem" type="Node" parent="." unique_id=1647001883 node_paths=PackedStringArray("editor", "obj_system", "cam_controller", "save_load", "ui", "editor_menu", "editor_menu_container", "top_bar", "action_grid", "item_tab", "edit_tab", "editor_tabs", "move_container", "other_edit_buttons", "quick_options", "editor_layer_spinbox", "song_preview_button", "playtest_toggle", "playtest_pause_button")]
 script = ExtResource("3_g6r6n")
 editor = NodePath("..")
 obj_system = NodePath("../ObjectSystem")
 cam_controller = NodePath("../CameraController")
+save_load = NodePath("../SaveLoadSystem")
 ui = NodePath("../Editor_Object/UI_Layer")
 editor_menu = NodePath("../Editor_Object/Menu_Layer/EditorMenu")
+editor_menu_container = NodePath("../Editor_Object/Menu_Layer/EditorMenu/VBoxContainer")
 top_bar = NodePath("../Editor_Object/UI_Layer/TopBar")
 action_grid = NodePath("../Editor_Object/UI_Layer/Actions/ObjectActions/ActionGrid")
 item_tab = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Items")
@@ -365,12 +375,15 @@ move_container = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveB
 other_edit_buttons = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons")
 quick_options = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/QuickOptions")
 editor_layer_spinbox = NodePath("../Editor_Object/UI_Layer/Actions/ObjectActions/EditorLayerInput")
+song_preview_button = NodePath("../Editor_Object/UI_Layer/TopBar/PlaySong")
+playtest_toggle = NodePath("../Editor_Object/UI_Layer/TopBar/Playtest")
+playtest_pause_button = NodePath("../Editor_Object/UI_Layer/TopBar/PausePlaytest")
 
-[node name="CameraController" type="Node" parent="." unique_id=1750884450 node_paths=PackedStringArray("editor", "input_controller", "overlay", "camera", "grid")]
+[node name="CameraController" type="Node" parent="." unique_id=1750884450 node_paths=PackedStringArray("editor", "input_controller", "ui_system", "camera", "grid")]
 script = ExtResource("4_po6up")
 editor = NodePath("..")
 input_controller = NodePath("../InputController")
-overlay = NodePath("../Overlay")
+ui_system = NodePath("../UISystem")
 camera = NodePath("../Camera")
 grid = NodePath("../Grid/GridSprite")
 
@@ -2084,6 +2097,7 @@ offset_left = 24.0
 offset_top = 236.0
 offset_right = 104.0
 offset_bottom = 316.0
+toggle_mode = true
 texture_normal = SubResource("AtlasTexture_ij458")
 stretch_mode = 0
 script = ExtResource("12_khu03")
@@ -2124,6 +2138,32 @@ offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_4ljs1")
+stretch_mode = 5
+
+[node name="PausePlaytest" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=1598003160]
+visible = false
+layout_mode = 0
+offset_left = 111.0
+offset_top = 152.0
+offset_right = 191.0
+offset_bottom = 232.0
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_ncxu0")
+stretch_mode = 0
+script = ExtResource("12_khu03")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/PausePlaytest" unique_id=1009303491]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 19.0
+offset_right = -18.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_2qq0v")
 stretch_mode = 5
 
 [node name="ZoomIn" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=427214192]
@@ -2284,6 +2324,7 @@ text = "save and exit"
 script = ExtResource("6_aq6jn")
 
 [node name="Load" type="Button" parent="Editor_Object/Menu_Layer/EditorMenu/VBoxContainer" unique_id=125073735]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5_vdfow")

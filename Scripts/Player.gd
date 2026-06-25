@@ -66,7 +66,6 @@ var orb_buffer : bool = false
 
 func _ready():
 	_check_icons()
-	#Engine.time_scale = 0.2
 
 func _check_icons():
 	for sprite in $Sprites.get_children():

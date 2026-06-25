@@ -31,6 +31,8 @@ func _ready() -> void:
 	input_controller.place_swiped.connect(place_with_check)
 	input_controller.select_single.connect(_on_single_selection)
 	input_controller.swipe_finished.connect(_box_select)
+	input_controller.move.connect(move_objects)
+	input_controller.rotate.connect(rotate_objects)
 
 func select_item_id(new_id : int, button : Button) -> void:
 	if(new_id > 0 and new_id != current_id):
@@ -340,7 +342,7 @@ func move_objects(direction, amount : float) -> void:
 	history.commit_action()
 	update_selection_center()
 
-func rotate_objects(direction):
+func rotate_objects(direction : int):
 	
 	history.create_action("Rotate")
 	

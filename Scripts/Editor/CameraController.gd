@@ -1,14 +1,24 @@
+class_name EditorCameraController
 extends Node
 
-@export var editor : Node2D
-@export var input_controller : Node
-@export var overlay : Node2D
+@export_category("Used Editor Systems")
+@export var editor : Editor
+@export var input_controller : EditorInputController
+@export var ui_system : EditorUISystem
+
+@export_category("Controlled Objects")
 @export var camera : Camera2D
 @export var grid : Sprite2D
 
 var song_preview_bar : Line2D = null
 var song_preview_playing : bool = false
 var song_start_time : float = 0
+
+var draw_line : bool = false
+var playtest_player : Player = null
+var playtest_trail : Line2D = null
+var death_marker : Sprite2D = null
+var playtest_death_location : Vector2
 
 var swiping : bool = false
 var swipe_start : Vector2
@@ -18,10 +28,16 @@ var zoom_multiplier : float = 1.0
 
 func _ready() -> void:
 	editor.load_level_data.connect(_initiate_camera)
+	editor.playtesting_started.connect(_init_playtest)
+	
 	input_controller.swipe_started.connect(_start_swipe_rect)
 	input_controller.swipe_updated.connect(_update_swipe_rect)
 	input_controller.swipe_finished.connect(_end_swipe)
 	input_controller.pan_camera.connect(_pan)
+	input_controller.zoom.connect(_zoom)
+	
+	ui_system.start_song_preview.connect(_play_song_preview)
+	ui_system.stop_song_preview.connect(_stop_song_preview)
 
 func _initiate_camera(level_data : LevelData):
 	camera.global_position = level_data.meta.last_cam_pos
@@ -42,6 +58,10 @@ func _end_swipe(_start_pos : Vector2) -> void:
 	editor.queue_redraw()
 
 func _zoom(amount : float) -> void:
+	
+	if(amount == 0):
+		zoom_multiplier = 1
+	
 	zoom_multiplier += amount
 	zoom_multiplier = clamp(zoom_multiplier, 0.3, 2.1)
 	#TransitionScene.show_message("x" + str(zoom_multiplier))
@@ -75,26 +95,12 @@ func update_song_preview_bar(delta : float) -> void:
 			camera.global_position.x += 1280.0 / (3 * zoom_multiplier)
 			update_grid_position()
 
-func play_song_preview(button : TextureButton) -> void:
-	
-	var button_icon : TextureRect = button.get_child(0)
-	
-	if(song_preview_bar && song_preview_playing):
-		song_preview_playing = false
-		GameProgress.stop_lvl_music()
-		button_icon.texture.region = Rect2(70.0, 39.0, 21.0, 21.0)
-		button_icon.texture.margin = Rect2(0, 0, 0, 0)
-		button.texture_normal.region = Rect2(96, 0, 32, 32)
-		return
-	elif(song_preview_bar && !song_preview_playing):
+func _play_song_preview() -> void:
+	if(song_preview_bar && !song_preview_playing):
 		song_preview_bar.queue_free()
 	
 	song_preview_playing = true
-	
-	button_icon.texture.region = Rect2(116.0, 49.0, 11.0, 11.0)
-	button_icon.texture.margin = Rect2(3, 3, 6, 6)
-	button.texture_normal.region = Rect2(0, 0, 32, 32)
-	
+
 	song_preview_bar = Line2D.new()
 	song_preview_bar.default_color = Color(0, 1, 0)
 	song_preview_bar.width = 1
@@ -114,6 +120,29 @@ func play_song_preview(button : TextureButton) -> void:
 	GameProgress.music_to_load = editor.level_meta.song_id
 	GameProgress.play_lvl_music_from_id(0, song_start_time)
 
+func _stop_song_preview() -> void:
+	song_preview_playing = false
+	GameProgress.stop_lvl_music()
+
+func _remove_song_preview():
+	if(song_preview_bar):
+		song_preview_bar.queue_free()
+
+func _init_playtest(player : Player) -> void:
+	playtest_player = player
+	
+	if(song_preview_playing):
+		_remove_song_preview()
+	
+	playtest_trail = Line2D.new()
+	playtest_trail.default_color = Color(0, 1, 0)
+	add_child(playtest_trail)
+	
+	draw_line = true
+
 func _process(delta : float) -> void:
 	if(song_preview_playing):
 		update_song_preview_bar(delta)
+	
+	if(draw_line):
+		var new_point : Vector2 = playtest_player.global_position
