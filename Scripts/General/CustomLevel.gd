@@ -202,14 +202,9 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 				if ground_pos.y > 0:
 					ground_pos.y = 0
 				
-				ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-				ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-				
 				ground.global_position = ground_pos
 				ceiling.global_position = Vector2(player.global_position.x + 3500, ground.global_position.y - 176)
 				
-				ground.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
-				ceiling.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
 			2:  # ball
 				ceiling.visible = true
 				
@@ -233,12 +228,16 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 				ground.global_position.y = 0
 				ceiling.global_position.y = ground.global_position.y - 176
 				
+				#10 block gap
+				
 				player_cam.global_position = Vector2(32, ground.global_position.y - 88)
 			2:  # ball
 				ceiling.visible = true
 				
 				ground.global_position.y = 0
 				ceiling.global_position.y = ground.global_position.y - 112
+				
+				#8 block gap
 				
 				player_cam.global_position = Vector2(32, ground.global_position.y - 56)
 

@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://02s13gdmtr7y"]
+
+[ext_resource type="Script" uid="uid://c8hhll1gkuxah" path="res://Scripts/General/UIElements/PortalObjectEditMenu.gd" id="1_k2rry"]
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="2_fqlsr"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_pchus"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="6_sy8x4"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="7_gs6ja"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("6_sy8x4")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2sv4"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6b2rc"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[node name="ObjectEdit" type="Control" unique_id=1942192426 node_paths=PackedStringArray("ok_button", "preview_check_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k2rry")
+ok_button = NodePath("Panel/OK")
+preview_check_button = NodePath("Panel/PreviewPortal")
+
+[node name="Background" type="ColorRect" parent="." unique_id=770067664]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Panel" type="Panel" parent="." unique_id=2085358030]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -240.0
+offset_right = 315.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_fqlsr")
+
+[node name="OK" type="Button" parent="Panel" unique_id=2125008186]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -88.0
+offset_right = 54.5
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_pchus")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 22
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s2sv4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6b2rc")
+text = "OK"
+script = ExtResource("7_gs6ja")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="PreviewPortal" type="CheckBox" parent="Panel" unique_id=1972551141]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 42.999996
+offset_right = 223.0
+offset_bottom = 83.0
+scale = Vector2(1.6, 1.6)
+theme_override_font_sizes/font_size = 16
+text = "Preview (in editor)"

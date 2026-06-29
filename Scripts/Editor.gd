@@ -10,15 +10,22 @@ extends Node2D
 signal load_level_data(level_data : LevelData)
 signal finished_loading_level
 
+signal playtesting_gamemode_changed(ground_pos: Vector2, gap : int)
 signal playtesting_started(player : Player)
 signal playtesting_paused()
 signal playtesting_resumed()
-signal playtesting_stopped()
+signal playtesting_stopped(on_death : bool, last_location : Vector2)
 
-@export var input_controller : Node
-@export var obj_system : Node
-@export var cam_controller : Node
-@export var ui_system : Node
+const player_scene : PackedScene = preload("res://Scenes/Player.tscn")
+
+@export var input_controller : EditorInputController
+@export var obj_system : EditorObjectSystem
+@export var cam_controller : EditorCameraController
+@export var ui_system : EditorUISystem
+
+@export_category("Solid Objects")
+@export var ground_col : StaticBody2D
+@export var ceiling_col : StaticBody2D
 
 enum EditorMode {BUILD, EDIT}
 enum SelectionMode {SINGLE, SWIPE}
@@ -33,15 +40,20 @@ var select_mode : SelectionMode = SelectionMode.SINGLE
 var swipe_button_state : bool = false
 var swipe_action_state : bool = false
 
-var is_playtesting : bool = false
 var playtest_player : Player = null
-var trail : Line2D = null
 
 func _ready() -> void:
 	obj_system.loaded_objects.connect(_finished_loading)
 	input_controller.swipe_key_pressed.connect(_swipe_action_pressed)
 	input_controller.swipe_key_released.connect(_swipe_action_released)
+	
 	ui_system.swipe_toggled.connect(_toggle_swipe_button_state)
+	
+	ui_system.start_playtest_pressed.connect(_start_playtest)
+	ui_system.pause_playtest_pressed.connect(_pause_playtest)
+	ui_system.resume_playtest_pressed.connect(_resume_playtest)
+	ui_system.stop_playtest_pressed.connect(_stop_playtest)
+	
 	ColorManager.channel_changed.connect(_update_palette)
 
 func _draw() -> void:
@@ -85,22 +97,59 @@ func _start_playtest() -> void:
 	if(playtest_player):
 		playtest_player.queue_free()
 	
-	playtest_player = Player.new()
-	playtest_player.global_position = Vector2(0, 8)
+	playtest_player = player_scene.instantiate()
+	playtest_player.global_position = Vector2(0, -8)
+	playtest_player.died.connect(_stop_playtest.bind(true))
+	playtest_player.changed_gamemode.connect(_playtest_changed_gamemode)
 	add_child(playtest_player)
 	
 	playtesting_started.emit(playtest_player)
 
-func _stop_playtest() -> void:
+func _stop_playtest(on_death : bool) -> void:
+	playtesting_stopped.emit(on_death, playtest_player.global_position)
+	ceiling_col.hide(); ground_col.hide()
+	
 	if(playtest_player):
 		playtest_player.queue_free()
-	
-	playtesting_stopped.emit()
 
 func _pause_playtest() -> void:
 	if(playtest_player):
-		playtest_player.can_move = false
+		playtest_player.pause_movement()
 	playtesting_paused.emit()
 
 func _resume_playtest() -> void:
+	if(playtest_player):
+		playtest_player.resume_movement()
 	playtesting_resumed.emit()
+
+func _playtest_changed_gamemode(portal : Area2D, gamemode : int) -> void:
+	match gamemode:
+		0: _update_ground()
+		1: _update_ground(portal.global_position, 10)
+		2: _update_ground(portal.global_position, 8)
+
+func _update_ground(portal_pos : Vector2 = Vector2.ZERO, gap: int = 0) -> void:
+	var snapped_pos : Vector2 = Vector2(portal_pos.x, snapped(portal_pos.y, 16))
+	
+	if(gap == 0):
+		ground_col.global_position = Vector2(snapped_pos.x, 0)
+		playtesting_gamemode_changed.emit()
+		ceiling_col.hide(); ground_col.hide()
+		if(ceiling_col.get_parent()):
+			ceiling_col.collision_layer = 0
+		return
+	
+	if(ceiling_col.get_parent() == null):
+		add_child(ceiling_col)
+	
+	var ground_pos : Vector2 = Vector2(snapped_pos.x, int(snapped_pos.y + gap*16/2.0))
+	if(ground_pos.y > 0):
+		ground_pos.y = 0
+	playtesting_gamemode_changed.emit(ground_pos, gap*16)
+	
+	var ceiling_pos : Vector2 = Vector2(snapped_pos.x, ground_pos.y - gap*16)
+	ceiling_col.collision_layer = 2
+	
+	ground_col.global_position = ground_pos
+	ceiling_col.global_position = ceiling_pos
+	ceiling_col.show(); ground_col.show()

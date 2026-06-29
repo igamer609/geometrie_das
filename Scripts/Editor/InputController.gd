@@ -1,9 +1,16 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609 and Contributors
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
 class_name EditorInputController
 extends Node
 
 @export var editor : Editor
 
 var catch_inputs : bool = true
+var emit_place_signals : bool = true
 
 var swiping : bool = false
 var swipe_start : Vector2
@@ -24,15 +31,15 @@ signal rotate(direction : int)
 
 func _ready() -> void:
 	editor.playtesting_started.connect(_playtesting_started)
-	editor.playtesting_paused.connect(_playtesting_stopped)
-	editor.playtesting_resumed.connect(_playtesting_started)
+	editor.playtesting_paused.connect(_playtesting_paused)
+	editor.playtesting_resumed.connect(_playtesting_resumed)
 	editor.playtesting_stopped.connect(_playtesting_stopped)
 
 func _unhandled_input(event : InputEvent) -> void:
 	if(!catch_inputs): return
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
+		if(event.pressed && emit_place_signals):
 			if editor.edit_mode == editor.EditorMode.BUILD:
 				if  editor.select_mode == editor.SelectionMode.SINGLE:
 					place_pressed.emit()
@@ -46,7 +53,7 @@ func _unhandled_input(event : InputEvent) -> void:
 					swiping = true
 					swipe_start = editor.get_global_mouse_position()
 					swipe_started.emit(editor.get_global_mouse_position())
-		if not event.pressed && swiping && editor.edit_mode == editor.EditorMode.EDIT:
+		if( not event.pressed && swiping && editor.edit_mode == editor.EditorMode.EDIT && emit_place_signals):
 			swiping = false
 			swipe_finished.emit(swipe_start)
 	
@@ -59,7 +66,13 @@ func _unhandled_input(event : InputEvent) -> void:
 			place_swiped.emit()
 
 func _input(event: InputEvent) -> void:
-	if(!catch_inputs): return
+	
+	if event.is_action_pressed("ZoomIn"):
+		zoom.emit(0.3)
+	elif event.is_action_pressed("ZoomOut"):
+		zoom.emit(-0.3)
+	
+	if(!catch_inputs || !emit_place_signals): return
 	
 	if event.is_action_pressed("Swipe"):
 		move_amount = 0.1
@@ -81,16 +94,17 @@ func _input(event: InputEvent) -> void:
 		rotate.emit(-1)
 	elif event.is_action_pressed("RotateRight"):
 		rotate.emit(1)
-	
-	if event.is_action_pressed("ZoomIn"):
-		zoom.emit(0.3)
-	elif event.is_action_pressed("ZoomOut"):
-		zoom.emit(-0.3)
-	elif event.is_action_pressed("ZoomReset"):
-		zoom.emit(0)
 
-func _playtesting_started(_player : Player) -> void:
+func _playtesting_started(_player : Player = null) -> void:
 	catch_inputs = false
+	emit_place_signals = false
  
-func _playtesting_stopped() -> void:
+func _playtesting_stopped(_on_death : bool = false, _last_location : Vector2 = Vector2.ZERO) -> void:
 	catch_inputs = true
+	emit_place_signals = true
+
+func _playtesting_paused() -> void:
+	catch_inputs = true
+
+func _playtesting_resumed() -> void:
+	catch_inputs = false

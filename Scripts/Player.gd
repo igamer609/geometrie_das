@@ -58,6 +58,7 @@ var can_move : bool = true
 var invulnerable : bool = false
 var consecutive_jumps : int = 0
 var time_in_air : float = 0
+var last_velocity : Vector2 = Vector2.ZERO
 
 var in_orb : bool = false
 var orb_type = null
@@ -387,6 +388,17 @@ func _on_detect_area_exited(area : Area2D):
 		var orb_index : int = orb_queue.find(area)
 		if orb_index > -1:
 			orb_queue.remove_at(orb_index)
+
+##Pause movement of player, without discarding the current velocity. Use [code]resume_movement[/code] to reapply the saved velocity.
+func pause_movement() -> void:
+	last_velocity = velocity
+	can_move = false
+	velocity = Vector2.ZERO
+
+##Resume movement while also reappling the saved velocity. You can also manually set [code]last_velocity[/code] before to apply a desired velocity.
+func resume_movement() -> void:
+	can_move = true
+	velocity = last_velocity
 
 func _on_respawn_timeout():
 	$Sprites.global_rotation_degrees = 0

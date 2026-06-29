@@ -1,3 +1,9 @@
+# ----------------------------------------------------------
+#	Copyright (c) 2026 igamer609 and Contributors
+#	Licensed under the MIT License.
+#	See the LICENSE file in the project root for full license information
+# ----------------------------------------------------------
+
 class_name EditorUISystem
 extends Node
 
@@ -40,8 +46,8 @@ var menu_state : bool = false
 
 func _ready() -> void:
 	
-	editor.playtesting_started.connect(_start_playtesting)
-	editor.playtesting_started.connect(_stopped_playtesting)
+	editor.playtesting_stopped.connect(_check_player_death)
+	
 	obj_system.updated_selection.connect(_update_selection_action_buttons)
 	obj_system.updated_clipboard.connect(_update_clipboard_action_buttons)
 	
@@ -71,7 +77,7 @@ func _initialise_actions() -> void:
 	editor_layer_spinbox.value_changed.connect(editor._set_editor_layer)
 
 func _initialise_top_bar() -> void:
-	for button in top_bar.get_children():
+	for button : TextureButton in top_bar.get_children():
 		match button.name:
 			"Delete": button.pressed.connect(obj_system.delete_objects)
 			"Menu": button.pressed.connect(_change_menu_state)
@@ -80,7 +86,12 @@ func _initialise_top_bar() -> void:
 			"Redo": button.pressed.connect(obj_system.history.redo)
 			"ZoomIn": button.pressed.connect(cam_controller._zoom.bind(0.3))
 			"ZoomOut": button.pressed.connect(cam_controller._zoom.bind(-0.3))
-			"PlaySong": button.pressed.connect(_toggle_song_preview)
+			"PlaySong": button.toggled.connect(_toggle_song_preview)
+			"Playtest": button.toggled.connect(_toggle_playtest)
+			"PausePlaytest": button.toggled.connect(_toggle_playtest_pause_button)
+	
+	playtest_toggle.toggled.connect(_toggle_playtest)
+	playtest_pause_button.toggled.connect(_toggle_playtest_pause_button)
 
 func select_item_id(new_id : int, button : Button) -> void:
 	id_selected.emit(new_id, button)
@@ -139,6 +150,7 @@ func _forward_swipe_toggle(state : bool) -> void:
 
 func _create_object_edit_menu() -> void:
 	var all_regular : bool = true
+	var all_portals : bool = true
 	var all_triggers : bool = true
 	var trigger_types : Array[int] = []
 	
@@ -148,7 +160,8 @@ func _create_object_edit_menu() -> void:
 			if(!trigger_types.has(object.trigger.trigger_id)):
 				trigger_types.append(object.trigger.trigger_id)
 		else: all_triggers = false
-	
+		
+		
 	if(all_regular):
 		var obj_edit_menu = ResourceLibrary.scenes["GenericObjectEdit"].instantiate()
 		obj_edit_menu.target_objects = obj_system.selected_objects
@@ -158,6 +171,8 @@ func _create_object_edit_menu() -> void:
 			var obj_edit_menu = ResourceLibrary.scenes["ColorTriggerEdit"].instantiate()
 			obj_edit_menu.target_triggers = obj_system.selected_objects
 			ui.add_child(obj_edit_menu)
+
+
 
 func _open_level_settings() -> void:
 	var settings_menu = ResourceLibrary.scenes["LevelSettings"].instantiate()
@@ -185,11 +200,21 @@ func _update_clipboard_action_buttons(clipboard : Array):
 		match(button.name):
 			"Paste": button.disabled = check
 
-func _toggle_song_preview() -> void:
+func _hide_all_except_playtest() -> void:
+	for item : Control in ui.get_children():
+		item.hide()
+	playtest_toggle.show(); playtest_pause_button.show()
+
+func _show_all_except_playtest() -> void:
+	for item : Control in ui.get_children():
+		if(item != playtest_pause_button):
+			item.show()
+
+func _toggle_song_preview(toggled : bool) -> void:
 	
 	var button_icon : TextureRect = song_preview_button.get_child(0)
 	
-	if(song_preview_button.button_pressed):
+	if(!toggled):
 		button_icon.texture.region = Rect2(70.0, 39.0, 21.0, 21.0)
 		button_icon.texture.margin = Rect2(0, 0, 0, 0)
 		song_preview_button.texture_normal.region = Rect2(96, 0, 32, 32)
@@ -208,21 +233,43 @@ func _toggle_playtest(pressed : bool) -> void:
 	else:
 		_stopped_playtesting()
 
-func _update_playtest_buttons(is_paused : bool) -> void:
-	
+func _toggle_playtest_pause_button(is_paused : bool) -> void:
 	var pause_button_icon : TextureRect = playtest_pause_button.get_child(0)
 	
 	if(is_paused):
-		pause_button_icon.texture.rect = Rect2(70, 39, 21, 21)
+		pause_button_icon.texture.region = Rect2(70, 39, 21, 21)
+		pause_playtest_pressed.emit()
 	else:
-		pause_button_icon.texture.rect = Rect2(115, 32, 15, 16)
+		pause_button_icon.texture.region = Rect2(115, 32, 15, 16)
+		resume_playtest_pressed.emit()
 
 func _start_playtesting(_player : Player) -> void:
+	var playtest_toggle_icon : TextureRect = playtest_toggle.get_child(0)
+	
 	if(song_preview_button.button_pressed):
-		_toggle_song_preview()
+		_toggle_song_preview(false)
+	
+	playtest_toggle_icon.texture.region = Rect2(116.0, 49.0, 11.0, 11.0)
+	playtest_toggle_icon.texture.margin = Rect2(3, 3, 6, 6)
+	
+	_hide_all_except_playtest()
 	
 	playtest_pause_button.show()
-	
+	start_playtest_pressed.emit()
 
 func _stopped_playtesting() -> void:
+	var playtest_toggle_icon : TextureRect = playtest_toggle.get_child(0)
+	
 	playtest_pause_button.hide()
+	playtest_toggle.set_pressed_no_signal(false)
+	_toggle_playtest_pause_button(false)
+	playtest_pause_button.set_pressed_no_signal(false)
+	_show_all_except_playtest()
+	
+	playtest_toggle_icon.texture.region = Rect2(94.0, 39.0, 21.0, 21.0)
+	playtest_toggle_icon.texture.margin = Rect2(0, 0, 0, 0)
+	
+	stop_playtest_pressed.emit(false)
+
+func _check_player_death(dead : bool, _last_location : Vector2) -> void:
+	if(dead): _toggle_playtest(false)

@@ -298,22 +298,6 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("7_m37bs")
 region = Rect2(70, 39, 21, 21)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0n476"]
-atlas = ExtResource("10_m37bs")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ljs1"]
-atlas = ExtResource("7_m37bs")
-region = Rect2(94, 39, 21, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ncxu0"]
-atlas = ExtResource("10_m37bs")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2qq0v"]
-atlas = ExtResource("7_m37bs")
-region = Rect2(115, 32, 15, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_um3un"]
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
@@ -338,13 +322,42 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
 
-[node name="Editor" type="Node2D" unique_id=1935897522 node_paths=PackedStringArray("input_controller", "obj_system", "cam_controller", "ui_system")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n476"]
+atlas = ExtResource("10_m37bs")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j78ii"]
+atlas = ExtResource("10_m37bs")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ljs1"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(94, 39, 21, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncxu0"]
+atlas = ExtResource("10_m37bs")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qq0v"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(115, 32, 15, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_po6up"]
+size = Vector2(6000, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qn4l"]
+atlas = ExtResource("7_m37bs")
+region = Rect2(131, 3, 24, 24)
+
+[node name="Editor" type="Node2D" unique_id=1935897522 node_paths=PackedStringArray("input_controller", "obj_system", "cam_controller", "ui_system", "ground_col", "ceiling_col")]
 physics_interpolation_mode = 2
 script = ExtResource("1_id040")
 input_controller = NodePath("InputController")
 obj_system = NodePath("ObjectSystem")
 cam_controller = NodePath("CameraController")
 ui_system = NodePath("UISystem")
+ground_col = NodePath("Editor_Object/Groud")
+ceiling_col = NodePath("Editor_Object/Ceiling")
 
 [node name="InputController" type="Node" parent="." unique_id=46434842 node_paths=PackedStringArray("editor")]
 script = ExtResource("2_g6r6n")
@@ -376,16 +389,17 @@ other_edit_buttons = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit/O
 quick_options = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/QuickOptions")
 editor_layer_spinbox = NodePath("../Editor_Object/UI_Layer/Actions/ObjectActions/EditorLayerInput")
 song_preview_button = NodePath("../Editor_Object/UI_Layer/TopBar/PlaySong")
-playtest_toggle = NodePath("../Editor_Object/UI_Layer/TopBar/Playtest")
-playtest_pause_button = NodePath("../Editor_Object/UI_Layer/TopBar/PausePlaytest")
+playtest_toggle = NodePath("../Editor_Object/UI_Layer/Playtest")
+playtest_pause_button = NodePath("../Editor_Object/UI_Layer/PausePlaytest")
 
-[node name="CameraController" type="Node" parent="." unique_id=1750884450 node_paths=PackedStringArray("editor", "input_controller", "ui_system", "camera", "grid")]
+[node name="CameraController" type="Node" parent="." unique_id=1750884450 node_paths=PackedStringArray("editor", "input_controller", "ui_system", "camera", "grid", "death_marker")]
 script = ExtResource("4_po6up")
 editor = NodePath("..")
 input_controller = NodePath("../InputController")
 ui_system = NodePath("../UISystem")
 camera = NodePath("../Camera")
 grid = NodePath("../Grid/GridSprite")
+death_marker = NodePath("../DeathMark")
 
 [node name="SaveLoadSystem" type="Node" parent="." unique_id=343314491 node_paths=PackedStringArray("editor", "obj_system", "level")]
 script = ExtResource("5_s1emi")
@@ -2116,56 +2130,6 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_xlmkg")
 stretch_mode = 5
 
-[node name="Playtest" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=322071658]
-layout_mode = 0
-offset_left = 24.0
-offset_top = 152.0
-offset_right = 104.0
-offset_bottom = 232.0
-texture_normal = SubResource("AtlasTexture_0n476")
-stretch_mode = 0
-script = ExtResource("12_khu03")
-
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Playtest" unique_id=20493801]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 19.0
-offset_top = 17.0
-offset_right = -14.073166
-offset_bottom = -17.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_4ljs1")
-stretch_mode = 5
-
-[node name="PausePlaytest" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=1598003160]
-visible = false
-layout_mode = 0
-offset_left = 111.0
-offset_top = 152.0
-offset_right = 191.0
-offset_bottom = 232.0
-toggle_mode = true
-texture_normal = SubResource("AtlasTexture_ncxu0")
-stretch_mode = 0
-script = ExtResource("12_khu03")
-
-[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/PausePlaytest" unique_id=1009303491]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 19.0
-offset_top = 19.0
-offset_right = -18.0
-offset_bottom = -18.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("AtlasTexture_2qq0v")
-stretch_mode = 5
-
 [node name="ZoomIn" type="TextureButton" parent="Editor_Object/UI_Layer/TopBar" unique_id=427214192]
 layout_mode = 0
 offset_left = 24.0
@@ -2260,8 +2224,85 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_oi36f")
 
+[node name="Playtest" type="TextureButton" parent="Editor_Object/UI_Layer" unique_id=322071658]
+offset_left = 24.0
+offset_top = 152.0
+offset_right = 104.0
+offset_bottom = 232.0
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_0n476")
+texture_pressed = SubResource("AtlasTexture_j78ii")
+stretch_mode = 0
+script = ExtResource("12_khu03")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/Playtest" unique_id=20493801]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 17.0
+offset_right = -14.073166
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_4ljs1")
+stretch_mode = 5
+
+[node name="PausePlaytest" type="TextureButton" parent="Editor_Object/UI_Layer" unique_id=1598003160]
+visible = false
+offset_left = 111.0
+offset_top = 152.0
+offset_right = 191.0
+offset_bottom = 232.0
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_ncxu0")
+stretch_mode = 0
+script = ExtResource("12_khu03")
+
+[node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/PausePlaytest" unique_id=1009303491]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 19.0
+offset_right = -18.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_2qq0v")
+stretch_mode = 5
+
 [node name="Ground" parent="Editor_Object" unique_id=1675744057 instance=ExtResource("9_5bivf")]
 physics_interpolation_mode = 1
+
+[node name="Groud" type="StaticBody2D" parent="Editor_Object" unique_id=591673205]
+physics_interpolation_mode = 1
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Editor_Object/Groud" unique_id=1251533920]
+position = Vector2(3000, 5)
+shape = SubResource("RectangleShape2D_po6up")
+
+[node name="Line2D" type="Line2D" parent="Editor_Object/Groud" unique_id=283144207]
+position = Vector2(-300, 0)
+points = PackedVector2Array(0, 0, 6000, 0)
+width = 2.0
+
+[node name="Ceiling" type="StaticBody2D" parent="Editor_Object" unique_id=241050627]
+physics_interpolation_mode = 1
+position = Vector2(0, -1000)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Editor_Object/Ceiling" unique_id=989824402]
+position = Vector2(3000, -5)
+shape = SubResource("RectangleShape2D_po6up")
+
+[node name="Line2D" type="Line2D" parent="Editor_Object/Ceiling" unique_id=1054893553]
+position = Vector2(-300, 0)
+points = PackedVector2Array(0, 0, 6000, 0)
+width = 2.0
 
 [node name="Menu_Layer" type="CanvasLayer" parent="Editor_Object" unique_id=610382271]
 layer = 3
@@ -2360,5 +2401,9 @@ dialog_text = "Selected .gdaslvl file has an invalid format. Check for possible 
 script = ExtResource("23_po6up")
 cam_controller = NodePath("../CameraController")
 editor = NodePath("..")
+
+[node name="DeathMark" type="Sprite2D" parent="." unique_id=1062727746]
+visible = false
+texture = SubResource("AtlasTexture_2qn4l")
 
 [connection signal="id_selected" from="UISystem" to="ObjectSystem" method="select_item_id"]
