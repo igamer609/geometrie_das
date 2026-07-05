@@ -9,6 +9,7 @@ extends Node
 
 @export_category("Config Values")
 @export var CAMERA_MOVE_OFFSET : float = 1.5
+@export var DEFAULT_LEVEL_LENGTH : int = 350
 
 @export_category("Used Editor Systems")
 @export var editor : Editor
@@ -26,7 +27,6 @@ var song_start_time : float = 0
 var draw_line : bool = false
 var follow_playtest_player : bool = false
 var last_snapped_portal_pos : Vector2 = Vector2.ZERO
-
 
 var playtest_player : Player = null
 var playtest_trail : Line2D = null
@@ -59,6 +59,7 @@ func _ready() -> void:
 	
 	ui_system.start_song_preview.connect(_play_song_preview)
 	ui_system.stop_song_preview.connect(_stop_song_preview)
+	ui_system.camera_slider_updated.connect(_slide_camera_to_percent)
 
 func _initiate_camera(level_data : LevelData):
 	camera.global_position = level_data.meta.last_cam_pos
@@ -92,6 +93,9 @@ func _zoom(amount : float) -> void:
 func _pan(relative : Vector2) -> void:
 	camera.global_position -= relative * 3 / camera.zoom
 	update_grid_position()
+
+func _slide_camera_to_percent(percent : float) -> void:
+	camera.global_position.x = percent/100 * (DEFAULT_LEVEL_LENGTH * 16)
 
 func _start_level_song_from_pos(start_position : float) -> void:
 	song_start_time = start_position / editor.BASE_SPEED + editor.level_meta.song_offset
@@ -130,7 +134,7 @@ func update_player_trail() -> void:
 	if(playtest_trail_size > 0):
 		var prev_point : Vector2 = playtest_trail.get_point_position(playtest_trail_size - 1)
 		var distance : Vector2 = Vector2(new_point.x - prev_point.x, abs(new_point.y - prev_point.y))
-		if((distance.x >= 8) || (distance.y >= 56)):
+		if((distance.x >= 4) || (distance.y >= 32)):
 			if((distance.y > 0.1 && distance.y < 0.75) && (playtest_trail_size > 2)):
 				playtest_trail.remove_point(playtest_trail_size - 1)
 				playtest_trail_size -= 1
@@ -180,6 +184,10 @@ func update_playtest_camera() -> void:
 		_:
 			camera.global_position.y = last_snapped_portal_pos.y
 	
+	if(!camera.position_smoothing_enabled):
+		camera.position_smoothing_enabled = true
+		camera.reset_smoothing()
+	
 	update_grid_position()
 
 func _on_gamemode_changed(ground_pos : Vector2 = Vector2.ZERO, gap : int = 0) -> void:
@@ -206,16 +214,21 @@ func _init_playtest(player : Player) -> void:
 	_start_level_song_from_pos(0)
 	draw_line = true
 	follow_playtest_player = true
+	camera.call_deferred("reset_smoothing")
 
 func _on_playtest_paused() -> void:
 	draw_line = false
 	camera.position_smoothing_enabled = false
+	follow_playtest_player = false
+	camera.call_deferred("reset_smoothing")
 	playtest_trail.add_point(playtest_player.global_position)
 	playtest_trail_size += 1
 	GameProgress.stop_lvl_music()
 
 func _on_playtest_resumed() -> void:
 	draw_line = true
+	follow_playtest_player = true
+	camera.call_deferred("reset_smoothing")
 	if(playtest_player):
 		_start_level_song_from_pos(playtest_player.global_position.x)
 
@@ -231,6 +244,7 @@ func _stop_playtest(on_death : bool, last_position : Vector2) -> void:
 	draw_line = false
 	follow_playtest_player = false
 	camera.position_smoothing_enabled = false
+	camera.call_deferred("reset_smoothing")
 	GameProgress.stop_lvl_music()
 
 func _process(delta : float) -> void:

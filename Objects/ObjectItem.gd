@@ -111,12 +111,15 @@ func update() -> void:
 	else:
 		scene_parent = Node2D.new()
 		add_child(scene_parent)
+		
 	
 	if scene_parent != null:
 		scene = obj_res.scene.instantiate()
 		scene.position = Vector2(8, 8)
 		scene.name = "Scene"
 		scene_parent.add_child(scene)
+		if(in_level):
+			_check_for_special_init(scene)
 		
 		z_index = 0
 		
@@ -225,3 +228,9 @@ func delete() -> void:
 	if(obj_sprite):
 		obj_sprite.queue_free()
 	queue_free()
+
+func _check_for_special_init(checked_scene : Node) -> void:
+	for group : StringName in  checked_scene.get_groups():
+		match group:
+			"Portal": checked_scene.call_deferred("_spawn_back_side")
+	

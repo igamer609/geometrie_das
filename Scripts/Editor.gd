@@ -101,6 +101,7 @@ func _start_playtest() -> void:
 	playtest_player.global_position = Vector2(0, -8)
 	playtest_player.died.connect(_stop_playtest.bind(true))
 	playtest_player.changed_gamemode.connect(_playtest_changed_gamemode)
+	playtest_player.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(playtest_player)
 	
 	playtesting_started.emit(playtest_player)
@@ -108,6 +109,9 @@ func _start_playtest() -> void:
 func _stop_playtest(on_death : bool) -> void:
 	playtesting_stopped.emit(on_death, playtest_player.global_position)
 	ceiling_col.hide(); ground_col.hide()
+	
+	if(ceiling_col.get_parent()):
+			ceiling_col.collision_layer = 0
 	
 	if(playtest_player):
 		playtest_player.queue_free()

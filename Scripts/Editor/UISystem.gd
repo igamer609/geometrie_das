@@ -15,6 +15,7 @@ signal start_playtest_pressed
 signal pause_playtest_pressed
 signal resume_playtest_pressed
 signal stop_playtest_pressed
+signal camera_slider_updated(value : float)
 
 @export var editor : Editor
 @export var obj_system : Node
@@ -77,7 +78,7 @@ func _initialise_actions() -> void:
 	editor_layer_spinbox.value_changed.connect(editor._set_editor_layer)
 
 func _initialise_top_bar() -> void:
-	for button : TextureButton in top_bar.get_children():
+	for button : Control in top_bar.get_children():
 		match button.name:
 			"Delete": button.pressed.connect(obj_system.delete_objects)
 			"Menu": button.pressed.connect(_change_menu_state)
@@ -87,8 +88,7 @@ func _initialise_top_bar() -> void:
 			"ZoomIn": button.pressed.connect(cam_controller._zoom.bind(0.3))
 			"ZoomOut": button.pressed.connect(cam_controller._zoom.bind(-0.3))
 			"PlaySong": button.toggled.connect(_toggle_song_preview)
-			"Playtest": button.toggled.connect(_toggle_playtest)
-			"PausePlaytest": button.toggled.connect(_toggle_playtest_pause_button)
+			"LevelCameraSlider": button.value_changed.connect(_on_camera_slider_update)
 	
 	playtest_toggle.toggled.connect(_toggle_playtest)
 	playtest_pause_button.toggled.connect(_toggle_playtest_pause_button)
@@ -143,6 +143,7 @@ func _change_editor_mode(new_mode):
 
 func _change_menu_state():
 	menu_state = !menu_state
+	get_tree().paused = menu_state
 	editor_menu.visible = !editor_menu.visible
 
 func _forward_swipe_toggle(state : bool) -> void:
@@ -172,8 +173,6 @@ func _create_object_edit_menu() -> void:
 			obj_edit_menu.target_triggers = obj_system.selected_objects
 			ui.add_child(obj_edit_menu)
 
-
-
 func _open_level_settings() -> void:
 	var settings_menu = ResourceLibrary.scenes["LevelSettings"].instantiate()
 	settings_menu.level = editor.level_meta
@@ -192,7 +191,6 @@ func _update_selection_action_buttons(selection : Array[GDObject]):
 			"Deselect": button.disabled = check
 
 func _update_clipboard_action_buttons(clipboard : Array):
-	
 	var check : bool = true
 	if(len(clipboard) > 0): check = false
 	
@@ -202,7 +200,8 @@ func _update_clipboard_action_buttons(clipboard : Array):
 
 func _hide_all_except_playtest() -> void:
 	for item : Control in ui.get_children():
-		item.hide()
+#		item.hide()
+		pass
 	playtest_toggle.show(); playtest_pause_button.show()
 
 func _show_all_except_playtest() -> void:
@@ -273,3 +272,6 @@ func _stopped_playtesting() -> void:
 
 func _check_player_death(dead : bool, _last_location : Vector2) -> void:
 	if(dead): _toggle_playtest(false)
+
+func _on_camera_slider_update(value : float) -> void:
+	camera_slider_updated.emit(value)

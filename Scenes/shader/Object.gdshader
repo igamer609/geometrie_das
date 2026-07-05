@@ -10,7 +10,6 @@ uniform int channel_id = 1;
 uniform bool is_selected = false;
 uniform int editor_layer = 0;
 
-
 void fragment() {
 	vec4 texture_color = texture(TEXTURE, UV);
 	vec3 object_color = texture_color.rgb;

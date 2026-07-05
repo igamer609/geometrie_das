@@ -2,8 +2,8 @@
 
 [ext_resource type="Shape2D" uid="uid://blxa3u7mo75f" path="res://Assets/cube.tres" id="1"]
 [ext_resource type="Script" uid="uid://bteyudj7or5uc" path="res://Scripts/Player.gd" id="1_06ggq"]
-[ext_resource type="Texture2D" uid="uid://c3gmwaa5aedxh" path="res://Assets/player.png" id="3_lto8g"]
-[ext_resource type="Texture2D" uid="uid://bqtnfkmias0dd" path="res://Assets/ball.png" id="4_2lric"]
+[ext_resource type="Texture2D" uid="uid://ca4amyqhwfswu" path="res://Assets/cube32.png" id="2_52ee3"]
+[ext_resource type="Texture2D" uid="uid://qp3lxgnx2fds" path="res://Assets/ball32.png" id="3_bhhdu"]
 [ext_resource type="Texture2D" uid="uid://bqr7sqo4h73tb" path="res://Assets/ship.png" id="4_qbp78"]
 [ext_resource type="AudioStream" uid="uid://chi3x2sqxury5" path="res://Assets/sfx/death_sound.mp3" id="6_6ipy7"]
 
@@ -30,16 +30,17 @@ gravity_reverse = false
 [node name="Sprites" type="Node2D" parent="." unique_id=278623522]
 
 [node name="cube" type="Sprite2D" parent="Sprites" unique_id=916702000]
-texture = ExtResource("3_lto8g")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_52ee3")
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="ball" type="Sprite2D" parent="Sprites" unique_id=1173237883]
 visible = false
-scale = Vector2(1.1, 1.1)
-texture = ExtResource("4_2lric")
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("3_bhhdu")
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="ship" type="Sprite2D" parent="Sprites" unique_id=703348467]
 visible = false
@@ -52,10 +53,10 @@ region_rect = Rect2(0, 0, 16, 16)
 [node name="ShipCube" type="Sprite2D" parent="Sprites/ship" unique_id=1848282311]
 z_index = -1
 position = Vector2(0.623, -2)
-scale = Vector2(0.358645, 0.345016)
-texture = ExtResource("3_lto8g")
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("2_52ee3")
 region_enabled = true
-region_rect = Rect2(0, 0, 16, 16)
+region_rect = Rect2(0, 0, 32, 32)
 
 [node name="PlatformArea" type="Area2D" parent="." unique_id=2087763262]
 collision_mask = 2

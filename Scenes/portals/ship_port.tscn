@@ -1,29 +1,39 @@
 [gd_scene format=3 uid="uid://cbo8wu4f074xw"]
 
-[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/Portal.gd" id="1_lo68c"]
+[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/portal.gd" id="1_lo68c"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_0p4to"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_2w57b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2w57b"]
+atlas = ExtResource("2_0p4to")
+region = Rect2(99, 63, 28, 60)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5x06i"]
 shader = ExtResource("2_2w57b")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qs08e"]
-size = Vector2(12, 21.3333)
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgffr"]
+atlas = ExtResource("2_0p4to")
+region = Rect2(113, 1, 32, 60)
 
-[node name="Ship Portal" type="Area2D" unique_id=1436396068 groups=["gamemode_portal"]]
-scale = Vector2(1.5, 1.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2w57b"]
+size = Vector2(15, 38)
+
+[node name="Ship Portal" type="Area2D" unique_id=1436396068 groups=["Portal", "gamemode_portal"]]
 script = ExtResource("1_lo68c")
 portal_type = 3
+back_texture_scale = Vector2(0.75, 0.75)
+back_texture = SubResource("AtlasTexture_2w57b")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=1449647058]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1070430851]
+z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_5x06i")
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_0p4to")
-region_enabled = true
-region_rect = Rect2(14, 0, 16, 27)
+position = Vector2(8, 0)
+scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_jgffr")
+region_rect = Rect2(64, 1, 32, 60)
 
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=1362610390]
-position = Vector2(0, -4.76837e-07)
-shape = SubResource("RectangleShape2D_qs08e")
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=2122849032]
+position = Vector2(3.5, 0)
+shape = SubResource("RectangleShape2D_2w57b")
 debug_color = Color(0, 0.6, 0.701961, 0)

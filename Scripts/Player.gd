@@ -28,6 +28,7 @@ signal respawned()
 const SCALE_MULTIPLIER : float = 10.8
 
 const CUBE_JUMP_VELOCITY : float = 24 * SCALE_MULTIPLIER
+const COYOTE_TIME_LIMIT : float = 0.032
 const AIR_TIME_LIMIT : int =  4
 
 const SHIP_MAX_VEL : int = 180
@@ -37,7 +38,7 @@ const CUBE_GRAVITY : float = 92.25 * SCALE_MULTIPLIER
 const SHIP_GRAVITY : float = 1.7
 const BALL_GRAVITY : float = 4
 
-const GROUNDED_LEDGE_RAY_OFFSET : float = 6
+const GROUNDED_LEDGE_RAY_OFFSET : float = 5.5
 const WALL_RAY_MARGIN : float = 0.5
 
 enum jump_types {pink = 200, yellow = 275}
@@ -58,6 +59,7 @@ var can_move : bool = true
 var invulnerable : bool = false
 var consecutive_jumps : int = 0
 var time_in_air : float = 0
+var time_since_floor_contact : float = 0
 var last_velocity : Vector2 = Vector2.ZERO
 
 var in_orb : bool = false
@@ -71,13 +73,13 @@ func _ready():
 func _check_icons():
 	for sprite in $Sprites.get_children():
 			if sprite.name == "cube":
-				sprite.region_rect = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.cube_id * 32, 0, 32, 32)
 			elif sprite.name == "ship":
 				sprite.region_rect = Rect2(PlayerData.data.ship_id * 16, 0, 16, 16)
 				for child in sprite.get_children():
-					child.region_rect = Rect2(PlayerData.data.cube_id * 16, 0, 16, 16)
+					child.region_rect = Rect2(PlayerData.data.cube_id * 32, 0, 32, 32)
 			elif sprite.name == "ball":
-				sprite.region_rect = Rect2(PlayerData.data.ball_id * 16, 0, 16, 16)
+				sprite.region_rect = Rect2(PlayerData.data.ball_id * 32, 0, 32, 32)
 
 func change_gamemode(new_gamemode : int, last_portal : Area2D) -> void:
 	
@@ -139,6 +141,8 @@ func _physics_process(delta : float) -> void:
 		if gamemode == GamemodeTypes.CUBE:
 			if is_really_on_surface():
 				snap_to_surface()
+			else:
+				time_since_floor_contact += delta
 		elif gamemode == GamemodeTypes.SHIP or gamemode == GamemodeTypes.BALL:
 			if not Input.is_action_pressed("Jump"):
 				snap_to_surface()
@@ -153,13 +157,16 @@ func _process_cube_physics(delta : float) -> void:
 	
 	if not hit_orb:
 		if Input.is_action_pressed("Jump"):
-				if is_really_on_surface():
-					time_in_air = 0
-					velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier
-					
-					if consecutive_jumps > 1:
-						velocity.y -= (SCALE_MULTIPLIER + 3) * gravity_multiplier
-					consecutive_jumps += 1
+			var on_surface = is_really_on_surface()
+			if on_surface:
+				time_in_air = 0
+				velocity.y = -CUBE_JUMP_VELOCITY * gravity_multiplier
+				
+				if consecutive_jumps > 0:
+					velocity.y -= atan(consecutive_jumps) * 4.14159 * gravity_multiplier
+				consecutive_jumps += 1
+			elif(!on_surface):
+				time_since_floor_contact = 0
 		else:
 			consecutive_jumps = 0
 	
@@ -286,6 +293,7 @@ func die():
 func is_really_on_surface() -> bool:
 	if velocity.y * gravity_multiplier < -10: 
 		return false
+	
 	return is_on_floor() or surface_raycast.is_colliding()
 
 func is_really_on_ceiling() -> bool:
@@ -308,10 +316,11 @@ func snap_to_ledge() -> void:
 	params.collision_mask = 2
 	var result : Dictionary = space.intersect_ray(params)
 	
-	if(result and velocity.y * gravity_multiplier >= 10):
+	if(result && (velocity.y * gravity_multiplier >= 10)):
 		var platform_offset = global_position.y +( 8 * gravity_multiplier) - result.position.y
 		global_position.y -= platform_offset * gravity_multiplier
 		velocity.y = 0
+		global_position.x += 0.5
 
 func is_on_ledge() -> bool:
 	return bottom_raycast.is_colliding() and not ledge_raycast.is_colliding()

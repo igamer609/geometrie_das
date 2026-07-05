@@ -2,12 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="1_5gw3d"]
 [ext_resource type="Script" uid="uid://36j7qynmvv45" path="res://Scripts/IconMenu.gd" id="1_ea3ny"]
-[ext_resource type="Texture2D" uid="uid://c3gmwaa5aedxh" path="res://Assets/player.png" id="2_vae00"]
 [ext_resource type="Texture2D" uid="uid://bqr7sqo4h73tb" path="res://Assets/ship.png" id="2_yb13t"]
+[ext_resource type="Texture2D" uid="uid://ca4amyqhwfswu" path="res://Assets/cube32.png" id="3_3a064"]
 [ext_resource type="Script" uid="uid://du8liw5rlyv2k" path="res://Scripts/General/SelectIcon.gd" id="3_lnb1n"]
 [ext_resource type="Texture2D" uid="uid://br36bnl0j1uvc" path="res://Assets/other/mini_icons_white.png" id="5_0qh8t"]
 [ext_resource type="Texture2D" uid="uid://bqtnfkmias0dd" path="res://Assets/ball.png" id="6_odinw"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="7_hk6wx"]
+[ext_resource type="Texture2D" uid="uid://qp3lxgnx2fds" path="res://Assets/ball32.png" id="9_hk6wx"]
 
 [sub_resource type="Gradient" id="Gradient_dobci"]
 colors = PackedColorArray(1.97336e-06, 0.539417, 0.540304, 1, 1.09738e-05, 0.828997, 0.779352, 1)
@@ -24,24 +25,8 @@ atlas = ExtResource("1_5gw3d")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_umc5e"]
-atlas = ExtResource("2_vae00")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ksf3y"]
-atlas = ExtResource("2_vae00")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6s5fc"]
-atlas = ExtResource("2_vae00")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e5fr2"]
-atlas = ExtResource("2_vae00")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yto3b"]
-atlas = ExtResource("2_vae00")
-region = Rect2(0, 0, 16, 16)
+atlas = ExtResource("3_3a064")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k33ah"]
 atlas = ExtResource("2_yb13t")
@@ -87,15 +72,15 @@ atlas = ExtResource("5_0qh8t")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8wrh"]
-atlas = ExtResource("2_vae00")
-region = Rect2(0, 0, 16, 16)
+atlas = ExtResource("3_3a064")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tts4o"]
 atlas = ExtResource("2_yb13t")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tm1fc"]
-atlas = ExtResource("6_odinw")
+atlas = ExtResource("9_hk6wx")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="InputEventKey" id="InputEventKey_pa3jt"]
@@ -195,10 +180,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -280.0
-offset_top = 55.0
-offset_right = 281.0
-offset_bottom = 144.0
+offset_left = -353.0
+offset_top = 50.0
+offset_right = 353.0
+offset_bottom = 271.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.52549)
@@ -216,7 +201,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 30
-columns = 5
+columns = 6
 
 [node name="Cube1" type="TextureButton" parent="IconToolbox/Cubes" unique_id=989163264]
 texture_filter = 1
@@ -227,45 +212,115 @@ ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
 
-[node name="Cube2" type="TextureButton" parent="IconToolbox/Cubes" unique_id=173089386]
+[node name="Cube2" type="TextureButton" parent="IconToolbox/Cubes" unique_id=2092879680]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_ksf3y")
+texture_normal = SubResource("AtlasTexture_umc5e")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
 id = 1
 
-[node name="Cube3" type="TextureButton" parent="IconToolbox/Cubes" unique_id=684519403]
+[node name="Cube3" type="TextureButton" parent="IconToolbox/Cubes" unique_id=810538137]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_6s5fc")
+texture_normal = SubResource("AtlasTexture_umc5e")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
 id = 2
 
-[node name="Cube4" type="TextureButton" parent="IconToolbox/Cubes" unique_id=561489624]
+[node name="Cube4" type="TextureButton" parent="IconToolbox/Cubes" unique_id=277125447]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_e5fr2")
+texture_normal = SubResource("AtlasTexture_umc5e")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
 id = 3
 
-[node name="Cube5" type="TextureButton" parent="IconToolbox/Cubes" unique_id=535020309]
+[node name="Cube5" type="TextureButton" parent="IconToolbox/Cubes" unique_id=1004981994]
 texture_filter = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_yto3b")
+texture_normal = SubResource("AtlasTexture_umc5e")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("3_lnb1n")
 id = 4
+
+[node name="Cube6" type="TextureButton" parent="IconToolbox/Cubes" unique_id=1246583132]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+id = 5
+
+[node name="Cube7" type="TextureButton" parent="IconToolbox/Cubes" unique_id=168867200]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+id = 6
+
+[node name="Cube8" type="TextureButton" parent="IconToolbox/Cubes" unique_id=1581848448]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+id = 7
+
+[node name="Cube9" type="TextureButton" parent="IconToolbox/Cubes" unique_id=1382972710]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+id = 8
+
+[node name="Cube10" type="TextureButton" parent="IconToolbox/Cubes" unique_id=842541562]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+id = 9
+
+[node name="Cube11" type="TextureButton" parent="IconToolbox/Cubes" unique_id=1930830215]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+id = 10
+
+[node name="Cube12" type="TextureButton" parent="IconToolbox/Cubes" unique_id=2068104683]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_umc5e")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+id = 11
 
 [node name="Ships" type="GridContainer" parent="IconToolbox" unique_id=444010294]
 visible = false
@@ -275,10 +330,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -252.5
-offset_top = -29.5
-offset_right = 247.5
-offset_bottom = 30.5
+offset_left = -316.0
+offset_top = -92.5
+offset_right = 321.0
+offset_bottom = 85.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 50
@@ -314,15 +369,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -252.5
-offset_top = -29.5
-offset_right = 247.5
-offset_bottom = 30.5
+offset_left = -309.0
+offset_top = -92.5
+offset_right = 324.0
+offset_bottom = 84.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 30
-columns = 5
+columns = 6
 
 [node name="Ball1" type="TextureButton" parent="IconToolbox/Balls" unique_id=222385573]
 texture_filter = 1
@@ -366,6 +421,50 @@ stretch_mode = 0
 script = ExtResource("3_lnb1n")
 gamemode = 2
 id = 3
+
+[node name="Ball5" type="TextureButton" parent="IconToolbox/Balls" unique_id=91186750]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_eyru4")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+gamemode = 2
+id = 4
+
+[node name="Ball6" type="TextureButton" parent="IconToolbox/Balls" unique_id=1514518239]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_eyru4")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+gamemode = 2
+id = 5
+
+[node name="Ball7" type="TextureButton" parent="IconToolbox/Balls" unique_id=1065328638]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_eyru4")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+gamemode = 2
+id = 6
+
+[node name="Ball8" type="TextureButton" parent="IconToolbox/Balls" unique_id=2044140162]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_eyru4")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_lnb1n")
+gamemode = 2
+id = 7
 
 [node name="TabContainer" type="HBoxContainer" parent="." unique_id=1594756944]
 layout_mode = 1

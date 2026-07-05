@@ -40,7 +40,7 @@ var _debugging : bool
 @export var end_animation : AnimationPlayer
 @export var death_particle : GPUParticles2D
 
-var player : CharacterBody2D = null
+var player : Player = null
 var player_cam : Camera2D = null
 
 var rect_x = 0
@@ -50,6 +50,7 @@ var first_attempt = true
 var follow_cam = false
 var level_ended = false
 var obtain_endpos = true
+var restarted = false
 var _smoothing_delay : int = 1
 
 func _get_endpos() -> void:
@@ -63,25 +64,10 @@ func _get_endpos() -> void:
 	rect_x = last_x
 	endpos.global_position.x = last_x + 348
 
-func _get_path_to_level() -> String:
-	var file_path : String = ""
-	if _playtesting:
-		var directory : PackedStringArray = DirAccess.get_files_at("user://created_levels")
-		
-		for this_level : String  in directory:
-			if int(this_level.get_slice(".", 0)) == level_data["info"]["local_id"]:
-				file_path = "user://created_levels/" + this_level
-	else:
-		var directory : PackedStringArray = DirAccess.get_files_at("user://saved_levels")
-		
-		for this_level : String  in directory:
-			if int(this_level.get_slice(".", 0)) == level_data["info"]["id"]:
-				file_path = "user://saved_levels/" + this_level
-	
-	return file_path
-
 func load_level_data(new_level_data : LevelData, restart = false, playtesting = false, level_path : String = "", return_scene = "") -> void:
 	level_data = new_level_data
+	
+	restarted = restart
 	
 	if restart:
 		first_attempt = false
@@ -141,7 +127,10 @@ func initiate() -> void:
 		player.died.connect(player_died)
 		player.respawned.connect(player_respawn)
 		
-		player.global_position.x = -128
+		if(!restarted):
+			player.global_position.x = -128
+		else:
+			player.global_position.x = -64
 		player.global_position.y = -8
 		
 		player.change_gamemode(level_data.meta.starting_gamemode + 2, null)
@@ -159,8 +148,8 @@ func initiate() -> void:
 func player_died() -> void:
 	follow_cam = false
 	first_attempt = false
-	GameProgress.stop_lvl_music()
 	
+	GameProgress.stop_lvl_music()
 	ColorManager._end_all_tweens()
 	
 	death_particle.global_position = player.global_position
@@ -198,27 +187,18 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 			1: # ship
 				ceiling.visible = true
 				
-				var ground_pos : Vector2 = Vector2(player.global_position.x + 3500, portal.global_position.y + 88)
-				if ground_pos.y > 0:
-					ground_pos.y = 0
-				
-				ground.global_position = ground_pos
-				ceiling.global_position = Vector2(player.global_position.x + 3500, ground.global_position.y - 176)
+				_update_ground(portal.global_position, 10)
 				
 			2:  # ball
 				ceiling.visible = true
 				
-				ground.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y + 72)
-				ceiling.global_position = Vector2(player.global_position.x + 3500, portal.global_position.y - 72)
-				
-				if ground.global_position.y > 0:
-					ground.global_position.y = 0
-					ceiling.global_position.y = ground.global_position.y - 144
+				_update_ground(portal.global_position, 8)
 	else:
 		match gamemode:
 			0:  # cube
 				ground.global_position = Vector2(3500, 0)
 				ceiling.global_position = Vector2(3500, 1000)
+				ceiling.hide()
 				
 				player_cam.global_position = Vector2(128, -24)
 				
@@ -226,20 +206,44 @@ func on_gamemode_change(portal : Area2D, gamemode : int) -> void:
 				ceiling.visible = true
 				
 				ground.global_position.y = 0
-				ceiling.global_position.y = ground.global_position.y - 176
+				ceiling.global_position.y = ground.global_position.y - 160
 				
 				#10 block gap
 				
-				player_cam.global_position = Vector2(32, ground.global_position.y - 88)
+				player_cam.global_position = Vector2(32, ground.global_position.y - 80)
 			2:  # ball
 				ceiling.visible = true
 				
 				ground.global_position.y = 0
-				ceiling.global_position.y = ground.global_position.y - 112
+				ceiling.global_position.y = ground.global_position.y - 128
 				
 				#8 block gap
 				
-				player_cam.global_position = Vector2(32, ground.global_position.y - 56)
+				player_cam.global_position = Vector2(32, ground.global_position.y - 64)
+
+func _update_ground(portal_pos : Vector2 = Vector2.ZERO, gap: int = 0) -> void:
+	var snapped_pos : Vector2 = Vector2(portal_pos.x, snapped(portal_pos.y, 16))
+	
+	if(gap == 0):
+		ground.global_position = Vector2(snapped_pos.x, 0)
+		ceiling.hide()
+		if(ceiling.get_parent()):
+			ceiling.collision_layer = 0
+		return
+	
+	if(ceiling.get_parent() == null):
+		add_child(ceiling)
+	
+	var ground_pos : Vector2 = Vector2(snapped_pos.x, int(snapped_pos.y + gap*16/2.0))
+	if(ground_pos.y > 0):
+		ground_pos.y = 0
+	
+	var ceiling_pos : Vector2 = Vector2(snapped_pos.x, ground_pos.y - gap*16)
+	ceiling.collision_layer = 2
+	
+	ground.global_position = ground_pos
+	ceiling.global_position = ceiling_pos
+	ceiling.show();
 
 func _process(_delta) -> void:
 	if obtain_endpos:
@@ -270,9 +274,9 @@ func _process(_delta) -> void:
 				if(abs(offset) > CAMERA_MOVE_OFFSET * 16):
 					player_cam.global_position.y = lerp(player_cam.global_position.y, player.global_position.y, 0.1)
 			Player.GamemodeTypes.SHIP:
-				player_cam.global_position.y = ground.global_position.y - 88
+				player_cam.global_position.y = ground.global_position.y - 80
 			Player.GamemodeTypes.BALL:
-				player_cam.global_position.y = ground.global_position.y - 72
+				player_cam.global_position.y = ground.global_position.y - 64
 		
 		endpos.global_position.y = player_cam.global_position.y
 	
@@ -289,9 +293,12 @@ func _process(_delta) -> void:
 		player.invulnerable = true
 		player.gravity = 10
 		player.velocity.y = -50
-		player.speed += 5
+		if(player.can_move):
+			player.speed += 5
 	
 	if (player.global_position.x / endpos.global_position.x) * 100 >= 100 and not level_ended:
+		player.hide()
+		player.pause_movement()
 		level_ended = true
 		_end_level()
 

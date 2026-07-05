@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cb2yfwjfm0pjk" path="res://Scripts/Editor/ObjectSystem.gd" id="2_t2ba8"]
 [ext_resource type="Shader" uid="uid://bmxyj2v0g7jcl" path="res://Scenes/shader/Object.gdshader" id="2_u5kxy"]
 [ext_resource type="Script" uid="uid://dvtjhomgs683a" path="res://Scripts/Editor/UISystem.gd" id="3_g6r6n"]
-[ext_resource type="Script" uid="uid://bgdkf1b1c20ip" path="res://Scripts/Editor/CameraController.gd" id="4_po6up"]
+[ext_resource type="Script" uid="uid://bgdkf1b1c20ip" path="res://Scripts/Editor/EditorCameraController.gd" id="4_po6up"]
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="5_m37bs"]
 [ext_resource type="Script" uid="uid://bttav5c7n8d6s" path="res://Scripts/Editor/SaveLoadSystem.gd" id="5_s1emi"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="5_vdfow"]
@@ -22,7 +22,9 @@
 [ext_resource type="Script" uid="uid://p47v4tspphpn" path="res://Scripts/General/UIElements/GDNumberSpin.gd" id="11_khu03"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="12_khu03"]
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="22_758p6"]
 [ext_resource type="Script" uid="uid://vowryoc212x" path="res://Scripts/Editor/RenderOverlay.gd" id="23_po6up"]
+[ext_resource type="Texture2D" uid="uid://clqkp6ffidqc8" path="res://Assets/buttons/sliders.png" id="23_x3xft"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ypo3h"]
 shader = ExtResource("2_u5kxy")
@@ -322,6 +324,37 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds77r"]
+atlas = ExtResource("23_x3xft")
+region = Rect2(46, 44, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhyt7"]
+atlas = ExtResource("23_x3xft")
+region = Rect2(42, 1, 309, 23)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0uvs3"]
+texture = SubResource("AtlasTexture_mhyt7")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsk1c"]
+atlas = ExtResource("23_x3xft")
+region = Rect2(45, 26, 304, 16)
+margin = Rect2(2, 3.5, 0, 7)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f53rl"]
+texture = SubResource("AtlasTexture_jsk1c")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 4.0
+expand_margin_top = 5.0
+expand_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+region_rect = Rect2(-1, -3, 310.85, 26)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_0n476"]
 atlas = ExtResource("10_m37bs")
 region = Rect2(96, 0, 32, 32)
@@ -333,6 +366,13 @@ region = Rect2(0, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ljs1"]
 atlas = ExtResource("7_m37bs")
 region = Rect2(94, 39, 21, 21)
+
+[sub_resource type="InputEventKey" id="InputEventKey_po6up"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_s1emi"]
+events = [SubResource("InputEventKey_po6up")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ncxu0"]
 atlas = ExtResource("10_m37bs")
@@ -350,6 +390,7 @@ atlas = ExtResource("7_m37bs")
 region = Rect2(131, 3, 24, 24)
 
 [node name="Editor" type="Node2D" unique_id=1935897522 node_paths=PackedStringArray("input_controller", "obj_system", "cam_controller", "ui_system", "ground_col", "ceiling_col")]
+process_mode = 3
 physics_interpolation_mode = 2
 script = ExtResource("1_id040")
 input_controller = NodePath("InputController")
@@ -360,6 +401,7 @@ ground_col = NodePath("Editor_Object/Groud")
 ceiling_col = NodePath("Editor_Object/Ceiling")
 
 [node name="InputController" type="Node" parent="." unique_id=46434842 node_paths=PackedStringArray("editor")]
+process_mode = 1
 script = ExtResource("2_g6r6n")
 editor = NodePath("..")
 
@@ -371,6 +413,7 @@ level = NodePath("../Level")
 camera = NodePath("../Camera")
 
 [node name="UISystem" type="Node" parent="." unique_id=1647001883 node_paths=PackedStringArray("editor", "obj_system", "cam_controller", "save_load", "ui", "editor_menu", "editor_menu_container", "top_bar", "action_grid", "item_tab", "edit_tab", "editor_tabs", "move_container", "other_edit_buttons", "quick_options", "editor_layer_spinbox", "song_preview_button", "playtest_toggle", "playtest_pause_button")]
+process_mode = 3
 script = ExtResource("3_g6r6n")
 editor = NodePath("..")
 obj_system = NodePath("../ObjectSystem")
@@ -393,6 +436,7 @@ playtest_toggle = NodePath("../Editor_Object/UI_Layer/Playtest")
 playtest_pause_button = NodePath("../Editor_Object/UI_Layer/PausePlaytest")
 
 [node name="CameraController" type="Node" parent="." unique_id=1750884450 node_paths=PackedStringArray("editor", "input_controller", "ui_system", "camera", "grid", "death_marker")]
+process_mode = 1
 script = ExtResource("4_po6up")
 editor = NodePath("..")
 input_controller = NodePath("../InputController")
@@ -415,6 +459,11 @@ modulate = Color(0.0056164735, 0.49120545, 0.99996215, 1)
 motion_mirroring = Vector2(1000, 750)
 
 [node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=931789907]
+material = SubResource("ShaderMaterial_ypo3h")
+position = Vector2(0, 750)
+texture = ExtResource("1_ojbeb")
+
+[node name="Sprite2D5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=2024432762]
 material = SubResource("ShaderMaterial_ypo3h")
 position = Vector2(0, 750)
 texture = ExtResource("1_ojbeb")
@@ -452,6 +501,7 @@ width = 2.0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=659548559]
 zoom = Vector2(3, 3)
+position_smoothing_speed = 20.0
 
 [node name="Level" type="Node2D" parent="." unique_id=1560956405]
 
@@ -2224,6 +2274,23 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_oi36f")
 
+[node name="LevelCameraSlider" type="HSlider" parent="Editor_Object/UI_Layer/TopBar" unique_id=1451022734]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 23.0
+offset_right = 786.4077
+offset_bottom = 87.0
+scale = Vector2(1.25, 1.25)
+theme = ExtResource("22_758p6")
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = SubResource("AtlasTexture_ds77r")
+theme_override_icons/grabber_highlight = SubResource("AtlasTexture_ds77r")
+theme_override_styles/slider = SubResource("StyleBoxTexture_0uvs3")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_f53rl")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_f53rl")
+step = 0.1
+exp_edit = true
+
 [node name="Playtest" type="TextureButton" parent="Editor_Object/UI_Layer" unique_id=322071658]
 offset_left = 24.0
 offset_top = 152.0
@@ -2256,6 +2323,7 @@ offset_top = 152.0
 offset_right = 191.0
 offset_bottom = 232.0
 toggle_mode = true
+shortcut = SubResource("Shortcut_s1emi")
 texture_normal = SubResource("AtlasTexture_ncxu0")
 stretch_mode = 0
 script = ExtResource("12_khu03")
@@ -2279,6 +2347,7 @@ physics_interpolation_mode = 1
 
 [node name="Groud" type="StaticBody2D" parent="Editor_Object" unique_id=591673205]
 physics_interpolation_mode = 1
+visible = false
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Editor_Object/Groud" unique_id=1251533920]
@@ -2292,7 +2361,8 @@ width = 2.0
 
 [node name="Ceiling" type="StaticBody2D" parent="Editor_Object" unique_id=241050627]
 physics_interpolation_mode = 1
-position = Vector2(0, -1000)
+visible = false
+position = Vector2(0, -4451)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Editor_Object/Ceiling" unique_id=989824402]
@@ -2305,6 +2375,7 @@ points = PackedVector2Array(0, 0, 6000, 0)
 width = 2.0
 
 [node name="Menu_Layer" type="CanvasLayer" parent="Editor_Object" unique_id=610382271]
+process_mode = 3
 layer = 3
 
 [node name="EditorMenu" type="ColorRect" parent="Editor_Object/Menu_Layer" unique_id=800902147]

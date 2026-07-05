@@ -51,6 +51,7 @@ enabled=PackedStringArray("res://addons/GDasFormat/plugin.cfg")
 Hazard=""
 Orb=""
 Object="All level objects"
+Portal=""
 
 [input]
 

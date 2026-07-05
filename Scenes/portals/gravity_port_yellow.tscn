@@ -1,29 +1,37 @@
 [gd_scene format=3 uid="uid://dtfyfwg6wjpnm"]
 
-[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/Portal.gd" id="1_p8uta"]
+[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/portal.gd" id="1_p8uta"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_t1lnb"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_u7fos"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7fos"]
+atlas = ExtResource("2_t1lnb")
+region = Rect2(364, 62, 14, 60)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_in58j"]
 shader = ExtResource("2_u7fos")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qs08e"]
-size = Vector2(6.66667, 21.3333)
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyp8j"]
+atlas = ExtResource("2_t1lnb")
+region = Rect2(370, 1, 24, 60)
 
-[node name="Reverse Gravity" type="Area2D" unique_id=280089085 groups=["gamemode_portal"]]
-scale = Vector2(1.5, 1.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7y7dr"]
+size = Vector2(6, 40)
+
+[node name="Reverse Gravity" type="Area2D" unique_id=280089085 groups=["Portal", "gamemode_portal"]]
 script = ExtResource("1_p8uta")
 portal_type = 1
+back_texture_scale = Vector2(0.75, 0.75)
+back_texture = SubResource("AtlasTexture_u7fos")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=527568761]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=381017219]
+z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_in58j")
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_t1lnb")
-region_enabled = true
-region_rect = Rect2(72, 33, 11, 27)
+position = Vector2(4, 0)
+scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_nyp8j")
 
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=1519004207]
-position = Vector2(-0.666667, 0)
-shape = SubResource("RectangleShape2D_qs08e")
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=9339156]
+shape = SubResource("RectangleShape2D_7y7dr")
 debug_color = Color(0, 0.6, 0.701961, 0)

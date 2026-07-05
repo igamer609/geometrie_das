@@ -28,6 +28,7 @@ signal swipe_key_pressed
 signal swipe_key_released
 signal move(direction : String, amount : float)
 signal rotate(direction : int)
+signal paused
 
 func _ready() -> void:
 	editor.playtesting_started.connect(_playtesting_started)
@@ -105,6 +106,9 @@ func _playtesting_stopped(_on_death : bool = false, _last_location : Vector2 = V
 
 func _playtesting_paused() -> void:
 	catch_inputs = true
+	emit_place_signals = true
 
 func _playtesting_resumed() -> void:
 	catch_inputs = false
+	emit_place_signals = false
+	

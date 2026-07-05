@@ -21,10 +21,10 @@ script = ExtResource("1_c2n1u")
 texture_filter = 1
 material = SubResource("ShaderMaterial_86wil")
 instance_shader_parameters/flash_intensity = 0.0
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_ljrke")
 region_enabled = true
-region_rect = Rect2(0.0254173, 13.9179, 13.9184, 14.1887)
+region_rect = Rect2(135, 127, 32, 32)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1164313658]
 shape = SubResource("RectangleShape2D_qs08e")

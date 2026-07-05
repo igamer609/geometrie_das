@@ -110,6 +110,7 @@ func load_game_from_entry(level_entry : LevelRegistryEntry, playtest : bool = fa
 	var loaded_level : LevelData = load(level_entry.ref)
 	root.load_level_data(loaded_level, false, playtest, level_entry.ref, return_path)
 	
+	get_tree().paused = false
 	$AnimationPlayer.play_backwards("fade")
 	await $AnimationPlayer.animation_finished
 	is_in_transition = false
@@ -134,6 +135,8 @@ func load_game_from_data(level_data : LevelData, restart = false, playtesting = 
 	var loaded_level : LevelData = load(level_path)
 	root.load_level_data(loaded_level, restart, playtesting, level_path, return_scene)
 	
+	get_tree().paused = false
+	
 	if not restart:
 		$AnimationPlayer.play_backwards("fade")
 		await $AnimationPlayer.animation_finished
@@ -156,9 +159,7 @@ func load_level_edit_menu(level_entry: LevelRegistryEntry) -> void:
 	var root = get_level_edit_menu()
 	root.load_level(level_entry)
 	
+	get_tree().paused = false
 	$AnimationPlayer.play_backwards("fade")
 	await $AnimationPlayer.animation_finished
 	is_in_transition = false
-	
-	if get_tree().paused:
-		get_tree().paused = false

@@ -1,30 +1,36 @@
 [gd_scene format=3 uid="uid://756i0al4p4q2"]
 
-[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/Portal.gd" id="1_flofq"]
+[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/portal.gd" id="1_flofq"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_cd708"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_gdlbl"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6nh2m"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd708"]
+atlas = ExtResource("2_gdlbl")
+region = Rect2(49, 63, 29, 60)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cd708"]
 shader = ExtResource("2_cd708")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq04g"]
-size = Vector2(15, 24.3333)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cd708"]
+size = Vector2(15, 38)
 
-[node name="Cube Portal" type="Area2D" unique_id=1483172911 groups=["gamemode_portal"]]
-scale = Vector2(1.5, 1.5)
+[node name="Cube Portal" type="Area2D" unique_id=1483172911 groups=["Portal", "gamemode_portal"]]
 script = ExtResource("1_flofq")
 portal_type = 2
+back_texture_scale = Vector2(0.75, 0.75)
+back_texture = SubResource("AtlasTexture_cd708")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=580992825]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1015423910]
+z_index = 1
 texture_filter = 1
-material = SubResource("ShaderMaterial_6nh2m")
-scale = Vector2(0.8, 0.8)
+material = SubResource("ShaderMaterial_cd708")
+position = Vector2(8, 0)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_gdlbl")
 region_enabled = true
-region_rect = Rect2(30, 0, 16, 27)
+region_rect = Rect2(64, 1, 32, 60)
 
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=1981852340]
-position = Vector2(0, 0.933333)
-scale = Vector2(0.8, 0.8)
-shape = SubResource("RectangleShape2D_tq04g")
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=225199248]
+position = Vector2(3.5, 0)
+shape = SubResource("RectangleShape2D_cd708")
 debug_color = Color(0, 0.6, 0.701961, 0)

@@ -247,6 +247,10 @@ func select_single(object):
 	select_object(object)
 	updated_selection.emit(selected_objects)
 
+func add_to_selection(object):
+	select_object(object)
+	updated_selection.emit(selected_objects)
+
 func select_all():
 	deselect()
 	
@@ -431,8 +435,7 @@ func paste_objects():
 		history.commit_action()
 		
 		for object in pasted_objects:
-			select_object(object, true)
-		
+			add_to_selection(object)
 
 func duplicate_objects():
 	var objects_to_duplicate = selected_objects.duplicate(true)
@@ -444,7 +447,7 @@ func duplicate_objects():
 		
 		var object = _duplicate_obj(obj, obj.global_position, obj.global_rotation)
 
-		select_object(object, true)
+		add_to_selection(object)
 		
 		history.add_do_method(_add_object_to_level.bind(object))
 		history.add_do_reference(object)

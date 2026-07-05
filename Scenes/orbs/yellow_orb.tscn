@@ -22,10 +22,10 @@ jump_type = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_m1ji8")
 instance_shader_parameters/flash_intensity = 0.0
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_aj0fd")
 region_enabled = true
-region_rect = Rect2(0, 0, 14, 14)
+region_rect = Rect2(102, 127, 32, 32)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=539614295]
 shape = SubResource("RectangleShape2D_rg4ye")

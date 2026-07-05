@@ -1,29 +1,36 @@
 [gd_scene format=3 uid="uid://xdkdyyfvcgfg"]
 
-[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/Portal.gd" id="1_liqm3"]
+[ext_resource type="Script" uid="uid://dqpy8qwbg71dg" path="res://Scripts/portal.gd" id="1_liqm3"]
 [ext_resource type="Shader" uid="uid://cy6fba6wryg7h" path="res://Scenes/shader/Highlight.gdshader" id="2_81mil"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="2_annoi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81mil"]
+atlas = ExtResource("2_annoi")
+region = Rect2(145, 63, 28, 60)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4bptj"]
 shader = ExtResource("2_81mil")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qs08e"]
-size = Vector2(12, 21.3333)
+size = Vector2(15, 38)
 
-[node name="Ball Portal" type="Area2D" unique_id=1963936278 groups=["gamemode_portal"]]
-scale = Vector2(1.5, 1.5)
+[node name="Ball Portal" type="Area2D" unique_id=1963936278 groups=["Portal", "gamemode_portal"]]
 script = ExtResource("1_liqm3")
 portal_type = 4
+back_texture_scale = Vector2(0.75, 0.75)
+back_texture = SubResource("AtlasTexture_81mil")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=257594283]
+z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_4bptj")
-scale = Vector2(0.8, 0.8)
+position = Vector2(8, 0)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_annoi")
 region_enabled = true
-region_rect = Rect2(46, 0, 16, 27)
+region_rect = Rect2(159, 1, 32, 60)
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1030834142]
-position = Vector2(0, -4.76837e-07)
+position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_qs08e")
 debug_color = Color(0, 0.6, 0.701961, 0)
