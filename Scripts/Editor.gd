@@ -17,6 +17,7 @@ signal playtesting_resumed()
 signal playtesting_stopped(on_death : bool, last_location : Vector2)
 
 const player_scene : PackedScene = preload("res://Scenes/Player.tscn")
+const DEFAULT_LEVEL_LENGTH : int = 350
 
 @export var input_controller : EditorInputController
 @export var obj_system : EditorObjectSystem

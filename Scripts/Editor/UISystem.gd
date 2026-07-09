@@ -43,6 +43,9 @@ signal camera_slider_updated(value : float)
 @export var playtest_toggle : TextureButton
 @export var playtest_pause_button : TextureButton 
 
+@export_category("Sliders")
+@export var camera_slider : HSlider
+
 var menu_state : bool = false
 
 func _ready() -> void:
@@ -51,6 +54,8 @@ func _ready() -> void:
 	
 	obj_system.updated_selection.connect(_update_selection_action_buttons)
 	obj_system.updated_clipboard.connect(_update_clipboard_action_buttons)
+	
+	cam_controller.grid_position_updated.connect(_update_camera_slider)
 	
 	_initialise_actions()
 	_initialise_edit_btn()
@@ -78,7 +83,7 @@ func _initialise_actions() -> void:
 	editor_layer_spinbox.value_changed.connect(editor._set_editor_layer)
 
 func _initialise_top_bar() -> void:
-	for button : Control in top_bar.get_children():
+	for button : TextureButton in top_bar.get_children():
 		match button.name:
 			"Delete": button.pressed.connect(obj_system.delete_objects)
 			"Menu": button.pressed.connect(_change_menu_state)
@@ -88,10 +93,10 @@ func _initialise_top_bar() -> void:
 			"ZoomIn": button.pressed.connect(cam_controller._zoom.bind(0.3))
 			"ZoomOut": button.pressed.connect(cam_controller._zoom.bind(-0.3))
 			"PlaySong": button.toggled.connect(_toggle_song_preview)
-			"LevelCameraSlider": button.value_changed.connect(_on_camera_slider_update)
 	
 	playtest_toggle.toggled.connect(_toggle_playtest)
 	playtest_pause_button.toggled.connect(_toggle_playtest_pause_button)
+	camera_slider.value_changed.connect(_on_camera_slider_update)
 
 func select_item_id(new_id : int, button : Button) -> void:
 	id_selected.emit(new_id, button)
@@ -275,3 +280,6 @@ func _check_player_death(dead : bool, _last_location : Vector2) -> void:
 
 func _on_camera_slider_update(value : float) -> void:
 	camera_slider_updated.emit(value)
+
+func _update_camera_slider(new_value : Vector2) -> void:
+	camera_slider.set_value_no_signal(new_value.x * 100 / (editor.DEFAULT_LEVEL_LENGTH * 16))

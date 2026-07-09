@@ -7,9 +7,10 @@
 class_name EditorCameraController
 extends Node
 
+signal grid_position_updated(new_pos : Vector2)
+
 @export_category("Config Values")
 @export var CAMERA_MOVE_OFFSET : float = 1.5
-@export var DEFAULT_LEVEL_LENGTH : int = 350
 
 @export_category("Used Editor Systems")
 @export var editor : Editor
@@ -95,7 +96,7 @@ func _pan(relative : Vector2) -> void:
 	update_grid_position()
 
 func _slide_camera_to_percent(percent : float) -> void:
-	camera.global_position.x = percent/100 * (DEFAULT_LEVEL_LENGTH * 16)
+	camera.global_position.x = percent/100 * (editor.DEFAULT_LEVEL_LENGTH * 16)
 
 func _start_level_song_from_pos(start_position : float) -> void:
 	song_start_time = start_position / editor.BASE_SPEED + editor.level_meta.song_offset
@@ -114,6 +115,7 @@ func update_grid_position() -> void:
 		target_grid_position.x = 0
 	
 	grid.global_position = target_grid_position
+	grid_position_updated.emit(camera_pos)
 
 func update_song_preview_bar(delta : float) -> void:
 	if(song_preview_bar):
