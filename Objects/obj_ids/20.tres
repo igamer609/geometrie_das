@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dj5rko0ln58jg" path="res://Scenes/orbs/blue_orb.tscn" id="1_ttcu3"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="2_x7tuf"]
 [ext_resource type="Texture2D" uid="uid://w4n3cdq5d6gt" path="res://Assets/Special_Tilemap.png" id="3_fyew4"]
+[ext_resource type="Resource" uid="uid://buc3kht7fojgt" path="res://Objects/obj_types/Special.tres" id="4_x7tuf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x7tuf"]
 atlas = ExtResource("3_fyew4")
@@ -11,8 +12,8 @@ region = Rect2(168, 127, 32, 32)
 [resource]
 script = ExtResource("2_x7tuf")
 id = 20
-is_scene = true
 scene = ExtResource("1_ttcu3")
 texture = SubResource("AtlasTexture_x7tuf")
 collision_shape = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
+type = ExtResource("4_x7tuf")
 default_channel = -1

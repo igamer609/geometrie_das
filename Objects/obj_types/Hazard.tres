@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Type" format=3 uid="uid://cibcq5a25xctf"]
+
+[ext_resource type="Script" uid="uid://bt22vxtrw2s36" path="res://Objects/ObjectType.gd" id="1_bdfao"]
+
+[resource]
+script = ExtResource("1_bdfao")
+type = &"Hazard"
+is_scene = true
+metadata/_custom_type_script = "uid://bt22vxtrw2s36"

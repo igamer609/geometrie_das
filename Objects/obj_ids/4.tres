@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dq1f5nt64f7se" path="res://Scenes/spikes/flat_spike.tscn" id="1_fs0ok"]
 [ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="1_hbc08"]
 [ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_rftls"]
+[ext_resource type="Resource" uid="uid://cibcq5a25xctf" path="res://Objects/obj_types/Hazard.tres" id="4_oaaae"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_riokx"]
 atlas = ExtResource("2_rftls")
@@ -11,7 +12,7 @@ region = Rect2(48, 0, 16, 16)
 [resource]
 script = ExtResource("1_hbc08")
 id = 4
-is_scene = true
 scene = ExtResource("1_fs0ok")
 texture = SubResource("AtlasTexture_riokx")
 collision_shape = PackedVector2Array(0, 0, 8, 8, -8, 8)
+type = ExtResource("4_oaaae")

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TriggerType" format=3 uid="uid://bbel2hv75pbsq"]
+
+[ext_resource type="Script" uid="uid://28lag5vht6rj" path="res://Objects/obj_type_variants/TriggerObjectType.gd" id="1_13nng"]
+
+[resource]
+script = ExtResource("1_13nng")
+type = &"Trigger"
+metadata/_custom_type_script = "uid://28lag5vht6rj"

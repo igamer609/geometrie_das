@@ -189,7 +189,7 @@ func _process_cube_physics(delta : float) -> void:
 	elif not is_headed_into_wall():
 		surface_hitbox.disabled = false
 	
-	if(floor(time_in_air) >= AIR_TIME_LIMIT && !invulnerable):
+	if(floor(time_in_air) >= AIR_TIME_LIMIT && !invulnerable && gravity_multiplier < 0):
 		die()
 
 func _process_ship_physics(_delta : float) -> void:

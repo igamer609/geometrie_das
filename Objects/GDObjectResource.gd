@@ -9,15 +9,24 @@ class_name GDObjectResource
 
 @export var id : int
 
-@export var is_scene : bool
 @export var scene : PackedScene
 
 @export var texture : AtlasTexture
 @export var collision_shape : PackedVector2Array
 
-@export var is_solid : bool
-@export var is_decoration : bool
-@export var is_text : bool
-@export var trigger_id : int = 0
+@export var type : Type
 
 @export var default_channel : int = 1
+
+func get_type() -> StringName:
+	if(type):
+		return type.type
+	
+	assert(type != null, "No type attached to object resource")
+	return &"None"
+
+func get_edit_menu() -> PackedScene:
+	if(type):
+		return ResourceLibrary.load_scene(type.edit_menu_path)
+	
+	return null

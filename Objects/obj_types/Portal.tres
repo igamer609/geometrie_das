@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Type" format=3 uid="uid://bgpqs02ibpxj0"]
+
+[ext_resource type="Script" uid="uid://bt22vxtrw2s36" path="res://Objects/ObjectType.gd" id="1_avo13"]
+
+[resource]
+script = ExtResource("1_avo13")
+type = &"Portal"
+is_scene = true
+is_portal = true
+metadata/_custom_type_script = "uid://bt22vxtrw2s36"

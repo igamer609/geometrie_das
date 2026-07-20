@@ -97,14 +97,14 @@ func _ready() -> void:
 				_show()
 
 func update() -> void:
-	if not in_level or (not obj_res.is_decoration and in_level and not obj_res.is_scene):
+	if not in_level or (not obj_res.type.is_decoration and in_level and not obj_res.type.is_scene):
 		collision = CollisionPolygon2D.new()
 		add_child(collision)
 		collision.position = Vector2(8, 8)
 		collision.polygon = obj_res.collision_shape
 	
-	if not obj_res.is_scene:
-		if not (in_level and obj_res.trigger_id != 0):
+	if not obj_res.type.is_scene:
+		if not (in_level and obj_res.type.is_trigger):
 			obj_sprite = Sprite2D.new()
 			add_child(obj_sprite)
 			obj_sprite.position = Vector2(8,8)
@@ -136,12 +136,12 @@ func update() -> void:
 			obj_sprite.texture = obj_res.texture
 			obj_sprite.texture.filter_clip = true
 		
-		if not obj_res.is_decoration:
+		if not obj_res.type.is_decoration:
 			collision.polygon = obj_res.collision_shape
 		else:
 			z_index = -1
 	
-	if not obj_res.is_solid:
+	if not obj_res.type.is_solid:
 		set_collision_layer_value(1, false)
 		set_collision_layer_value(2, false)
 		set_collision_layer_value(3, true)
@@ -150,8 +150,8 @@ func update() -> void:
 		set_collision_layer_value(2, true)
 		set_collision_layer_value(3, false)
 	
-	if obj_res.trigger_id != 0:
-		trigger = Trigger.create_trigger(obj_res.trigger_id, other, !in_level)
+	if obj_res.type.is_trigger:
+		trigger = Trigger.create_trigger(obj_res.type.trigger_id, other, !in_level)
 		add_child(trigger)
 
 func select() -> void:
@@ -191,16 +191,16 @@ func _hide() -> void:
 			obj_sprite.hide()
 			obj_sprite.material = null
 	
-	if obj_res.is_scene and scene != null:
+	if obj_res.type.is_scene and scene != null:
 		scene_parent.remove_child(scene)
-	elif not obj_res.is_scene:
+	elif not obj_res.type.is_scene:
 		if(obj_sprite):
 			call_deferred("remove_child", obj_sprite)
 		if(collision):
 			collision.disabled = true
 
 func _show() -> void:
-	if(obj_res.is_scene && scene && !scene.get_parent()):
+	if(obj_res.type.is_scene && scene && !scene.get_parent()):
 		scene_parent.add_child(scene)
 	elif(obj_sprite):
 		if(!obj_sprite.get_parent()):

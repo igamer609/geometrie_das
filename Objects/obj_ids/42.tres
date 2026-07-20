@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GDObjectResource" format=3 uid="uid://dnxoc3ya7xwri"]
+
+[ext_resource type="Script" uid="uid://ddf3fv8gabsjj" path="res://Objects/GDObjectResource.gd" id="1_86x30"]
+[ext_resource type="Texture2D" uid="uid://c1ivudebv4vvb" path="res://Assets/Base_Tilemap.png" id="2_4m3qi"]
+[ext_resource type="Resource" uid="uid://crxo6v1h2e8q0" path="res://Objects/obj_types/Default.tres" id="3_4m3qi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lw1c4"]
+atlas = ExtResource("2_4m3qi")
+region = Rect2(112, 16, 16, 16)
+
+[resource]
+script = ExtResource("1_86x30")
+id = 42
+texture = SubResource("AtlasTexture_lw1c4")
+collision_shape = PackedVector2Array(8, -8, -8, -8, -8, 8, 8, 8)
+type = ExtResource("3_4m3qi")

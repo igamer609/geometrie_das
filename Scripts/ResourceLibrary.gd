@@ -92,6 +92,11 @@ func _process(_delta: float) -> void:
 		
 		_is_loading = false
 
+func load_scene(scene_path : String) -> PackedScene:
+	var scene_name : String = scene_path.get_file().split(".")[0]
+	if(scenes.has(scene_name)): return scenes[scene_name]
+	else: return null
+
 func load_registry(type : LevelRegistry.RegistryType) -> void:
 	current_registry.save()
 	current_registry = LevelRegistry.create_registry(type)

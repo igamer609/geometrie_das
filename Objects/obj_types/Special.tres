@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Type" format=3 uid="uid://buc3kht7fojgt"]
+
+[ext_resource type="Script" uid="uid://bt22vxtrw2s36" path="res://Objects/ObjectType.gd" id="1_fcgr4"]
+
+[resource]
+script = ExtResource("1_fcgr4")
+type = &"Special"
+is_scene = true
+is_special = true
+metadata/_custom_type_script = "uid://bt22vxtrw2s36"

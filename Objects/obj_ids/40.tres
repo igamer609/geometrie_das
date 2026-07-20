@@ -12,4 +12,3 @@ script = ExtResource("1_07iw4")
 id = 40
 texture = SubResource("AtlasTexture_07iw4")
 collision_shape = PackedVector2Array(8, -8, -8, -8, -8, 8, 8, 8)
-is_solid = true

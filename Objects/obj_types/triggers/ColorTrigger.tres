@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TriggerType" format=3 uid="uid://brso4j2qwcxlv"]
+
+[ext_resource type="Script" uid="uid://28lag5vht6rj" path="res://Objects/obj_type_variants/TriggerObjectType.gd" id="1_kfmw7"]
+
+[resource]
+script = ExtResource("1_kfmw7")
+trigger_id = 1
+type = &"ColorTrigger"
+edit_menu_path = "uid://d0gg5u3mk0bq1"
+is_trigger = true
+metadata/_custom_type_script = "uid://28lag5vht6rj"
