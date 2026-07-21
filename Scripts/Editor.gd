@@ -55,6 +55,8 @@ func _ready() -> void:
 	ui_system.resume_playtest_pressed.connect(_resume_playtest)
 	ui_system.stop_playtest_pressed.connect(_stop_playtest)
 	
+	$Editor_Object/Menu_Layer/EditorMenu/Help.pressed.connect(_create_help_menu)
+	
 	ColorManager.channel_changed.connect(_update_palette)
 
 func _draw() -> void:
@@ -158,3 +160,7 @@ func _update_ground(portal_pos : Vector2 = Vector2.ZERO, gap: int = 0) -> void:
 	ground_col.global_position = ground_pos
 	ceiling_col.global_position = ceiling_pos
 	ceiling_col.show(); ground_col.show()
+
+func _create_help_menu() -> void:
+	var menu : Control = ResourceLibrary.scenes["Controls"].instantiate()
+	$Editor_Object/Menu_Layer/EditorMenu.add_child(menu)

@@ -23,6 +23,6 @@ func activate() -> void:
 	var tween : Tween = create_tween().bind_node(self)
 	tween.set_meta("scope", 3)
 	orb_sprite.set_instance_shader_parameter("flash_intensity", 1.0)
-	tween.tween_property(orb_sprite, "scale", Vector2(1.2, 1.2), 0.065).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.tween_property(orb_sprite, "scale", Vector2(0.65, 0.65), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.parallel().tween_property(orb_sprite, "instance_shader_parameters/flash_intensity", 0.0, 0.3).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	tween.tween_property(orb_sprite, "scale", Vector2(0.8, 0.8), 0.1).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(orb_sprite, "scale", Vector2(0.3, 0.3), 0.2).set_trans(Tween.TRANS_QUAD)

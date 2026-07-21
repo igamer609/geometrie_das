@@ -18,9 +18,10 @@ signal stop_playtest_pressed
 signal camera_slider_updated(value : float)
 
 @export var editor : Editor
-@export var obj_system : Node
+@export var obj_system : EditorObjectSystem
 @export var cam_controller : EditorCameraController
-@export var save_load : Node
+@export var save_load : EditorSaveLoad
+@export var input_controller : EditorInputController
 
 @export var ui : CanvasLayer
 @export var editor_menu : ColorRect
@@ -103,6 +104,9 @@ func select_item_id(new_id : int, button : Button) -> void:
 
 func _initialise_tabs():
 	var tab_group = ButtonGroup.new()
+	
+	input_controller.switch_tabs.connect(_on_tab_shortcut)
+	
 	for tab in editor_tabs.get_children():
 		tab.button_group = tab_group
 		if tab.name == "Build":
@@ -205,13 +209,14 @@ func _update_clipboard_action_buttons(clipboard : Array):
 
 func _hide_all_except_playtest() -> void:
 	for item : Control in ui.get_children():
-#		item.hide()
-		pass
-	playtest_toggle.show(); playtest_pause_button.show()
+		if(item != playtest_pause_button):
+			item.hide()
+	playtest_toggle.show();
 
 func _show_all_except_playtest() -> void:
 	for item : Control in ui.get_children():
 		if(item != playtest_pause_button):
+			print(item.name)
 			item.show()
 
 func _toggle_song_preview(toggled : bool) -> void:
@@ -243,9 +248,11 @@ func _toggle_playtest_pause_button(is_paused : bool) -> void:
 	if(is_paused):
 		pause_button_icon.texture.region = Rect2(70, 39, 21, 21)
 		pause_playtest_pressed.emit()
+		_pause_playtesting()
 	else:
 		pause_button_icon.texture.region = Rect2(115, 32, 15, 16)
 		resume_playtest_pressed.emit()
+		_resume_playtesting()
 
 func _start_playtesting(_player : Player) -> void:
 	var playtest_toggle_icon : TextureRect = playtest_toggle.get_child(0)
@@ -275,6 +282,12 @@ func _stopped_playtesting() -> void:
 	
 	stop_playtest_pressed.emit(false)
 
+func _pause_playtesting() -> void:
+	_show_all_except_playtest()
+
+func _resume_playtesting() -> void:
+	_hide_all_except_playtest()
+
 func _check_player_death(dead : bool, _last_location : Vector2) -> void:
 	if(dead): _toggle_playtest(false)
 
@@ -283,3 +296,9 @@ func _on_camera_slider_update(value : float) -> void:
 
 func _update_camera_slider(new_value : Vector2) -> void:
 	camera_slider.set_value_no_signal(new_value.x * 100 / (editor.DEFAULT_LEVEL_LENGTH * 16))
+
+func _on_tab_shortcut(index : int) -> void:
+	if(index <= 1):
+		var tab_button : AnimatedButton = editor_tabs.get_children()[index]
+		tab_button.button_pressed = true
+		tab_button.emit_signal("pressed")

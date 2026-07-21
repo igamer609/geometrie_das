@@ -1,0 +1,902 @@
+[gd_scene format=3 uid="uid://diygedqpv635b"]
+
+[ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="1_pmnbn"]
+[ext_resource type="Script" uid="uid://ccky7e53vutdk" path="res://Scenes/Menus/BasicPopup.gd" id="1_t8lov"]
+[ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="2_t8lov"]
+[ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="3_1l168"]
+[ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="4_cnfx5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("3_1l168")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3caj4"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p831k"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufu66"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.35826436, 0.20078918, 0.07556156, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1heb0"]
+bg_color = Color(0.6054924, 0.3567538, 0.16058183, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Control" type="Control" unique_id=219921834 node_paths=PackedStringArray("ok")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t8lov")
+ok = NodePath("Panel/OK")
+
+[node name="Background" type="ColorRect" parent="." unique_id=912091860]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Panel" type="Panel" parent="." unique_id=1406517317]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -415.0
+offset_top = -240.0
+offset_right = 447.0
+offset_bottom = 292.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_pmnbn")
+
+[node name="OK" type="Button" parent="Panel" unique_id=922046702]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -72.0
+offset_right = 54.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_t8lov")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 22
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3caj4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_p831k")
+text = "OK"
+script = ExtResource("4_cnfx5")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=2051202190]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 29.0
+offset_right = 827.0
+offset_bottom = 451.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1328559399]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer" unique_id=571358562]
+custom_minimum_size = Vector2(0, 44.418)
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 36
+text = "Gameplay Controls"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gameplay" type="PanelContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1513653966]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufu66")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Gameplay" unique_id=1777666818]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Jump" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer" unique_id=1702272829]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/Jump" unique_id=1274797596]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Jump"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/Jump" unique_id=1937240719]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/Jump/HBoxContainer" unique_id=335604924]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "Space | Left mouse | Up arrow"
+
+[node name="Pause" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer" unique_id=392804540]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/Pause" unique_id=1120448523]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Pause"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/Pause" unique_id=1534891253]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/Pause/HBoxContainer" unique_id=1669009856]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Escape"
+
+[node name="AddCheckpoint" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer" unique_id=1392802498]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/AddCheckpoint" unique_id=1255971498]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Add checkpoint"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/AddCheckpoint" unique_id=881325578]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/AddCheckpoint/HBoxContainer" unique_id=1953780962]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Z"
+
+[node name="RemoveCheckpoint" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer" unique_id=50500012]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/RemoveCheckpoint" unique_id=1192384533]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Remove checkpoint"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/RemoveCheckpoint" unique_id=900213622]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Gameplay/VBoxContainer/RemoveCheckpoint/HBoxContainer" unique_id=605471880]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="Label2" type="Label" parent="Panel/ScrollContainer/VBoxContainer" unique_id=596579120]
+custom_minimum_size = Vector2(0, 44.418)
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 36
+text = "Editor Controls"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Editor" type="PanelContainer" parent="Panel/ScrollContainer/VBoxContainer" unique_id=1321973372]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufu66")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor" unique_id=239864766]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Swipe" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=1681459093]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Swipe" unique_id=622866902]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Swipe"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Swipe" unique_id=1566718081]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Swipe/HBoxContainer" unique_id=1928853011]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Shift"
+
+[node name="Copy" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=1158498566]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Copy" unique_id=1453202854]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Copy"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Copy" unique_id=1610859703]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Copy/HBoxContainer" unique_id=364447147]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Ctrl+C"
+
+[node name="Paste" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=2036002379]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Paste" unique_id=1520974020]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Paste"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Paste" unique_id=1081406564]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Paste/HBoxContainer" unique_id=1669429305]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Ctrl+V"
+
+[node name="Duplicate" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=925089648]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Duplicate" unique_id=608864800]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Duplicate"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Duplicate" unique_id=823783139]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Duplicate/HBoxContainer" unique_id=2006848981]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Ctrl+D"
+
+[node name="Delete" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=141959414]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Delete" unique_id=258031276]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Delete"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Delete" unique_id=1342124582]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Delete/HBoxContainer" unique_id=156275341]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Delete"
+
+[node name="Undo" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=1671445104]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Undo" unique_id=953651719]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Undo"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Undo" unique_id=124100745]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Undo/HBoxContainer" unique_id=1158481336]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Ctrl+Z"
+
+[node name="Redo" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=786567378]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Redo" unique_id=1964228297]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Redo"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Redo" unique_id=1526930824]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Redo/HBoxContainer" unique_id=1230104816]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Ctrl+Y"
+
+[node name="Up" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=645530620]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Up" unique_id=1645062620]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Move Up"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Up" unique_id=1773961899]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Up/HBoxContainer" unique_id=2113680261]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "W"
+
+[node name="Down" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=517793279]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Down" unique_id=1175015506]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Move Down"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Down" unique_id=1922489661]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Down/HBoxContainer" unique_id=1439346262]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "S"
+
+[node name="Left" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=192874566]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Left" unique_id=1873460929]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Move Left"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Left" unique_id=482343529]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Left/HBoxContainer" unique_id=1591587163]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "A"
+
+[node name="Right" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=1766897557]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Right" unique_id=64679071]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Move Right"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Right" unique_id=1443134827]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/Right/HBoxContainer" unique_id=1178658126]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "D"
+
+[node name="RotLeft" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=1517016305]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/RotLeft" unique_id=1678657819]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Rotate Left"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/RotLeft" unique_id=530510126]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/RotLeft/HBoxContainer" unique_id=1251393699]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Q"
+
+[node name="RotRight" type="Panel" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer" unique_id=928127761]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1heb0")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/RotRight" unique_id=177975273]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -17.991997
+offset_right = 270.0
+offset_bottom = 17.991995
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Rotate Right"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/RotRight" unique_id=1698051088]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -334.0
+offset_top = -20.0
+offset_right = -11.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer/Editor/VBoxContainer/RotRight/HBoxContainer" unique_id=347634864]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78747517, 0.31182432, 1)
+theme_override_colors/font_shadow_color = Color(0.43148607, 0.14969979, 0, 0)
+theme_override_colors/font_outline_color = Color(0.3836522, 0.18514222, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "E"

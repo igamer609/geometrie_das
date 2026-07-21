@@ -29,6 +29,7 @@ signal swipe_key_released
 signal move(direction : String, amount : float)
 signal rotate(direction : int)
 signal paused
+signal switch_tabs(tab_index : int)
 
 func _ready() -> void:
 	editor.playtesting_started.connect(_playtesting_started)
@@ -65,14 +66,13 @@ func _unhandled_input(event : InputEvent) -> void:
 			swipe_updated.emit(editor.get_global_mouse_position())
 		elif event.button_mask in [MOUSE_BUTTON_LEFT] and swiping and editor.edit_mode == editor.EditorMode.BUILD:
 			place_swiped.emit()
-
-func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("ZoomIn"):
 		zoom.emit(0.3)
 	elif event.is_action_pressed("ZoomOut"):
 		zoom.emit(-0.3)
-	
+
+func _input(event: InputEvent) -> void:
 	if(!catch_inputs || !emit_place_signals): return
 	
 	if event.is_action_pressed("Swipe"):
@@ -95,6 +95,11 @@ func _input(event: InputEvent) -> void:
 		rotate.emit(-1)
 	elif event.is_action_pressed("RotateRight"):
 		rotate.emit(1)
+	
+	if event.is_action_pressed("BuildTab"):
+		switch_tabs.emit(0)
+	elif event.is_action_pressed("EditTab"):
+		switch_tabs.emit(1)
 
 func _playtesting_started(_player : Player = null) -> void:
 	catch_inputs = false
