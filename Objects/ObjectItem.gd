@@ -154,6 +154,9 @@ func update() -> void:
 		trigger = Trigger.create_trigger(obj_res.type.trigger_id, other, !in_level)
 		add_child(trigger)
 
+func get_type() -> Type:
+	return obj_res.type
+
 func select() -> void:
 	is_selected = true
 	if(obj_sprite && obj_sprite.material):

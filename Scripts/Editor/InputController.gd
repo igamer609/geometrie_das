@@ -30,6 +30,7 @@ signal move(direction : String, amount : float)
 signal rotate(direction : int)
 signal paused
 signal switch_tabs(tab_index : int)
+signal unfocus
 
 func _ready() -> void:
 	editor.playtesting_started.connect(_playtesting_started)
@@ -41,6 +42,9 @@ func _unhandled_input(event : InputEvent) -> void:
 	if(!catch_inputs): return
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		
+		unfocus.emit()
+		
 		if(event.pressed && emit_place_signals):
 			if editor.edit_mode == editor.EditorMode.BUILD:
 				if  editor.select_mode == editor.SelectionMode.SINGLE:

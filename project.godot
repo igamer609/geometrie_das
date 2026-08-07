@@ -12,13 +12,14 @@ config_version=5
 
 config/name="Geometrie Daș"
 config/description="A recreation of Geometry Dash in Godot 4. Made by IGamer609."
-config/version="2.0.0-beta.6"
+config/version="2.0-beta.6"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.6")
 boot_splash/show_image=false
 boot_splash/stretch_mode=0
 config/icon="res://logo/icon.png"
 config/version.release="2.0"
+config/version.custom="2.0-beta.6c"
 
 [autoload]
 

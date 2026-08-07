@@ -164,3 +164,7 @@ func _update_ground(portal_pos : Vector2 = Vector2.ZERO, gap: int = 0) -> void:
 func _create_help_menu() -> void:
 	var menu : Control = ResourceLibrary.scenes["Controls"].instantiate()
 	$Editor_Object/Menu_Layer/EditorMenu.add_child(menu)
+
+
+func _on_ui_system_delete() -> void:
+	pass # Replace with function body.

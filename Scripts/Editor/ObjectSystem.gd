@@ -11,6 +11,8 @@ signal loaded_objects
 signal updated_selection(selected_objects : Array[GDObject])
 signal updated_clipboard(clipboard : Array)
 
+enum DeleteFilter{ NONE, SOLID, DECO, SPECIAL }
+
 @export var editor : Node2D
 @export var input_controller : Node
 
@@ -22,8 +24,10 @@ var last_uid : int = 0
 
 var current_id : int = 0
 var selected_objects : Array[GDObject] = []
+var historic_objects : Array[GDObject] = []
 var clipboard : Array = []
 var selection_center : Node2D = null
+var delete_filters : Array[DeleteFilter] = []
 
 var _current_spacial_index : Dictionary[Vector2, Array] = {}
 var material_cache : MaterialCache = MaterialCache.new()
@@ -301,15 +305,39 @@ func deselect():
 	if selection_center:
 		get_tree().queue_delete(selection_center)
 
-func remove_from_selection(obj : Node2D):
+func remove_from_selection(obj : Node2D) -> bool:
 	var obj_index : int = selected_objects.find(obj)
-	if obj_index > -1:
+	
+	if(obj_index > -1):
 		selected_objects.remove_at(obj_index)
-		obj.deselect()
+		updated_selection.emit(selected_objects)
+		return true
+	
 	updated_selection.emit(selected_objects)
+	return false
+
+func change_delete_filters(filter : DeleteFilter) -> void:
+	if(delete_filters.has(filter)):
+		delete_filters.erase(filter)
+	else:
+		delete_filters.append(filter)
+
+func reset_filters() -> void:
+	delete_filters.clear()
+
+func check_obj_delete_filter(object : GDObject) -> bool:
+	if(delete_filters.is_empty()): return true
+	
+	for filter : DeleteFilter in delete_filters:
+		match filter:
+			DeleteFilter.SOLID: if(object.get_type().is_solid): return true
+			DeleteFilter.DECO: if(object.get_type().is_decoration): return true
+			DeleteFilter.SPECIAL: if(object.get_type().is_special): return true
+	
+	return false
 
 func delete_objects():
-	var objects_to_delete = selected_objects.duplicate(true)
+	var objects_to_delete : Array[GDObject] = selected_objects.filter(check_obj_delete_filter)
 	deselect()
 	
 	history.create_action("Delete")
@@ -322,10 +350,12 @@ func delete_objects():
 		history.add_undo_reference(obj)
 		
 		history.add_do_method(_remove_object_from_level.bind(obj))
-		history.add_do_method(remove_from_selection.bind(obj))
-		history.add_do_reference(obj)
 	
 	history.commit_action()
+
+# todo - add start poses and practice checkpoints
+func delete_start_poses() -> void:
+	print("In progress!")
 
 func move_objects(direction, amount : float) -> void:
 	history.create_action("Move")
@@ -460,8 +490,11 @@ func duplicate_objects():
 
 func _add_object_to_level(object : Node2D):
 	if object.get_parent() != level:
-		object._show()
 		level.add_child(object)
+		
+		if(object.is_selected):
+			select_object(object)
+		
 		if(_current_spacial_index.has(object.global_position)):
 			_current_spacial_index[object.global_position].append(object)
 
@@ -473,7 +506,9 @@ func _remove_object_from_level(object : Node2D):
 		if(_current_spacial_index[object.global_position].size() == 0):
 			_current_spacial_index.erase(object.global_position)
 	if object.get_parent() == level:
-		object._hide()
 		level.remove_child(object)
 	else:
 		pass
+
+func _on_ui_delete() -> void:
+	delete_objects()

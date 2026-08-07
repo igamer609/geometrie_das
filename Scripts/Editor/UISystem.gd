@@ -17,6 +17,10 @@ signal resume_playtest_pressed
 signal stop_playtest_pressed
 signal camera_slider_updated(value : float)
 
+signal delete
+signal delete_filter_changed(filter : EditorObjectSystem.DeleteFilter)
+signal reset_delete_filters
+
 @export var editor : Editor
 @export var obj_system : EditorObjectSystem
 @export var cam_controller : EditorCameraController
@@ -36,8 +40,8 @@ signal camera_slider_updated(value : float)
 @export var move_container : Control
 @export var other_edit_buttons : GridContainer
 @export var quick_options : GridContainer
-
 @export var editor_layer_spinbox : GDNumberSpin
+@export var delete_filters : Panel
 
 @export_category("Toggle Buttons")
 @export var song_preview_button : TextureButton
@@ -57,6 +61,7 @@ func _ready() -> void:
 	obj_system.updated_clipboard.connect(_update_clipboard_action_buttons)
 	
 	cam_controller.grid_position_updated.connect(_update_camera_slider)
+	input_controller.unfocus.connect(_hide_context_menus)
 	
 	_initialise_actions()
 	_initialise_edit_btn()
@@ -64,6 +69,7 @@ func _ready() -> void:
 	_initialise_tabs()
 	_initialise_top_bar()
 	_initialise_menu_buttons()
+	_initialise_delete_filters()
 
 func _initialise_items() -> void:
 	var btn_group = ButtonGroup.new()
@@ -86,7 +92,9 @@ func _initialise_actions() -> void:
 func _initialise_top_bar() -> void:
 	for button : TextureButton in top_bar.get_children():
 		match button.name:
-			"Delete": button.pressed.connect(obj_system.delete_objects)
+			"Delete": 
+					button.button_held.connect(_check_delete_filters)
+					button.button_pressed_no_hold.connect(_delete_button_pressed)
 			"Menu": button.pressed.connect(_change_menu_state)
 			"LevelSettings": button.pressed.connect(_open_level_settings)
 			"Undo": button.pressed.connect(obj_system.history.undo)
@@ -140,6 +148,12 @@ func _initialise_menu_buttons() -> void:
 			"SaveAndExit":button.pressed.connect(save_load._save_and_exit)
 			"Exit": button.pressed.connect(save_load._exit)
 
+func _initialise_delete_filters() -> void:
+	for button : Button in delete_filters.get_child(1).get_children():
+		match button.name:
+			"Solids": button.toggled.connect(_toggle_filter.bind(EditorObjectSystem.DeleteFilter.SOLID))
+			"Deco": button.toggled.connect(_toggle_filter.bind(EditorObjectSystem.DeleteFilter.DECO))
+
 func _change_editor_mode(new_mode):
 	if new_mode != editor.edit_mode:
 		editor.edit_mode = new_mode
@@ -170,7 +184,6 @@ func _create_object_edit_menu() -> void:
 			if(!trigger_types.has(object.trigger.trigger_id)):
 				trigger_types.append(object.trigger.trigger_id)
 		else: all_triggers = false
-		
 		
 	if(all_regular):
 		var obj_edit_menu = ResourceLibrary.scenes["GenericObjectEdit"].instantiate()
@@ -207,6 +220,9 @@ func _update_clipboard_action_buttons(clipboard : Array):
 		match(button.name):
 			"Paste": button.disabled = check
 
+func _hide_context_menus() -> void:
+	delete_filters.hide()
+
 func _hide_all_except_playtest() -> void:
 	for item : Control in ui.get_children():
 		if(item != playtest_pause_button):
@@ -215,8 +231,7 @@ func _hide_all_except_playtest() -> void:
 
 func _show_all_except_playtest() -> void:
 	for item : Control in ui.get_children():
-		if(item != playtest_pause_button):
-			print(item.name)
+		if(item != playtest_pause_button && item != delete_filters):
 			item.show()
 
 func _toggle_song_preview(toggled : bool) -> void:
@@ -302,3 +317,12 @@ func _on_tab_shortcut(index : int) -> void:
 		var tab_button : AnimatedButton = editor_tabs.get_children()[index]
 		tab_button.button_pressed = true
 		tab_button.emit_signal("pressed")
+
+func _toggle_filter(_toggled : bool, filter : EditorObjectSystem.DeleteFilter) -> void:
+	delete_filter_changed.emit(filter)
+
+func _check_delete_filters() -> void:
+	delete_filters.visible = !delete_filters.visible
+
+func _delete_button_pressed() -> void:
+	delete.emit()

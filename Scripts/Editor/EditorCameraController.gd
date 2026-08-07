@@ -89,7 +89,8 @@ func _zoom(amount : float) -> void:
 	zoom_multiplier = clamp(zoom_multiplier, 0.3, 2.1)
 	#TransitionScene.show_message("x" + str(zoom_multiplier))
 	camera.zoom = Vector2(3 * zoom_multiplier, 3 * zoom_multiplier)
-	call_deferred("update_grid_position")
+	if(amount <= 0):
+		call_deferred("update_grid_position")
 
 func _pan(relative : Vector2) -> void:
 	camera.global_position -= relative * 3 / camera.zoom

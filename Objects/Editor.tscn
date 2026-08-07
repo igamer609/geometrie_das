@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://p47v4tspphpn" path="res://Scripts/General/UIElements/GDNumberSpin.gd" id="11_khu03"]
 [ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="12_khu03"]
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="12_oi36f"]
+[ext_resource type="Script" uid="uid://b8158g4730ef" path="res://Scripts/General/HoldActionButton.gd" id="19_x3xft"]
 [ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="22_758p6"]
 [ext_resource type="Script" uid="uid://vowryoc212x" path="res://Scripts/Editor/RenderOverlay.gd" id="23_po6up"]
 [ext_resource type="Texture2D" uid="uid://clqkp6ffidqc8" path="res://Assets/buttons/sliders.png" id="23_x3xft"]
@@ -382,6 +383,53 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("7_m37bs")
 region = Rect2(115, 32, 15, 16)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_758p6"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.1940893, 0.1940893, 0.1940893, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3xft"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1940893, 0.1940893, 0.1940893, 1)
+corner_detail = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
+atlas = ExtResource("5_m37bs")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_11kwi"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_86bbm"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+texture = SubResource("AtlasTexture_xil16")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_po6up"]
 size = Vector2(6000, 10)
 
@@ -416,7 +464,7 @@ input_controller = NodePath("../InputController")
 level = NodePath("../Level")
 camera = NodePath("../Camera")
 
-[node name="UISystem" type="Node" parent="." unique_id=1647001883 node_paths=PackedStringArray("editor", "obj_system", "cam_controller", "save_load", "input_controller", "ui", "editor_menu", "editor_menu_container", "top_bar", "action_grid", "item_tab", "edit_tab", "editor_tabs", "move_container", "other_edit_buttons", "quick_options", "editor_layer_spinbox", "song_preview_button", "playtest_toggle", "playtest_pause_button", "camera_slider")]
+[node name="UISystem" type="Node" parent="." unique_id=1647001883 node_paths=PackedStringArray("editor", "obj_system", "cam_controller", "save_load", "input_controller", "ui", "editor_menu", "editor_menu_container", "top_bar", "action_grid", "item_tab", "edit_tab", "editor_tabs", "move_container", "other_edit_buttons", "quick_options", "editor_layer_spinbox", "delete_filters", "song_preview_button", "playtest_toggle", "playtest_pause_button", "camera_slider")]
 process_mode = 3
 script = ExtResource("3_g6r6n")
 editor = NodePath("..")
@@ -436,6 +484,7 @@ move_container = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit/MoveB
 other_edit_buttons = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/Edit/OtherButtons")
 quick_options = NodePath("../Editor_Object/UI_Layer/Actions/Viewport/QuickOptions")
 editor_layer_spinbox = NodePath("../Editor_Object/UI_Layer/Actions/ObjectActions/EditorLayerInput")
+delete_filters = NodePath("../Editor_Object/UI_Layer/DeleteFilters")
 song_preview_button = NodePath("../Editor_Object/UI_Layer/TopBar/PlaySong")
 playtest_toggle = NodePath("../Editor_Object/UI_Layer/Playtest")
 playtest_pause_button = NodePath("../Editor_Object/UI_Layer/PausePlaytest")
@@ -584,9 +633,10 @@ grow_vertical = 2
 theme_override_constants/side_margin = 15
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u66gc")
 theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_xjyem")
-current_tab = 0
+current_tab = 2
 
 [node name="Blocks" type="ScrollContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=125994459]
+visible = false
 custom_minimum_size = Vector2(780, 100)
 layout_mode = 2
 scroll_horizontal_custom_step = 780.0
@@ -616,29 +666,6 @@ script = ExtResource("7_t5tsa")
 id = 1
 
 [node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton" unique_id=528362769]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 11.0
-offset_top = 11.0
-offset_right = -12.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=1651342954]
-custom_minimum_size = Vector2(70, 70)
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 2
-theme = ExtResource("6_x4tf7")
-toggle_mode = true
-script = ExtResource("7_t5tsa")
-id = 3
-
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton3" unique_id=934089837]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1065,14 +1092,7 @@ offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="2" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer" unique_id=1921001375]
-custom_minimum_size = Vector2(780, 0)
-layout_mode = 2
-theme_override_constants/h_separation = 5
-theme_override_constants/v_separation = 5
-columns = 10
-
-[node name="ItemButton20" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=674173718]
+[node name="ItemButton20" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1" unique_id=287320744]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 2
@@ -1082,7 +1102,7 @@ toggle_mode = true
 script = ExtResource("7_t5tsa")
 id = 32
 
-[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2/ItemButton20" unique_id=950768780]
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/1/ItemButton20" unique_id=444837314]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1094,6 +1114,13 @@ offset_right = -12.0
 offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="2" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer" unique_id=1921001375]
+custom_minimum_size = Vector2(780, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 10
 
 [node name="ItemButton21" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Blocks/BlockTabContainer/2" unique_id=1175168838]
 custom_minimum_size = Vector2(70, 70)
@@ -1218,6 +1245,29 @@ theme_override_constants/v_separation = 5
 columns = 10
 metadata/_tab_index = 1
 
+[node name="ItemButton3" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Slabs" unique_id=2030806762]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("6_x4tf7")
+toggle_mode = true
+script = ExtResource("7_t5tsa")
+id = 3
+
+[node name="Sprite" type="TextureRect" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Slabs/ItemButton3" unique_id=2112005400]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="ItemButton44" type="Button" parent="Editor_Object/UI_Layer/Actions/Viewport/Items/Slabs" unique_id=1547441700]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
@@ -1291,7 +1341,6 @@ grow_vertical = 2
 stretch_mode = 4
 
 [node name="Spikes" type="GridContainer" parent="Editor_Object/UI_Layer/Actions/Viewport/Items" unique_id=41072254]
-visible = false
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
@@ -2244,7 +2293,7 @@ offset_right = 287.0
 offset_bottom = 107.0
 texture_normal = SubResource("AtlasTexture_s1emi")
 stretch_mode = 0
-script = ExtResource("12_khu03")
+script = ExtResource("19_x3xft")
 
 [node name="TextureRect" type="TextureRect" parent="Editor_Object/UI_Layer/TopBar/Delete" unique_id=1506755406]
 layout_mode = 1
@@ -2495,12 +2544,93 @@ grow_vertical = 2
 texture = SubResource("AtlasTexture_2qq0v")
 stretch_mode = 5
 
-[node name="DeleteFilters" type="PanelContainer" parent="Editor_Object/UI_Layer" unique_id=1015438104]
+[node name="DeleteFilters" type="Panel" parent="Editor_Object/UI_Layer" unique_id=2016046668]
 visible = false
-offset_left = 214.0
-offset_top = 129.0
-offset_right = 524.0
-offset_bottom = 198.0
+offset_left = 212.0
+offset_top = 141.0
+offset_right = 582.0
+offset_bottom = 241.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_758p6")
+
+[node name="Panel" type="Panel" parent="Editor_Object/UI_Layer/DeleteFilters" unique_id=499271262]
+layout_mode = 0
+offset_left = 33.492756
+offset_top = -31.492764
+offset_right = 96.5742
+offset_bottom = 14.35445
+rotation = 0.7853982
+theme_override_styles/panel = SubResource("StyleBoxFlat_x3xft")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Editor_Object/UI_Layer/DeleteFilters" unique_id=362798868]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 360.0
+offset_bottom = 90.0
+theme_override_constants/separation = 10
+
+[node name="Solids" type="Button" parent="Editor_Object/UI_Layer/DeleteFilters/HBoxContainer" unique_id=624127703]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_vdfow")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_m37bs")
+toggle_mode = true
+text = "Solid"
+script = ExtResource("6_aq6jn")
+
+[node name="Deco" type="Button" parent="Editor_Object/UI_Layer/DeleteFilters/HBoxContainer" unique_id=1364146031]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_vdfow")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ygdoy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_m37bs")
+toggle_mode = true
+text = "Deco"
+script = ExtResource("6_aq6jn")
+
+[node name="StartPoses" type="Button" parent="Editor_Object/UI_Layer/DeleteFilters/HBoxContainer" unique_id=1597331793]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Work in progress!"
+theme = ExtResource("5_vdfow")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxTexture_11kwi")
+theme_override_styles/hover = SubResource("StyleBoxTexture_m37bs")
+disabled = true
+text = "All
+Start
+Pos
+"
+autowrap_trim_flags = 0
+script = ExtResource("6_aq6jn")
+
+[node name="Reset" type="Button" parent="Editor_Object/UI_Layer/DeleteFilters/HBoxContainer" unique_id=484239429]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Work in progress!"
+theme = ExtResource("5_vdfow")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 16
+theme_override_styles/pressed = SubResource("StyleBoxTexture_86bbm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_m37bs")
+disabled = true
+text = "Reset"
+autowrap_trim_flags = 0
+script = ExtResource("6_aq6jn")
 
 [node name="Ground" parent="Editor_Object" unique_id=1675744057 instance=ExtResource("9_5bivf")]
 physics_interpolation_mode = 1
@@ -2662,4 +2792,6 @@ editor = NodePath("..")
 visible = false
 texture = SubResource("AtlasTexture_2qn4l")
 
+[connection signal="delete" from="UISystem" to="ObjectSystem" method="_on_ui_delete"]
+[connection signal="delete_filter_changed" from="UISystem" to="ObjectSystem" method="change_delete_filters"]
 [connection signal="id_selected" from="UISystem" to="ObjectSystem" method="select_item_id"]

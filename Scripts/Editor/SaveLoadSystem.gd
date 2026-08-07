@@ -99,7 +99,7 @@ func _save_and_play():
 	SceneTransition.load_game_from_entry(LevelRegistryEntry.generate_entry(editor.level_meta, editor.level_path), true, "res://Scenes/Menus/LevelEditingMenu.tscn")
 
 func _exit():
-	var dialog = $Editor_Object/Menu_Layer/EditorMenu/ExitDialog
+	var dialog = $"../Editor_Object/Menu_Layer/EditorMenu/ExitDialog"
 	dialog.visible = true
 	await dialog.confirmed
 	MenuMusic.start_music()
