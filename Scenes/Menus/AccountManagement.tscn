@@ -1,9 +1,35 @@
 [gd_scene format=3 uid="uid://b31kxffvfg3pn"]
 
+[ext_resource type="Script" uid="uid://dducfl8whcaah" path="res://Scripts/AccountManagementMenu.gd" id="1_b2tcw"]
 [ext_resource type="Theme" uid="uid://crg1unud2nqan" path="res://Assets/themes/popup_properties.tres" id="1_ge6ep"]
 [ext_resource type="Theme" uid="uid://dnovrm50d0vay" path="res://Assets/themes/button.tres" id="2_johg0"]
 [ext_resource type="Texture2D" uid="uid://df28k02puykfq" path="res://Assets/buttons/button_sheet.png" id="3_sjl1y"]
 [ext_resource type="Script" uid="uid://d1hycg5xc146h" path="res://Scripts/General/AnimatedButton.gd" id="4_bdbei"]
+[ext_resource type="Texture2D" uid="uid://37m3sauyg2c4" path="res://Assets/other/other.png" id="5_bdbei"]
+[ext_resource type="Script" uid="uid://ws6w7unyfqk5" path="res://Scripts/General/AnimatedTextureButton.gd" id="6_b2tcw"]
+[ext_resource type="Texture2D" uid="uid://c4rbj4m7l8xxt" path="res://Assets/icon_sheet_1.png" id="7_3n85f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1c6se"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.23020804, 0.10764139, 7.219613e-08, 0.5647059)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sarj1"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.23020804, 0.10764139, 7.219613e-08, 0.5647059)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xil16"]
 atlas = ExtResource("3_sjl1y")
@@ -32,13 +58,214 @@ texture_margin_top = 15.0
 texture_margin_right = 15.0
 texture_margin_bottom = 15.0
 
-[node name="Control" type="Control" unique_id=1397521071]
+[sub_resource type="AtlasTexture" id="AtlasTexture_20kh2"]
+atlas = ExtResource("5_bdbei")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y55e"]
+atlas = ExtResource("7_3n85f")
+region = Rect2(157, 2, 26, 26)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r1p08"]
+texture = ExtResource("3_sjl1y")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n85f"]
+atlas = ExtResource("7_3n85f")
+region = Rect2(160, 55, 5, 5)
+
+[sub_resource type="Animation" id="Animation_b2tcw"]
+resource_name = "FailedIcon"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AuthPopup/Panel/Spinner:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(183, 4, 22, 22)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AuthPopup/Panel/Spinner:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AuthPopup/Panel/Spinner:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1c6se"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AuthPopup/Panel/Spinner:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AuthPopup/Panel/Spinner:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AuthPopup/Panel/Spinner:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(160, 55, 5, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_sarj1"]
+resource_name = "SpinLoadingIcon"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AuthPopup/Panel/Spinner:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.3, 0.3, 1),
+"update": 0,
+"values": [0.0, 3.141592653589793, 6.283185307179586]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AuthPopup/Panel/Spinner:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.3, 0.3),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.2509804)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AuthPopup/Panel/Spinner:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(160, 55, 5, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_3n85f"]
+resource_name = "SuccessIcon"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AuthPopup/Panel/Spinner:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(161, 28, 24, 21)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AuthPopup/Panel/Spinner:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AuthPopup/Panel/Spinner:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_20kh2"]
+_data = {
+&"FailedIcon": SubResource("Animation_b2tcw"),
+&"RESET": SubResource("Animation_1c6se"),
+&"SpinLoadingIcon": SubResource("Animation_sarj1"),
+&"SuccessIcon": SubResource("Animation_3n85f")
+}
+
+[node name="Control" type="Control" unique_id=1397521071 node_paths=PackedStringArray("exit_button", "username_input", "password_input", "register_button", "login_button", "input_validation_message", "title_label", "auth_tab", "account_tab", "auth_popup", "popup_spinner", "popup_message", "popup_close_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_b2tcw")
+exit_button = NodePath("Panel/Exit")
+username_input = NodePath("Panel/Authentication/UsernameContainer/UsernameInput")
+password_input = NodePath("Panel/Authentication/PasswordContainer/PassInput")
+register_button = NodePath("Panel/Authentication/Actions/Register")
+login_button = NodePath("Panel/Authentication/Actions/Log In")
+input_validation_message = NodePath("Panel/InputValidationMessage")
+title_label = NodePath("Panel/Account/Label")
+auth_tab = NodePath("Panel/Authentication")
+account_tab = NodePath("Panel/Account")
+auth_popup = NodePath("AuthPopup")
+popup_spinner = NodePath("AuthPopup/Panel/Spinner")
+popup_message = NodePath("AuthPopup/Panel/Label")
+popup_close_button = NodePath("AuthPopup/Panel/Exit")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1745564641]
 layout_mode = 1
@@ -64,24 +291,270 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ge6ep")
 
-[node name="OK" type="Button" parent="Panel" unique_id=1889831134]
+[node name="Authentication" type="VBoxContainer" parent="Panel" unique_id=1590596782]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -193.0
+offset_top = -171.0
+offset_right = 193.0
+offset_bottom = 171.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 38
+
+[node name="Label" type="Label" parent="Panel/Authentication" unique_id=1824892073]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "Log In / Sign Up"
+horizontal_alignment = 1
+
+[node name="Container" type="Container" parent="Panel/Authentication" unique_id=1712504356]
+layout_mode = 2
+
+[node name="UsernameContainer" type="VBoxContainer" parent="Panel/Authentication" unique_id=2023606190]
+layout_mode = 2
+
+[node name="UsernameLabel" type="Label" parent="Panel/Authentication/UsernameContainer" unique_id=751538020]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Username"
+
+[node name="UsernameInput" type="LineEdit" parent="Panel/Authentication/UsernameContainer" unique_id=1549494221]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_1c6se")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_sarj1")
+placeholder_text = "JohnDash"
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="PasswordContainer" type="VBoxContainer" parent="Panel/Authentication" unique_id=1205591345]
+layout_mode = 2
+
+[node name="PassLabel" type="Label" parent="Panel/Authentication/PasswordContainer" unique_id=466342662]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Password"
+
+[node name="PassInput" type="LineEdit" parent="Panel/Authentication/PasswordContainer" unique_id=2142323054]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_1c6se")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_sarj1")
+placeholder_text = "Password"
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+secret = true
+
+[node name="Actions" type="HBoxContainer" parent="Panel/Authentication" unique_id=1217511724]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_constants/separation = 26
+alignment = 1
+
+[node name="Register" type="Button" parent="Panel/Authentication/Actions" unique_id=429235456]
+custom_minimum_size = Vector2(180, 52)
+layout_mode = 2
+theme = ExtResource("2_johg0")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 32
+theme_override_styles/pressed = SubResource("StyleBoxTexture_b2tcw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_3n85f")
+text = "Register"
+script = ExtResource("4_bdbei")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="Log In" type="Button" parent="Panel/Authentication/Actions" unique_id=1570169497]
+custom_minimum_size = Vector2(180, 52)
+layout_mode = 2
+theme = ExtResource("2_johg0")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 32
+theme_override_styles/pressed = SubResource("StyleBoxTexture_b2tcw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_3n85f")
+text = "Log In"
+script = ExtResource("4_bdbei")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="InputValidationMessage" type="Label" parent="Panel" unique_id=1910140933]
+visible = false
+layout_mode = 0
+offset_left = 122.0
+offset_top = 333.0
+offset_right = 508.0
+offset_bottom = 344.0
+theme_override_font_sizes/font_size = 22
+text = "Invalid user"
+horizontal_alignment = 1
+
+[node name="Account" type="VBoxContainer" parent="Panel" unique_id=1912149918]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -193.0
+offset_top = -159.0
+offset_right = 193.0
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 38
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/Account" unique_id=340787943]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "Welcome, Player!"
+horizontal_alignment = 1
+
+[node name="Container" type="Container" parent="Panel/Account" unique_id=1193839360]
+custom_minimum_size = Vector2(0, 0.027)
+layout_mode = 2
+
+[node name="LogOut" type="Button" parent="Panel/Account" unique_id=501290974]
+custom_minimum_size = Vector2(180, 52)
+layout_mode = 2
+theme = ExtResource("2_johg0")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 32
+theme_override_styles/pressed = SubResource("StyleBoxTexture_b2tcw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_3n85f")
+text = "Log Out"
+script = ExtResource("4_bdbei")
+metadata/_custom_type_script = "uid://d1hycg5xc146h"
+
+[node name="Exit" type="TextureButton" parent="Panel" unique_id=1398427006]
+layout_mode = 0
+offset_left = 576.0
+offset_top = -42.0
+offset_right = 670.0
+offset_bottom = 52.0
+texture_normal = SubResource("AtlasTexture_20kh2")
+stretch_mode = 5
+script = ExtResource("6_b2tcw")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/Exit" unique_id=929974248]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.75
+offset_top = -29.75
+offset_right = 29.75
+offset_bottom = 29.75
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_5y55e")
+
+[node name="AuthPopup" type="Control" parent="." unique_id=1228996201]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="AuthPopup" unique_id=58048824]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Panel" type="Panel" parent="AuthPopup" unique_id=1333191555]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.5
+offset_top = -108.625
+offset_right = 270.5
+offset_bottom = 108.625
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ge6ep")
+theme_override_styles/panel = SubResource("StyleBoxTexture_r1p08")
+
+[node name="Spinner" type="TextureRect" parent="AuthPopup/Panel" unique_id=1572978568]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -49.000004
+offset_right = 32.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_3n85f")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="AuthPopup/Panel" unique_id=1998064405]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -54.5
-offset_top = -88.0
-offset_right = 54.5
-offset_bottom = -36.0
+offset_left = -92.0
+offset_top = -39.25
+offset_right = 88.0
+offset_bottom = -28.25
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("2_johg0")
-theme_override_constants/outline_size = 9
-theme_override_font_sizes/font_size = 22
-theme_override_styles/pressed = SubResource("StyleBoxTexture_b2tcw")
-theme_override_styles/hover = SubResource("StyleBoxTexture_3n85f")
-text = "OK"
-script = ExtResource("4_bdbei")
-metadata/_custom_type_script = "uid://d1hycg5xc146h"
+theme_override_font_sizes/font_size = 26
+text = "Sending information..."
+horizontal_alignment = 1
+
+[node name="Exit" type="TextureButton" parent="AuthPopup/Panel" unique_id=530146485]
+layout_mode = 0
+offset_left = 474.5
+offset_top = -27.375
+offset_right = 568.5
+offset_bottom = 66.625
+texture_normal = SubResource("AtlasTexture_20kh2")
+stretch_mode = 5
+script = ExtResource("6_b2tcw")
+metadata/_custom_type_script = "uid://ws6w7unyfqk5"
+
+[node name="TextureRect" type="TextureRect" parent="AuthPopup/Panel/Exit" unique_id=1279157975]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.75
+offset_top = -29.75
+offset_right = 29.75
+offset_bottom = 29.75
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_5y55e")
+
+[node name="IconAnimation" type="AnimationPlayer" parent="AuthPopup" unique_id=1051303557]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_20kh2")

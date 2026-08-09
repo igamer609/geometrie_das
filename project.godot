@@ -20,6 +20,7 @@ boot_splash/stretch_mode=0
 config/icon="res://logo/icon.png"
 config/version.release="2.0"
 config/version.custom="2.0-beta.6c"
+config/production_API_URL=""
 
 [autoload]
 

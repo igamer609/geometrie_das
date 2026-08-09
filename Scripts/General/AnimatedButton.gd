@@ -8,7 +8,7 @@ extends Button
 class_name AnimatedButton
 
 func _ready() -> void:
-	pivot_offset = size / 2
+	pivot_offset_ratio = Vector2(0.5, 0.5)
 	button_down.connect(_on_down)
 	button_up.connect(_on_up)
 

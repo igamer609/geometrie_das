@@ -10,13 +10,15 @@
 
 extends Node
 
-signal _account_changed(user_data : Dictionary)
 signal _level_published(success : bool, level_id : int)
 
 # Replace port with desired test port
 var api_host : String = "http://localhost:3000"
 var current_requests : Array[HTTPRequest] = []
-var auth_header : PackedStringArray = []
+var req_header : PackedStringArray = [
+	"Content-Type: application/json",
+	"Accept: application/json"
+]
 
 func _ready() -> void:
 	if(OS.has_feature("production")):
@@ -31,14 +33,14 @@ func _create_request(threaded : bool = false) -> HTTPRequest:
 
 func _send_request(path : String, method : HTTPClient.Method, body : String = "") -> Array:
 	var http_request : HTTPRequest = _create_request()
-	http_request.request(api_host + path, auth_header, method, body)
+	http_request.request(api_host + path, req_header, method, body)
 	var res = await http_request.request_completed
 	http_request.queue_free()
 	return res
 
 # Methods for sending account related requests
 
-func sign_up(username : String, password : String) -> Error:
+func sign_up(username : String, password : String) -> Dictionary:
 	var req_body : String = JSON.stringify({
 		"username": username,
 		"password": password
@@ -48,14 +50,13 @@ func sign_up(username : String, password : String) -> Error:
 	
 	if(res[0] != HTTPRequest.RESULT_SUCCESS):
 		push_error("HTTP request to API failed with error code  " + str(res[0]))
-		return ERR_CONNECTION_ERROR
+		return {"success": false, "error": {"message" : "HTTP request failed with code " + str(res[0])}}
 	
-	var parsed  : bool = _handle_sign_in(res[3])
-	if(!parsed):
-		return ERR_QUERY_FAILED
-	return OK
+	var parsed  : Dictionary = _handle_sign_in(res[3])
+	
+	return parsed
 
-func sign_in(username : String, password : String) -> Error:
+func sign_in(username : String, password : String) -> Dictionary:
 	var req_body : String = JSON.stringify({
 		"username": username,
 		"password": password
@@ -65,12 +66,11 @@ func sign_in(username : String, password : String) -> Error:
 	
 	if(res[0] != HTTPRequest.RESULT_SUCCESS):
 		push_error("HTTP request to API failed with error code  " + str(res[0]))
-		return ERR_CONNECTION_ERROR
+		return {"success": false, "error": {"message" : "HTTP request failed with code " + str(res[0])}}
 	
-	var parsed  : bool = _handle_sign_in(res[3])
-	if(!parsed):
-		return ERR_QUERY_FAILED
-	return OK
+	var parsed  : Dictionary = _handle_sign_in(res[3])
+	
+	return parsed
 
 # Methods for sending level related requests
 
@@ -93,7 +93,7 @@ func get_full_level(level_id : int) -> LevelData:
 
 # Methods for handling responses
 
-func _handle_sign_in(res : PackedByteArray) -> bool:
+func _handle_sign_in(res : PackedByteArray) -> Dictionary:
 	
 	var body_str : String = res.get_string_from_utf8()
 	var body : Dictionary = JSON.parse_string(body_str)
@@ -102,15 +102,13 @@ func _handle_sign_in(res : PackedByteArray) -> bool:
 	
 	if(success):
 		var username : String = body.username
-		var user_id : int = body.user_id
+		var user_id : int = body.id
 		var token : String = body.token
 		var token_header : String =  "authentication: Bearer " + token
-		auth_header = [ token_header ]
+		req_header.append(token_header)
 		PlayerData._update_account(username, user_id, token)
-	else:
-		push_error(body.error.msg)
 	
-	return success
+	return body
 
 func _handle_published_level(res : PackedByteArray) -> int:
 	
@@ -168,4 +166,4 @@ func _save_parsed_level(level_data : LevelData) -> String:
 	return path
 
 func _clear_auth_header() -> void:
-	auth_header.clear()
+	req_header.resize(2)

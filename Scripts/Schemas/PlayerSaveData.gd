@@ -10,7 +10,7 @@ class_name PlayerSaveData extends Resource
 @export var completions : Dictionary[int, LevelProgress] = {}
 
 @export_category("Account")
-@export var account : Dictionary[String, String] = {}
+@export var account : Dictionary = {}
 
 @export var total_attempts : int = 0
 @export var total_clicks : int = 0

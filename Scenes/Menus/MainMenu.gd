@@ -18,10 +18,8 @@ func _exit_music_credits():
 func _enter_music_credits():
 	$MusicCredits.visible = true
 
-
 func _enter_settings():
 	$OptionSettings.visible = true
-
 
 func _exit_settings():
 	$OptionSettings.visible = false
@@ -31,6 +29,10 @@ func open_reset():
 
 func cancel_reset():
 	$ResetDialogue.visible = false
+
+func _open_account_menu() -> void:
+	var menu : Control = ResourceLibrary.scenes["AccountManagement"].instantiate()
+	add_child(menu)
 
 func _reset_progress():
 	if FileAccess.file_exists("user://level_data.save"):

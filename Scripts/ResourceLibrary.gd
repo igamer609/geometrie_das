@@ -54,6 +54,7 @@ func _preload_scenes() -> void:
 		"res://Scenes/Menus/ObjectEditing/ColorTriggerEdit.tscn",
 		"res://Scenes/Menus/LevelSettings.tscn",
 		"res://Scenes/Menus/Help/Controls.tscn",
+		"res://Scenes/Menus/AccountManagement.tscn",
 	]
 	
 	for file : String in scenes_to_be_loaded:

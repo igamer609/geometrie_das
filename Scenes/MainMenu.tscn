@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dj04rr88ic6hp" path="res://Assets/buttons/settings.png" id="9_fus76"]
 [ext_resource type="Texture2D" uid="uid://kimjg2avm5hx" path="res://Assets/buttons/music_btn.png" id="9_u7ykm"]
 [ext_resource type="Texture2D" uid="uid://bcru2ye5p1bun" path="res://Assets/menu_textures/menu1.png" id="11_52cdl"]
+[ext_resource type="Texture2D" uid="uid://c4rbj4m7l8xxt" path="res://Assets/icon_sheet_1.png" id="12_h1v62"]
 [ext_resource type="Theme" uid="uid://c2l0jaeq20de5" path="res://Assets/themes/label_theme.tres" id="13_criex"]
 [ext_resource type="FontFile" uid="uid://beu50xa4csauu" path="res://Assets/fonts/pusab.otf" id="14_h8ib8"]
 [ext_resource type="Texture2D" uid="uid://05c3bngjpc1p" path="res://Assets/other/title_20.png" id="14_leunp"]
@@ -44,6 +45,10 @@ region = Rect2(188, 61, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7wema"]
 atlas = ExtResource("8_8r4vh")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqn0u"]
+atlas = ExtResource("12_h1v62")
+region = Rect2(188, 32, 25, 29)
 
 [sub_resource type="Theme" id="Theme_uk6lu"]
 /font_sizes/size = 61
@@ -338,11 +343,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Settings" type="Button" parent="Center/Control/HBoxContainer" unique_id=507703001]
 texture_filter = 1
-custom_minimum_size = Vector2(110, 110)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -370,17 +376,56 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_left = -28.5
+offset_top = -28.5
+offset_right = 28.5
+offset_bottom = 28.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_fus76")
 
+[node name="Account" type="Button" parent="Center/Control/HBoxContainer" unique_id=2039349023]
+texture_filter = 1
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_xo01h")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ble0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ble0c")
+script = ExtResource("5_leunp")
+
+[node name="TextureRect2" type="TextureRect" parent="Center/Control/HBoxContainer/Account" unique_id=914037999]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_7wema")
+
+[node name="TextureRect" type="TextureRect" parent="Center/Control/HBoxContainer/Account" unique_id=1179120606]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -27.692308
+offset_right = 22.5
+offset_bottom = 27.692308
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_iqn0u")
+stretch_mode = 5
+
 [node name="MusicCredit" type="Button" parent="Center/Control/HBoxContainer" unique_id=257242907]
 texture_filter = 1
-custom_minimum_size = Vector2(110, 110)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -408,10 +453,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_u7ykm")
@@ -957,6 +1002,7 @@ script = ExtResource("5_leunp")
 [connection signal="pressed" from="Center/Icons" to="." method="_icon_button"]
 [connection signal="pressed" from="Center/Edit" to="." method="_on_edit_pressed"]
 [connection signal="pressed" from="Center/Control/HBoxContainer/Settings" to="." method="_enter_settings"]
+[connection signal="pressed" from="Center/Control/HBoxContainer/Account" to="." method="_open_account_menu"]
 [connection signal="pressed" from="Center/Control/HBoxContainer/MusicCredit" to="." method="_enter_music_credits"]
 [connection signal="pressed" from="MusicCredits/Exit" to="." method="_exit_music_credits"]
 [connection signal="pressed" from="OptionSettings/NinePatchRect/Control/Button" to="." method="open_reset"]
